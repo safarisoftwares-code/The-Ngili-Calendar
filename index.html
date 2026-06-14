@@ -7,6 +7,13 @@
     <meta name="description" content="The Ngili Calendar — A worker wage tracker by Safari Softwares. Track daily earnings, calculate weekly/monthly totals, manage advances, and export data.">
     <meta name="author" content="Safari Softwares">
     <meta name="copyright" content="© 2026 Safari Softwares. All rights reserved.">
+    <meta property="og:image" content="https://safarisoftwares-code.github.io/The-Ngili-Calendar/ngili-calendar-social-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:title" content="The Ngili Calendar — Free Worker Wage Tracker">
+    <meta property="og:description" content="Track daily wages, calculate totals, manage advances. No account needed. Built for workers, by Safari Softwares.">
+    <meta property="og:url" content="https://safarisoftwares-code.github.io/The-Ngili-Calendar/">
+    <meta property="og:type" content="website">
     <style>
         :root {
             --primary: #1a5276;
@@ -57,15 +64,14 @@
             .calendar-container,
             .summary-section,
             .header,
-            .footer-main,
-            .controls-bar-print-only {
+            .footer-main {
                 display: block !important;
                 visibility: visible !important;
                 opacity: 1 !important;
             }
 
             .no-print,
-            .controls-bar:not(.controls-bar-print-only),
+            .controls-bar,
             .action-bar,
             .last-saved,
             #csvFileInput,
@@ -136,7 +142,6 @@
             }
         }
 
-        /* ============ SCREEN LAYOUT ============ */
         @media screen and (min-width: 1024px) {
             body {
                 display: flex;
@@ -154,7 +159,6 @@
             width: 100%;
         }
 
-        /* Header */
         .header {
             text-align: center;
             margin-bottom: 15px;
@@ -174,7 +178,6 @@
             font-style: italic;
         }
 
-        /* Controls Bar */
         .controls-bar {
             display: flex;
             flex-wrap: wrap;
@@ -209,7 +212,6 @@
             box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.15);
         }
 
-        /* Buttons */
         .btn {
             padding: 8px 16px;
             border: none;
@@ -298,7 +300,6 @@
             }
         }
 
-        /* Worker Info Card */
         .worker-info-card {
             background: var(--card-bg);
             border-radius: var(--radius);
@@ -337,7 +338,6 @@
             box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
         }
 
-        /* Calendar */
         .calendar-container {
             background: var(--card-bg);
             border-radius: var(--radius);
@@ -443,7 +443,6 @@
             border-color: #f9e79f;
         }
 
-        /* Week Total Row */
         .week-total-row td {
             background: #eaf2f8 !important;
             font-weight: 700;
@@ -458,7 +457,6 @@
             padding-left: 15px !important;
         }
 
-        /* Summary Section */
         .summary-section {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -513,7 +511,6 @@
             border-color: var(--accent);
         }
 
-        /* Action Buttons */
         .action-bar {
             display: flex;
             flex-wrap: wrap;
@@ -522,7 +519,6 @@
             margin-bottom: 10px;
         }
 
-        /* ============ FOOTER ============ */
         .footer-main {
             background: var(--card-bg);
             border-radius: var(--radius);
@@ -570,7 +566,6 @@
             line-height: 1.4;
         }
 
-        /* ============ MODALS ============ */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -640,7 +635,6 @@
             background: #a93226;
         }
 
-        /* Toast */
         .toast {
             position: fixed;
             top: 20px;
@@ -668,12 +662,10 @@
             background: var(--accent);
         }
 
-        /* Hidden file input */
         #csvFileInput {
             display: none;
         }
 
-        /* Last saved indicator */
         .last-saved {
             font-size: 0.75em;
             color: var(--text-light);
@@ -703,7 +695,6 @@
             }
         }
 
-        /* Unsaved changes banner */
         .unsaved-banner {
             text-align: center;
             padding: 6px;
@@ -721,7 +712,6 @@
             animation: pulse-dot 1.5s infinite;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .calendar-table {
                 min-width: auto;
@@ -759,31 +749,25 @@
 </head>
 <body>
     <div class="main-wrapper">
-        <!-- Header -->
         <div class="header">
             <h1>📅 The Ngili Calendar</h1>
             <p class="subtitle">Worker Wage Tracker — Know Your Earnings, Every Day</p>
         </div>
 
-        <!-- Controls -->
         <div class="controls-bar no-print">
             <label for="monthSelect">Month:</label>
             <select id="monthSelect"></select>
             <label for="yearSelect">Year:</label>
             <select id="yearSelect"></select>
-            <button class="btn btn-primary" onclick="goToToday()" title="Go to current month">📆 Today</button>
-            <button class="btn btn-save" id="manualSaveBtn" onclick="manualSave()" title="Manually save all data now">
-                💾 Save Now
-            </button>
-            <button class="btn btn-outline btn-sm" onclick="clearAllWages()" title="Clear all wages for this month">🗑 Clear Month</button>
+            <button class="btn btn-primary" onclick="goToToday()">📆 Today</button>
+            <button class="btn btn-save" id="manualSaveBtn" onclick="manualSave()">💾 Save Now</button>
+            <button class="btn btn-outline btn-sm" onclick="clearAllWages()">🗑 Clear Month</button>
         </div>
 
-        <!-- Unsaved Changes Banner -->
         <div class="unsaved-banner no-print" id="unsavedBanner">
             ⚠ You have unsaved changes. Click <strong>"💾 Save Now"</strong> to keep your data safe.
         </div>
 
-        <!-- Worker Info -->
         <div class="worker-info-card" id="workerInfoCard">
             <div class="field-group">
                 <label>👤 Full Name</label>
@@ -807,7 +791,6 @@
             </div>
         </div>
 
-        <!-- Calendar -->
         <div class="calendar-container">
             <table class="calendar-table" id="calendarTable">
                 <thead>
@@ -825,7 +808,6 @@
             </table>
         </div>
 
-        <!-- Monthly Summary -->
         <div class="summary-section">
             <div class="summary-card">
                 <h3>📊 Total Earnings (Month)</h3>
@@ -833,7 +815,7 @@
             </div>
             <div class="summary-card advance-card">
                 <h3>💸 Advances / Deductions</h3>
-                <input type="number" id="advanceInput" placeholder="Enter total advances" min="0" step="any" onchange="markUnsaved()">
+                <input type="number" id="advanceInput" placeholder="Enter total advances" min="0" step="any" onchange="saveAdvance()">
             </div>
             <div class="summary-card net-card">
                 <h3>✅ Net Payable</h3>
@@ -841,12 +823,9 @@
             </div>
         </div>
 
-        <!-- Week Totals Quick View -->
         <div class="summary-section" id="weekSummarySection" style="grid-template-columns: repeat(5, 1fr);">
-            <!-- Dynamically filled -->
         </div>
 
-        <!-- Action Buttons -->
         <div class="action-bar no-print">
             <button class="btn btn-save" id="manualSaveBtn2" onclick="manualSave()">💾 Save Now</button>
             <button class="btn btn-success" onclick="exportCSV()">📥 Export CSV</button>
@@ -861,7 +840,6 @@
             <span id="lastSavedText">All changes saved ✓</span>
         </div>
 
-        <!-- ============ FOOTER ============ -->
         <div class="footer-main">
             <div class="copyright">
                 © 2026 <strong>The Ngili Calendar</strong>. All Rights Reserved.
@@ -880,20 +858,16 @@
         </div>
     </div>
 
-    <!-- ============ TERMS OF USE MODAL ============ -->
     <div class="modal-overlay" id="termsModal">
         <div class="modal">
             <button class="close-btn" onclick="closeModal('termsModal')">✕ Close</button>
             <h2>📜 Terms of Use</h2>
             <p><strong>Effective Date:</strong> January 1, 2026</p>
             <p><strong>Last Updated:</strong> June 14, 2026</p>
-
             <h3>1. Acceptance of Terms</h3>
             <p>By using The Ngili Calendar ("the Software"), you agree to these Terms of Use. If you do not agree, do not use the Software.</p>
-
             <h3>2. Description of Service</h3>
             <p>The Ngili Calendar is a browser-based wage tracking tool designed to help workers record daily earnings, calculate weekly and monthly totals, track advances/deductions, and export data. It is provided as-is, free of charge.</p>
-
             <h3>3. User Responsibilities</h3>
             <ul>
                 <li>You are solely responsible for the accuracy of data you enter.</li>
@@ -901,108 +875,45 @@
                 <li>You agree not to use the Software for any illegal or unauthorized purpose.</li>
                 <li>You acknowledge that the Software stores data locally in your browser and is not cloud-synced.</li>
             </ul>
-
             <h3>4. Intellectual Property</h3>
-            <p>The Ngili Calendar, including its code, design, name, and all associated materials, is the intellectual property of <strong>Safari Softwares</strong>. You may use the Software freely but may not:</p>
-            <ul>
-                <li>Sell, resell, or commercialize the Software without written permission.</li>
-                <li>Remove or alter copyright notices or attribution.</li>
-                <li>Claim ownership of the Software or its derivatives.</li>
-            </ul>
-
+            <p>The Ngili Calendar, including its code, design, name, and all associated materials, is the intellectual property of <strong>Safari Softwares</strong>. You may use the Software freely but may not sell, resell, or commercialize the Software without written permission, remove or alter copyright notices, or claim ownership of the Software.</p>
             <h3>5. Limitation of Liability</h3>
-            <p><strong>Safari Softwares</strong> provides The Ngili Calendar "as is" without any warranty, express or implied. In no event shall Safari Softwares be liable for:</p>
-            <ul>
-                <li>Data loss due to browser storage clearing, device failure, or user error.</li>
-                <li>Financial discrepancies, miscalculations, or disputes with employers.</li>
-                <li>Any indirect, incidental, or consequential damages arising from use of the Software.</li>
-            </ul>
-
+            <p><strong>Safari Softwares</strong> provides The Ngili Calendar "as is" without any warranty. In no event shall Safari Softwares be liable for data loss, financial discrepancies, miscalculations, or any damages arising from use of the Software.</p>
             <h3>6. Data Loss Disclaimer</h3>
-            <p>The Software uses browser localStorage, which can be cleared by the browser, system cleanup tools, or device reset. <strong>It is your responsibility to regularly export your data to CSV and store it safely.</strong></p>
-
-            <h3>7. Modifications</h3>
-            <p>Safari Softwares reserves the right to update these Terms at any time. Continued use after changes constitutes acceptance.</p>
-
-            <h3>8. Governing Law</h3>
-            <p>These Terms are governed by applicable laws. Any disputes shall be resolved amicably where possible.</p>
-
-            <h3>9. Contact</h3>
-            <p>For questions about these Terms, contact:<br>
-                📧 <strong>Safari Softwares</strong> — <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p>
+            <p>The Software uses browser localStorage. <strong>It is your responsibility to regularly export your data to CSV and store it safely.</strong></p>
+            <h3>7. Contact</h3>
+            <p>📧 <strong>Safari Softwares</strong> — <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p>
         </div>
     </div>
 
-    <!-- ============ PRIVACY POLICY MODAL ============ -->
     <div class="modal-overlay" id="privacyModal">
         <div class="modal">
             <button class="close-btn" onclick="closeModal('privacyModal')">✕ Close</button>
             <h2>🔒 Privacy Policy</h2>
             <p><strong>Effective Date:</strong> January 1, 2026</p>
             <p><strong>Last Updated:</strong> June 14, 2026</p>
-
             <h3>1. Our Commitment to Privacy</h3>
-            <p><strong>Your data is yours. We do not collect it.</strong> The Ngili Calendar is designed with privacy as a fundamental principle. We believe workers should control their own information.</p>
-
+            <p><strong>Your data is yours. We do not collect it.</strong></p>
             <h3>2. Data We DO NOT Collect</h3>
             <ul>
-                <li>❌ <strong>No personal data</strong> is sent to any server.</li>
-                <li>❌ <strong>No analytics</strong> or tracking scripts.</li>
-                <li>❌ <strong>No cookies</strong> beyond localStorage (which stays on your device).</li>
-                <li>❌ <strong>No accounts</strong>, no passwords, no registration.</li>
-                <li>❌ <strong>No cloud storage</strong> — your data never leaves your device unless you choose to export it.</li>
+                <li>❌ No personal data is sent to any server.</li>
+                <li>❌ No analytics or tracking scripts.</li>
+                <li>❌ No cookies beyond localStorage.</li>
+                <li>❌ No accounts, no passwords, no registration.</li>
+                <li>❌ No cloud storage — your data never leaves your device.</li>
             </ul>
-
             <h3>3. Where Your Data Is Stored</h3>
-            <p>All data you enter (name, ID, wages, notes, advances) is stored exclusively in your browser's <strong>localStorage</strong>. This is a built-in browser feature that keeps data on your specific device. It is:</p>
-            <ul>
-                <li>✅ Accessible only on this device and this browser.</li>
-                <li>✅ Not shared with any third party.</li>
-                <li>✅ Not accessible by Safari Softwares or anyone else.</li>
-            </ul>
-
-            <h3>4. Risks of localStorage</h3>
-            <p>You should be aware that localStorage data can be lost if:</p>
-            <ul>
-                <li>You clear your browser data/cache.</li>
-                <li>Your device is lost, stolen, or reset to factory settings.</li>
-                <li>You uninstall your browser.</li>
-                <li>System cleaning software removes browser data.</li>
-            </ul>
-            <p><strong>Protect yourself:</strong> Use the <strong>📥 Export CSV</strong> feature regularly and save the file in a safe location (email, cloud storage, USB drive).</p>
-
-            <h3>5. CSV Export — Your Control</h3>
-            <p>When you export your data to CSV:</p>
-            <ul>
-                <li>The file is downloaded to your device.</li>
-                <li>You choose where to store it.</li>
-                <li>You decide who to share it with.</li>
-                <li>Safari Softwares has no access to this file.</li>
-            </ul>
-
-            <h3>6. Printing</h3>
-            <p>When you print the calendar, data is sent to your printer or PDF generator. This happens entirely on your device. No data is transmitted externally.</p>
-
-            <h3>7. Children's Privacy</h3>
-            <p>The Ngili Calendar is intended for working adults. We do not knowingly collect data from children under 13.</p>
-
-            <h3>8. Third-Party Services</h3>
-            <p>The Ngili Calendar does not integrate with any third-party services, APIs, or tracking tools. It is a self-contained HTML file.</p>
-
-            <h3>9. Changes to This Policy</h3>
-            <p>If we update this Privacy Policy, the changes will be reflected in this file. Our commitment to not collecting your data will not change.</p>
-
-            <h3>10. Contact</h3>
-            <p>For privacy-related questions or concerns:<br>
-                📧 <strong>Safari Softwares</strong> — <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p>
+            <p>All data is stored exclusively in your browser's <strong>localStorage</strong>. It is accessible only on this device and browser, not shared with any third party, and not accessible by Safari Softwares.</p>
+            <h3>4. Protect Yourself</h3>
+            <p>Use the <strong>📥 Export CSV</strong> feature regularly and save the file in a safe location.</p>
+            <h3>5. Contact</h3>
+            <p>📧 <strong>Safari Softwares</strong> — <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p>
         </div>
     </div>
 
-    <!-- Toast -->
     <div class="toast" id="toast"></div>
 
     <script>
-        // ==================== DATA MANAGEMENT ====================
         const STORAGE_KEY = 'ngili_calendar_data';
         const MONTHS = [
             'January', 'February', 'March', 'April', 'May', 'June',
@@ -1014,22 +925,13 @@
         let allData = {};
         let unsavedChanges = false;
 
-        function getStorageKey(month, year) {
-            return `${year}-${month}`;
-        }
+        function getStorageKey(month, year) { return `${year}-${month}`; }
 
         function loadAllData() {
             const stored = localStorage.getItem(STORAGE_KEY);
             if (stored) {
-                try {
-                    allData = JSON.parse(stored);
-                } catch (e) {
-                    console.error('Failed to parse stored data:', e);
-                    allData = {};
-                }
-            } else {
-                allData = {};
-            }
+                try { allData = JSON.parse(stored); } catch (e) { allData = {}; }
+            } else { allData = {}; }
         }
 
         function saveAllData() {
@@ -1039,9 +941,7 @@
                 updateSaveIndicator(true);
                 hideUnsavedBanner();
                 updateSaveButtons(true);
-                console.log('✅ Data saved to localStorage');
             } catch (e) {
-                console.error('Failed to save data:', e);
                 showToast('⚠ Storage full! Please export your data.', 'warning');
             }
         }
@@ -1069,11 +969,8 @@
                 if (wageInput && noteInput) {
                     const wage = parseFloat(wageInput.value) || 0;
                     const note = noteInput.value;
-                    if (wage === 0 && note === '') {
-                        delete data.wages[d];
-                    } else {
-                        data.wages[d] = { wage: wage, note: note };
-                    }
+                    if (wage === 0 && note === '') { delete data.wages[d]; } else { data.wages[d] = { wage,
+                            note }; }
                 }
             }
         }
@@ -1081,11 +978,8 @@
         function getMonthData(month, year) {
             const key = getStorageKey(month, year);
             if (!allData[key]) {
-                allData[key] = {
-                    workerInfo: { name: '', id: '', dailyWage: '', phone: '', employer: '' },
-                    wages: {},
-                    advance: 0
-                };
+                allData[key] = { workerInfo: { name: '', id: '', dailyWage: '', phone: '', employer: '' },
+                    wages: {}, advance: 0 };
             }
             return allData[key];
         }
@@ -1106,35 +1000,26 @@
                     btn.innerHTML = '✅ Saved';
                     setTimeout(() => { btn.classList.remove('saved');
                         btn.innerHTML = '💾 Save Now'; }, 2000);
-                } else {
-                    btn.classList.remove('saved');
-                    btn.innerHTML = '💾 Save Now';
-                }
+                } else { btn.classList.remove('saved');
+                    btn.innerHTML = '💾 Save Now'; }
             });
         }
 
         function updateSaveIndicator(saved) {
             const dot = document.getElementById('saveDot');
             const text = document.getElementById('lastSavedText');
-            if (saved) {
-                dot.className = 'dot';
-                text.textContent = 'All changes saved ✓';
-            } else {
-                dot.className = 'dot unsaved';
-                text.textContent = 'Unsaved changes — click Save Now';
-            }
+            if (saved) { dot.className = 'dot';
+                text.textContent = 'All changes saved ✓'; } else { dot.className = 'dot unsaved';
+                text.textContent = 'Unsaved changes — click Save Now'; }
         }
 
-        function showUnsavedBanner() {
-            const banner = document.getElementById('unsavedBanner');
-            if (banner) banner.classList.add('show');
-        }
+        function showUnsavedBanner() { const b = document.getElementById('unsavedBanner'); if (b) b.classList.add(
+                'show'); }
 
-        function hideUnsavedBanner() {
-            const banner = document.getElementById('unsavedBanner');
-            if (banner) banner.classList.remove('show');
-        }
+        function hideUnsavedBanner() { const b = document.getElementById('unsavedBanner'); if (b) b.classList.remove(
+                'show'); }
 
+        // ============ THIS IS THE KEY FIX: saveWage now updates totals instantly ============
         function saveWage(dayNumber) {
             const data = getMonthData(currentMonth, currentYear);
             const wageInput = document.getElementById(`wage-${dayNumber}`);
@@ -1142,21 +1027,17 @@
             if (wageInput && noteInput) {
                 const wage = parseFloat(wageInput.value) || 0;
                 const note = noteInput.value;
-                if (wage === 0 && note === '') {
-                    delete data.wages[dayNumber];
-                } else {
-                    data.wages[dayNumber] = { wage: wage, note: note };
-                }
+                if (wage === 0 && note === '') { delete data.wages[dayNumber]; } else { data.wages[
+                        dayNumber] = { wage, note }; }
                 wageInput.classList.toggle('has-value', wage > 0);
                 noteInput.classList.toggle('has-note', note !== '');
+                // 🔥 CRITICAL: Update all totals immediately
                 updateAllTotals();
                 markUnsaved();
             }
         }
 
-        function saveWorkerInfo() {
-            markUnsaved();
-        }
+        function saveWorkerInfo() { markUnsaved(); }
 
         function saveAdvance() {
             const data = getMonthData(currentMonth, currentYear);
@@ -1165,29 +1046,21 @@
             markUnsaved();
         }
 
-        // ==================== CALENDAR RENDERING ====================
-        function getDaysInMonth(month, year) {
-            return new Date(year, month + 1, 0).getDate();
-        }
+        function getDaysInMonth(month, year) { return new Date(year, month + 1, 0).getDate(); }
 
-        function getFirstDayOfMonth(month, year) {
-            return new Date(year, month, 1).getDay();
-        }
+        function getFirstDayOfMonth(month, year) { return new Date(year, month, 1).getDay(); }
 
         function renderCalendar() {
-            if (unsavedChanges) {
-                flushAllChanges();
-                saveAllData();
-            }
+            if (unsavedChanges) { flushAllChanges();
+                saveAllData(); }
             loadAllData();
             const data = getMonthData(currentMonth, currentYear);
-
             document.getElementById('workerName').value = data.workerInfo.name || '';
             document.getElementById('workerID').value = data.workerInfo.id || '';
             document.getElementById('dailyWage').value = data.workerInfo.dailyWage || '';
             document.getElementById('workerPhone').value = data.workerInfo.phone || '';
             document.getElementById('workerEmployer').value = data.workerInfo.employer || '';
-            document.getElementById('advanceInput').value = data.advance || 0;
+            document.getElementById('advanceInput').value = data.advance || '';
 
             const monthSelect = document.getElementById('monthSelect');
             monthSelect.innerHTML = '';
@@ -1198,7 +1071,6 @@
                 if (i === currentMonth) opt.selected = true;
                 monthSelect.appendChild(opt);
             });
-
             const yearSelect = document.getElementById('yearSelect');
             yearSelect.innerHTML = '';
             for (let y = 2020; y <= 2035; y++) {
@@ -1208,7 +1080,6 @@
                 if (y === currentYear) opt.selected = true;
                 yearSelect.appendChild(opt);
             }
-
             monthSelect.onchange = function() { currentMonth = parseInt(this.value);
                 renderCalendar(); };
             yearSelect.onchange = function() { currentYear = parseInt(this.value);
@@ -1243,12 +1114,10 @@
                         const isToday = (isCurrentMonthView && dayNum === todayDate);
                         if (isWeekend) td.classList.add('weekend');
                         if (isToday) td.classList.add('today-cell');
-
                         const dayData = data.wages[dayNum] || { wage: 0, note: '' };
                         const wageVal = dayData.wage > 0 ? dayData.wage : '';
                         const noteVal = dayData.note || '';
                         const dailyWageDefault = data.workerInfo.dailyWage || '';
-
                         td.innerHTML = `
                             <div class="day-cell">
                                 <div class="date-number">${dayNum}</div>
@@ -1275,7 +1144,6 @@
                 if (weekStartDay < 1) weekLabel = `Week ${row + 1}`;
                 else if (weekStartDay > daysInMonth) weekLabel = `Week ${row + 1} (N/A)`;
                 else weekLabel = `Week ${row + 1} Total (Days ${Math.max(1, weekStartDay)}–${weekEndDay})`;
-
                 totalTr.innerHTML = `
                     <td class="week-total-label" colspan="6">${weekLabel}</td>
                     <td id="week-total-${row}" style="font-size:1.1em;">0.00</td>
@@ -1291,6 +1159,7 @@
             updateWeekSummaryCards();
         }
 
+        // ============ THIS IS THE KEY FUNCTION ============
         function updateAllTotals() {
             const data = getMonthData(currentMonth, currentYear);
             const daysInMonth = getDaysInMonth(currentMonth, currentYear);
@@ -1300,21 +1169,25 @@
             let totalEarnings = 0;
             const weekTotals = new Array(rowsToShow).fill(0);
 
+            // Sum all wages from DOM inputs directly (live values)
             for (let d = 1; d <= daysInMonth; d++) {
-                const dayData = data.wages[d] || { wage: 0, note: '' };
-                const wage = parseFloat(dayData.wage) || 0;
+                const wageInput = document.getElementById(`wage-${d}`);
+                const wage = wageInput ? (parseFloat(wageInput.value) || 0) : 0;
                 totalEarnings += wage;
                 const cellIndex = firstDay + d - 1;
                 const weekIndex = Math.floor(cellIndex / 7);
                 if (weekIndex >= 0 && weekIndex < rowsToShow) weekTotals[weekIndex] += wage;
             }
 
+            // Update week total cells
             for (let w = 0; w < rowsToShow; w++) {
                 const el = document.getElementById(`week-total-${w}`);
                 if (el) el.textContent = weekTotals[w].toFixed(2);
             }
 
-            const advance = parseFloat(document.getElementById('advanceInput').value) || data.advance || 0;
+            // Update monthly totals
+            const advanceEl = document.getElementById('advanceInput');
+            const advance = advanceEl ? (parseFloat(advanceEl.value) || 0) : (data.advance || 0);
             document.getElementById('totalEarnings').textContent = totalEarnings.toFixed(2);
             const netPayable = totalEarnings - advance;
             const netEl = document.getElementById('netPayable');
@@ -1331,8 +1204,8 @@
             const weekTotals = new Array(rowsToShow).fill(0);
 
             for (let d = 1; d <= daysInMonth; d++) {
-                const dayData = data.wages[d] || { wage: 0, note: '' };
-                const wage = parseFloat(dayData.wage) || 0;
+                const wageInput = document.getElementById(`wage-${d}`);
+                const wage = wageInput ? (parseFloat(wageInput.value) || 0) : 0;
                 const cellIndex = firstDay + d - 1;
                 const weekIndex = Math.floor(cellIndex / 7);
                 if (weekIndex >= 0 && weekIndex < rowsToShow) weekTotals[weekIndex] += wage;
@@ -1349,7 +1222,6 @@
                 if (weekStart < 1) label = `Week ${w + 1}`;
                 else if (weekStart > daysInMonth) label = `Week ${w + 1} (N/A)`;
                 else label = `Week ${w + 1} (${Math.max(1, weekStart)}–${weekEnd})`;
-
                 const card = document.createElement('div');
                 card.className = 'summary-card';
                 card.style.borderTopColor = '#8e44ad';
@@ -1380,7 +1252,6 @@
             }
         }
 
-        // ==================== CSV ====================
         function exportCSV() {
             flushAllChanges();
             saveAllData();
@@ -1396,7 +1267,6 @@
             csvContent += `Employer,${currentData.workerInfo.employer}\n\n`;
             csvContent += '--- Wage Records (All Months) ---\n';
             csvContent += 'Year,Month,Day,Date,Wage,Notes\n';
-
             const sortedKeys = Object.keys(allData).sort();
             for (const key of sortedKeys) {
                 const [year, month] = key.split('-').map(Number);
@@ -1413,14 +1283,11 @@
                     }
                 }
             }
-            csvContent += '\n--- Advances/Deductions ---\n';
-            csvContent += 'Year,Month,Advance Amount\n';
+            csvContent += '\n--- Advances/Deductions ---\nYear,Month,Advance Amount\n';
             for (const key of sortedKeys) {
                 const [year, month] = key.split('-').map(Number);
-                const monthData = allData[key];
-                if (monthData.advance > 0) csvContent += `${year},${MONTHS[month]},${monthData.advance}\n`;
+                if (allData[key].advance > 0) csvContent += `${year},${MONTHS[month]},${allData[key].advance}\n`;
             }
-
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
@@ -1441,11 +1308,10 @@
                 try {
                     const content = e.target.result;
                     const lines = content.split('\n').map(l => l.trim()).filter(l => l);
-                    let section = 'header';
-                    let importedCount = 0;
+                    let section = 'header',
+                        importedCount = 0;
                     const importedData = {};
                     let currentWorkerInfo = {};
-
                     for (const line of lines) {
                         if (line.startsWith('---')) {
                             if (line.includes('Worker Information')) section = 'workerInfo';
@@ -1453,7 +1319,8 @@
                             else if (line.includes('Advances')) section = 'advances';
                             continue;
                         }
-                        if (line.startsWith('Ngili Calendar') || line.startsWith('Exported:') || line === '') continue;
+                        if (line.startsWith('Ngili Calendar') || line.startsWith('Exported:') || line === '')
+                            continue;
                         const parts = line.split(',');
                         if (section === 'workerInfo') {
                             if (parts[0] === 'Name') currentWorkerInfo.name = parts[1] || '';
@@ -1494,7 +1361,6 @@
                             }
                         }
                     }
-
                     for (const [key, impData] of Object.entries(importedData)) {
                         if (!allData[key]) allData[key] = { workerInfo: {}, wages: {}, advance: 0 };
                         if (impData.workerInfo.name) allData[key].workerInfo.name = impData.workerInfo.name;
@@ -1512,7 +1378,6 @@
                     showToast(`📤 Imported ${importedCount} records!`, 'success');
                 } catch (err) {
                     showToast('❌ Error importing CSV. Check file format.', 'warning');
-                    console.error('Import error:', err);
                 }
             };
             reader.readAsText(file);
@@ -1525,8 +1390,7 @@
             const daysInMonth = getDaysInMonth(currentMonth, currentYear);
             let text = `Ngili Calendar - ${MONTHS[currentMonth]} ${currentYear}\n`;
             text += `Worker: ${data.workerInfo.name || 'N/A'} | ID: ${data.workerInfo.id || 'N/A'}\n`;
-            text += `Employer: ${data.workerInfo.employer || 'N/A'}\n`;
-            text += 'Day\tWage\tNotes\n';
+            text += `Employer: ${data.workerInfo.employer || 'N/A'}\nDay\tWage\tNotes\n`;
             let total = 0;
             for (let d = 1; d <= daysInMonth; d++) {
                 const dayData = data.wages[d] || { wage: 0, note: '' };
@@ -1535,59 +1399,40 @@
                     total += parseFloat(dayData.wage) || 0;
                 }
             }
-            text += `\nTotal Earnings: ${total.toFixed(2)}\n`;
-            text += `Advances: ${data.advance || 0}\n`;
-            text += `Net Payable: ${(total - (data.advance || 0)).toFixed(2)}`;
-            navigator.clipboard.writeText(text).then(() => {
-                showToast('📋 Data copied! Paste into WhatsApp, email, etc.', 'success');
-            }).catch(() => {
-                showToast('⚠ Could not copy. Please use Export CSV.', 'warning');
-            });
+            text += `\nTotal Earnings: ${total.toFixed(2)}\nAdvances: ${data.advance || 0}\nNet Payable: ${(total - (data.advance || 0)).toFixed(2)}`;
+            navigator.clipboard.writeText(text).then(() => showToast(
+                '📋 Data copied! Paste into WhatsApp, email, etc.', 'success')).catch(() => showToast(
+                '⚠ Could not copy. Please use Export CSV.', 'warning'));
         }
 
         function resetAllData() {
             if (confirm(
-                    '⚠ DELETE ALL DATA for every month? This CANNOT be undone!\n\nWe strongly recommend exporting your data first.'
-                    )) {
-                if (confirm('Final warning: ALL worker records will be permanently erased. Continue?')) {
+                    '⚠ DELETE ALL DATA? Cannot be undone!\n\nExport your data first.')) {
+                if (confirm('Final warning: ALL records will be erased. Continue?')) {
                     allData = {};
                     saveAllData();
                     renderCalendar();
-                    showToast('⚠ All data has been reset', 'warning');
+                    showToast('⚠ All data reset', 'warning');
                 }
             }
         }
 
-        // ==================== MODALS ====================
-        function openModal(id) {
-            document.getElementById(id).classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+        function openModal(id) { document.getElementById(id).classList.add('active');
+            document.body.style.overflow = 'hidden'; }
 
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('active');
-            document.body.style.overflow = '';
-        }
+        function closeModal(id) { document.getElementById(id).classList.remove('active');
+            document.body.style.overflow = ''; }
 
-        // Close modal on overlay click
         document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('modal-overlay')) {
-                e.target.classList.remove('active');
-                document.body.style.overflow = '';
-            }
+            if (e.target.classList.contains('modal-overlay')) { e.target.classList.remove('active');
+                document.body.style.overflow = ''; }
         });
-
-        // Close modal on Escape key
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                document.querySelectorAll('.modal-overlay.active').forEach(overlay => {
-                    overlay.classList.remove('active');
-                });
-                document.body.style.overflow = '';
-            }
+            if (e.key === 'Escape') { document.querySelectorAll('.modal-overlay.active').forEach(o => o.classList
+                    .remove('active'));
+                document.body.style.overflow = ''; }
         });
 
-        // ==================== TOAST ====================
         function showToast(message, type = '') {
             const toast = document.getElementById('toast');
             toast.textContent = message;
@@ -1596,25 +1441,15 @@
             toast._timeout = setTimeout(() => { toast.classList.remove('show'); }, 2500);
         }
 
-        // ==================== INITIALIZATION ====================
         function init() {
             loadAllData();
             renderCalendar();
-            window.addEventListener('beforeunload', function() {
-                flushAllChanges();
-                saveAllData();
-            });
-            setInterval(() => {
-                if (unsavedChanges) {
-                    flushAllChanges();
-                    saveAllData();
-                    console.log('🔄 Auto-saved');
-                }
-            }, 10000);
-            console.log('📅 The Ngili Calendar initialized!');
-            console.log('© 2026 Safari Softwares — safarisoftwares@gmail.com');
+            window.addEventListener('beforeunload', function() { flushAllChanges();
+                saveAllData(); });
+            setInterval(() => { if (unsavedChanges) { flushAllChanges();
+                    saveAllData(); } }, 10000);
+            console.log('📅 The Ngili Calendar initialized! © 2026 Safari Softwares');
         }
-
         init();
     </script>
 </body>
