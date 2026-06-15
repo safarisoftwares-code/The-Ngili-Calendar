@@ -52,14 +52,12 @@
             print-color-adjust: exact;
         }
 
-        /* ============ PRINT STYLES ============ */
         @media print {
             body {
                 background: white !important;
                 padding: 0 !important;
                 font-size: 11px;
             }
-
             .worker-info-card,
             .calendar-container,
             .summary-section,
@@ -69,7 +67,6 @@
                 visibility: visible !important;
                 opacity: 1 !important;
             }
-
             .no-print,
             .controls-bar,
             .action-bar,
@@ -82,7 +79,6 @@
             .modal-overlay {
                 display: none !important;
             }
-
             .calendar-container {
                 box-shadow: none !important;
                 border: 1px solid #ccc;
@@ -863,7 +859,7 @@
             <button class="close-btn" onclick="closeModal('termsModal')">✕ Close</button>
             <h2>📜 Terms of Use</h2>
             <p><strong>Effective Date:</strong> January 1, 2026</p>
-            <p><strong>Last Updated:</strong> June 14, 2026</p>
+            <p><strong>Last Updated:</strong> June 15, 2026</p>
             <h3>1. Acceptance of Terms</h3>
             <p>By using The Ngili Calendar ("the Software"), you agree to these Terms of Use. If you do not agree, do not use the Software.</p>
             <h3>2. Description of Service</h3>
@@ -891,7 +887,7 @@
             <button class="close-btn" onclick="closeModal('privacyModal')">✕ Close</button>
             <h2>🔒 Privacy Policy</h2>
             <p><strong>Effective Date:</strong> January 1, 2026</p>
-            <p><strong>Last Updated:</strong> June 14, 2026</p>
+            <p><strong>Last Updated:</strong> June 15, 2026</p>
             <h3>1. Our Commitment to Privacy</h3>
             <p><strong>Your data is yours. We do not collect it.</strong></p>
             <h3>2. Data We DO NOT Collect</h3>
@@ -913,7 +909,7 @@
 
     <div class="toast" id="toast"></div>
 
-    <script>
+        <script>
         const STORAGE_KEY = 'ngili_calendar_data';
         const MONTHS = [
             'January', 'February', 'March', 'April', 'May', 'June',
@@ -929,9 +925,8 @@
 
         function loadAllData() {
             const stored = localStorage.getItem(STORAGE_KEY);
-            if (stored) {
-                try { allData = JSON.parse(stored); } catch (e) { allData = {}; }
-            } else { allData = {}; }
+            if (stored) { try { allData = JSON.parse(stored); } catch (e) { allData = {}; } }
+            else { allData = {}; }
         }
 
         function saveAllData() {
@@ -941,16 +936,10 @@
                 updateSaveIndicator(true);
                 hideUnsavedBanner();
                 updateSaveButtons(true);
-            } catch (e) {
-                showToast('⚠ Storage full! Please export your data.', 'warning');
-            }
+            } catch (e) { showToast('⚠ Storage full! Please export your data.', 'warning'); }
         }
 
-        function manualSave() {
-            flushAllChanges();
-            saveAllData();
-            showToast('💾 Data saved successfully!', 'success');
-        }
+        function manualSave() { flushAllChanges(); saveAllData(); showToast('💾 Data saved successfully!', 'success'); }
 
         function flushAllChanges() {
             const data = getMonthData(currentMonth, currentYear);
@@ -964,13 +953,13 @@
             data.advance = parseFloat(document.getElementById('advanceInput').value) || 0;
             const daysInMonth = getDaysInMonth(currentMonth, currentYear);
             for (let d = 1; d <= daysInMonth; d++) {
-                const wageInput = document.getElementById(`wage-${d}`);
-                const noteInput = document.getElementById(`note-${d}`);
+                const wageInput = document.getElementById('wage-' + d);
+                const noteInput = document.getElementById('note-' + d);
                 if (wageInput && noteInput) {
                     const wage = parseFloat(wageInput.value) || 0;
                     const note = noteInput.value;
-                    if (wage === 0 && note === '') { delete data.wages[d]; } else { data.wages[d] = { wage,
-                            note }; }
+                    if (wage === 0 && note === '') { delete data.wages[d]; }
+                    else { data.wages[d] = { wage: wage, note: note }; }
                 }
             }
         }
@@ -978,60 +967,48 @@
         function getMonthData(month, year) {
             const key = getStorageKey(month, year);
             if (!allData[key]) {
-                allData[key] = { workerInfo: { name: '', id: '', dailyWage: '', phone: '', employer: '' },
-                    wages: {}, advance: 0 };
+                allData[key] = {
+                    workerInfo: { name: '', id: '', dailyWage: '', phone: '', employer: '' },
+                    wages: {},
+                    advance: 0
+                };
             }
             return allData[key];
         }
 
-        function markUnsaved() {
-            unsavedChanges = true;
-            updateSaveIndicator(false);
-            showUnsavedBanner();
-            updateSaveButtons(false);
-        }
+        function markUnsaved() { unsavedChanges = true; updateSaveIndicator(false); showUnsavedBanner(); updateSaveButtons(false); }
 
         function updateSaveButtons(saved) {
             const btns = [document.getElementById('manualSaveBtn'), document.getElementById('manualSaveBtn2')];
-            btns.forEach(btn => {
+            btns.forEach(function(btn) {
                 if (!btn) return;
-                if (saved) {
-                    btn.classList.add('saved');
-                    btn.innerHTML = '✅ Saved';
-                    setTimeout(() => { btn.classList.remove('saved');
-                        btn.innerHTML = '💾 Save Now'; }, 2000);
-                } else { btn.classList.remove('saved');
-                    btn.innerHTML = '💾 Save Now'; }
+                if (saved) { btn.classList.add('saved'); btn.innerHTML = '✅ Saved';
+                    setTimeout(function() { btn.classList.remove('saved'); btn.innerHTML = '💾 Save Now'; }, 2000); }
+                else { btn.classList.remove('saved'); btn.innerHTML = '💾 Save Now'; }
             });
         }
 
         function updateSaveIndicator(saved) {
             const dot = document.getElementById('saveDot');
             const text = document.getElementById('lastSavedText');
-            if (saved) { dot.className = 'dot';
-                text.textContent = 'All changes saved ✓'; } else { dot.className = 'dot unsaved';
-                text.textContent = 'Unsaved changes — click Save Now'; }
+            if (saved) { dot.className = 'dot'; text.textContent = 'All changes saved ✓'; }
+            else { dot.className = 'dot unsaved'; text.textContent = 'Unsaved changes — click Save Now'; }
         }
 
-        function showUnsavedBanner() { const b = document.getElementById('unsavedBanner'); if (b) b.classList.add(
-                'show'); }
+        function showUnsavedBanner() { const b = document.getElementById('unsavedBanner'); if (b) b.classList.add('show'); }
+        function hideUnsavedBanner() { const b = document.getElementById('unsavedBanner'); if (b) b.classList.remove('show'); }
 
-        function hideUnsavedBanner() { const b = document.getElementById('unsavedBanner'); if (b) b.classList.remove(
-                'show'); }
-
-        // ============ THIS IS THE KEY FIX: saveWage now updates totals instantly ============
         function saveWage(dayNumber) {
             const data = getMonthData(currentMonth, currentYear);
-            const wageInput = document.getElementById(`wage-${dayNumber}`);
-            const noteInput = document.getElementById(`note-${dayNumber}`);
+            const wageInput = document.getElementById('wage-' + dayNumber);
+            const noteInput = document.getElementById('note-' + dayNumber);
             if (wageInput && noteInput) {
                 const wage = parseFloat(wageInput.value) || 0;
                 const note = noteInput.value;
-                if (wage === 0 && note === '') { delete data.wages[dayNumber]; } else { data.wages[
-                        dayNumber] = { wage, note }; }
+                if (wage === 0 && note === '') { delete data.wages[dayNumber]; }
+                else { data.wages[dayNumber] = { wage: wage, note: note }; }
                 wageInput.classList.toggle('has-value', wage > 0);
                 noteInput.classList.toggle('has-note', note !== '');
-                // 🔥 CRITICAL: Update all totals immediately
                 updateAllTotals();
                 markUnsaved();
             }
@@ -1047,12 +1024,10 @@
         }
 
         function getDaysInMonth(month, year) { return new Date(year, month + 1, 0).getDate(); }
-
         function getFirstDayOfMonth(month, year) { return new Date(year, month, 1).getDay(); }
 
         function renderCalendar() {
-            if (unsavedChanges) { flushAllChanges();
-                saveAllData(); }
+            if (unsavedChanges) { flushAllChanges(); saveAllData(); }
             loadAllData();
             const data = getMonthData(currentMonth, currentYear);
             document.getElementById('workerName').value = data.workerInfo.name || '';
@@ -1064,26 +1039,24 @@
 
             const monthSelect = document.getElementById('monthSelect');
             monthSelect.innerHTML = '';
-            MONTHS.forEach((m, i) => {
+            MONTHS.forEach(function(m, i) {
                 const opt = document.createElement('option');
-                opt.value = i;
-                opt.textContent = m;
+                opt.value = i; opt.textContent = m;
                 if (i === currentMonth) opt.selected = true;
                 monthSelect.appendChild(opt);
             });
+
             const yearSelect = document.getElementById('yearSelect');
             yearSelect.innerHTML = '';
             for (let y = 2020; y <= 2035; y++) {
                 const opt = document.createElement('option');
-                opt.value = y;
-                opt.textContent = y;
+                opt.value = y; opt.textContent = y;
                 if (y === currentYear) opt.selected = true;
                 yearSelect.appendChild(opt);
             }
-            monthSelect.onchange = function() { currentMonth = parseInt(this.value);
-                renderCalendar(); };
-            yearSelect.onchange = function() { currentYear = parseInt(this.value);
-                renderCalendar(); };
+
+            monthSelect.onchange = function() { currentMonth = parseInt(this.value); renderCalendar(); };
+            yearSelect.onchange = function() { currentYear = parseInt(this.value); renderCalendar(); };
 
             const daysInMonth = getDaysInMonth(currentMonth, currentYear);
             const firstDay = getFirstDayOfMonth(currentMonth, currentYear);
@@ -1118,18 +1091,12 @@
                         const wageVal = dayData.wage > 0 ? dayData.wage : '';
                         const noteVal = dayData.note || '';
                         const dailyWageDefault = data.workerInfo.dailyWage || '';
-                        td.innerHTML = `
-                            <div class="day-cell">
-                                <div class="date-number">${dayNum}</div>
-                                <input type="number" class="wage-input ${wageVal !== '' ? 'has-value' : ''}" 
-                                       id="wage-${dayNum}" placeholder="${dailyWageDefault || 'Wage'}" 
-                                       value="${wageVal}" step="any" min="0"
-                                       onchange="saveWage(${dayNum})" onfocus="this.select()">
-                                <textarea class="note-input ${noteVal !== '' ? 'has-note' : ''}" 
-                                          id="note-${dayNum}" placeholder="Note" 
-                                          onchange="saveWage(${dayNum})">${noteVal}</textarea>
-                            </div>
-                        `;
+                        td.innerHTML = '<div class="day-cell"><div class="date-number">' + dayNum + '</div>' +
+                            '<input type="number" class="wage-input' + (wageVal !== '' ? ' has-value' : '') + '" ' +
+                            'id="wage-' + dayNum + '" placeholder="' + (dailyWageDefault || 'Wage') + '" ' +
+                            'value="' + wageVal + '" step="any" min="0" onchange="saveWage(' + dayNum + ')" onfocus="this.select()">' +
+                            '<textarea class="note-input' + (noteVal !== '' ? ' has-note' : '') + '" ' +
+                            'id="note-' + dayNum + '" placeholder="Note" onchange="saveWage(' + dayNum + ')">' + noteVal + '</textarea></div>';
                         dayCounter++;
                     }
                     tr.appendChild(td);
@@ -1141,13 +1108,10 @@
                 const weekStartDay = row * 7 + 1 - firstDay;
                 const weekEndDay = Math.min(weekStartDay + 6, daysInMonth);
                 let weekLabel;
-                if (weekStartDay < 1) weekLabel = `Week ${row + 1}`;
-                else if (weekStartDay > daysInMonth) weekLabel = `Week ${row + 1} (N/A)`;
-                else weekLabel = `Week ${row + 1} Total (Days ${Math.max(1, weekStartDay)}–${weekEndDay})`;
-                totalTr.innerHTML = `
-                    <td class="week-total-label" colspan="6">${weekLabel}</td>
-                    <td id="week-total-${row}" style="font-size:1.1em;">0.00</td>
-                `;
+                if (weekStartDay < 1) weekLabel = 'Week ' + (row + 1);
+                else if (weekStartDay > daysInMonth) weekLabel = 'Week ' + (row + 1) + ' (N/A)';
+                else weekLabel = 'Week ' + (row + 1) + ' Total (Days ' + Math.max(1, weekStartDay) + '–' + weekEndDay + ')';
+                totalTr.innerHTML = '<td class="week-total-label" colspan="6">' + weekLabel + '</td><td id="week-total-' + row + '" style="font-size:1.1em;">0.00</td>';
                 tbody.appendChild(totalTr);
             }
 
@@ -1159,7 +1123,6 @@
             updateWeekSummaryCards();
         }
 
-        // ============ THIS IS THE KEY FUNCTION ============
         function updateAllTotals() {
             const data = getMonthData(currentMonth, currentYear);
             const daysInMonth = getDaysInMonth(currentMonth, currentYear);
@@ -1169,9 +1132,8 @@
             let totalEarnings = 0;
             const weekTotals = new Array(rowsToShow).fill(0);
 
-            // Sum all wages from DOM inputs directly (live values)
             for (let d = 1; d <= daysInMonth; d++) {
-                const wageInput = document.getElementById(`wage-${d}`);
+                const wageInput = document.getElementById('wage-' + d);
                 const wage = wageInput ? (parseFloat(wageInput.value) || 0) : 0;
                 totalEarnings += wage;
                 const cellIndex = firstDay + d - 1;
@@ -1179,13 +1141,11 @@
                 if (weekIndex >= 0 && weekIndex < rowsToShow) weekTotals[weekIndex] += wage;
             }
 
-            // Update week total cells
             for (let w = 0; w < rowsToShow; w++) {
-                const el = document.getElementById(`week-total-${w}`);
+                const el = document.getElementById('week-total-' + w);
                 if (el) el.textContent = weekTotals[w].toFixed(2);
             }
 
-            // Update monthly totals
             const advanceEl = document.getElementById('advanceInput');
             const advance = advanceEl ? (parseFloat(advanceEl.value) || 0) : (data.advance || 0);
             document.getElementById('totalEarnings').textContent = totalEarnings.toFixed(2);
@@ -1204,7 +1164,7 @@
             const weekTotals = new Array(rowsToShow).fill(0);
 
             for (let d = 1; d <= daysInMonth; d++) {
-                const wageInput = document.getElementById(`wage-${d}`);
+                const wageInput = document.getElementById('wage-' + d);
                 const wage = wageInput ? (parseFloat(wageInput.value) || 0) : 0;
                 const cellIndex = firstDay + d - 1;
                 const weekIndex = Math.floor(cellIndex / 7);
@@ -1213,29 +1173,25 @@
 
             const section = document.getElementById('weekSummarySection');
             section.innerHTML = '';
-            section.style.gridTemplateColumns = `repeat(${rowsToShow}, 1fr)`;
+            section.style.gridTemplateColumns = 'repeat(' + rowsToShow + ', 1fr)';
 
             for (let w = 0; w < rowsToShow; w++) {
                 const weekStart = w * 7 + 1 - firstDay;
                 const weekEnd = Math.min(weekStart + 6, daysInMonth);
                 let label;
-                if (weekStart < 1) label = `Week ${w + 1}`;
-                else if (weekStart > daysInMonth) label = `Week ${w + 1} (N/A)`;
-                else label = `Week ${w + 1} (${Math.max(1, weekStart)}–${weekEnd})`;
+                if (weekStart < 1) label = 'Week ' + (w + 1);
+                else if (weekStart > daysInMonth) label = 'Week ' + (w + 1) + ' (N/A)';
+                else label = 'Week ' + (w + 1) + ' (' + Math.max(1, weekStart) + '–' + weekEnd + ')';
                 const card = document.createElement('div');
                 card.className = 'summary-card';
                 card.style.borderTopColor = '#8e44ad';
-                card.innerHTML = `
-                    <h3>📋 ${label}</h3>
-                    <div class="big-number" style="font-size:1.4em;">${weekTotals[w].toFixed(2)}</div>
-                `;
+                card.innerHTML = '<h3>📋 ' + label + '</h3><div class="big-number" style="font-size:1.4em;">' + weekTotals[w].toFixed(2) + '</div>';
                 section.appendChild(card);
             }
         }
 
         function goToToday() {
-            if (unsavedChanges) { flushAllChanges();
-                saveAllData(); }
+            if (unsavedChanges) { flushAllChanges(); saveAllData(); }
             currentMonth = new Date().getMonth();
             currentYear = new Date().getFullYear();
             renderCalendar();
@@ -1256,48 +1212,71 @@
             flushAllChanges();
             saveAllData();
             loadAllData();
+            const currentData = getMonthData(currentMonth, currentYear);
+            const workerName = (currentData.workerInfo.name || 'worker').replace(/[^a-zA-Z0-9]/g, '_');
             let csvContent = 'Ngili Calendar - Worker Wage Records\n';
             csvContent += 'Exported: ' + new Date().toISOString().split('T')[0] + '\n\n';
             csvContent += '--- Worker Information ---\n';
-            const currentData = getMonthData(currentMonth, currentYear);
-            csvContent += `Name,${currentData.workerInfo.name}\n`;
-            csvContent += `ID,${currentData.workerInfo.id}\n`;
-            csvContent += `Daily Wage,${currentData.workerInfo.dailyWage}\n`;
-            csvContent += `Phone,${currentData.workerInfo.phone}\n`;
-            csvContent += `Employer,${currentData.workerInfo.employer}\n\n`;
+            csvContent += 'Name,' + currentData.workerInfo.name + '\n';
+            csvContent += 'ID,' + currentData.workerInfo.id + '\n';
+            csvContent += 'Daily Wage,' + currentData.workerInfo.dailyWage + '\n';
+            csvContent += 'Phone,' + currentData.workerInfo.phone + '\n';
+            csvContent += 'Employer,' + currentData.workerInfo.employer + '\n\n';
             csvContent += '--- Wage Records (All Months) ---\n';
             csvContent += 'Year,Month,Day,Date,Wage,Notes\n';
+
             const sortedKeys = Object.keys(allData).sort();
-            for (const key of sortedKeys) {
-                const [year, month] = key.split('-').map(Number);
+            for (let k = 0; k < sortedKeys.length; k++) {
+                const key = sortedKeys[k];
+                const parts = key.split('-');
+                const year = parseInt(parts[0]);
+                const month = parseInt(parts[1]);
                 const monthData = allData[key];
                 const daysInMonth = new Date(year, month + 1, 0).getDate();
                 for (let d = 1; d <= daysInMonth; d++) {
                     const dayData = monthData.wages[d] || { wage: 0, note: '' };
                     if (dayData.wage > 0 || dayData.note) {
-                        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                        const dateStr = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
                         const dayName = new Date(year, month, d).toLocaleDateString('en-US', { weekday: 'short' });
                         const noteEscaped = (dayData.note || '').replace(/"/g, '""');
-                        csvContent +=
-                            `${year},${MONTHS[month]},${d},${dateStr} (${dayName}),${dayData.wage || 0},"${noteEscaped}"\n`;
+                        csvContent += year + ',' + MONTHS[month] + ',' + d + ',' + dateStr + ' (' + dayName + '),' + (dayData.wage || 0) + ',"' + noteEscaped + '"\n';
                     }
                 }
             }
+
             csvContent += '\n--- Advances/Deductions ---\nYear,Month,Advance Amount\n';
-            for (const key of sortedKeys) {
-                const [year, month] = key.split('-').map(Number);
-                if (allData[key].advance > 0) csvContent += `${year},${MONTHS[month]},${allData[key].advance}\n`;
+            for (let k = 0; k < sortedKeys.length; k++) {
+                const key = sortedKeys[k];
+                const parts = key.split('-');
+                const year = parseInt(parts[0]);
+                const month = parseInt(parts[1]);
+                if (allData[key].advance > 0) csvContent += year + ',' + MONTHS[month] + ',' + allData[key].advance + '\n';
             }
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `ngili_calendar_${currentYear}_${MONTHS[currentMonth]}.csv`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-            showToast('📥 CSV exported! Save it somewhere safe.', 'success');
+
+            const dateStr = new Date().toISOString().split('T')[0];
+            const filename = 'Ngili_Calendar_' + workerName + '_' + currentYear + '_' + MONTHS[currentMonth] + '_' + dateStr + '.csv';
+
+            try {
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                const isMobile = /Android|iPhone|iPad|iPod|webOS/i.test(navigator.userAgent);
+                if (isMobile) {
+                    showToast('📥 CSV downloaded! Check Downloads folder. Or use 📋 Copy Data.', 'success');
+                } else {
+                    showToast('📥 CSV exported: ' + filename, 'success');
+                }
+            } catch (err) {
+                const dataUri = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvContent);
+                window.open(dataUri, '_blank');
+                showToast('📥 CSV opened in new tab. Save or share it.', 'success');
+            }
         }
 
         function importCSV(event) {
@@ -1307,20 +1286,27 @@
             reader.onload = function(e) {
                 try {
                     const content = e.target.result;
-                    const lines = content.split('\n').map(l => l.trim()).filter(l => l);
-                    let section = 'header',
-                        importedCount = 0;
+                    const lines = content.split('\n');
+                    const cleanLines = [];
+                    for (let i = 0; i < lines.length; i++) {
+                        const trimmed = lines[i].trim();
+                        if (trimmed) cleanLines.push(trimmed);
+                    }
+                    let section = 'header';
+                    let importedCount = 0;
                     const importedData = {};
                     let currentWorkerInfo = {};
-                    for (const line of lines) {
+
+                    for (let i = 0; i < cleanLines.length; i++) {
+                        const line = cleanLines[i];
                         if (line.startsWith('---')) {
                             if (line.includes('Worker Information')) section = 'workerInfo';
                             else if (line.includes('Wage Records')) section = 'wages';
                             else if (line.includes('Advances')) section = 'advances';
                             continue;
                         }
-                        if (line.startsWith('Ngili Calendar') || line.startsWith('Exported:') || line === '')
-                            continue;
+                        if (line.startsWith('Ngili Calendar') || line.startsWith('Exported:') || line === '') continue;
+
                         const parts = line.split(',');
                         if (section === 'workerInfo') {
                             if (parts[0] === 'Name') currentWorkerInfo.name = parts[1] || '';
@@ -1335,15 +1321,12 @@
                                 const day = parseInt(parts[2]);
                                 const wage = parseFloat(parts[4]) || 0;
                                 let note = parts.slice(5).join(',');
-                                if (note.startsWith('"') && note.endsWith('"')) note = note.slice(1, -1).replace(
-                                    /""/g, '"');
+                                if (note.startsWith('"') && note.endsWith('"')) note = note.slice(1, -1).replace(/""/g, '"');
                                 const monthIndex = MONTHS.indexOf(monthName);
                                 if (monthIndex >= 0 && !isNaN(year) && !isNaN(day) && day > 0) {
-                                    const key = `${year}-${monthIndex}`;
-                                    if (!importedData[key]) importedData[key] = { workerInfo: { ...currentWorkerInfo },
-                                        wages: {}, advance: 0 };
-                                    if (wage > 0 || note) { importedData[key].wages[day] = { wage, note };
-                                        importedCount++; }
+                                    const key = year + '-' + monthIndex;
+                                    if (!importedData[key]) importedData[key] = { workerInfo: { name: currentWorkerInfo.name, id: currentWorkerInfo.id, dailyWage: currentWorkerInfo.dailyWage, phone: currentWorkerInfo.phone, employer: currentWorkerInfo.employer }, wages: {}, advance: 0 };
+                                    if (wage > 0 || note) { importedData[key].wages[day] = { wage: wage, note: note }; importedCount++; }
                                 }
                             }
                         } else if (section === 'advances' && !line.startsWith('Year,')) {
@@ -1353,29 +1336,35 @@
                                 const advance = parseFloat(parts[2]) || 0;
                                 const monthIndex = MONTHS.indexOf(monthName);
                                 if (monthIndex >= 0 && !isNaN(year)) {
-                                    const key = `${year}-${monthIndex}`;
-                                    if (!importedData[key]) importedData[key] = { workerInfo: { ...currentWorkerInfo },
-                                        wages: {}, advance: 0 };
+                                    const key = year + '-' + monthIndex;
+                                    if (!importedData[key]) importedData[key] = { workerInfo: { name: currentWorkerInfo.name, id: currentWorkerInfo.id, dailyWage: currentWorkerInfo.dailyWage, phone: currentWorkerInfo.phone, employer: currentWorkerInfo.employer }, wages: {}, advance: 0 };
                                     importedData[key].advance = advance;
                                 }
                             }
                         }
                     }
-                    for (const [key, impData] of Object.entries(importedData)) {
+
+                    const impKeys = Object.keys(importedData);
+                    for (let k = 0; k < impKeys.length; k++) {
+                        const key = impKeys[k];
+                        const impData = importedData[key];
                         if (!allData[key]) allData[key] = { workerInfo: {}, wages: {}, advance: 0 };
                         if (impData.workerInfo.name) allData[key].workerInfo.name = impData.workerInfo.name;
                         if (impData.workerInfo.id) allData[key].workerInfo.id = impData.workerInfo.id;
-                        if (impData.workerInfo.dailyWage) allData[key].workerInfo.dailyWage = impData.workerInfo
-                            .dailyWage;
+                        if (impData.workerInfo.dailyWage) allData[key].workerInfo.dailyWage = impData.workerInfo.dailyWage;
                         if (impData.workerInfo.phone) allData[key].workerInfo.phone = impData.workerInfo.phone;
-                        if (impData.workerInfo.employer) allData[key].workerInfo.employer = impData.workerInfo
-                            .employer;
-                        Object.assign(allData[key].wages, impData.wages);
+                        if (impData.workerInfo.employer) allData[key].workerInfo.employer = impData.workerInfo.employer;
+                        const wageKeys = Object.keys(impData.wages);
+                        for (let w = 0; w < wageKeys.length; w++) {
+                            allData[key].wages[wageKeys[w]] = impData.wages[wageKeys[w]];
+                        }
                         if (impData.advance > 0) allData[key].advance = impData.advance;
                     }
+
                     saveAllData();
                     renderCalendar();
-                    showToast(`📤 Imported ${importedCount} records!`, 'success');
+                    const fileName = file.name || 'file';
+                    showToast('📤 Imported ' + importedCount + ' records from "' + fileName + '"!', 'success');
                 } catch (err) {
                     showToast('❌ Error importing CSV. Check file format.', 'warning');
                 }
@@ -1388,26 +1377,29 @@
             flushAllChanges();
             const data = getMonthData(currentMonth, currentYear);
             const daysInMonth = getDaysInMonth(currentMonth, currentYear);
-            let text = `Ngili Calendar - ${MONTHS[currentMonth]} ${currentYear}\n`;
-            text += `Worker: ${data.workerInfo.name || 'N/A'} | ID: ${data.workerInfo.id || 'N/A'}\n`;
-            text += `Employer: ${data.workerInfo.employer || 'N/A'}\nDay\tWage\tNotes\n`;
+            let text = 'Ngili Calendar - ' + MONTHS[currentMonth] + ' ' + currentYear + '\n';
+            text += 'Worker: ' + (data.workerInfo.name || 'N/A') + ' | ID: ' + (data.workerInfo.id || 'N/A') + '\n';
+            text += 'Employer: ' + (data.workerInfo.employer || 'N/A') + '\nDay\tWage\tNotes\n';
             let total = 0;
             for (let d = 1; d <= daysInMonth; d++) {
                 const dayData = data.wages[d] || { wage: 0, note: '' };
                 if (dayData.wage > 0 || dayData.note) {
-                    text += `${d}\t${dayData.wage || 0}\t${dayData.note || ''}\n`;
+                    text += d + '\t' + (dayData.wage || 0) + '\t' + (dayData.note || '') + '\n';
                     total += parseFloat(dayData.wage) || 0;
                 }
             }
-            text += `\nTotal Earnings: ${total.toFixed(2)}\nAdvances: ${data.advance || 0}\nNet Payable: ${(total - (data.advance || 0)).toFixed(2)}`;
-            navigator.clipboard.writeText(text).then(() => showToast(
-                '📋 Data copied! Paste into WhatsApp, email, etc.', 'success')).catch(() => showToast(
-                '⚠ Could not copy. Please use Export CSV.', 'warning'));
+            text += '\nTotal Earnings: ' + total.toFixed(2) + '\n';
+            text += 'Advances: ' + (data.advance || 0) + '\n';
+            text += 'Net Payable: ' + (total - (data.advance || 0)).toFixed(2);
+            navigator.clipboard.writeText(text).then(function() {
+                showToast('📋 Data copied! Paste into WhatsApp, email, etc.', 'success');
+            }).catch(function() {
+                showToast('⚠ Could not copy. Please use Export CSV.', 'warning');
+            });
         }
 
         function resetAllData() {
-            if (confirm(
-                    '⚠ DELETE ALL DATA? Cannot be undone!\n\nExport your data first.')) {
+            if (confirm('⚠ DELETE ALL DATA? Cannot be undone!\n\nExport your data first.')) {
                 if (confirm('Final warning: ALL records will be erased. Continue?')) {
                     allData = {};
                     saveAllData();
@@ -1417,37 +1409,33 @@
             }
         }
 
-        function openModal(id) { document.getElementById(id).classList.add('active');
-            document.body.style.overflow = 'hidden'; }
-
-        function closeModal(id) { document.getElementById(id).classList.remove('active');
-            document.body.style.overflow = ''; }
+        function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = ''; }
 
         document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('modal-overlay')) { e.target.classList.remove('active');
-                document.body.style.overflow = ''; }
+            if (e.target.classList.contains('modal-overlay')) { e.target.classList.remove('active'); document.body.style.overflow = ''; }
         });
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') { document.querySelectorAll('.modal-overlay.active').forEach(o => o.classList
-                    .remove('active'));
-                document.body.style.overflow = ''; }
+            if (e.key === 'Escape') {
+                const overlays = document.querySelectorAll('.modal-overlay.active');
+                for (let i = 0; i < overlays.length; i++) { overlays[i].classList.remove('active'); }
+                document.body.style.overflow = '';
+            }
         });
 
-        function showToast(message, type = '') {
+        function showToast(message, type) {
             const toast = document.getElementById('toast');
             toast.textContent = message;
-            toast.className = 'toast ' + type + ' show';
+            toast.className = 'toast ' + (type || '') + ' show';
             clearTimeout(toast._timeout);
-            toast._timeout = setTimeout(() => { toast.classList.remove('show'); }, 2500);
+            toast._timeout = setTimeout(function() { toast.classList.remove('show'); }, 2500);
         }
 
         function init() {
             loadAllData();
             renderCalendar();
-            window.addEventListener('beforeunload', function() { flushAllChanges();
-                saveAllData(); });
-            setInterval(() => { if (unsavedChanges) { flushAllChanges();
-                    saveAllData(); } }, 10000);
+            window.addEventListener('beforeunload', function() { flushAllChanges(); saveAllData(); });
+            setInterval(function() { if (unsavedChanges) { flushAllChanges(); saveAllData(); } }, 10000);
             console.log('📅 The Ngili Calendar initialized! © 2026 Safari Softwares');
         }
         init();
