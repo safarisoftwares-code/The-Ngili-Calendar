@@ -1094,9 +1094,9 @@
                         td.innerHTML = '<div class="day-cell"><div class="date-number">' + dayNum + '</div>' +
                             '<input type="number" class="wage-input' + (wageVal !== '' ? ' has-value' : '') + '" ' +
                             'id="wage-' + dayNum + '" placeholder="' + (dailyWageDefault || 'Wage') + '" ' +
-                            'value="' + wageVal + '" step="any" min="0" onchange="saveWage(' + dayNum + ')" onfocus="this.select()">' +
+                            'value="' + wageVal + '" step="any" min="0" oninput="saveWage(' + dayNum + ')" onfocus="this.select()">' +
                             '<textarea class="note-input' + (noteVal !== '' ? ' has-note' : '') + '" ' +
-                            'id="note-' + dayNum + '" placeholder="Note" onchange="saveWage(' + dayNum + ')">' + noteVal + '</textarea></div>';
+                            'id="note-' + dayNum + '" placeholder="Note" oninput="saveWage(' + dayNum + ')">' + noteVal + '</textarea></div>';
                         dayCounter++;
                     }
                     tr.appendChild(td);
