@@ -29,717 +29,123 @@
             --border: #dcdde1;
             --weekend: #ffeaa7;
             --today: #dfe6e9;
-            --shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
+            --shadow: 0 2px 10px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
             --radius: 8px;
             --radius-sm: 4px;
             --transition: 0.2s ease;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: var(--text);
-            min-height: 100vh;
-            padding: 15px;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
+            color: var(--text); min-height: 100vh; padding: 15px;
+            -webkit-print-color-adjust: exact; print-color-adjust: exact;
         }
-
         @media print {
-            body {
-                background: white !important;
-                padding: 0 !important;
-                font-size: 11px;
-            }
-            .worker-info-card,
-            .calendar-container,
-            .summary-section,
-            .header,
-            .footer-main {
-                display: block !important;
-                visibility: visible !important;
-                opacity: 1 !important;
-            }
-            .no-print,
-            .controls-bar,
-            .action-bar,
-            .last-saved,
-            #csvFileInput,
-            .unsaved-banner,
-            .footer-links,
-            #termsModal,
-            #privacyModal,
-            .modal-overlay {
-                display: none !important;
-            }
-            .calendar-container {
-                box-shadow: none !important;
-                border: 1px solid #ccc;
-                page-break-inside: avoid;
-            }
-            .calendar-table {
-                min-width: auto !important;
-            }
-            .calendar-table td {
-                height: 50px !important;
-                padding: 2px !important;
-            }
-            .day-cell input.wage-input,
-            .day-cell textarea.note-input {
-                border: 1px solid #ccc !important;
-                background: white !important;
-                font-size: 0.75em !important;
-            }
-            .day-cell textarea.note-input {
-                height: 18px !important;
-            }
-            .worker-info-card {
-                border: 1px solid #ccc !important;
-                box-shadow: none !important;
-                margin-bottom: 8px !important;
-                padding: 10px 14px !important;
-                grid-template-columns: repeat(5, 1fr) !important;
-                gap: 6px !important;
-            }
-            .worker-info-card input {
-                border: 1px solid #ccc !important;
-                background: white !important;
-                font-size: 0.8em !important;
-                padding: 4px 6px !important;
-            }
-            .summary-section {
-                margin-top: 8px !important;
-            }
-            .summary-card {
-                box-shadow: none !important;
-                border: 1px solid #ccc !important;
-                padding: 10px !important;
-            }
-            .header h1 {
-                font-size: 1.6em !important;
-                color: black !important;
-                text-shadow: none !important;
-            }
-            .footer-main {
-                border-top: 1px solid #ccc !important;
-                font-size: 0.65em !important;
-                padding: 4px !important;
-            }
-            @page {
-                size: landscape;
-                margin: 6mm;
-            }
-        }
-
-        @media screen and (min-width: 1024px) {
-            body {
-                display: flex;
-                justify-content: center;
-                align-items: flex-start;
-                padding: 20px;
-            }
-            .main-wrapper {
-                max-width: 1300px;
-                width: 100%;
-            }
-        }
-
-        .main-wrapper {
-            width: 100%;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        .header h1 {
-            font-size: 2.2em;
-            font-weight: 800;
-            color: var(--primary);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-        }
-        .header .subtitle {
-            font-size: 0.9em;
-            color: var(--text-light);
-            font-style: italic;
-        }
-
-        .controls-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 12px;
-            padding: 12px 15px;
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-        }
-        .controls-bar label {
-            font-weight: 600;
-            font-size: 0.85em;
-            color: var(--text-light);
-        }
-        .controls-bar select,
-        .controls-bar input {
-            padding: 8px 12px;
-            border: 2px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 0.95em;
-            font-family: inherit;
-            transition: var(--transition);
-            background: white;
-        }
-        .controls-bar select:focus,
-        .controls-bar input:focus {
-            outline: none;
-            border-color: var(--primary-light);
-            box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.15);
-        }
-
-        .btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9em;
-            font-family: inherit;
-            transition: var(--transition);
-            white-space: nowrap;
-            letter-spacing: 0.3px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .btn-primary {
-            background: var(--primary-light);
-            color: white;
-        }
-        .btn-primary:hover {
-            background: var(--primary);
-            transform: translateY(-1px);
-            box-shadow: var(--shadow);
-        }
-        .btn-success {
-            background: var(--success);
-            color: white;
-        }
-        .btn-success:hover {
-            background: #219a52;
-            transform: translateY(-1px);
-            box-shadow: var(--shadow);
-        }
-        .btn-accent {
-            background: var(--accent);
-            color: white;
-        }
-        .btn-accent:hover {
-            background: #d35400;
-            transform: translateY(-1px);
-            box-shadow: var(--shadow);
-        }
-        .btn-outline {
-            background: white;
-            color: var(--primary);
-            border: 2px solid var(--primary-light);
-        }
-        .btn-outline:hover {
-            background: #ebf5fb;
-        }
-        .btn-danger {
-            background: var(--danger);
-            color: white;
-        }
-        .btn-danger:hover {
-            background: #a93226;
-        }
-        .btn-sm {
-            padding: 5px 10px;
-            font-size: 0.78em;
-        }
-        .btn-save {
-            background: #f39c12;
-            color: white;
-            font-weight: 700;
-            animation: pulse-save 2s infinite;
-        }
-        .btn-save:hover {
-            background: #e67e22;
-            animation: none;
-            transform: translateY(-1px);
-            box-shadow: var(--shadow);
-        }
-        .btn-save.saved {
-            animation: none;
-            background: var(--success);
-        }
-
-        @keyframes pulse-save {
-            0%,
-            100% {
-                box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.4);
-            }
-            50% {
-                box-shadow: 0 0 0 8px rgba(243, 156, 18, 0);
-            }
-        }
-
-        .worker-info-card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            padding: 15px 18px;
-            margin-bottom: 12px;
-            box-shadow: var(--shadow);
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 10px;
-            border-left: 4px solid var(--accent);
-        }
-        .worker-info-card .field-group {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-        }
-        .worker-info-card label {
-            font-size: 0.75em;
-            font-weight: 700;
-            color: var(--text-light);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .worker-info-card input {
-            padding: 7px 10px;
-            border: 2px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 0.9em;
-            font-family: inherit;
-            transition: var(--transition);
-            background: white;
-        }
-        .worker-info-card input:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
-        }
-
-        .calendar-container {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-lg);
-            overflow: hidden;
-            margin-bottom: 15px;
-        }
-        .calendar-table {
-            width: 100%;
-            border-collapse: collapse;
-            table-layout: fixed;
-            min-width: 1000px;
-        }
-        .calendar-table th {
-            background: var(--primary);
-            color: white;
-            padding: 10px 6px;
-            font-size: 0.85em;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            text-align: center;
-            border: 1px solid #1a4466;
-        }
-        .calendar-table th.sunday {
-            background: #c0392b;
-        }
-        .calendar-table td {
-            border: 1px solid var(--border);
-            padding: 4px;
-            vertical-align: top;
-            height: 72px;
-            transition: var(--transition);
-            position: relative;
-        }
-        .calendar-table td.weekend {
-            background: #fef9e7;
-        }
-        .calendar-table td.today-cell {
-            background: #eaf2f8;
-            box-shadow: inset 0 0 0 2px var(--primary-light);
-        }
-        .calendar-table td.empty-cell {
-            background: #f4f4f4;
-            pointer-events: none;
-            opacity: 0.35;
-        }
-        .calendar-table td .date-number {
-            font-weight: 700;
-            font-size: 0.9em;
-            margin-bottom: 2px;
-            color: var(--text);
-        }
-        .calendar-table td.weekend .date-number {
-            color: #c0392b;
-        }
-        .day-cell {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-        .day-cell input.wage-input {
-            width: 100%;
-            padding: 4px 6px;
-            border: 2px solid #e0e0e0;
-            border-radius: 3px;
-            font-size: 0.85em;
-            font-family: inherit;
-            text-align: right;
-            font-weight: 600;
-            transition: var(--transition);
-            background: #fafafa;
-        }
-        .day-cell input.wage-input:focus {
-            outline: none;
-            border-color: var(--accent);
-            background: white;
-            box-shadow: 0 0 0 2px rgba(230, 126, 34, 0.15);
-        }
-        .day-cell input.wage-input.has-value {
-            background: #eafaf1;
-            border-color: #82e0aa;
-        }
-        .day-cell textarea.note-input {
-            width: 100%;
-            padding: 3px 5px;
-            border: 1px solid #e0e0e0;
-            border-radius: 3px;
-            font-size: 0.7em;
-            font-family: inherit;
-            resize: none;
-            height: 22px;
-            transition: var(--transition);
-            background: #fafafa;
-        }
-        .day-cell textarea.note-input:focus {
-            outline: none;
-            border-color: #bdc3c7;
-            background: white;
-            height: 36px;
-        }
-        .day-cell textarea.note-input.has-note {
-            background: #fef9e7;
-            border-color: #f9e79f;
-        }
-
-        .week-total-row td {
-            background: #eaf2f8 !important;
-            font-weight: 700;
-            text-align: right;
-            padding: 8px 10px;
-            font-size: 0.9em;
-            color: var(--primary);
-            border-top: 3px solid var(--primary-light) !important;
-        }
-        .week-total-label {
-            text-align: left !important;
-            padding-left: 15px !important;
-        }
-
-        .summary-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-        .summary-card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            padding: 15px;
-            box-shadow: var(--shadow);
-            text-align: center;
-            border-top: 4px solid var(--primary-light);
-        }
-        .summary-card.advance-card {
-            border-top-color: var(--danger);
-        }
-        .summary-card.net-card {
-            border-top-color: var(--success);
-        }
-        .summary-card h3 {
-            font-size: 0.8em;
-            text-transform: uppercase;
-            color: var(--text-light);
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
-        }
-        .summary-card .big-number {
-            font-size: 2em;
-            font-weight: 800;
-            color: var(--text);
-        }
-        .summary-card.net-card .big-number {
-            color: var(--success);
-        }
-        .summary-card.advance-card .big-number {
-            color: var(--danger);
-        }
-        .summary-card input {
-            width: 100%;
-            padding: 8px;
-            border: 2px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 1.1em;
-            text-align: center;
-            font-weight: 700;
-            font-family: inherit;
-            background: white;
-        }
-        .summary-card input:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        .action-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            margin-bottom: 10px;
-        }
-
-        .footer-main {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            padding: 15px 20px;
-            margin-top: 15px;
-            box-shadow: var(--shadow);
-            text-align: center;
-            border-top: 3px solid var(--primary-light);
-        }
-        .footer-main .copyright {
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 0.85em;
-            margin-bottom: 6px;
-        }
-        .footer-main .developer {
-            font-size: 0.8em;
-            color: var(--text);
-            margin-bottom: 4px;
-        }
-        .footer-main .developer strong {
-            color: var(--accent);
-        }
-        .footer-main .footer-links {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 8px;
-        }
-        .footer-main .footer-links a {
-            color: var(--primary-light);
-            text-decoration: underline;
-            cursor: pointer;
-            font-size: 0.8em;
-            font-weight: 500;
-        }
-        .footer-main .footer-links a:hover {
-            color: var(--accent);
-        }
-        .footer-main .disclaimer {
-            font-size: 0.7em;
-            color: var(--text-light);
-            margin-top: 8px;
-            line-height: 1.4;
-        }
-
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .modal-overlay.active {
-            display: flex;
-        }
-        .modal {
-            background: white;
-            border-radius: var(--radius);
-            padding: 25px 30px;
-            max-width: 650px;
-            width: 100%;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            position: relative;
-        }
-        .modal h2 {
-            color: var(--primary);
-            margin-bottom: 15px;
-            font-size: 1.4em;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 10px;
-        }
-        .modal h3 {
-            color: var(--text);
-            margin-top: 15px;
-            margin-bottom: 8px;
-            font-size: 1.1em;
-        }
-        .modal p,
-        .modal li {
-            font-size: 0.9em;
-            line-height: 1.6;
-            color: var(--text);
-            margin-bottom: 8px;
-        }
-        .modal ul {
-            padding-left: 20px;
-            margin-bottom: 10px;
-        }
-        .modal .close-btn {
-            position: sticky;
-            top: 0;
-            float: right;
-            background: var(--danger);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.9em;
-            z-index: 10;
-        }
-        .modal .close-btn:hover {
-            background: #a93226;
-        }
-
-        .toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #2c3e50;
-            color: white;
-            padding: 12px 20px;
-            border-radius: var(--radius);
-            font-weight: 600;
-            z-index: 3000;
-            opacity: 0;
-            transform: translateY(-20px);
-            transition: all 0.3s ease;
-            pointer-events: none;
-            box-shadow: var(--shadow-lg);
-        }
-        .toast.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .toast.success {
-            background: var(--success);
-        }
-        .toast.warning {
-            background: var(--accent);
-        }
-
-        #csvFileInput {
-            display: none;
-        }
-
-        .last-saved {
-            font-size: 0.75em;
-            color: var(--text-light);
-            text-align: center;
-            margin-top: 5px;
-        }
-        .last-saved .dot {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--success);
-            margin-right: 4px;
-        }
-        .last-saved .dot.unsaved {
-            background: var(--accent);
-            animation: pulse-dot 1s infinite;
-        }
-
-        @keyframes pulse-dot {
-            0%,
-            100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.3;
-            }
-        }
-
-        .unsaved-banner {
-            text-align: center;
-            padding: 6px;
-            background: #fef9e7;
-            color: #b7950b;
-            font-weight: 600;
-            font-size: 0.8em;
-            border-radius: var(--radius-sm);
-            margin-bottom: 8px;
-            display: none;
-            border: 1px solid #f9e79f;
-        }
-        .unsaved-banner.show {
-            display: block;
-            animation: pulse-dot 1.5s infinite;
-        }
-
+            body { background: white !important; padding: 0 !important; font-size: 11px; }
+            .worker-info-card, .calendar-container, .summary-section, .header, .footer-main { display: block !important; visibility: visible !important; opacity: 1 !important; }
+            .no-print, .controls-bar, .action-bar, .last-saved, #csvFileInput, .unsaved-banner, .footer-links, #termsModal, #privacyModal, .modal-overlay { display: none !important; }
+            .calendar-container { box-shadow: none !important; border: 1px solid #ccc; page-break-inside: avoid; }
+            .calendar-table { min-width: auto !important; }
+            .calendar-table td { height: 50px !important; padding: 2px !important; }
+            .day-cell input.wage-input, .day-cell textarea.note-input { border: 1px solid #ccc !important; background: white !important; font-size: 0.75em !important; }
+            .day-cell textarea.note-input { height: 18px !important; }
+            .worker-info-card { border: 1px solid #ccc !important; box-shadow: none !important; margin-bottom: 8px !important; padding: 10px 14px !important; grid-template-columns: repeat(5, 1fr) !important; gap: 6px !important; }
+            .worker-info-card input { border: 1px solid #ccc !important; background: white !important; font-size: 0.8em !important; padding: 4px 6px !important; }
+            .summary-section { margin-top: 8px !important; }
+            .summary-card { box-shadow: none !important; border: 1px solid #ccc !important; padding: 10px !important; }
+            .header h1 { font-size: 1.6em !important; color: black !important; text-shadow: none !important; }
+            .footer-main { border-top: 1px solid #ccc !important; font-size: 0.65em !important; padding: 4px !important; }
+            @page { size: landscape; margin: 6mm; }
+        }
+        @media screen and (min-width: 1024px) { body { display: flex; justify-content: center; align-items: flex-start; padding: 20px; } .main-wrapper { max-width: 1300px; width: 100%; } }
+        .main-wrapper { width: 100%; }
+        .header { text-align: center; margin-bottom: 15px; }
+        .header h1 { font-size: 2.2em; font-weight: 800; color: var(--primary); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .header .subtitle { font-size: 0.9em; color: var(--text-light); font-style: italic; }
+        .controls-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; margin-bottom: 12px; padding: 12px 15px; background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); }
+        .controls-bar label { font-weight: 600; font-size: 0.85em; color: var(--text-light); }
+        .controls-bar select, .controls-bar input { padding: 8px 12px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95em; font-family: inherit; transition: var(--transition); background: white; }
+        .controls-bar select:focus, .controls-bar input:focus { outline: none; border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(41,128,185,0.15); }
+        .btn { padding: 8px 16px; border: none; border-radius: var(--radius-sm); cursor: pointer; font-weight: 600; font-size: 0.9em; font-family: inherit; transition: var(--transition); white-space: nowrap; letter-spacing: 0.3px; display: inline-flex; align-items: center; gap: 5px; }
+        .btn-primary { background: var(--primary-light); color: white; } .btn-primary:hover { background: var(--primary); transform: translateY(-1px); box-shadow: var(--shadow); }
+        .btn-success { background: var(--success); color: white; } .btn-success:hover { background: #219a52; transform: translateY(-1px); box-shadow: var(--shadow); }
+        .btn-accent { background: var(--accent); color: white; } .btn-accent:hover { background: #d35400; transform: translateY(-1px); box-shadow: var(--shadow); }
+        .btn-outline { background: white; color: var(--primary); border: 2px solid var(--primary-light); } .btn-outline:hover { background: #ebf5fb; }
+        .btn-danger { background: var(--danger); color: white; } .btn-danger:hover { background: #a93226; }
+        .btn-sm { padding: 5px 10px; font-size: 0.78em; }
+        .btn-save { background: #f39c12; color: white; font-weight: 700; animation: pulse-save 2s infinite; } .btn-save:hover { background: #e67e22; animation: none; transform: translateY(-1px); box-shadow: var(--shadow); } .btn-save.saved { animation: none; background: var(--success); }
+        @keyframes pulse-save { 0%,100% { box-shadow: 0 0 0 0 rgba(243,156,18,0.4); } 50% { box-shadow: 0 0 0 8px rgba(243,156,18,0); } }
+        .worker-info-card { background: var(--card-bg); border-radius: var(--radius); padding: 15px 18px; margin-bottom: 12px; box-shadow: var(--shadow); display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; border-left: 4px solid var(--accent); }
+        .worker-info-card .field-group { display: flex; flex-direction: column; gap: 3px; }
+        .worker-info-card label { font-size: 0.75em; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; }
+        .worker-info-card input { padding: 7px 10px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-size: 0.9em; font-family: inherit; transition: var(--transition); background: white; }
+        .worker-info-card input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(230,126,34,0.1); }
+        .calendar-container { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow-lg); overflow: hidden; margin-bottom: 15px; }
+        .calendar-table { width: 100%; border-collapse: collapse; table-layout: fixed; min-width: 1000px; }
+        .calendar-table th { background: var(--primary); color: white; padding: 10px 6px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; border: 1px solid #1a4466; }
+        .calendar-table th.sunday { background: #c0392b; }
+        .calendar-table td { border: 1px solid var(--border); padding: 4px; vertical-align: top; height: 72px; transition: var(--transition); position: relative; }
+        .calendar-table td.weekend { background: #fef9e7; }
+        .calendar-table td.today-cell { background: #eaf2f8; box-shadow: inset 0 0 0 2px var(--primary-light); }
+        .calendar-table td.empty-cell { background: #f4f4f4; pointer-events: none; opacity: 0.35; }
+        .calendar-table td .date-number { font-weight: 700; font-size: 0.9em; margin-bottom: 2px; color: var(--text); }
+        .calendar-table td.weekend .date-number { color: #c0392b; }
+        .day-cell { display: flex; flex-direction: column; gap: 2px; }
+        .day-cell input.wage-input { width: 100%; padding: 4px 6px; border: 2px solid #e0e0e0; border-radius: 3px; font-size: 0.85em; font-family: inherit; text-align: right; font-weight: 600; transition: var(--transition); background: #fafafa; }
+        .day-cell input.wage-input:focus { outline: none; border-color: var(--accent); background: white; box-shadow: 0 0 0 2px rgba(230,126,34,0.15); }
+        .day-cell input.wage-input.has-value { background: #eafaf1; border-color: #82e0aa; }
+        .day-cell input.wage-input.is-default { background: #fef9e7; border-color: #f9e79f; color: #b7950b; }
+        .day-cell textarea.note-input { width: 100%; padding: 3px 5px; border: 1px solid #e0e0e0; border-radius: 3px; font-size: 0.7em; font-family: inherit; resize: none; height: 22px; transition: var(--transition); background: #fafafa; }
+        .day-cell textarea.note-input:focus { outline: none; border-color: #bdc3c7; background: white; height: 36px; }
+        .day-cell textarea.note-input.has-note { background: #fef9e7; border-color: #f9e79f; }
+        .week-total-row td { background: #eaf2f8 !important; font-weight: 700; text-align: right; padding: 8px 10px; font-size: 0.9em; color: var(--primary); border-top: 3px solid var(--primary-light) !important; }
+        .week-total-label { text-align: left !important; padding-left: 15px !important; }
+        .summary-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 15px; }
+        .summary-card { background: var(--card-bg); border-radius: var(--radius); padding: 15px; box-shadow: var(--shadow); text-align: center; border-top: 4px solid var(--primary-light); }
+        .summary-card.advance-card { border-top-color: var(--danger); }
+        .summary-card.net-card { border-top-color: var(--success); }
+        .summary-card h3 { font-size: 0.8em; text-transform: uppercase; color: var(--text-light); letter-spacing: 0.5px; margin-bottom: 6px; }
+        .summary-card .big-number { font-size: 2em; font-weight: 800; color: var(--text); }
+        .summary-card.net-card .big-number { color: var(--success); }
+        .summary-card.advance-card .big-number { color: var(--danger); }
+        .summary-card input { width: 100%; padding: 8px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-size: 1.1em; text-align: center; font-weight: 700; font-family: inherit; background: white; }
+        .summary-card input:focus { outline: none; border-color: var(--accent); }
+        .action-bar { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 10px; }
+        .footer-main { background: var(--card-bg); border-radius: var(--radius); padding: 15px 20px; margin-top: 15px; box-shadow: var(--shadow); text-align: center; border-top: 3px solid var(--primary-light); }
+        .footer-main .copyright { font-weight: 700; color: var(--primary); font-size: 0.85em; margin-bottom: 6px; }
+        .footer-main .developer { font-size: 0.8em; color: var(--text); margin-bottom: 4px; }
+        .footer-main .developer strong { color: var(--accent); }
+        .footer-main .footer-links { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
+        .footer-main .footer-links a { color: var(--primary-light); text-decoration: underline; cursor: pointer; font-size: 0.8em; font-weight: 500; }
+        .footer-main .footer-links a:hover { color: var(--accent); }
+        .footer-main .disclaimer { font-size: 0.7em; color: var(--text-light); margin-top: 8px; line-height: 1.4; }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .modal-overlay.active { display: flex; }
+        .modal { background: white; border-radius: var(--radius); padding: 25px 30px; max-width: 650px; width: 100%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); position: relative; }
+        .modal h2 { color: var(--primary); margin-bottom: 15px; font-size: 1.4em; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
+        .modal h3 { color: var(--text); margin-top: 15px; margin-bottom: 8px; font-size: 1.1em; }
+        .modal p, .modal li { font-size: 0.9em; line-height: 1.6; color: var(--text); margin-bottom: 8px; }
+        .modal ul { padding-left: 20px; margin-bottom: 10px; }
+        .modal .close-btn { position: sticky; top: 0; float: right; background: var(--danger); color: white; border: none; padding: 8px 16px; border-radius: var(--radius-sm); cursor: pointer; font-weight: 700; font-size: 0.9em; z-index: 10; }
+        .modal .close-btn:hover { background: #a93226; }
+        .toast { position: fixed; top: 20px; right: 20px; background: #2c3e50; color: white; padding: 12px 20px; border-radius: var(--radius); font-weight: 600; z-index: 3000; opacity: 0; transform: translateY(-20px); transition: all 0.3s ease; pointer-events: none; box-shadow: var(--shadow-lg); }
+        .toast.show { opacity: 1; transform: translateY(0); }
+        .toast.success { background: var(--success); }
+        .toast.warning { background: var(--accent); }
+        #csvFileInput { display: none; }
+        .last-saved { font-size: 0.75em; color: var(--text-light); text-align: center; margin-top: 5px; }
+        .last-saved .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--success); margin-right: 4px; }
+        .last-saved .dot.unsaved { background: var(--accent); animation: pulse-dot 1s infinite; }
+        @keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .unsaved-banner { text-align: center; padding: 6px; background: #fef9e7; color: #b7950b; font-weight: 600; font-size: 0.8em; border-radius: var(--radius-sm); margin-bottom: 8px; display: none; border: 1px solid #f9e79f; }
+        .unsaved-banner.show { display: block; animation: pulse-dot 1.5s infinite; }
         @media (max-width: 768px) {
-            .calendar-table {
-                min-width: auto;
-                font-size: 0.7em;
-            }
-            .calendar-table td {
-                height: 55px;
-                padding: 2px;
-            }
-            .day-cell textarea.note-input {
-                height: 16px;
-                font-size: 0.6em;
-            }
-            .day-cell input.wage-input {
-                font-size: 0.7em;
-                padding: 2px 3px;
-            }
-            .header h1 {
-                font-size: 1.4em;
-            }
-            .worker-info-card {
-                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-                gap: 6px;
-                padding: 10px;
-            }
-            .summary-card .big-number {
-                font-size: 1.3em;
-            }
-            .modal {
-                padding: 15px;
-                max-width: 95vw;
-            }
+            .calendar-table { min-width: auto; font-size: 0.7em; } .calendar-table td { height: 55px; padding: 2px; }
+            .day-cell textarea.note-input { height: 16px; font-size: 0.6em; } .day-cell input.wage-input { font-size: 0.7em; padding: 2px 3px; }
+            .header h1 { font-size: 1.4em; } .worker-info-card { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 6px; padding: 10px; }
+            .summary-card .big-number { font-size: 1.3em; } .modal { padding: 15px; max-width: 95vw; }
         }
     </style>
 </head>
@@ -749,7 +155,6 @@
             <h1>📅 The Ngili Calendar</h1>
             <p class="subtitle">Worker Wage Tracker — Know Your Earnings, Every Day</p>
         </div>
-
         <div class="controls-bar no-print">
             <label for="monthSelect">Month:</label>
             <select id="monthSelect"></select>
@@ -759,69 +164,26 @@
             <button class="btn btn-save" id="manualSaveBtn" onclick="manualSave()">💾 Save Now</button>
             <button class="btn btn-outline btn-sm" onclick="clearAllWages()">🗑 Clear Month</button>
         </div>
-
-        <div class="unsaved-banner no-print" id="unsavedBanner">
-            ⚠ You have unsaved changes. Click <strong>"💾 Save Now"</strong> to keep your data safe.
-        </div>
-
+        <div class="unsaved-banner no-print" id="unsavedBanner">⚠ You have unsaved changes. Click <strong>"💾 Save Now"</strong> to keep your data safe.</div>
         <div class="worker-info-card" id="workerInfoCard">
-            <div class="field-group">
-                <label>👤 Full Name</label>
-                <input type="text" id="workerName" placeholder="Enter your name" onchange="markUnsaved()">
-            </div>
-            <div class="field-group">
-                <label>🆔 ID Number</label>
-                <input type="text" id="workerID" placeholder="ID / Passport" onchange="markUnsaved()">
-            </div>
-            <div class="field-group">
-                <label>💰 Daily Wage (Default)</label>
-                <input type="number" id="dailyWage" placeholder="0" min="0" step="any" onchange="markUnsaved()">
-            </div>
-            <div class="field-group">
-                <label>📞 Phone</label>
-                <input type="text" id="workerPhone" placeholder="Phone number" onchange="markUnsaved()">
-            </div>
-            <div class="field-group">
-                <label>🏢 Employer</label>
-                <input type="text" id="workerEmployer" placeholder="Employer name" onchange="markUnsaved()">
-            </div>
+            <div class="field-group"><label>👤 Full Name</label><input type="text" id="workerName" placeholder="Enter your name" oninput="markUnsaved()"></div>
+            <div class="field-group"><label>🆔 ID Number</label><input type="text" id="workerID" placeholder="ID / Passport" oninput="markUnsaved()"></div>
+            <div class="field-group"><label>💰 Daily Wage (Default)</label><input type="number" id="dailyWage" placeholder="0" min="0" step="any" oninput="markUnsaved()"></div>
+            <div class="field-group"><label>📞 Phone</label><input type="text" id="workerPhone" placeholder="Phone number" oninput="markUnsaved()"></div>
+            <div class="field-group"><label>🏢 Employer</label><input type="text" id="workerEmployer" placeholder="Employer name" oninput="markUnsaved()"></div>
         </div>
-
         <div class="calendar-container">
             <table class="calendar-table" id="calendarTable">
-                <thead>
-                    <tr>
-                        <th class="sunday">Sunday</th>
-                        <th>Monday</th>
-                        <th>Tuesday</th>
-                        <th>Wednesday</th>
-                        <th>Thursday</th>
-                        <th>Friday</th>
-                        <th>Saturday</th>
-                    </tr>
-                </thead>
+                <thead><tr><th class="sunday">Sunday</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th></tr></thead>
                 <tbody id="calendarBody"></tbody>
             </table>
         </div>
-
         <div class="summary-section">
-            <div class="summary-card">
-                <h3>📊 Total Earnings (Month)</h3>
-                <div class="big-number" id="totalEarnings">0.00</div>
-            </div>
-            <div class="summary-card advance-card">
-                <h3>💸 Advances / Deductions</h3>
-                <input type="number" id="advanceInput" placeholder="Enter total advances" min="0" step="any" onchange="saveAdvance()">
-            </div>
-            <div class="summary-card net-card">
-                <h3>✅ Net Payable</h3>
-                <div class="big-number" id="netPayable">0.00</div>
-            </div>
+            <div class="summary-card"><h3>📊 Total Earnings (Month)</h3><div class="big-number" id="totalEarnings">0.00</div></div>
+            <div class="summary-card advance-card"><h3>💸 Advances / Deductions</h3><input type="number" id="advanceInput" placeholder="Enter total advances" min="0" step="any" oninput="saveAdvance()"></div>
+            <div class="summary-card net-card"><h3>✅ Net Payable</h3><div class="big-number" id="netPayable">0.00</div></div>
         </div>
-
-        <div class="summary-section" id="weekSummarySection" style="grid-template-columns: repeat(5, 1fr);">
-        </div>
-
+        <div class="summary-section" id="weekSummarySection" style="grid-template-columns: repeat(5, 1fr);"></div>
         <div class="action-bar no-print">
             <button class="btn btn-save" id="manualSaveBtn2" onclick="manualSave()">💾 Save Now</button>
             <button class="btn btn-success" onclick="exportCSV()">📥 Export CSV</button>
@@ -831,613 +193,269 @@
             <button class="btn btn-outline btn-sm" onclick="copyDataToClipboard()">📋 Copy Data</button>
             <button class="btn btn-danger btn-sm" onclick="resetAllData()">⚠ Reset All</button>
         </div>
-        <div class="last-saved no-print">
-            <span class="dot" id="saveDot"></span>
-            <span id="lastSavedText">All changes saved ✓</span>
-        </div>
-
+        <div class="last-saved no-print"><span class="dot" id="saveDot"></span><span id="lastSavedText">All changes saved ✓</span></div>
         <div class="footer-main">
-            <div class="copyright">
-                © 2026 <strong>The Ngili Calendar</strong>. All Rights Reserved.
-            </div>
-            <div class="developer">
-                Developed by <strong>Safari Softwares</strong> | 📧 <a href="mailto:safarisoftwares@gmail.com" style="color: var(--primary-light);">safarisoftwares@gmail.com</a>
-            </div>
+            <div class="copyright">© 2026 <strong>The Ngili Calendar</strong>. All Rights Reserved.</div>
+            <div class="developer">Developed by <strong>Safari Softwares</strong> | 📧 <a href="mailto:safarisoftwares@gmail.com" style="color: var(--primary-light);">safarisoftwares@gmail.com</a></div>
             <div class="footer-links no-print">
                 <a onclick="openModal('termsModal')">📜 Terms of Use</a>
                 <a onclick="openModal('privacyModal')">🔒 Privacy Policy</a>
                 <a href="https://github.com/safarisoftwares-code/The-Ngili-Calendar" target="_blank" rel="noopener">💻 GitHub</a>
             </div>
-            <div class="disclaimer">
-                <strong>Disclaimer:</strong> The Ngili Calendar is a tool to assist workers in tracking their daily wages and calculating totals. It is not a substitute for official payroll records. Users are responsible for verifying all calculations. Safari Softwares assumes no liability for any discrepancies, financial losses, or disputes arising from the use of this tool. Always cross-check with official employer records.
-            </div>
+            <div class="disclaimer"><strong>Disclaimer:</strong> The Ngili Calendar is a tool to assist workers in tracking their daily wages and calculating totals. It is not a substitute for official payroll records. Users are responsible for verifying all calculations. Safari Softwares assumes no liability for any discrepancies, financial losses, or disputes arising from the use of this tool. Always cross-check with official employer records.</div>
         </div>
     </div>
-
     <div class="modal-overlay" id="termsModal">
         <div class="modal">
             <button class="close-btn" onclick="closeModal('termsModal')">✕ Close</button>
             <h2>📜 Terms of Use</h2>
-            <p><strong>Effective Date:</strong> January 1, 2026</p>
-            <p><strong>Last Updated:</strong> June 15, 2026</p>
-            <h3>1. Acceptance of Terms</h3>
-            <p>By using The Ngili Calendar ("the Software"), you agree to these Terms of Use. If you do not agree, do not use the Software.</p>
-            <h3>2. Description of Service</h3>
-            <p>The Ngili Calendar is a browser-based wage tracking tool designed to help workers record daily earnings, calculate weekly and monthly totals, track advances/deductions, and export data. It is provided as-is, free of charge.</p>
-            <h3>3. User Responsibilities</h3>
-            <ul>
-                <li>You are solely responsible for the accuracy of data you enter.</li>
-                <li>You are responsible for backing up your data using the Export CSV feature.</li>
-                <li>You agree not to use the Software for any illegal or unauthorized purpose.</li>
-                <li>You acknowledge that the Software stores data locally in your browser and is not cloud-synced.</li>
-            </ul>
-            <h3>4. Intellectual Property</h3>
-            <p>The Ngili Calendar, including its code, design, name, and all associated materials, is the intellectual property of <strong>Safari Softwares</strong>. You may use the Software freely but may not sell, resell, or commercialize the Software without written permission, remove or alter copyright notices, or claim ownership of the Software.</p>
-            <h3>5. Limitation of Liability</h3>
-            <p><strong>Safari Softwares</strong> provides The Ngili Calendar "as is" without any warranty. In no event shall Safari Softwares be liable for data loss, financial discrepancies, miscalculations, or any damages arising from use of the Software.</p>
-            <h3>6. Data Loss Disclaimer</h3>
-            <p>The Software uses browser localStorage. <strong>It is your responsibility to regularly export your data to CSV and store it safely.</strong></p>
-            <h3>7. Contact</h3>
-            <p>📧 <strong>Safari Softwares</strong> — <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p>
+            <p><strong>Effective Date:</strong> January 1, 2026</p><p><strong>Last Updated:</strong> June 15, 2026</p>
+            <h3>1. Acceptance of Terms</h3><p>By using The Ngili Calendar ("the Software"), you agree to these Terms of Use. If you do not agree, do not use the Software.</p>
+            <h3>2. Description of Service</h3><p>The Ngili Calendar is a browser-based wage tracking tool designed to help workers record daily earnings, calculate weekly and monthly totals, track advances/deductions, and export data. It is provided as-is, free of charge.</p>
+            <h3>3. User Responsibilities</h3><ul><li>You are solely responsible for the accuracy of data you enter.</li><li>You are responsible for backing up your data using the Export CSV feature.</li><li>You agree not to use the Software for any illegal or unauthorized purpose.</li><li>You acknowledge that the Software stores data locally in your browser and is not cloud-synced.</li></ul>
+            <h3>4. Intellectual Property</h3><p>The Ngili Calendar, including its code, design, name, and all associated materials, is the intellectual property of <strong>Safari Softwares</strong>. You may use the Software freely but may not sell, resell, or commercialize the Software without written permission, remove or alter copyright notices, or claim ownership of the Software.</p>
+            <h3>5. Limitation of Liability</h3><p><strong>Safari Softwares</strong> provides The Ngili Calendar "as is" without any warranty. In no event shall Safari Softwares be liable for data loss, financial discrepancies, miscalculations, or any damages arising from use of the Software.</p>
+            <h3>6. Data Loss Disclaimer</h3><p>The Software uses browser localStorage. <strong>It is your responsibility to regularly export your data to CSV and store it safely.</strong></p>
+            <h3>7. Contact</h3><p>📧 <strong>Safari Softwares</strong> — <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p>
         </div>
     </div>
-
     <div class="modal-overlay" id="privacyModal">
         <div class="modal">
             <button class="close-btn" onclick="closeModal('privacyModal')">✕ Close</button>
             <h2>🔒 Privacy Policy</h2>
-            <p><strong>Effective Date:</strong> January 1, 2026</p>
-            <p><strong>Last Updated:</strong> June 15, 2026</p>
-            <h3>1. Our Commitment to Privacy</h3>
-            <p><strong>Your data is yours. We do not collect it.</strong></p>
-            <h3>2. Data We DO NOT Collect</h3>
-            <ul>
-                <li>❌ No personal data is sent to any server.</li>
-                <li>❌ No analytics or tracking scripts.</li>
-                <li>❌ No cookies beyond localStorage.</li>
-                <li>❌ No accounts, no passwords, no registration.</li>
-                <li>❌ No cloud storage — your data never leaves your device.</li>
-            </ul>
-            <h3>3. Where Your Data Is Stored</h3>
-            <p>All data is stored exclusively in your browser's <strong>localStorage</strong>. It is accessible only on this device and browser, not shared with any third party, and not accessible by Safari Softwares.</p>
-            <h3>4. Protect Yourself</h3>
-            <p>Use the <strong>📥 Export CSV</strong> feature regularly and save the file in a safe location.</p>
-            <h3>5. Contact</h3>
-            <p>📧 <strong>Safari Softwares</strong> — <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p>
+            <p><strong>Effective Date:</strong> January 1, 2026</p><p><strong>Last Updated:</strong> June 15, 2026</p>
+            <h3>1. Our Commitment to Privacy</h3><p><strong>Your data is yours. We do not collect it.</strong></p>
+            <h3>2. Data We DO NOT Collect</h3><ul><li>❌ No personal data is sent to any server.</li><li>❌ No analytics or tracking scripts.</li><li>❌ No cookies beyond localStorage.</li><li>❌ No accounts, no passwords, no registration.</li><li>❌ No cloud storage — your data never leaves your device.</li></ul>
+            <h3>3. Where Your Data Is Stored</h3><p>All data is stored exclusively in your browser's <strong>localStorage</strong>. It is accessible only on this device and browser, not shared with any third party, and not accessible by Safari Softwares.</p>
+            <h3>4. Protect Yourself</h3><p>Use the <strong>📥 Export CSV</strong> feature regularly and save the file in a safe location.</p>
+            <h3>5. Contact</h3><p>📧 <strong>Safari Softwares</strong> — <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p>
         </div>
     </div>
-
     <div class="toast" id="toast"></div>
 
-        <script>
+    <script>
         const STORAGE_KEY = 'ngili_calendar_data';
-        const MONTHS = [
-            'January', 'February', 'March', 'April', 'May', 'June',
-            'July', 'August', 'September', 'October', 'November', 'December'
-        ];
-
+        const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
         let currentMonth = new Date().getMonth();
         let currentYear = new Date().getFullYear();
         let allData = {};
         let unsavedChanges = false;
 
-        function getStorageKey(month, year) { return `${year}-${month}`; }
-
-        function loadAllData() {
-            const stored = localStorage.getItem(STORAGE_KEY);
-            if (stored) { try { allData = JSON.parse(stored); } catch (e) { allData = {}; } }
-            else { allData = {}; }
-        }
-
-        function saveAllData() {
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(allData));
-                unsavedChanges = false;
-                updateSaveIndicator(true);
-                hideUnsavedBanner();
-                updateSaveButtons(true);
-            } catch (e) { showToast('⚠ Storage full! Please export your data.', 'warning'); }
-        }
-
-        function manualSave() { flushAllChanges(); saveAllData(); showToast('💾 Data saved successfully!', 'success'); }
-
+        function getStorageKey(m,y) { return y+'-'+m; }
+        function loadAllData() { const s=localStorage.getItem(STORAGE_KEY); if(s){ try{ allData=JSON.parse(s); }catch(e){ allData={}; } }else{ allData={}; } }
+        function saveAllData() { try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(allData)); unsavedChanges=false; updateSaveIndicator(true); hideUnsavedBanner(); updateSaveButtons(true); }catch(e){ showToast('⚠ Storage full! Please export your data.','warning'); } }
+        function manualSave() { flushAllChanges(); saveAllData(); showToast('💾 Data saved successfully!','success'); }
         function flushAllChanges() {
-            const data = getMonthData(currentMonth, currentYear);
-            data.workerInfo = {
-                name: document.getElementById('workerName').value,
-                id: document.getElementById('workerID').value,
-                dailyWage: document.getElementById('dailyWage').value,
-                phone: document.getElementById('workerPhone').value,
-                employer: document.getElementById('workerEmployer').value
-            };
-            data.advance = parseFloat(document.getElementById('advanceInput').value) || 0;
-            const daysInMonth = getDaysInMonth(currentMonth, currentYear);
-            for (let d = 1; d <= daysInMonth; d++) {
-                const wageInput = document.getElementById('wage-' + d);
-                const noteInput = document.getElementById('note-' + d);
-                if (wageInput && noteInput) {
-                    const wage = parseFloat(wageInput.value) || 0;
-                    const note = noteInput.value;
-                    if (wage === 0 && note === '') { delete data.wages[d]; }
-                    else { data.wages[d] = { wage: wage, note: note }; }
-                }
-            }
+            const data=getMonthData(currentMonth,currentYear);
+            data.workerInfo={ name:document.getElementById('workerName').value, id:document.getElementById('workerID').value, dailyWage:document.getElementById('dailyWage').value, phone:document.getElementById('workerPhone').value, employer:document.getElementById('workerEmployer').value };
+            data.advance=parseFloat(document.getElementById('advanceInput').value)||0;
+            const dim=getDaysInMonth(currentMonth,currentYear);
+            for(let d=1;d<=dim;d++){ const wi=document.getElementById('wage-'+d); const ni=document.getElementById('note-'+d); if(wi&&ni){ const w=parseFloat(wi.value)||0; const n=ni.value; if(w===0&&n===''){ delete data.wages[d]; }else{ data.wages[d]={wage:w,note:n}; } } }
         }
-
-        function getMonthData(month, year) {
-            const key = getStorageKey(month, year);
-            if (!allData[key]) {
-                allData[key] = {
-                    workerInfo: { name: '', id: '', dailyWage: '', phone: '', employer: '' },
-                    wages: {},
-                    advance: 0
-                };
-            }
-            return allData[key];
-        }
-
-        function markUnsaved() { unsavedChanges = true; updateSaveIndicator(false); showUnsavedBanner(); updateSaveButtons(false); }
-
-        function updateSaveButtons(saved) {
-            const btns = [document.getElementById('manualSaveBtn'), document.getElementById('manualSaveBtn2')];
-            btns.forEach(function(btn) {
-                if (!btn) return;
-                if (saved) { btn.classList.add('saved'); btn.innerHTML = '✅ Saved';
-                    setTimeout(function() { btn.classList.remove('saved'); btn.innerHTML = '💾 Save Now'; }, 2000); }
-                else { btn.classList.remove('saved'); btn.innerHTML = '💾 Save Now'; }
-            });
-        }
-
-        function updateSaveIndicator(saved) {
-            const dot = document.getElementById('saveDot');
-            const text = document.getElementById('lastSavedText');
-            if (saved) { dot.className = 'dot'; text.textContent = 'All changes saved ✓'; }
-            else { dot.className = 'dot unsaved'; text.textContent = 'Unsaved changes — click Save Now'; }
-        }
-
-        function showUnsavedBanner() { const b = document.getElementById('unsavedBanner'); if (b) b.classList.add('show'); }
-        function hideUnsavedBanner() { const b = document.getElementById('unsavedBanner'); if (b) b.classList.remove('show'); }
+        function getMonthData(m,y) { const k=getStorageKey(m,y); if(!allData[k]){ allData[k]={ workerInfo:{name:'',id:'',dailyWage:'',phone:'',employer:''}, wages:{}, advance:0 }; } return allData[k]; }
+        function markUnsaved() { unsavedChanges=true; updateSaveIndicator(false); showUnsavedBanner(); updateSaveButtons(false); }
+        function updateSaveButtons(saved) { [document.getElementById('manualSaveBtn'),document.getElementById('manualSaveBtn2')].forEach(function(btn){ if(!btn)return; if(saved){ btn.classList.add('saved'); btn.innerHTML='✅ Saved'; setTimeout(function(){ btn.classList.remove('saved'); btn.innerHTML='💾 Save Now'; },2000); }else{ btn.classList.remove('saved'); btn.innerHTML='💾 Save Now'; } }); }
+        function updateSaveIndicator(saved) { const dot=document.getElementById('saveDot'); const text=document.getElementById('lastSavedText'); if(saved){ dot.className='dot'; text.textContent='All changes saved ✓'; }else{ dot.className='dot unsaved'; text.textContent='Unsaved changes — click Save Now'; } }
+        function showUnsavedBanner() { const b=document.getElementById('unsavedBanner'); if(b)b.classList.add('show'); }
+        function hideUnsavedBanner() { const b=document.getElementById('unsavedBanner'); if(b)b.classList.remove('show'); }
 
         function saveWage(dayNumber) {
-            const data = getMonthData(currentMonth, currentYear);
-            const wageInput = document.getElementById('wage-' + dayNumber);
-            const noteInput = document.getElementById('note-' + dayNumber);
-            if (wageInput && noteInput) {
-                const wage = parseFloat(wageInput.value) || 0;
-                const note = noteInput.value;
-                if (wage === 0 && note === '') { delete data.wages[dayNumber]; }
-                else { data.wages[dayNumber] = { wage: wage, note: note }; }
-                wageInput.classList.toggle('has-value', wage > 0);
-                noteInput.classList.toggle('has-note', note !== '');
+            const data=getMonthData(currentMonth,currentYear);
+            const wageInput=document.getElementById('wage-'+dayNumber);
+            const noteInput=document.getElementById('note-'+dayNumber);
+            if(wageInput&&noteInput){
+                const wage=parseFloat(wageInput.value)||0;
+                const note=noteInput.value;
+                if(wage===0&&note===''){ delete data.wages[dayNumber]; }else{ data.wages[dayNumber]={wage:wage,note:note}; }
+                wageInput.classList.remove('has-value','is-default');
+                if(wage>0){ wageInput.classList.add('has-value'); }
+                noteInput.classList.toggle('has-note',note!=='');
                 updateAllTotals();
+                updateWeekSummaryCards();
                 markUnsaved();
             }
         }
-
         function saveWorkerInfo() { markUnsaved(); }
-
-        function saveAdvance() {
-            const data = getMonthData(currentMonth, currentYear);
-            data.advance = parseFloat(document.getElementById('advanceInput').value) || 0;
-            updateAllTotals();
-            markUnsaved();
-        }
-
-        function getDaysInMonth(month, year) { return new Date(year, month + 1, 0).getDate(); }
-        function getFirstDayOfMonth(month, year) { return new Date(year, month, 1).getDay(); }
+        function saveAdvance() { const data=getMonthData(currentMonth,currentYear); data.advance=parseFloat(document.getElementById('advanceInput').value)||0; updateAllTotals(); markUnsaved(); }
+        function getDaysInMonth(m,y) { return new Date(y,m+1,0).getDate(); }
+        function getFirstDayOfMonth(m,y) { return new Date(y,m,1).getDay(); }
 
         function renderCalendar() {
-            if (unsavedChanges) { flushAllChanges(); saveAllData(); }
+            if(unsavedChanges){ flushAllChanges(); saveAllData(); }
             loadAllData();
-            const data = getMonthData(currentMonth, currentYear);
-            document.getElementById('workerName').value = data.workerInfo.name || '';
-            document.getElementById('workerID').value = data.workerInfo.id || '';
-            document.getElementById('dailyWage').value = data.workerInfo.dailyWage || '';
-            document.getElementById('workerPhone').value = data.workerInfo.phone || '';
-            document.getElementById('workerEmployer').value = data.workerInfo.employer || '';
-            document.getElementById('advanceInput').value = data.advance || '';
-
-            const monthSelect = document.getElementById('monthSelect');
-            monthSelect.innerHTML = '';
-            MONTHS.forEach(function(m, i) {
-                const opt = document.createElement('option');
-                opt.value = i; opt.textContent = m;
-                if (i === currentMonth) opt.selected = true;
-                monthSelect.appendChild(opt);
-            });
-
-            const yearSelect = document.getElementById('yearSelect');
-            yearSelect.innerHTML = '';
-            for (let y = 2020; y <= 2035; y++) {
-                const opt = document.createElement('option');
-                opt.value = y; opt.textContent = y;
-                if (y === currentYear) opt.selected = true;
-                yearSelect.appendChild(opt);
-            }
-
-            monthSelect.onchange = function() { currentMonth = parseInt(this.value); renderCalendar(); };
-            yearSelect.onchange = function() { currentYear = parseInt(this.value); renderCalendar(); };
-
-            const daysInMonth = getDaysInMonth(currentMonth, currentYear);
-            const firstDay = getFirstDayOfMonth(currentMonth, currentYear);
-            const today = new Date();
-            const todayDate = today.getDate();
-            const todayMonth = today.getMonth();
-            const todayYear = today.getFullYear();
-            const isCurrentMonthView = (currentMonth === todayMonth && currentYear === todayYear);
-            const totalCellsNeeded = firstDay + daysInMonth;
-            const rowsToShow = Math.max(5, Math.ceil(totalCellsNeeded / 7));
-
-            const tbody = document.getElementById('calendarBody');
-            tbody.innerHTML = '';
-            let dayCounter = 1;
-
-            for (let row = 0; row < rowsToShow; row++) {
-                const tr = document.createElement('tr');
-                tr.setAttribute('data-week', row);
-                for (let col = 0; col < 7; col++) {
-                    const td = document.createElement('td');
-                    const cellIndex = row * 7 + col;
-                    if (cellIndex < firstDay || dayCounter > daysInMonth) {
-                        td.classList.add('empty-cell');
-                        td.innerHTML = '<div class="date-number" style="color:#ccc;">·</div>';
-                    } else {
-                        const dayNum = dayCounter;
-                        const isWeekend = (col === 0 || col === 6);
-                        const isToday = (isCurrentMonthView && dayNum === todayDate);
-                        if (isWeekend) td.classList.add('weekend');
-                        if (isToday) td.classList.add('today-cell');
-                        const dayData = data.wages[dayNum] || { wage: 0, note: '' };
-                        const wageVal = dayData.wage > 0 ? dayData.wage : '';
-                        const noteVal = dayData.note || '';
-                        const dailyWageDefault = data.workerInfo.dailyWage || '';
-                        td.innerHTML = '<div class="day-cell"><div class="date-number">' + dayNum + '</div>' +
-                            '<input type="number" class="wage-input' + (wageVal !== '' ? ' has-value' : '') + '" ' +
-                            'id="wage-' + dayNum + '" placeholder="' + (dailyWageDefault || 'Wage') + '" ' +
-                            'value="' + wageVal + '" step="any" min="0" oninput="saveWage(' + dayNum + ')" onfocus="this.select()">' +
-                            '<textarea class="note-input' + (noteVal !== '' ? ' has-note' : '') + '" ' +
-                            'id="note-' + dayNum + '" placeholder="Note" oninput="saveWage(' + dayNum + ')">' + noteVal + '</textarea></div>';
+            const data=getMonthData(currentMonth,currentYear);
+            document.getElementById('workerName').value=data.workerInfo.name||'';
+            document.getElementById('workerID').value=data.workerInfo.id||'';
+            document.getElementById('dailyWage').value=data.workerInfo.dailyWage||'';
+            document.getElementById('workerPhone').value=data.workerInfo.phone||'';
+            document.getElementById('workerEmployer').value=data.workerInfo.employer||'';
+            document.getElementById('advanceInput').value=data.advance||'';
+            const monthSelect=document.getElementById('monthSelect'); monthSelect.innerHTML='';
+            MONTHS.forEach(function(m,i){ const opt=document.createElement('option'); opt.value=i; opt.textContent=m; if(i===currentMonth)opt.selected=true; monthSelect.appendChild(opt); });
+            const yearSelect=document.getElementById('yearSelect'); yearSelect.innerHTML='';
+            for(let y=2020;y<=2035;y++){ const opt=document.createElement('option'); opt.value=y; opt.textContent=y; if(y===currentYear)opt.selected=true; yearSelect.appendChild(opt); }
+            monthSelect.onchange=function(){ currentMonth=parseInt(this.value); renderCalendar(); };
+            yearSelect.onchange=function(){ currentYear=parseInt(this.value); renderCalendar(); };
+            const daysInMonth=getDaysInMonth(currentMonth,currentYear);
+            const firstDay=getFirstDayOfMonth(currentMonth,currentYear);
+            const today=new Date(); const todayDate=today.getDate(); const todayMonth=today.getMonth(); const todayYear=today.getFullYear();
+            const isCurrentMonthView=(currentMonth===todayMonth&&currentYear===todayYear);
+            const totalCellsNeeded=firstDay+daysInMonth;
+            const rowsToShow=Math.max(5,Math.ceil(totalCellsNeeded/7));
+            const dailyWageDefault=data.workerInfo.dailyWage||'';
+            const tbody=document.getElementById('calendarBody'); tbody.innerHTML='';
+            let dayCounter=1;
+            for(let row=0;row<rowsToShow;row++){
+                const tr=document.createElement('tr'); tr.setAttribute('data-week',row);
+                for(let col=0;col<7;col++){
+                    const td=document.createElement('td'); const cellIndex=row*7+col;
+                    if(cellIndex<firstDay||dayCounter>daysInMonth){
+                        td.classList.add('empty-cell'); td.innerHTML='<div class="date-number" style="color:#ccc;">·</div>';
+                    }else{
+                        const dayNum=dayCounter; const isWeekend=(col===0||col===6); const isToday=(isCurrentMonthView&&dayNum===todayDate);
+                        if(isWeekend)td.classList.add('weekend'); if(isToday)td.classList.add('today-cell');
+                        const dayData=data.wages[dayNum]||{wage:0,note:''};
+                        const hasUserValue=(dayData.wage>0||dayData.note!=='');
+                        const wageVal=hasUserValue?dayData.wage:'';
+                        const noteVal=dayData.note||'';
+                        const placeholder=hasUserValue?'Wage':(dailyWageDefault||'Wage');
+                        td.innerHTML='<div class="day-cell"><div class="date-number">'+dayNum+'</div>'+
+                            '<input type="number" class="wage-input'+(hasUserValue?' has-value':'')+'" '+
+                            'id="wage-'+dayNum+'" placeholder="'+placeholder+'" '+
+                            'value="'+wageVal+'" step="any" min="0" oninput="saveWage('+dayNum+')" onfocus="this.select()">'+
+                            '<textarea class="note-input'+(noteVal!==''?' has-note':'')+'" '+
+                            'id="note-'+dayNum+'" placeholder="Note" oninput="saveWage('+dayNum+')">'+noteVal+'</textarea></div>';
                         dayCounter++;
                     }
                     tr.appendChild(td);
                 }
                 tbody.appendChild(tr);
-
-                const totalTr = document.createElement('tr');
-                totalTr.classList.add('week-total-row');
-                const weekStartDay = row * 7 + 1 - firstDay;
-                const weekEndDay = Math.min(weekStartDay + 6, daysInMonth);
+                const totalTr=document.createElement('tr'); totalTr.classList.add('week-total-row');
+                const weekStartDay=row*7+1-firstDay; const weekEndDay=Math.min(weekStartDay+6,daysInMonth);
                 let weekLabel;
-                if (weekStartDay < 1) weekLabel = 'Week ' + (row + 1);
-                else if (weekStartDay > daysInMonth) weekLabel = 'Week ' + (row + 1) + ' (N/A)';
-                else weekLabel = 'Week ' + (row + 1) + ' Total (Days ' + Math.max(1, weekStartDay) + '–' + weekEndDay + ')';
-                totalTr.innerHTML = '<td class="week-total-label" colspan="6">' + weekLabel + '</td><td id="week-total-' + row + '" style="font-size:1.1em;">0.00</td>';
+                if(weekStartDay<1)weekLabel='Week '+(row+1);
+                else if(weekStartDay>daysInMonth)weekLabel='Week '+(row+1)+' (N/A)';
+                else weekLabel='Week '+(row+1)+' Total (Days '+Math.max(1,weekStartDay)+'–'+weekEndDay+')';
+                totalTr.innerHTML='<td class="week-total-label" colspan="6">'+weekLabel+'</td><td id="week-total-'+row+'" style="font-size:1.1em;">0.00</td>';
                 tbody.appendChild(totalTr);
             }
-
-            unsavedChanges = false;
-            updateSaveIndicator(true);
-            hideUnsavedBanner();
-            updateSaveButtons(true);
-            updateAllTotals();
-            updateWeekSummaryCards();
+            unsavedChanges=false; updateSaveIndicator(true); hideUnsavedBanner(); updateSaveButtons(true);
+            updateAllTotals(); updateWeekSummaryCards();
         }
 
         function updateAllTotals() {
-            const data = getMonthData(currentMonth, currentYear);
-            const daysInMonth = getDaysInMonth(currentMonth, currentYear);
-            const firstDay = getFirstDayOfMonth(currentMonth, currentYear);
-            const totalCellsNeeded = firstDay + daysInMonth;
-            const rowsToShow = Math.max(5, Math.ceil(totalCellsNeeded / 7));
-            let totalEarnings = 0;
-            const weekTotals = new Array(rowsToShow).fill(0);
-
-            for (let d = 1; d <= daysInMonth; d++) {
-                const wageInput = document.getElementById('wage-' + d);
-                const wage = wageInput ? (parseFloat(wageInput.value) || 0) : 0;
-                totalEarnings += wage;
-                const cellIndex = firstDay + d - 1;
-                const weekIndex = Math.floor(cellIndex / 7);
-                if (weekIndex >= 0 && weekIndex < rowsToShow) weekTotals[weekIndex] += wage;
+            const daysInMonth=getDaysInMonth(currentMonth,currentYear);
+            const firstDay=getFirstDayOfMonth(currentMonth,currentYear);
+            const totalCellsNeeded=firstDay+daysInMonth;
+            const rowsToShow=Math.max(5,Math.ceil(totalCellsNeeded/7));
+            let totalEarnings=0; const weekTotals=new Array(rowsToShow).fill(0);
+            for(let d=1;d<=daysInMonth;d++){
+                const wageInput=document.getElementById('wage-'+d);
+                const wage=wageInput?(parseFloat(wageInput.value)||0):0;
+                totalEarnings+=wage;
+                const cellIndex=firstDay+d-1; const weekIndex=Math.floor(cellIndex/7);
+                if(weekIndex>=0&&weekIndex<rowsToShow)weekTotals[weekIndex]+=wage;
             }
-
-            for (let w = 0; w < rowsToShow; w++) {
-                const el = document.getElementById('week-total-' + w);
-                if (el) el.textContent = weekTotals[w].toFixed(2);
-            }
-
-            const advanceEl = document.getElementById('advanceInput');
-            const advance = advanceEl ? (parseFloat(advanceEl.value) || 0) : (data.advance || 0);
-            document.getElementById('totalEarnings').textContent = totalEarnings.toFixed(2);
-            const netPayable = totalEarnings - advance;
-            const netEl = document.getElementById('netPayable');
-            netEl.textContent = netPayable.toFixed(2);
-            netEl.style.color = netPayable < 0 ? '#c0392b' : '#27ae60';
+            for(let w=0;w<rowsToShow;w++){ const el=document.getElementById('week-total-'+w); if(el)el.textContent=weekTotals[w].toFixed(2); }
+            const advanceEl=document.getElementById('advanceInput');
+            const advance=advanceEl?(parseFloat(advanceEl.value)||0):(getMonthData(currentMonth,currentYear).advance||0);
+            document.getElementById('totalEarnings').textContent=totalEarnings.toFixed(2);
+            const netPayable=totalEarnings-advance;
+            const netEl=document.getElementById('netPayable'); netEl.textContent=netPayable.toFixed(2);
+            netEl.style.color=netPayable<0?'#c0392b':'#27ae60';
         }
 
         function updateWeekSummaryCards() {
-            const data = getMonthData(currentMonth, currentYear);
-            const daysInMonth = getDaysInMonth(currentMonth, currentYear);
-            const firstDay = getFirstDayOfMonth(currentMonth, currentYear);
-            const totalCellsNeeded = firstDay + daysInMonth;
-            const rowsToShow = Math.max(5, Math.ceil(totalCellsNeeded / 7));
-            const weekTotals = new Array(rowsToShow).fill(0);
-
-            for (let d = 1; d <= daysInMonth; d++) {
-                const wageInput = document.getElementById('wage-' + d);
-                const wage = wageInput ? (parseFloat(wageInput.value) || 0) : 0;
-                const cellIndex = firstDay + d - 1;
-                const weekIndex = Math.floor(cellIndex / 7);
-                if (weekIndex >= 0 && weekIndex < rowsToShow) weekTotals[weekIndex] += wage;
+            const daysInMonth=getDaysInMonth(currentMonth,currentYear);
+            const firstDay=getFirstDayOfMonth(currentMonth,currentYear);
+            const totalCellsNeeded=firstDay+daysInMonth;
+            const rowsToShow=Math.max(5,Math.ceil(totalCellsNeeded/7));
+            const weekTotals=new Array(rowsToShow).fill(0);
+            for(let d=1;d<=daysInMonth;d++){
+                const wageInput=document.getElementById('wage-'+d);
+                const wage=wageInput?(parseFloat(wageInput.value)||0):0;
+                const cellIndex=firstDay+d-1; const weekIndex=Math.floor(cellIndex/7);
+                if(weekIndex>=0&&weekIndex<rowsToShow)weekTotals[weekIndex]+=wage;
             }
-
-            const section = document.getElementById('weekSummarySection');
-            section.innerHTML = '';
-            section.style.gridTemplateColumns = 'repeat(' + rowsToShow + ', 1fr)';
-
-            for (let w = 0; w < rowsToShow; w++) {
-                const weekStart = w * 7 + 1 - firstDay;
-                const weekEnd = Math.min(weekStart + 6, daysInMonth);
+            const section=document.getElementById('weekSummarySection'); section.innerHTML='';
+            section.style.gridTemplateColumns='repeat('+rowsToShow+', 1fr)';
+            for(let w=0;w<rowsToShow;w++){
+                const weekStart=w*7+1-firstDay; const weekEnd=Math.min(weekStart+6,daysInMonth);
                 let label;
-                if (weekStart < 1) label = 'Week ' + (w + 1);
-                else if (weekStart > daysInMonth) label = 'Week ' + (w + 1) + ' (N/A)';
-                else label = 'Week ' + (w + 1) + ' (' + Math.max(1, weekStart) + '–' + weekEnd + ')';
-                const card = document.createElement('div');
-                card.className = 'summary-card';
-                card.style.borderTopColor = '#8e44ad';
-                card.innerHTML = '<h3>📋 ' + label + '</h3><div class="big-number" style="font-size:1.4em;">' + weekTotals[w].toFixed(2) + '</div>';
+                if(weekStart<1)label='Week '+(w+1);
+                else if(weekStart>daysInMonth)label='Week '+(w+1)+' (N/A)';
+                else label='Week '+(w+1)+' ('+Math.max(1,weekStart)+'–'+weekEnd+')';
+                const card=document.createElement('div'); card.className='summary-card'; card.style.borderTopColor='#8e44ad';
+                card.innerHTML='<h3>📋 '+label+'</h3><div class="big-number" style="font-size:1.4em;">'+weekTotals[w].toFixed(2)+'</div>';
                 section.appendChild(card);
             }
         }
 
-        function goToToday() {
-            if (unsavedChanges) { flushAllChanges(); saveAllData(); }
-            currentMonth = new Date().getMonth();
-            currentYear = new Date().getFullYear();
-            renderCalendar();
-            showToast('📆 Showing current month', 'success');
-        }
-
-        function clearAllWages() {
-            if (confirm('Clear ALL wages and notes for this month? This cannot be undone.')) {
-                const data = getMonthData(currentMonth, currentYear);
-                data.wages = {};
-                saveAllData();
-                renderCalendar();
-                showToast('🗑 Month wages cleared', 'warning');
-            }
-        }
+        function goToToday() { if(unsavedChanges){ flushAllChanges(); saveAllData(); } currentMonth=new Date().getMonth(); currentYear=new Date().getFullYear(); renderCalendar(); showToast('📆 Showing current month','success'); }
+        function clearAllWages() { if(confirm('Clear ALL wages and notes for this month? This cannot be undone.')){ const data=getMonthData(currentMonth,currentYear); data.wages={}; saveAllData(); renderCalendar(); showToast('🗑 Month wages cleared','warning'); } }
 
         function exportCSV() {
-            flushAllChanges();
-            saveAllData();
-            loadAllData();
-            const currentData = getMonthData(currentMonth, currentYear);
-            const workerName = (currentData.workerInfo.name || 'worker').replace(/[^a-zA-Z0-9]/g, '_');
-            let csvContent = 'Ngili Calendar - Worker Wage Records\n';
-            csvContent += 'Exported: ' + new Date().toISOString().split('T')[0] + '\n\n';
-            csvContent += '--- Worker Information ---\n';
-            csvContent += 'Name,' + currentData.workerInfo.name + '\n';
-            csvContent += 'ID,' + currentData.workerInfo.id + '\n';
-            csvContent += 'Daily Wage,' + currentData.workerInfo.dailyWage + '\n';
-            csvContent += 'Phone,' + currentData.workerInfo.phone + '\n';
-            csvContent += 'Employer,' + currentData.workerInfo.employer + '\n\n';
-            csvContent += '--- Wage Records (All Months) ---\n';
-            csvContent += 'Year,Month,Day,Date,Wage,Notes\n';
-
-            const sortedKeys = Object.keys(allData).sort();
-            for (let k = 0; k < sortedKeys.length; k++) {
-                const key = sortedKeys[k];
-                const parts = key.split('-');
-                const year = parseInt(parts[0]);
-                const month = parseInt(parts[1]);
-                const monthData = allData[key];
-                const daysInMonth = new Date(year, month + 1, 0).getDate();
-                for (let d = 1; d <= daysInMonth; d++) {
-                    const dayData = monthData.wages[d] || { wage: 0, note: '' };
-                    if (dayData.wage > 0 || dayData.note) {
-                        const dateStr = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
-                        const dayName = new Date(year, month, d).toLocaleDateString('en-US', { weekday: 'short' });
-                        const noteEscaped = (dayData.note || '').replace(/"/g, '""');
-                        csvContent += year + ',' + MONTHS[month] + ',' + d + ',' + dateStr + ' (' + dayName + '),' + (dayData.wage || 0) + ',"' + noteEscaped + '"\n';
-                    }
-                }
-            }
-
-            csvContent += '\n--- Advances/Deductions ---\nYear,Month,Advance Amount\n';
-            for (let k = 0; k < sortedKeys.length; k++) {
-                const key = sortedKeys[k];
-                const parts = key.split('-');
-                const year = parseInt(parts[0]);
-                const month = parseInt(parts[1]);
-                if (allData[key].advance > 0) csvContent += year + ',' + MONTHS[month] + ',' + allData[key].advance + '\n';
-            }
-
-            const dateStr = new Date().toISOString().split('T')[0];
-            const filename = 'Ngili_Calendar_' + workerName + '_' + currentYear + '_' + MONTHS[currentMonth] + '_' + dateStr + '.csv';
-
-            try {
-                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = filename;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(url);
-                const isMobile = /Android|iPhone|iPad|iPod|webOS/i.test(navigator.userAgent);
-                if (isMobile) {
-                    showToast('📥 CSV downloaded! Check Downloads folder. Or use 📋 Copy Data.', 'success');
-                } else {
-                    showToast('📥 CSV exported: ' + filename, 'success');
-                }
-            } catch (err) {
-                const dataUri = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvContent);
-                window.open(dataUri, '_blank');
-                showToast('📥 CSV opened in new tab. Save or share it.', 'success');
-            }
+            flushAllChanges(); saveAllData(); loadAllData();
+            const currentData=getMonthData(currentMonth,currentYear);
+            const workerName=(currentData.workerInfo.name||'worker').replace(/[^a-zA-Z0-9]/g,'_');
+            let csv='Ngili Calendar - Worker Wage Records\nExported: '+new Date().toISOString().split('T')[0]+'\n\n--- Worker Information ---\n';
+            csv+='Name,'+currentData.workerInfo.name+'\nID,'+currentData.workerInfo.id+'\nDaily Wage,'+currentData.workerInfo.dailyWage+'\nPhone,'+currentData.workerInfo.phone+'\nEmployer,'+currentData.workerInfo.employer+'\n\n';
+            csv+='--- Wage Records (All Months) ---\nYear,Month,Day,Date,Wage,Notes\n';
+            const sortedKeys=Object.keys(allData).sort();
+            for(let k=0;k<sortedKeys.length;k++){ const key=sortedKeys[k]; const parts=key.split('-'); const year=parseInt(parts[0]); const month=parseInt(parts[1]); const monthData=allData[key]; const dim=new Date(year,month+1,0).getDate(); for(let d=1;d<=dim;d++){ const dd=monthData.wages[d]||{wage:0,note:''}; if(dd.wage>0||dd.note){ const ds=year+'-'+String(month+1).padStart(2,'0')+'-'+String(d).padStart(2,'0'); const dn=new Date(year,month,d).toLocaleDateString('en-US',{weekday:'short'}); const ne=(dd.note||'').replace(/"/g,'""'); csv+=year+','+MONTHS[month]+','+d+','+ds+' ('+dn+'),'+(dd.wage||0)+',"'+ne+'"\n'; } } }
+            csv+='\n--- Advances/Deductions ---\nYear,Month,Advance Amount\n';
+            for(let k=0;k<sortedKeys.length;k++){ const key=sortedKeys[k]; const parts=key.split('-'); const year=parseInt(parts[0]); const month=parseInt(parts[1]); if(allData[key].advance>0)csv+=year+','+MONTHS[month]+','+allData[key].advance+'\n'; }
+            const ds=new Date().toISOString().split('T')[0];
+            const fn='Ngili_Calendar_'+workerName+'_'+currentYear+'_'+MONTHS[currentMonth]+'_'+ds+'.csv';
+            try{
+                const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}); const url=URL.createObjectURL(blob);
+                const link=document.createElement('a'); link.href=url; link.download=fn; document.body.appendChild(link); link.click(); document.body.removeChild(link); URL.revokeObjectURL(url);
+                const isMobile=/Android|iPhone|iPad|iPod|webOS/i.test(navigator.userAgent);
+                if(isMobile){ showToast('📥 CSV downloaded! Check Downloads folder. Or use 📋 Copy Data.','success'); }
+                else{ showToast('📥 CSV exported: '+fn,'success'); }
+            }catch(err){ const dataUri='data:text/csv;charset=utf-8,'+encodeURIComponent(csv); window.open(dataUri,'_blank'); showToast('📥 CSV opened in new tab. Save or share it.','success'); }
         }
 
         function importCSV(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const content = e.target.result;
-                    const lines = content.split('\n');
-                    const cleanLines = [];
-                    for (let i = 0; i < lines.length; i++) {
-                        const trimmed = lines[i].trim();
-                        if (trimmed) cleanLines.push(trimmed);
+            const file=event.target.files[0]; if(!file)return;
+            const reader=new FileReader();
+            reader.onload=function(e){
+                try{
+                    const content=e.target.result; const lines=content.split('\n'); const cleanLines=[];
+                    for(let i=0;i<lines.length;i++){ const t=lines[i].trim(); if(t)cleanLines.push(t); }
+                    let section='header',importedCount=0; const importedData={}; let cwi={};
+                    for(let i=0;i<cleanLines.length;i++){
+                        const line=cleanLines[i];
+                        if(line.startsWith('---')){ if(line.includes('Worker Information'))section='workerInfo'; else if(line.includes('Wage Records'))section='wages'; else if(line.includes('Advances'))section='advances'; continue; }
+                        if(line.startsWith('Ngili Calendar')||line.startsWith('Exported:')||line==='')continue;
+                        const parts=line.split(',');
+                        if(section==='workerInfo'){ if(parts[0]==='Name')cwi.name=parts[1]||''; if(parts[0]==='ID')cwi.id=parts[1]||''; if(parts[0]==='Daily Wage')cwi.dailyWage=parts[1]||''; if(parts[0]==='Phone')cwi.phone=parts[1]||''; if(parts[0]==='Employer')cwi.employer=parts[1]||''; }
+                        else if(section==='wages'&&!line.startsWith('Year,')){ if(parts.length>=6){ const year=parseInt(parts[0]); const mn=parts[1]; const day=parseInt(parts[2]); const wage=parseFloat(parts[4])||0; let note=parts.slice(5).join(','); if(note.startsWith('"')&&note.endsWith('"'))note=note.slice(1,-1).replace(/""/g,'"'); const mi=MONTHS.indexOf(mn); if(mi>=0&&!isNaN(year)&&!isNaN(day)&&day>0){ const key=year+'-'+mi; if(!importedData[key])importedData[key]={workerInfo:{name:cwi.name,id:cwi.id,dailyWage:cwi.dailyWage,phone:cwi.phone,employer:cwi.employer},wages:{},advance:0}; if(wage>0||note){ importedData[key].wages[day]={wage:wage,note:note}; importedCount++; } } } }
+                        else if(section==='advances'&&!line.startsWith('Year,')){ if(parts.length>=3){ const year=parseInt(parts[0]); const mn=parts[1]; const advance=parseFloat(parts[2])||0; const mi=MONTHS.indexOf(mn); if(mi>=0&&!isNaN(year)){ const key=year+'-'+mi; if(!importedData[key])importedData[key]={workerInfo:{name:cwi.name,id:cwi.id,dailyWage:cwi.dailyWage,phone:cwi.phone,employer:cwi.employer},wages:{},advance:0}; importedData[key].advance=advance; } } }
                     }
-                    let section = 'header';
-                    let importedCount = 0;
-                    const importedData = {};
-                    let currentWorkerInfo = {};
-
-                    for (let i = 0; i < cleanLines.length; i++) {
-                        const line = cleanLines[i];
-                        if (line.startsWith('---')) {
-                            if (line.includes('Worker Information')) section = 'workerInfo';
-                            else if (line.includes('Wage Records')) section = 'wages';
-                            else if (line.includes('Advances')) section = 'advances';
-                            continue;
-                        }
-                        if (line.startsWith('Ngili Calendar') || line.startsWith('Exported:') || line === '') continue;
-
-                        const parts = line.split(',');
-                        if (section === 'workerInfo') {
-                            if (parts[0] === 'Name') currentWorkerInfo.name = parts[1] || '';
-                            if (parts[0] === 'ID') currentWorkerInfo.id = parts[1] || '';
-                            if (parts[0] === 'Daily Wage') currentWorkerInfo.dailyWage = parts[1] || '';
-                            if (parts[0] === 'Phone') currentWorkerInfo.phone = parts[1] || '';
-                            if (parts[0] === 'Employer') currentWorkerInfo.employer = parts[1] || '';
-                        } else if (section === 'wages' && !line.startsWith('Year,')) {
-                            if (parts.length >= 6) {
-                                const year = parseInt(parts[0]);
-                                const monthName = parts[1];
-                                const day = parseInt(parts[2]);
-                                const wage = parseFloat(parts[4]) || 0;
-                                let note = parts.slice(5).join(',');
-                                if (note.startsWith('"') && note.endsWith('"')) note = note.slice(1, -1).replace(/""/g, '"');
-                                const monthIndex = MONTHS.indexOf(monthName);
-                                if (monthIndex >= 0 && !isNaN(year) && !isNaN(day) && day > 0) {
-                                    const key = year + '-' + monthIndex;
-                                    if (!importedData[key]) importedData[key] = { workerInfo: { name: currentWorkerInfo.name, id: currentWorkerInfo.id, dailyWage: currentWorkerInfo.dailyWage, phone: currentWorkerInfo.phone, employer: currentWorkerInfo.employer }, wages: {}, advance: 0 };
-                                    if (wage > 0 || note) { importedData[key].wages[day] = { wage: wage, note: note }; importedCount++; }
-                                }
-                            }
-                        } else if (section === 'advances' && !line.startsWith('Year,')) {
-                            if (parts.length >= 3) {
-                                const year = parseInt(parts[0]);
-                                const monthName = parts[1];
-                                const advance = parseFloat(parts[2]) || 0;
-                                const monthIndex = MONTHS.indexOf(monthName);
-                                if (monthIndex >= 0 && !isNaN(year)) {
-                                    const key = year + '-' + monthIndex;
-                                    if (!importedData[key]) importedData[key] = { workerInfo: { name: currentWorkerInfo.name, id: currentWorkerInfo.id, dailyWage: currentWorkerInfo.dailyWage, phone: currentWorkerInfo.phone, employer: currentWorkerInfo.employer }, wages: {}, advance: 0 };
-                                    importedData[key].advance = advance;
-                                }
-                            }
-                        }
-                    }
-
-                    const impKeys = Object.keys(importedData);
-                    for (let k = 0; k < impKeys.length; k++) {
-                        const key = impKeys[k];
-                        const impData = importedData[key];
-                        if (!allData[key]) allData[key] = { workerInfo: {}, wages: {}, advance: 0 };
-                        if (impData.workerInfo.name) allData[key].workerInfo.name = impData.workerInfo.name;
-                        if (impData.workerInfo.id) allData[key].workerInfo.id = impData.workerInfo.id;
-                        if (impData.workerInfo.dailyWage) allData[key].workerInfo.dailyWage = impData.workerInfo.dailyWage;
-                        if (impData.workerInfo.phone) allData[key].workerInfo.phone = impData.workerInfo.phone;
-                        if (impData.workerInfo.employer) allData[key].workerInfo.employer = impData.workerInfo.employer;
-                        const wageKeys = Object.keys(impData.wages);
-                        for (let w = 0; w < wageKeys.length; w++) {
-                            allData[key].wages[wageKeys[w]] = impData.wages[wageKeys[w]];
-                        }
-                        if (impData.advance > 0) allData[key].advance = impData.advance;
-                    }
-
-                    saveAllData();
-                    renderCalendar();
-                    const fileName = file.name || 'file';
-                    showToast('📤 Imported ' + importedCount + ' records from "' + fileName + '"!', 'success');
-                } catch (err) {
-                    showToast('❌ Error importing CSV. Check file format.', 'warning');
-                }
+                    const impKeys=Object.keys(importedData);
+                    for(let k=0;k<impKeys.length;k++){ const key=impKeys[k]; const ida=importedData[key]; if(!allData[key])allData[key]={workerInfo:{},wages:{},advance:0}; if(ida.workerInfo.name)allData[key].workerInfo.name=ida.workerInfo.name; if(ida.workerInfo.id)allData[key].workerInfo.id=ida.workerInfo.id; if(ida.workerInfo.dailyWage)allData[key].workerInfo.dailyWage=ida.workerInfo.dailyWage; if(ida.workerInfo.phone)allData[key].workerInfo.phone=ida.workerInfo.phone; if(ida.workerInfo.employer)allData[key].workerInfo.employer=ida.workerInfo.employer; const wk=Object.keys(ida.wages); for(let w=0;w<wk.length;w++){ allData[key].wages[wk[w]]=ida.wages[wk[w]]; } if(ida.advance>0)allData[key].advance=ida.advance; }
+                    saveAllData(); renderCalendar(); const fn=file.name||'file'; showToast('📤 Imported '+importedCount+' records from "'+fn+'"!','success');
+                }catch(err){ showToast('❌ Error importing CSV. Check file format.','warning'); }
             };
-            reader.readAsText(file);
-            event.target.value = '';
+            reader.readAsText(file); event.target.value='';
         }
 
         function copyDataToClipboard() {
-            flushAllChanges();
-            const data = getMonthData(currentMonth, currentYear);
-            const daysInMonth = getDaysInMonth(currentMonth, currentYear);
-            let text = 'Ngili Calendar - ' + MONTHS[currentMonth] + ' ' + currentYear + '\n';
-            text += 'Worker: ' + (data.workerInfo.name || 'N/A') + ' | ID: ' + (data.workerInfo.id || 'N/A') + '\n';
-            text += 'Employer: ' + (data.workerInfo.employer || 'N/A') + '\nDay\tWage\tNotes\n';
-            let total = 0;
-            for (let d = 1; d <= daysInMonth; d++) {
-                const dayData = data.wages[d] || { wage: 0, note: '' };
-                if (dayData.wage > 0 || dayData.note) {
-                    text += d + '\t' + (dayData.wage || 0) + '\t' + (dayData.note || '') + '\n';
-                    total += parseFloat(dayData.wage) || 0;
-                }
-            }
-            text += '\nTotal Earnings: ' + total.toFixed(2) + '\n';
-            text += 'Advances: ' + (data.advance || 0) + '\n';
-            text += 'Net Payable: ' + (total - (data.advance || 0)).toFixed(2);
-            navigator.clipboard.writeText(text).then(function() {
-                showToast('📋 Data copied! Paste into WhatsApp, email, etc.', 'success');
-            }).catch(function() {
-                showToast('⚠ Could not copy. Please use Export CSV.', 'warning');
-            });
+            flushAllChanges(); const data=getMonthData(currentMonth,currentYear); const dim=getDaysInMonth(currentMonth,currentYear);
+            let text='Ngili Calendar - '+MONTHS[currentMonth]+' '+currentYear+'\nWorker: '+(data.workerInfo.name||'N/A')+' | ID: '+(data.workerInfo.id||'N/A')+'\nEmployer: '+(data.workerInfo.employer||'N/A')+'\nDay\tWage\tNotes\n';
+            let total=0; for(let d=1;d<=dim;d++){ const dd=data.wages[d]||{wage:0,note:''}; if(dd.wage>0||dd.note){ text+=d+'\t'+(dd.wage||0)+'\t'+(dd.note||'')+'\n'; total+=parseFloat(dd.wage)||0; } }
+            text+='\nTotal Earnings: '+total.toFixed(2)+'\nAdvances: '+(data.advance||0)+'\nNet Payable: '+(total-(data.advance||0)).toFixed(2);
+            navigator.clipboard.writeText(text).then(function(){ showToast('📋 Data copied! Paste into WhatsApp, email, etc.','success'); }).catch(function(){ showToast('⚠ Could not copy. Please use Export CSV.','warning'); });
         }
 
-        function resetAllData() {
-            if (confirm('⚠ DELETE ALL DATA? Cannot be undone!\n\nExport your data first.')) {
-                if (confirm('Final warning: ALL records will be erased. Continue?')) {
-                    allData = {};
-                    saveAllData();
-                    renderCalendar();
-                    showToast('⚠ All data reset', 'warning');
-                }
-            }
-        }
-
-        function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = ''; }
-
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('modal-overlay')) { e.target.classList.remove('active'); document.body.style.overflow = ''; }
-        });
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                const overlays = document.querySelectorAll('.modal-overlay.active');
-                for (let i = 0; i < overlays.length; i++) { overlays[i].classList.remove('active'); }
-                document.body.style.overflow = '';
-            }
-        });
-
-        function showToast(message, type) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = 'toast ' + (type || '') + ' show';
-            clearTimeout(toast._timeout);
-            toast._timeout = setTimeout(function() { toast.classList.remove('show'); }, 2500);
-        }
-
-        function init() {
-            loadAllData();
-            renderCalendar();
-            window.addEventListener('beforeunload', function() { flushAllChanges(); saveAllData(); });
-            setInterval(function() { if (unsavedChanges) { flushAllChanges(); saveAllData(); } }, 10000);
-            console.log('📅 The Ngili Calendar initialized! © 2026 Safari Softwares');
-        }
+        function resetAllData() { if(confirm('⚠ DELETE ALL DATA? Cannot be undone!\n\nExport your data first.')){ if(confirm('Final warning: ALL records will be erased. Continue?')){ allData={}; saveAllData(); renderCalendar(); showToast('⚠ All data reset','warning'); } } }
+        function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow='hidden'; }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow=''; }
+        document.addEventListener('click',function(e){ if(e.target.classList.contains('modal-overlay')){ e.target.classList.remove('active'); document.body.style.overflow=''; } });
+        document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ var ovs=document.querySelectorAll('.modal-overlay.active'); for(var i=0;i<ovs.length;i++){ ovs[i].classList.remove('active'); } document.body.style.overflow=''; } });
+        function showToast(message,type){ var toast=document.getElementById('toast'); toast.textContent=message; toast.className='toast '+(type||'')+' show'; clearTimeout(toast._timeout); toast._timeout=setTimeout(function(){ toast.classList.remove('show'); },2500); }
+        function init(){ loadAllData(); renderCalendar(); window.addEventListener('beforeunload',function(){ flushAllChanges(); saveAllData(); }); setInterval(function(){ if(unsavedChanges){ flushAllChanges(); saveAllData(); } },10000); console.log('📅 The Ngili Calendar initialized! © 2026 Safari Softwares'); }
         init();
     </script>
 </body>
