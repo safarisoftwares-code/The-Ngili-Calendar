@@ -286,7 +286,7 @@
                 showToast('⚠ Please enter a valid daily wage first.', 'warning');
                 return;
             }
-            if (!confirm('Fill ALL empty cells with ' + dailyWageDefault + ' for this month?')) return;
+            if (!confirm('Fill ALL empty cells with ' + dailyWageDefault + ' for ' + MONTHS[currentMonth] + ' ' + currentYear + '?')) return;
             const daysInMonth = getDaysInMonth(currentMonth, currentYear);
             const data = getMonthData(currentMonth, currentYear);
             let filledCount = 0;
@@ -469,7 +469,7 @@
             let text='Ngili Calendar - '+MONTHS[currentMonth]+' '+currentYear+'\nWorker: '+(data.workerInfo.name||'N/A')+' | ID: '+(data.workerInfo.id||'N/A')+'\nEmployer: '+(data.workerInfo.employer||'N/A')+'\nDay\tWage\tNotes\n';
             let total=0; for(let d=1;d<=dim;d++){ const dd=data.wages[d]||{wage:0,note:''}; if(dd.wage>0||dd.note){ text+=d+'\t'+(dd.wage||0)+'\t'+(dd.note||'')+'\n'; total+=parseFloat(dd.wage)||0; } }
             text+='\nTotal Earnings: '+total.toFixed(2)+'\nAdvances: '+(data.advance||0)+'\nNet Payable: '+(total-(data.advance||0)).toFixed(2);
-            navigator.clipboard.writeText(text).then(function(){ showToast('📋 Data copied! Paste into WhatsApp, email, etc.','success'); }).catch(function(){ showToast('⚠ Could not copy. Please use Export CSV.','warning'); });
+            navigator.clipboard.writeText(text).then(function(){ showToast('📋 Data copied!','success'); }).catch(function(){ showToast('⚠ Could not copy. Use Export CSV.','warning'); });
         }
 
         function resetAllData() { if(confirm('⚠ DELETE ALL DATA? Cannot be undone!\n\nExport your data first.')){ if(confirm('Final warning: ALL records will be erased. Continue?')){ allData={}; saveAllData(); renderCalendar(); showToast('⚠ All data reset','warning'); } } }
