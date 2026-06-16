@@ -64,8 +64,6 @@
         .header { text-align: center; margin-bottom: 15px; }
         .header h1 { font-size: 2.2em; font-weight: 800; color: var(--primary); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
         .header .subtitle { font-size: 0.9em; color: var(--text-light); font-style: italic; }
-
-        /* Mode Toggle Bar */
         .mode-bar { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; justify-content: center; margin-bottom: 12px; padding: 8px 12px; background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); }
         .mode-bar .mode-label { font-weight: 700; font-size: 0.8em; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; margin-right: 6px; }
         .mode-btn { padding: 8px 14px; border: 2px solid var(--border); border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.82em; font-family: inherit; transition: var(--transition); background: white; color: var(--text); white-space: nowrap; }
@@ -75,7 +73,6 @@
         .mode-btn.active-lunch { background: #27ae60; color: white; border-color: #27ae60; }
         .mode-btn.active-custom { background: #8e44ad; color: white; border-color: #8e44ad; }
         .mode-indicator { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 0.75em; font-weight: 700; color: white; margin-left: 8px; }
-
         .controls-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; margin-bottom: 12px; padding: 12px 15px; background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); }
         .controls-bar label { font-weight: 600; font-size: 0.85em; color: var(--text-light); }
         .controls-bar select, .controls-bar input { padding: 8px 12px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95em; font-family: inherit; transition: var(--transition); background: white; }
@@ -172,8 +169,6 @@
             <h1>📅 The Ngili Calendar</h1>
             <p class="subtitle">Worker Wage Tracker — Know Your Earnings, Every Day</p>
         </div>
-
-        <!-- MODE TOGGLE BAR -->
         <div class="mode-bar no-print">
             <span class="mode-label">📋 Tracking Mode:</span>
             <button class="mode-btn active-wages" id="modeBtnWages" onclick="switchMode('wages')">💰 Wages</button>
@@ -182,7 +177,6 @@
             <button class="mode-btn" id="modeBtnCustom" onclick="switchMode('custom')">✚ Custom</button>
             <span id="currentModeLabel" class="mode-indicator" style="background:#2980b9;">💰 Wages</span>
         </div>
-
         <div class="controls-bar no-print">
             <label for="monthSelect">Month:</label>
             <select id="monthSelect"></select>
@@ -207,14 +201,14 @@
             </table>
         </div>
         <div class="summary-section">
-            <div class="summary-card"><h3 id="totalLabel">📊 Total Earnings (Month)</h3><div class="big-number" id="totalEarnings">0.00</div></div>
+            <div class="summary-card"><h3 id="totalLabel">📊 Total Wages (Month)</h3><div class="big-number" id="totalEarnings">0.00</div></div>
             <div class="summary-card advance-card"><h3>💸 Advances / Deductions</h3><input type="number" id="advanceInput" placeholder="Enter total advances" min="0" step="any" oninput="saveAdvance()"></div>
             <div class="summary-card net-card"><h3 id="netLabel">✅ Net Payable</h3><div class="big-number" id="netPayable">0.00</div></div>
         </div>
         <div class="summary-section" id="weekSummarySection" style="grid-template-columns: repeat(5, 1fr);"></div>
         <div class="action-bar no-print">
             <button class="btn btn-save" id="manualSaveBtn2" onclick="manualSave()">💾 Save Now</button>
-            <button class="btn btn-autofill" onclick="autofillDailyWage()" title="Fill all empty cells with your default daily wage">⚡ Autofill Wages</button>
+            <button class="btn btn-autofill" onclick="autofillDailyWage()" title="Fill all empty cells with your default daily amount">⚡ Autofill</button>
             <button class="btn btn-success" onclick="exportCSV()">📥 Export CSV</button>
             <button class="btn btn-accent" onclick="document.getElementById('csvFileInput').click()">📤 Import CSV</button>
             <input type="file" id="csvFileInput" accept=".csv" onchange="importCSV(event)">
@@ -268,6 +262,7 @@
         const MODE_COLORS = { wages:'#2980b9', busfare:'#e67e22', lunch:'#27ae60', custom:'#8e44ad' };
         const MODE_TOTAL_LABELS = { wages:'📊 Total Wages (Month)', busfare:'🚌 Total Bus Fare (Month)', lunch:'🍽 Total Lunch (Month)', custom:'✚ Total Custom (Month)' };
         const MODE_NET_LABELS = { wages:'✅ Net Payable', busfare:'🚌 Net Bus Fare', lunch:'🍽 Net Lunch', custom:'✚ Net Custom' };
+        const DAILY_WAGE_LABELS = { wages:'💰 Daily Wage (Default)', busfare:'🚌 Daily Bus Fare (Default)', lunch:'🍽 Daily Lunch (Default)', custom:'✚ Daily Amount (Default)' };
 
         let currentMonth = new Date().getMonth();
         let currentYear = new Date().getFullYear();
@@ -289,9 +284,7 @@
         }
         function getMonthData(m,y) {
             const k=getStorageKey(m,y);
-            if(!allData[k]){
-                allData[k]={ workerInfo:{name:'',id:'',dailyWage:'',phone:'',employer:''}, wages:{}, busfare:{}, lunch:{}, custom:{}, advance:0 };
-            }
+            if(!allData[k]){ allData[k]={ workerInfo:{name:'',id:'',dailyWage:'',phone:'',employer:''}, wages:{}, busfare:{}, lunch:{}, custom:{}, advance:0 }; }
             MODES.forEach(function(mode){ if(!allData[k][mode])allData[k][mode]={}; });
             return allData[k];
         }
@@ -320,6 +313,7 @@
             label.style.background = MODE_COLORS[currentMode];
             document.getElementById('totalLabel').textContent = MODE_TOTAL_LABELS[currentMode];
             document.getElementById('netLabel').textContent = MODE_NET_LABELS[currentMode];
+            document.getElementById('dailyWageLabel').textContent = DAILY_WAGE_LABELS[currentMode];
         }
 
         function saveWage(dayNumber) {
@@ -336,9 +330,6 @@
                 updateAllTotals();
                 updateWeekSummaryCards();
                 markUnsaved();
-document.getElementById('netLabel').textContent = MODE_NET_LABELS[currentMode];
-const dwLabels = { wages:'💰 Daily Wage (Default)', busfare:'🚌 Daily Bus Fare (Default)', lunch:'🍽 Daily Lunch (Default)', custom:'✚ Daily Amount (Default)' };
-document.getElementById('dailyWageLabel').textContent = dwLabels[currentMode];
             }
         }
         function saveWorkerInfo() { markUnsaved(); }
@@ -348,10 +339,7 @@ document.getElementById('dailyWageLabel').textContent = dwLabels[currentMode];
 
         function autofillDailyWage() {
             const dailyWageDefault = document.getElementById('dailyWage').value;
-            if (!dailyWageDefault || parseFloat(dailyWageDefault) <= 0) {
-                showToast('⚠ Please enter a valid daily wage first.', 'warning');
-                return;
-            }
+            if (!dailyWageDefault || parseFloat(dailyWageDefault) <= 0) { showToast('⚠ Please enter a valid amount first.', 'warning'); return; }
             if (!confirm('Fill ALL empty cells with ' + dailyWageDefault + ' for ' + MODE_LABELS[currentMode] + ' — ' + MONTHS[currentMonth] + ' ' + currentYear + '?')) return;
             const daysInMonth = getDaysInMonth(currentMonth, currentYear);
             const data = getMonthData(currentMonth, currentYear);
@@ -392,16 +380,13 @@ document.getElementById('dailyWageLabel').textContent = dwLabels[currentMode];
             document.getElementById('workerPhone').value=data.workerInfo.phone||'';
             document.getElementById('workerEmployer').value=data.workerInfo.employer||'';
             document.getElementById('advanceInput').value=data.advance||'';
-
             updateModeButtons();
-
             const monthSelect=document.getElementById('monthSelect'); monthSelect.innerHTML='';
             MONTHS.forEach(function(m,i){ const opt=document.createElement('option'); opt.value=i; opt.textContent=m; if(i===currentMonth)opt.selected=true; monthSelect.appendChild(opt); });
             const yearSelect=document.getElementById('yearSelect'); yearSelect.innerHTML='';
             for(let y=2020;y<=2035;y++){ const opt=document.createElement('option'); opt.value=y; opt.textContent=y; if(y===currentYear)opt.selected=true; yearSelect.appendChild(opt); }
             monthSelect.onchange=function(){ currentMonth=parseInt(this.value); renderCalendar(); };
             yearSelect.onchange=function(){ currentYear=parseInt(this.value); renderCalendar(); };
-
             const daysInMonth=getDaysInMonth(currentMonth,currentYear);
             const firstDay=getFirstDayOfMonth(currentMonth,currentYear);
             const today=new Date(); const todayDate=today.getDate(); const todayMonth=today.getMonth(); const todayYear=today.getFullYear();
@@ -411,7 +396,6 @@ document.getElementById('dailyWageLabel').textContent = dwLabels[currentMode];
             const modeData = data[currentMode] || {};
             const tbody=document.getElementById('calendarBody'); tbody.innerHTML='';
             let dayCounter=1;
-
             for(let row=0;row<rowsToShow;row++){
                 const tr=document.createElement('tr'); tr.setAttribute('data-week',row);
                 for(let col=0;col<7;col++){
@@ -505,25 +489,11 @@ document.getElementById('dailyWageLabel').textContent = dwLabels[currentMode];
             const currentData=getMonthData(currentMonth,currentYear);
             const workerName=(currentData.workerInfo.name||'worker').replace(/[^a-zA-Z0-9]/g,'_');
             let csv='Ngili Calendar - All Records\nExported: '+new Date().toISOString().split('T')[0]+'\n\n--- Worker Information ---\n';
-            csv+='Name,'+currentData.workerInfo.name+'\nID,'+currentData.workerInfo.id+'\nDaily Wage,'+currentData.workerInfo.dailyWage+'\nPhone,'+currentData.workerInfo.phone+'\nEmployer,'+currentData.workerInfo.employer+'\n\n';
+            csv+='Name,'+currentData.workerInfo.name+'\nID,'+currentData.workerInfo.id+'\nDaily Amount,'+currentData.workerInfo.dailyWage+'\nPhone,'+currentData.workerInfo.phone+'\nEmployer,'+currentData.workerInfo.employer+'\n\n';
             const sortedKeys=Object.keys(allData).sort();
-            // Export each mode separately
             MODES.forEach(function(mode){
                 csv+='\n--- '+MODE_LABELS[mode]+' Records ---\nYear,Month,Day,Date,Amount,Notes\n';
-                for(let k=0;k<sortedKeys.length;k++){
-                    const key=sortedKeys[k]; const parts=key.split('-'); const year=parseInt(parts[0]); const month=parseInt(parts[1]);
-                    const monthData=allData[key]; const dim=new Date(year,month+1,0).getDate();
-                    const modeData=monthData[mode]||{};
-                    for(let d=1;d<=dim;d++){
-                        const dd=modeData[d]||{amount:0,note:''};
-                        if(dd.amount>0||dd.note){
-                            const ds=year+'-'+String(month+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
-                            const dn=new Date(year,month,d).toLocaleDateString('en-US',{weekday:'short'});
-                            const ne=(dd.note||'').replace(/"/g,'""');
-                            csv+=year+','+MONTHS[month]+','+d+','+ds+' ('+dn+'),'+(dd.amount||0)+',"'+ne+'"\n';
-                        }
-                    }
-                }
+                for(let k=0;k<sortedKeys.length;k++){ const key=sortedKeys[k]; const parts=key.split('-'); const year=parseInt(parts[0]); const month=parseInt(parts[1]); const monthData=allData[key]; const dim=new Date(year,month+1,0).getDate(); const modeData=monthData[mode]||{}; for(let d=1;d<=dim;d++){ const dd=modeData[d]||{amount:0,note:''}; if(dd.amount>0||dd.note){ const ds=year+'-'+String(month+1).padStart(2,'0')+'-'+String(d).padStart(2,'0'); const dn=new Date(year,month,d).toLocaleDateString('en-US',{weekday:'short'}); const ne=(dd.note||'').replace(/"/g,'""'); csv+=year+','+MONTHS[month]+','+d+','+ds+' ('+dn+'),'+(dd.amount||0)+',"'+ne+'"\n'; } } }
             });
             csv+='\n--- Advances/Deductions ---\nYear,Month,Advance Amount\n';
             for(let k=0;k<sortedKeys.length;k++){ const key=sortedKeys[k]; const parts=key.split('-'); if(allData[key].advance>0)csv+=parts[0]+','+MONTHS[parseInt(parts[1])]+','+allData[key].advance+'\n'; }
@@ -548,18 +518,10 @@ document.getElementById('dailyWageLabel').textContent = dwLabels[currentMode];
                     let section='header',importedCount=0; const importedData={}; let cwi={}; let currentImportMode='wages';
                     for(let i=0;i<cleanLines.length;i++){
                         const line=cleanLines[i];
-                        if(line.startsWith('---')){
-                            if(line.includes('Worker Information'))section='workerInfo';
-                            else if(line.includes('Wages Records')||line.includes('💰 Wages')){ section='mode'; currentImportMode='wages'; }
-                            else if(line.includes('Bus Fare Records')||line.includes('🚌 Bus Fare')){ section='mode'; currentImportMode='busfare'; }
-                            else if(line.includes('Lunch Records')||line.includes('🍽 Lunch')){ section='mode'; currentImportMode='lunch'; }
-                            else if(line.includes('Custom Records')||line.includes('✚ Custom')){ section='mode'; currentImportMode='custom'; }
-                            else if(line.includes('Advances'))section='advances';
-                            continue;
-                        }
+                        if(line.startsWith('---')){ if(line.includes('Worker Information'))section='workerInfo'; else if(line.includes('Wages')&&!line.includes('Bus')&&!line.includes('Lunch')&&!line.includes('Custom')){ section='mode'; currentImportMode='wages'; } else if(line.includes('Bus Fare')){ section='mode'; currentImportMode='busfare'; } else if(line.includes('Lunch')){ section='mode'; currentImportMode='lunch'; } else if(line.includes('Custom')){ section='mode'; currentImportMode='custom'; } else if(line.includes('Advances'))section='advances'; continue; }
                         if(line.startsWith('Ngili Calendar')||line.startsWith('Exported:')||line==='')continue;
                         const parts=line.split(',');
-                        if(section==='workerInfo'){ if(parts[0]==='Name')cwi.name=parts[1]||''; if(parts[0]==='ID')cwi.id=parts[1]||''; if(parts[0]==='Daily Wage')cwi.dailyWage=parts[1]||''; if(parts[0]==='Phone')cwi.phone=parts[1]||''; if(parts[0]==='Employer')cwi.employer=parts[1]||''; }
+                        if(section==='workerInfo'){ if(parts[0]==='Name')cwi.name=parts[1]||''; if(parts[0]==='ID')cwi.id=parts[1]||''; if(parts[0]==='Daily Wage'||parts[0]==='Daily Amount')cwi.dailyWage=parts[1]||''; if(parts[0]==='Phone')cwi.phone=parts[1]||''; if(parts[0]==='Employer')cwi.employer=parts[1]||''; }
                         else if(section==='mode'&&!line.startsWith('Year,')){ if(parts.length>=6){ const year=parseInt(parts[0]); const mn=parts[1]; const day=parseInt(parts[2]); const amount=parseFloat(parts[4])||0; let note=parts.slice(5).join(','); if(note.startsWith('"')&&note.endsWith('"'))note=note.slice(1,-1).replace(/""/g,'"'); const mi=MONTHS.indexOf(mn); if(mi>=0&&!isNaN(year)&&!isNaN(day)&&day>0){ const key=year+'-'+mi; if(!importedData[key])importedData[key]={workerInfo:{name:cwi.name,id:cwi.id,dailyWage:cwi.dailyWage,phone:cwi.phone,employer:cwi.employer},wages:{},busfare:{},lunch:{},custom:{},advance:0}; if(amount>0||note){ importedData[key][currentImportMode][day]={amount:amount,note:note}; importedCount++; } } } }
                         else if(section==='advances'&&!line.startsWith('Year,')){ if(parts.length>=3){ const year=parseInt(parts[0]); const mn=parts[1]; const advance=parseFloat(parts[2])||0; const mi=MONTHS.indexOf(mn); if(mi>=0&&!isNaN(year)){ const key=year+'-'+mi; if(!importedData[key])importedData[key]={workerInfo:{name:cwi.name,id:cwi.id,dailyWage:cwi.dailyWage,phone:cwi.phone,employer:cwi.employer},wages:{},busfare:{},lunch:{},custom:{},advance:0}; importedData[key].advance=advance; } } }
                     }
@@ -573,8 +535,7 @@ document.getElementById('dailyWageLabel').textContent = dwLabels[currentMode];
 
         function copyDataToClipboard() {
             flushAllChanges(); const data=getMonthData(currentMonth,currentYear); const dim=getDaysInMonth(currentMonth,currentYear);
-            let text='Ngili Calendar - '+MODE_LABELS[currentMode]+' - '+MONTHS[currentMonth]+' '+currentYear+'\n';
-            text+='Worker: '+(data.workerInfo.name||'N/A')+' | ID: '+(data.workerInfo.id||'N/A')+'\nDay\tAmount\tNotes\n';
+            let text='Ngili Calendar - '+MODE_LABELS[currentMode]+' - '+MONTHS[currentMonth]+' '+currentYear+'\nWorker: '+(data.workerInfo.name||'N/A')+' | ID: '+(data.workerInfo.id||'N/A')+'\nDay\tAmount\tNotes\n';
             let total=0; const modeData=data[currentMode]||{};
             for(let d=1;d<=dim;d++){ const dd=modeData[d]||{amount:0,note:''}; if(dd.amount>0||dd.note){ text+=d+'\t'+(dd.amount||0)+'\t'+(dd.note||'')+'\n'; total+=parseFloat(dd.amount)||0; } }
             text+='\nTotal: '+total.toFixed(2)+'\nAdvances: '+(data.advance||0)+'\nNet: '+(total-(data.advance||0)).toFixed(2);
