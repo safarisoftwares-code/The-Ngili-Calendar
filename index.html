@@ -159,7 +159,10 @@
             .day-cell textarea.note-input { height: 16px; font-size: 0.6em; } .day-cell input.wage-input { font-size: 0.7em; padding: 2px 3px; }
             .header h1 { font-size: 1.4em; } .worker-info-card { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 6px; padding: 10px; }
             .summary-card .big-number { font-size: 1.3em; } .modal { padding: 15px; max-width: 95vw; }
-            .mode-btn { padding: 6px 10px; font-size: 0.7em; }
+            .mode-bar { flex-direction: column; gap: 6px; padding: 10px; align-items: center; text-align: center; }
+            .mode-bar .mode-label { margin-right: 0; margin-bottom: 2px; text-align: center; width: 100%; }
+            .mode-btn { padding: 6px 10px; font-size: 0.75em; }
+            .mode-indicator { margin-left: 0; margin-top: 4px; }
         }
     </style>
 </head>
@@ -232,12 +235,12 @@
         <div class="modal">
             <button class="close-btn" onclick="closeModal('termsModal')">✕ Close</button>
             <h2>📜 Terms of Use</h2>
-            <p><strong>Effective Date:</strong> January 1, 2026</p><p><strong>Last Updated:</strong> June 16, 2026</p>
-            <h3>1. Acceptance of Terms</h3><p>By using The Ngili Calendar ("the Software"), you agree to these Terms of Use. If you do not agree, do not use the Software.</p>
-            <h3>2. Description of Service</h3><p>The Ngili Calendar is a browser-based tracking tool designed to help workers record daily earnings, bus fare, lunch costs, and other expenses. It is provided as-is, free of charge.</p>
-            <h3>3. User Responsibilities</h3><ul><li>You are solely responsible for the accuracy of data you enter.</li><li>You are responsible for backing up your data using the Export CSV feature.</li><li>You agree not to use the Software for any illegal or unauthorized purpose.</li><li>You acknowledge that the Software stores data locally in your browser and is not cloud-synced.</li></ul>
-            <h3>4. Intellectual Property</h3><p>The Ngili Calendar, including its code, design, name, and all associated materials, is the intellectual property of <strong>Safari Softwares</strong>.</p>
-            <h3>5. Limitation of Liability</h3><p><strong>Safari Softwares</strong> provides The Ngili Calendar "as is" without any warranty.</p>
+            <p><strong>Effective Date:</strong> January 1, 2026</p><p><strong>Last Updated:</strong> June 18, 2026</p>
+            <h3>1. Acceptance of Terms</h3><p>By using The Ngili Calendar ("the Software"), you agree to these Terms of Use.</p>
+            <h3>2. Description of Service</h3><p>The Ngili Calendar is a browser-based tracking tool for daily earnings, bus fare, lunch costs, and other expenses. Free of charge.</p>
+            <h3>3. User Responsibilities</h3><ul><li>You are responsible for data accuracy.</li><li>Back up your data using Export CSV.</li><li>Data stores locally in your browser.</li></ul>
+            <h3>4. Intellectual Property</h3><p>The Ngili Calendar is the intellectual property of <strong>Safari Softwares</strong>.</p>
+            <h3>5. Limitation of Liability</h3><p>Provided "as is" without warranty.</p>
             <h3>6. Contact</h3><p>📧 <strong>Safari Softwares</strong> — <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p>
         </div>
     </div>
@@ -245,10 +248,10 @@
         <div class="modal">
             <button class="close-btn" onclick="closeModal('privacyModal')">✕ Close</button>
             <h2>🔒 Privacy Policy</h2>
-            <p><strong>Effective Date:</strong> January 1, 2026</p><p><strong>Last Updated:</strong> June 16, 2026</p>
+            <p><strong>Effective Date:</strong> January 1, 2026</p><p><strong>Last Updated:</strong> June 18, 2026</p>
             <h3>1. Our Commitment</h3><p><strong>Your data is yours. We do not collect it.</strong></p>
-            <h3>2. Data We DO NOT Collect</h3><ul><li>❌ No personal data sent to any server.</li><li>❌ No analytics or tracking.</li><li>❌ No accounts or passwords.</li><li>❌ No cloud storage.</li></ul>
-            <h3>3. Where Data Is Stored</h3><p>All data in your browser's <strong>localStorage</strong> only.</p>
+            <h3>2. Data We DO NOT Collect</h3><ul><li>❌ No data sent to any server.</li><li>❌ No analytics or tracking.</li><li>❌ No accounts or passwords.</li></ul>
+            <h3>3. Where Data Is Stored</h3><p>In your browser's <strong>localStorage</strong> only.</p>
             <h3>4. Contact</h3><p>📧 <strong>Safari Softwares</strong> — <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p>
         </div>
     </div>
@@ -294,23 +297,13 @@
         function showUnsavedBanner() { const b=document.getElementById('unsavedBanner'); if(b)b.classList.add('show'); }
         function hideUnsavedBanner() { const b=document.getElementById('unsavedBanner'); if(b)b.classList.remove('show'); }
 
-        function switchMode(mode) {
-            flushAllChanges();
-            currentMode = mode;
-            updateModeButtons();
-            renderCalendar();
-        }
+        function switchMode(mode) { flushAllChanges(); currentMode = mode; updateModeButtons(); renderCalendar(); }
 
         function updateModeButtons() {
-            MODES.forEach(function(m){
-                const btn = document.getElementById('modeBtn'+m.charAt(0).toUpperCase()+m.slice(1));
-                if(btn){ btn.className = 'mode-btn'; }
-            });
+            MODES.forEach(function(m){ const btn = document.getElementById('modeBtn'+m.charAt(0).toUpperCase()+m.slice(1)); if(btn){ btn.className = 'mode-btn'; } });
             const activeBtn = document.getElementById('modeBtn'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1));
             if(activeBtn) activeBtn.classList.add('active-'+currentMode);
-            const label = document.getElementById('currentModeLabel');
-            label.textContent = MODE_LABELS[currentMode];
-            label.style.background = MODE_COLORS[currentMode];
+            const label = document.getElementById('currentModeLabel'); label.textContent = MODE_LABELS[currentMode]; label.style.background = MODE_COLORS[currentMode];
             document.getElementById('totalLabel').textContent = MODE_TOTAL_LABELS[currentMode];
             document.getElementById('netLabel').textContent = MODE_NET_LABELS[currentMode];
             document.getElementById('dailyWageLabel').textContent = DAILY_WAGE_LABELS[currentMode];
@@ -321,15 +314,11 @@
             const wageInput=document.getElementById('wage-'+dayNumber);
             const noteInput=document.getElementById('note-'+dayNumber);
             if(wageInput&&noteInput){
-                const amount=parseFloat(wageInput.value)||0;
-                const note=noteInput.value;
+                const amount=parseFloat(wageInput.value)||0; const note=noteInput.value;
                 if(!data[currentMode])data[currentMode]={};
                 if(amount===0&&note===''){ delete data[currentMode][dayNumber]; }else{ data[currentMode][dayNumber]={amount:amount,note:note}; }
-                wageInput.classList.toggle('has-value',amount>0);
-                noteInput.classList.toggle('has-note',note!=='');
-                updateAllTotals();
-                updateWeekSummaryCards();
-                markUnsaved();
+                wageInput.classList.toggle('has-value',amount>0); noteInput.classList.toggle('has-note',note!=='');
+                updateAllTotals(); updateWeekSummaryCards(); markUnsaved();
             }
         }
         function saveWorkerInfo() { markUnsaved(); }
@@ -348,24 +337,18 @@
             for (let d = 1; d <= daysInMonth; d++) {
                 const wageInput = document.getElementById('wage-' + d);
                 if (wageInput && (!wageInput.value || parseFloat(wageInput.value) === 0)) {
-                    wageInput.value = dailyWageDefault;
-                    wageInput.classList.add('has-value');
+                    wageInput.value = dailyWageDefault; wageInput.classList.add('has-value');
                     data[currentMode][d] = { amount: parseFloat(dailyWageDefault), note: (data[currentMode][d] || {}).note || '' };
                     filledCount++;
                 }
             }
-            markUnsaved();
-            updateAllTotals();
-            updateWeekSummaryCards();
+            markUnsaved(); updateAllTotals(); updateWeekSummaryCards();
             showToast('⚡ Autofilled ' + filledCount + ' empty cells with ' + dailyWageDefault, 'success');
         }
 
         function clearCurrentMode() {
             if(confirm('Clear ALL ' + MODE_LABELS[currentMode] + ' entries for ' + MONTHS[currentMonth] + ' ' + currentYear + '? This cannot be undone.')){
-                const data=getMonthData(currentMonth,currentYear);
-                data[currentMode]={};
-                saveAllData();
-                renderCalendar();
+                const data=getMonthData(currentMonth,currentYear); data[currentMode]={}; saveAllData(); renderCalendar();
                 showToast('🗑 ' + MODE_LABELS[currentMode] + ' cleared for this month','warning');
             }
         }
