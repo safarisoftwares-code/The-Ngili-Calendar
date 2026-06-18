@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Ngili Calendar - Worker Wage Tracker | Safari Softwares</title>
-    <meta name="description" content="The Ngili Calendar — A worker wage tracker by Safari Softwares. Track daily earnings, bus fare, lunch, and more. Calculate weekly/monthly totals, manage advances, and export data.">
+    <meta name="description" content="The Ngili Calendar — A worker wage tracker by Safari Softwares. Track daily earnings, bus fare, lunch, and more.">
     <meta name="author" content="Safari Softwares">
     <meta name="copyright" content="© 2026 Safari Softwares. All rights reserved.">
     <meta property="og:image" content="https://safarisoftwares-code.github.io/The-Ngili-Calendar/ngili-calendar-social-card.png">
@@ -159,10 +159,9 @@
             .day-cell textarea.note-input { height: 16px; font-size: 0.6em; } .day-cell input.wage-input { font-size: 0.7em; padding: 2px 3px; }
             .header h1 { font-size: 1.4em; } .worker-info-card { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 6px; padding: 10px; }
             .summary-card .big-number { font-size: 1.3em; } .modal { padding: 15px; max-width: 95vw; }
-            .mode-bar { flex-direction: column; gap: 6px; padding: 10px; align-items: center; text-align: center; }
-            .mode-bar .mode-label { margin-right: 0; margin-bottom: 2px; text-align: center; width: 100%; }
-            .mode-btn { padding: 6px 10px; font-size: 0.75em; }
-            .mode-indicator { margin-left: 0; margin-top: 4px; }
+            .mode-bar .mode-label { display: block; width: 100%; text-align: center; margin-right: 0; margin-bottom: 4px; }
+            .mode-btn { padding: 5px 8px; font-size: 0.68em; }
+            .mode-indicator { margin-left: 4px; }
         }
     </style>
 </head>
@@ -211,7 +210,7 @@
         <div class="summary-section" id="weekSummarySection" style="grid-template-columns: repeat(5, 1fr);"></div>
         <div class="action-bar no-print">
             <button class="btn btn-save" id="manualSaveBtn2" onclick="manualSave()">💾 Save Now</button>
-            <button class="btn btn-autofill" onclick="autofillDailyWage()" title="Fill all empty cells with your default daily amount">⚡ Autofill</button>
+            <button class="btn btn-autofill" onclick="autofillDailyWage()" title="Fill all empty cells">⚡ Autofill</button>
             <button class="btn btn-success" onclick="exportCSV()">📥 Export CSV</button>
             <button class="btn btn-accent" onclick="document.getElementById('csvFileInput').click()">📤 Import CSV</button>
             <input type="file" id="csvFileInput" accept=".csv" onchange="importCSV(event)">
