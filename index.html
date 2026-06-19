@@ -4,36 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Ngili Calendar - Worker Wage Tracker | Safari Softwares</title>
-    <meta name="description" content="The Ngili Calendar — A worker wage tracker by Safari Softwares. Track daily earnings, bus fare, lunch, and more.">
+    <meta name="description" content="The Ngili Calendar — A worker wage tracker by Safari Softwares. Track daily earnings, bus fare, lunch, and more. Independent totals, advances, and employers per category.">
     <meta name="author" content="Safari Softwares">
     <meta name="copyright" content="© 2026 Safari Softwares. All rights reserved.">
-    <meta property="og:image" content="https://safarisoftwares-code.github.io/The-Ngili-Calendar/ngili-calendar-social-card.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
     <meta property="og:title" content="The Ngili Calendar — Free Worker Wage Tracker">
-    <meta property="og:description" content="Track daily wages, bus fare, lunch costs. No account needed. Built for workers, by Safari Softwares.">
+    <meta property="og:description" content="Track daily wages, bus fare, lunch costs. Independent advances and employers per category. Built for workers, by Safari Softwares.">
     <meta property="og:url" content="https://safarisoftwares-code.github.io/The-Ngili-Calendar/">
     <meta property="og:type" content="website">
     <style>
         :root {
-            --primary: #1a5276;
-            --primary-light: #2980b9;
-            --accent: #e67e22;
-            --accent-light: #f39c12;
-            --success: #27ae60;
-            --danger: #c0392b;
-            --bg: #f5f6fa;
-            --card-bg: #ffffff;
-            --text: #2c3e50;
-            --text-light: #7f8c8d;
-            --border: #dcdde1;
-            --weekend: #ffeaa7;
-            --today: #dfe6e9;
-            --shadow: 0 2px 10px rgba(0,0,0,0.08);
-            --shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
-            --radius: 8px;
-            --radius-sm: 4px;
-            --transition: 0.2s ease;
+            --primary: #1a5276; --primary-light: #2980b9; --accent: #e67e22; --accent-light: #f39c12;
+            --success: #27ae60; --danger: #c0392b; --bg: #f5f6fa; --card-bg: #ffffff;
+            --text: #2c3e50; --text-light: #7f8c8d; --border: #dcdde1;
+            --weekend: #ffeaa7; --today: #dfe6e9;
+            --shadow: 0 2px 10px rgba(0,0,0,0.08); --shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
+            --radius: 8px; --radius-sm: 4px; --transition: 0.2s ease;
         }
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
@@ -43,28 +28,29 @@
             -webkit-print-color-adjust: exact; print-color-adjust: exact;
         }
         @media print {
-            body { background: white !important; padding: 0 !important; font-size: 11px; }
-            .worker-info-card, .calendar-container, .summary-section, .header, .footer-main, .mode-bar { display: block !important; visibility: visible !important; opacity: 1 !important; }
+            body { background: white !important; padding: 0 !important; font-size: 10px; }
+            .worker-info-card, .calendar-container, .summary-section, .header, .footer-main, .mode-bar, .mode-employer-bar, .advances-section { display: block !important; visibility: visible !important; opacity: 1 !important; }
             .no-print, .controls-bar, .action-bar, .last-saved, #csvFileInput, .unsaved-banner, .footer-links, #termsModal, #privacyModal, .modal-overlay { display: none !important; }
             .calendar-container { box-shadow: none !important; border: 1px solid #ccc; page-break-inside: avoid; }
             .calendar-table { min-width: auto !important; }
-            .calendar-table td { height: 50px !important; padding: 2px !important; }
-            .day-cell input.wage-input, .day-cell textarea.note-input { border: 1px solid #ccc !important; background: white !important; font-size: 0.75em !important; }
-            .day-cell textarea.note-input { height: 18px !important; }
-            .worker-info-card { border: 1px solid #ccc !important; box-shadow: none !important; margin-bottom: 8px !important; padding: 10px 14px !important; grid-template-columns: repeat(5, 1fr) !important; gap: 6px !important; }
-            .worker-info-card input { border: 1px solid #ccc !important; background: white !important; font-size: 0.8em !important; padding: 4px 6px !important; }
-            .summary-section { margin-top: 8px !important; }
-            .summary-card { box-shadow: none !important; border: 1px solid #ccc !important; padding: 10px !important; }
-            .header h1 { font-size: 1.6em !important; color: black !important; text-shadow: none !important; }
-            .footer-main { border-top: 1px solid #ccc !important; font-size: 0.65em !important; padding: 4px !important; }
-            @page { size: landscape; margin: 6mm; }
+            .calendar-table td { height: 42px !important; padding: 2px !important; }
+            .day-cell input.wage-input, .day-cell textarea.note-input { border: 1px solid #ccc !important; background: white !important; font-size: 0.7em !important; }
+            .day-cell textarea.note-input { height: 16px !important; }
+            .worker-info-card { border: 1px solid #ccc !important; box-shadow: none !important; margin-bottom: 6px !important; padding: 8px 12px !important; grid-template-columns: repeat(5, 1fr) !important; gap: 4px !important; }
+            .worker-info-card input { border: 1px solid #ccc !important; background: white !important; font-size: 0.75em !important; padding: 3px 5px !important; }
+            .summary-section { margin-top: 6px !important; gap: 8px !important; }
+            .summary-card { box-shadow: none !important; border: 1px solid #ccc !important; padding: 8px !important; }
+            .summary-card .big-number { font-size: 1.2em !important; }
+            .header h1 { font-size: 1.4em !important; color: black !important; text-shadow: none !important; }
+            .footer-main { border-top: 1px solid #ccc !important; font-size: 0.6em !important; padding: 4px !important; }
+            @page { size: landscape; margin: 4mm; }
         }
-        @media screen and (min-width: 1024px) { body { display: flex; justify-content: center; align-items: flex-start; padding: 20px; } .main-wrapper { max-width: 1300px; width: 100%; } }
+        @media screen and (min-width: 1024px) { body { display: flex; justify-content: center; align-items: flex-start; padding: 20px; } .main-wrapper { max-width: 1400px; width: 100%; } }
         .main-wrapper { width: 100%; }
-        .header { text-align: center; margin-bottom: 15px; }
+        .header { text-align: center; margin-bottom: 12px; }
         .header h1 { font-size: 2.2em; font-weight: 800; color: var(--primary); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
         .header .subtitle { font-size: 0.9em; color: var(--text-light); font-style: italic; }
-        .mode-bar { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; justify-content: center; margin-bottom: 12px; padding: 8px 12px; background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); }
+        .mode-bar { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; justify-content: center; margin-bottom: 8px; padding: 8px 12px; background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); }
         .mode-bar .mode-label { font-weight: 700; font-size: 0.8em; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; margin-right: 6px; }
         .mode-btn { padding: 8px 14px; border: 2px solid var(--border); border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.82em; font-family: inherit; transition: var(--transition); background: white; color: var(--text); white-space: nowrap; }
         .mode-btn:hover { border-color: var(--primary-light); background: #ebf5fb; }
@@ -73,7 +59,13 @@
         .mode-btn.active-lunch { background: #27ae60; color: white; border-color: #27ae60; }
         .mode-btn.active-custom { background: #8e44ad; color: white; border-color: #8e44ad; }
         .mode-indicator { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 0.75em; font-weight: 700; color: white; margin-left: 8px; }
-        .controls-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; margin-bottom: 12px; padding: 12px 15px; background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); }
+        .mode-employer-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; margin-bottom: 8px; padding: 8px 12px; background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); }
+        .mode-employer-bar label { font-weight: 600; font-size: 0.8em; color: var(--text-light); }
+        .mode-employer-bar input { padding: 6px 10px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-size: 0.85em; font-family: inherit; background: white; min-width: 180px; }
+        .mode-employer-bar input:focus { outline: none; border-color: var(--accent); }
+        .custom-name-input { padding: 6px 10px; border: 2px solid #8e44ad; border-radius: var(--radius-sm); font-size: 0.85em; font-family: inherit; background: #fef9ff; min-width: 120px; }
+        .custom-name-input:focus { outline: none; border-color: #6c3483; }
+        .controls-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; margin-bottom: 8px; padding: 10px 15px; background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); }
         .controls-bar label { font-weight: 600; font-size: 0.85em; color: var(--text-light); }
         .controls-bar select, .controls-bar input { padding: 8px 12px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95em; font-family: inherit; transition: var(--transition); background: white; }
         .controls-bar select:focus, .controls-bar input:focus { outline: none; border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(41,128,185,0.15); }
@@ -87,16 +79,16 @@
         .btn-autofill { background: #8e44ad; color: white; } .btn-autofill:hover { background: #7d3c98; transform: translateY(-1px); box-shadow: var(--shadow); }
         .btn-save { background: #f39c12; color: white; font-weight: 700; animation: pulse-save 2s infinite; } .btn-save:hover { background: #e67e22; animation: none; transform: translateY(-1px); box-shadow: var(--shadow); } .btn-save.saved { animation: none; background: var(--success); }
         @keyframes pulse-save { 0%,100% { box-shadow: 0 0 0 0 rgba(243,156,18,0.4); } 50% { box-shadow: 0 0 0 8px rgba(243,156,18,0); } }
-        .worker-info-card { background: var(--card-bg); border-radius: var(--radius); padding: 15px 18px; margin-bottom: 12px; box-shadow: var(--shadow); display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; border-left: 4px solid var(--accent); }
+        .worker-info-card { background: var(--card-bg); border-radius: var(--radius); padding: 12px 18px; margin-bottom: 8px; box-shadow: var(--shadow); display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px; border-left: 4px solid var(--accent); }
         .worker-info-card .field-group { display: flex; flex-direction: column; gap: 3px; }
         .worker-info-card label { font-size: 0.75em; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; }
         .worker-info-card input { padding: 7px 10px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-size: 0.9em; font-family: inherit; transition: var(--transition); background: white; }
         .worker-info-card input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(230,126,34,0.1); }
-        .calendar-container { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow-lg); overflow: hidden; margin-bottom: 15px; }
+        .calendar-container { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow-lg); overflow: hidden; margin-bottom: 12px; }
         .calendar-table { width: 100%; border-collapse: collapse; table-layout: fixed; min-width: 1000px; }
         .calendar-table th { background: var(--primary); color: white; padding: 10px 6px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; border: 1px solid #1a4466; }
         .calendar-table th.sunday { background: #c0392b; }
-        .calendar-table td { border: 1px solid var(--border); padding: 4px; vertical-align: top; height: 72px; transition: var(--transition); position: relative; }
+        .calendar-table td { border: 1px solid var(--border); padding: 4px; vertical-align: top; height: 68px; transition: var(--transition); position: relative; }
         .calendar-table td.weekend { background: #fef9e7; }
         .calendar-table td.today-cell { background: #eaf2f8; box-shadow: inset 0 0 0 2px var(--primary-light); }
         .calendar-table td.empty-cell { background: #f4f4f4; pointer-events: none; opacity: 0.35; }
@@ -115,16 +107,19 @@
         .day-cell textarea.note-input.has-note { background: #fef9e7; border-color: #f9e79f; }
         .week-total-row td { background: #eaf2f8 !important; font-weight: 700; text-align: right; padding: 8px 10px; font-size: 0.9em; color: var(--primary); border-top: 3px solid var(--primary-light) !important; }
         .week-total-label { text-align: left !important; padding-left: 15px !important; }
-        .summary-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 15px; }
-        .summary-card { background: var(--card-bg); border-radius: var(--radius); padding: 15px; box-shadow: var(--shadow); text-align: center; border-top: 4px solid var(--primary-light); }
+        .summary-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 10px; }
+        .summary-card { background: var(--card-bg); border-radius: var(--radius); padding: 12px; box-shadow: var(--shadow); text-align: center; border-top: 4px solid var(--primary-light); }
         .summary-card.advance-card { border-top-color: var(--danger); }
         .summary-card.net-card { border-top-color: var(--success); }
-        .summary-card h3 { font-size: 0.8em; text-transform: uppercase; color: var(--text-light); letter-spacing: 0.5px; margin-bottom: 6px; }
-        .summary-card .big-number { font-size: 2em; font-weight: 800; color: var(--text); }
+        .summary-card h3 { font-size: 0.75em; text-transform: uppercase; color: var(--text-light); letter-spacing: 0.5px; margin-bottom: 4px; }
+        .summary-card .big-number { font-size: 1.6em; font-weight: 800; color: var(--text); }
         .summary-card.net-card .big-number { color: var(--success); }
         .summary-card.advance-card .big-number { color: var(--danger); }
-        .summary-card input { width: 100%; padding: 8px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-size: 1.1em; text-align: center; font-weight: 700; font-family: inherit; background: white; }
+        .summary-card input { width: 100%; padding: 6px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-size: 1em; text-align: center; font-weight: 700; font-family: inherit; background: white; }
         .summary-card input:focus { outline: none; border-color: var(--accent); }
+        .advances-section { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 10px; }
+        @media (max-width: 900px) { .advances-section { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 500px) { .advances-section { grid-template-columns: 1fr; } }
         .action-bar { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 10px; }
         .footer-main { background: var(--card-bg); border-radius: var(--radius); padding: 15px 20px; margin-top: 15px; box-shadow: var(--shadow); text-align: center; border-top: 3px solid var(--primary-light); }
         .footer-main .copyright { font-weight: 700; color: var(--primary); font-size: 0.85em; margin-bottom: 6px; }
@@ -155,13 +150,14 @@
         .unsaved-banner { text-align: center; padding: 6px; background: #fef9e7; color: #b7950b; font-weight: 600; font-size: 0.8em; border-radius: var(--radius-sm); margin-bottom: 8px; display: none; border: 1px solid #f9e79f; }
         .unsaved-banner.show { display: block; animation: pulse-dot 1.5s infinite; }
         @media (max-width: 768px) {
-            .calendar-table { min-width: auto; font-size: 0.7em; } .calendar-table td { height: 55px; padding: 2px; }
+            .calendar-table { min-width: auto; font-size: 0.7em; } .calendar-table td { height: 50px; padding: 2px; }
             .day-cell textarea.note-input { height: 16px; font-size: 0.6em; } .day-cell input.wage-input { font-size: 0.7em; padding: 2px 3px; }
             .header h1 { font-size: 1.4em; } .worker-info-card { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 6px; padding: 10px; }
             .summary-card .big-number { font-size: 1.3em; } .modal { padding: 15px; max-width: 95vw; }
             .mode-bar .mode-label { display: block; width: 100%; text-align: center; margin-right: 0; margin-bottom: 4px; }
             .mode-btn { padding: 5px 8px; font-size: 0.68em; }
             .mode-indicator { margin-left: 4px; }
+            .advances-section { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -179,6 +175,14 @@
             <button class="mode-btn" id="modeBtnCustom" onclick="switchMode('custom')">✚ Custom</button>
             <span id="currentModeLabel" class="mode-indicator" style="background:#2980b9;">💰 Wages</span>
         </div>
+        <div class="mode-employer-bar no-print" id="modeEmployerBar">
+            <label id="modeEmployerLabel">🏢 Wages Employer:</label>
+            <input type="text" id="modeEmployerInput" placeholder="Employer name" oninput="saveModeEmployer()">
+            <span id="customNameSpan" style="display:none;">
+                <label>✚ Category Name:</label>
+                <input type="text" id="customNameInput" class="custom-name-input" placeholder="e.g. Tools, Rent" oninput="saveCustomName()">
+            </span>
+        </div>
         <div class="controls-bar no-print">
             <label for="monthSelect">Month:</label>
             <select id="monthSelect"></select>
@@ -194,7 +198,6 @@
             <div class="field-group"><label>🆔 ID Number</label><input type="text" id="workerID" placeholder="ID / Passport" oninput="markUnsaved()"></div>
             <div class="field-group"><label id="dailyWageLabel">💰 Daily Wage (Default)</label><input type="number" id="dailyWage" placeholder="e.g. 500" min="0" step="any" oninput="markUnsaved()"></div>
             <div class="field-group"><label>📞 Phone</label><input type="text" id="workerPhone" placeholder="Phone number" oninput="markUnsaved()"></div>
-            <div class="field-group"><label>🏢 Employer</label><input type="text" id="workerEmployer" placeholder="Employer name" oninput="markUnsaved()"></div>
         </div>
         <div class="calendar-container">
             <table class="calendar-table" id="calendarTable">
@@ -202,15 +205,28 @@
                 <tbody id="calendarBody"></tbody>
             </table>
         </div>
-        <div class="summary-section">
-            <div class="summary-card"><h3 id="totalLabel">📊 Total Wages (Month)</h3><div class="big-number" id="totalEarnings">0.00</div></div>
-            <div class="summary-card advance-card"><h3>💸 Advances / Deductions</h3><input type="number" id="advanceInput" placeholder="Enter total advances" min="0" step="any" oninput="saveAdvance()"></div>
-            <div class="summary-card net-card"><h3 id="netLabel">✅ Net Payable</h3><div class="big-number" id="netPayable">0.00</div></div>
+        <div class="summary-section" id="allTotalsSection">
+            <div class="summary-card" style="border-top-color:#2980b9;"><h3>💰 Total Wages</h3><div class="big-number" id="totalWages">0.00</div></div>
+            <div class="summary-card" style="border-top-color:#e67e22;"><h3>🚌 Total Bus Fare</h3><div class="big-number" id="totalBusfare">0.00</div></div>
+            <div class="summary-card" style="border-top-color:#27ae60;"><h3>🍽 Total Lunch</h3><div class="big-number" id="totalLunch">0.00</div></div>
+            <div class="summary-card" style="border-top-color:#8e44ad;"><h3 id="customTotalLabel">✚ Total Custom</h3><div class="big-number" id="totalCustom">0.00</div></div>
+        </div>
+        <div class="advances-section" id="advancesSection">
+            <div class="summary-card advance-card"><h3>💸 Wages Advances</h3><input type="number" id="advanceWages" placeholder="0" min="0" step="any" oninput="saveAdvance('wages')"></div>
+            <div class="summary-card advance-card"><h3>💸 Bus Fare Advances</h3><input type="number" id="advanceBusfare" placeholder="0" min="0" step="any" oninput="saveAdvance('busfare')"></div>
+            <div class="summary-card advance-card"><h3>💸 Lunch Advances</h3><input type="number" id="advanceLunch" placeholder="0" min="0" step="any" oninput="saveAdvance('lunch')"></div>
+            <div class="summary-card advance-card"><h3 id="customAdvanceLabel">💸 Custom Advances</h3><input type="number" id="advanceCustom" placeholder="0" min="0" step="any" oninput="saveAdvance('custom')"></div>
+        </div>
+        <div class="summary-section" id="netSection">
+            <div class="summary-card net-card"><h3>✅ Wages Net</h3><div class="big-number" id="netWages">0.00</div></div>
+            <div class="summary-card net-card"><h3>✅ Bus Fare Net</h3><div class="big-number" id="netBusfare">0.00</div></div>
+            <div class="summary-card net-card"><h3>✅ Lunch Net</h3><div class="big-number" id="netLunch">0.00</div></div>
+            <div class="summary-card net-card"><h3 id="customNetLabel">✅ Custom Net</h3><div class="big-number" id="netCustom">0.00</div></div>
         </div>
         <div class="summary-section" id="weekSummarySection" style="grid-template-columns: repeat(5, 1fr);"></div>
         <div class="action-bar no-print">
             <button class="btn btn-save" id="manualSaveBtn2" onclick="manualSave()">💾 Save Now</button>
-            <button class="btn btn-autofill" onclick="autofillDailyWage()" title="Fill all empty cells">⚡ Autofill</button>
+            <button class="btn btn-autofill" onclick="autofillDailyWage()">⚡ Autofill</button>
             <button class="btn btn-success" onclick="exportCSV()">📥 Export CSV</button>
             <button class="btn btn-accent" onclick="document.getElementById('csvFileInput').click()">📤 Import CSV</button>
             <input type="file" id="csvFileInput" accept=".csv" onchange="importCSV(event)">
@@ -233,9 +249,9 @@
         <div class="modal">
             <button class="close-btn" onclick="closeModal('termsModal')">✕ Close</button>
             <h2>📜 Terms of Use</h2>
-            <p><strong>Effective Date:</strong> January 1, 2026</p><p><strong>Last Updated:</strong> June 18, 2026</p>
-            <h3>1. Acceptance of Terms</h3><p>By using The Ngili Calendar ("the Software"), you agree to these Terms of Use.</p>
-            <h3>2. Description of Service</h3><p>The Ngili Calendar is a browser-based tracking tool for daily earnings, bus fare, lunch costs, and other expenses. Free of charge.</p>
+            <p><strong>Effective Date:</strong> January 1, 2026</p><p><strong>Last Updated:</strong> June 19, 2026</p>
+            <h3>1. Acceptance of Terms</h3><p>By using The Ngili Calendar, you agree to these Terms of Use.</p>
+            <h3>2. Description of Service</h3><p>The Ngili Calendar is a browser-based tracking tool for daily earnings, bus fare, lunch costs, and custom expenses. Free of charge.</p>
             <h3>3. User Responsibilities</h3><ul><li>You are responsible for data accuracy.</li><li>Back up your data using Export CSV.</li><li>Data stores locally in your browser.</li></ul>
             <h3>4. Intellectual Property</h3><p>The Ngili Calendar is the intellectual property of <strong>Safari Softwares</strong>.</p>
             <h3>5. Limitation of Liability</h3><p>Provided "as is" without warranty.</p>
@@ -246,7 +262,7 @@
         <div class="modal">
             <button class="close-btn" onclick="closeModal('privacyModal')">✕ Close</button>
             <h2>🔒 Privacy Policy</h2>
-            <p><strong>Effective Date:</strong> January 1, 2026</p><p><strong>Last Updated:</strong> June 18, 2026</p>
+            <p><strong>Effective Date:</strong> January 1, 2026</p><p><strong>Last Updated:</strong> June 19, 2026</p>
             <h3>1. Our Commitment</h3><p><strong>Your data is yours. We do not collect it.</strong></p>
             <h3>2. Data We DO NOT Collect</h3><ul><li>❌ No data sent to any server.</li><li>❌ No analytics or tracking.</li><li>❌ No accounts or passwords.</li></ul>
             <h3>3. Where Data Is Stored</h3><p>In your browser's <strong>localStorage</strong> only.</p>
@@ -256,13 +272,13 @@
     <div class="toast" id="toast"></div>
 
     <script>
-        const STORAGE_KEY = 'ngili_calendar_data';
+        const STORAGE_KEY = 'ngili_calendar_data_v2';
         const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
         const MODES = ['wages','busfare','lunch','custom'];
         const MODE_LABELS = { wages:'💰 Wages', busfare:'🚌 Bus Fare', lunch:'🍽 Lunch', custom:'✚ Custom' };
         const MODE_COLORS = { wages:'#2980b9', busfare:'#e67e22', lunch:'#27ae60', custom:'#8e44ad' };
-        const MODE_TOTAL_LABELS = { wages:'📊 Total Wages (Month)', busfare:'🚌 Total Bus Fare (Month)', lunch:'🍽 Total Lunch (Month)', custom:'✚ Total Custom (Month)' };
-        const MODE_NET_LABELS = { wages:'✅ Net Payable', busfare:'🚌 Net Bus Fare', lunch:'🍽 Net Lunch', custom:'✚ Net Custom' };
+        const MODE_EMPLOYER_LABELS = { wages:'🏢 Wages Employer:', busfare:'🚌 Transport Provider:', lunch:'🍽 Lunch Provider:', custom:'🏢 Custom Employer:' };
+        const MODE_PLACEHOLDERS = { wages:'Wage', busfare:'Bus Fare', lunch:'Lunch', custom:'Amount' };
         const DAILY_WAGE_LABELS = { wages:'💰 Daily Wage (Default)', busfare:'🚌 Daily Bus Fare (Default)', lunch:'🍽 Daily Lunch (Default)', custom:'✚ Daily Amount (Default)' };
 
         let currentMonth = new Date().getMonth();
@@ -270,41 +286,88 @@
         let currentMode = 'wages';
         let allData = {};
         let unsavedChanges = false;
+        let customModeName = 'Custom';
 
         function getStorageKey(m,y) { return y+'-'+m; }
         function loadAllData() { const s=localStorage.getItem(STORAGE_KEY); if(s){ try{ allData=JSON.parse(s); }catch(e){ allData={}; } }else{ allData={}; } }
         function saveAllData() { try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(allData)); unsavedChanges=false; updateSaveIndicator(true); hideUnsavedBanner(); updateSaveButtons(true); }catch(e){ showToast('⚠ Storage full! Please export your data.','warning'); } }
         function manualSave() { flushAllChanges(); saveAllData(); showToast('💾 Data saved successfully!','success'); }
+
+        function getMonthData(m,y) {
+            const k=getStorageKey(m,y);
+            if(!allData[k]){
+                allData[k]={ workerInfo:{name:'',id:'',dailyWage:'',phone:''}, customName:'Custom',
+                    employerWages:'', employerBusfare:'', employerLunch:'', employerCustom:'',
+                    wages:{}, busfare:{}, lunch:{}, custom:{},
+                    advanceWages:0, advanceBusfare:0, advanceLunch:0, advanceCustom:0 };
+            }
+            if(!allData[k].customName) allData[k].customName='Custom';
+            MODES.forEach(function(mode){ if(!allData[k][mode])allData[k][mode]={}; });
+            ['employerWages','employerBusfare','employerLunch','employerCustom'].forEach(function(f){ if(allData[k][f]===undefined)allData[k][f]=''; });
+            ['advanceWages','advanceBusfare','advanceLunch','advanceCustom'].forEach(function(f){ if(allData[k][f]===undefined)allData[k][f]=0; });
+            return allData[k];
+        }
+
         function flushAllChanges() {
             const data=getMonthData(currentMonth,currentYear);
-            data.workerInfo={ name:document.getElementById('workerName').value, id:document.getElementById('workerID').value, dailyWage:document.getElementById('dailyWage').value, phone:document.getElementById('workerPhone').value, employer:document.getElementById('workerEmployer').value };
-            data.advance=parseFloat(document.getElementById('advanceInput').value)||0;
+            data.workerInfo={ name:document.getElementById('workerName').value, id:document.getElementById('workerID').value, dailyWage:document.getElementById('dailyWage').value, phone:document.getElementById('workerPhone').value };
+            data.customName = document.getElementById('customNameInput').value || 'Custom';
+            data['employer'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)] = document.getElementById('modeEmployerInput').value;
+            data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)] = parseFloat(document.getElementById('advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)).value)||0;
             const dim=getDaysInMonth(currentMonth,currentYear);
             if(!data[currentMode])data[currentMode]={};
             for(let d=1;d<=dim;d++){ const wi=document.getElementById('wage-'+d); const ni=document.getElementById('note-'+d); if(wi&&ni){ const w=parseFloat(wi.value)||0; const n=ni.value; if(w===0&&n===''){ delete data[currentMode][d]; }else{ data[currentMode][d]={amount:w,note:n}; } } }
         }
-        function getMonthData(m,y) {
-            const k=getStorageKey(m,y);
-            if(!allData[k]){ allData[k]={ workerInfo:{name:'',id:'',dailyWage:'',phone:'',employer:''}, wages:{}, busfare:{}, lunch:{}, custom:{}, advance:0 }; }
-            MODES.forEach(function(mode){ if(!allData[k][mode])allData[k][mode]={}; });
-            return allData[k];
-        }
+
         function markUnsaved() { unsavedChanges=true; updateSaveIndicator(false); showUnsavedBanner(); updateSaveButtons(false); }
         function updateSaveButtons(saved) { [document.getElementById('manualSaveBtn'),document.getElementById('manualSaveBtn2')].forEach(function(btn){ if(!btn)return; if(saved){ btn.classList.add('saved'); btn.innerHTML='✅ Saved'; setTimeout(function(){ btn.classList.remove('saved'); btn.innerHTML='💾 Save Now'; },2000); }else{ btn.classList.remove('saved'); btn.innerHTML='💾 Save Now'; } }); }
         function updateSaveIndicator(saved) { const dot=document.getElementById('saveDot'); const text=document.getElementById('lastSavedText'); if(saved){ dot.className='dot'; text.textContent='All changes saved ✓'; }else{ dot.className='dot unsaved'; text.textContent='Unsaved changes — click Save Now'; } }
         function showUnsavedBanner() { const b=document.getElementById('unsavedBanner'); if(b)b.classList.add('show'); }
         function hideUnsavedBanner() { const b=document.getElementById('unsavedBanner'); if(b)b.classList.remove('show'); }
 
-        function switchMode(mode) { flushAllChanges(); currentMode = mode; updateModeButtons(); renderCalendar(); }
+        function switchMode(mode) { flushAllChanges(); currentMode = mode; updateModeUI(); renderCalendar(); }
 
-        function updateModeButtons() {
+        function updateModeUI() {
             MODES.forEach(function(m){ const btn = document.getElementById('modeBtn'+m.charAt(0).toUpperCase()+m.slice(1)); if(btn){ btn.className = 'mode-btn'; } });
             const activeBtn = document.getElementById('modeBtn'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1));
             if(activeBtn) activeBtn.classList.add('active-'+currentMode);
-            const label = document.getElementById('currentModeLabel'); label.textContent = MODE_LABELS[currentMode]; label.style.background = MODE_COLORS[currentMode];
-            document.getElementById('totalLabel').textContent = MODE_TOTAL_LABELS[currentMode];
-            document.getElementById('netLabel').textContent = MODE_NET_LABELS[currentMode];
+            const label = document.getElementById('currentModeLabel');
+            label.textContent = currentMode==='custom' ? ('✚ '+customModeName) : MODE_LABELS[currentMode];
+            label.style.background = MODE_COLORS[currentMode];
+            document.getElementById('modeEmployerLabel').textContent = MODE_EMPLOYER_LABELS[currentMode];
             document.getElementById('dailyWageLabel').textContent = DAILY_WAGE_LABELS[currentMode];
+            const customSpan = document.getElementById('customNameSpan');
+            if(currentMode==='custom'){ customSpan.style.display='inline'; }else{ customSpan.style.display='none'; }
+            updateCustomLabels();
+        }
+
+        function updateCustomLabels() {
+            const cn = customModeName || 'Custom';
+            document.getElementById('customTotalLabel').textContent = '✚ Total '+cn;
+            document.getElementById('customAdvanceLabel').textContent = '💸 '+cn+' Advances';
+            document.getElementById('customNetLabel').textContent = '✅ '+cn+' Net';
+        }
+
+        function saveModeEmployer() {
+            const data=getMonthData(currentMonth,currentYear);
+            data['employer'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)] = document.getElementById('modeEmployerInput').value;
+            markUnsaved();
+        }
+
+        function saveCustomName() {
+            customModeName = document.getElementById('customNameInput').value || 'Custom';
+            const data=getMonthData(currentMonth,currentYear);
+            data.customName = customModeName;
+            document.getElementById('currentModeLabel').textContent = '✚ '+customModeName;
+            updateCustomLabels();
+            markUnsaved();
+        }
+
+        function saveAdvance(mode) {
+            const data=getMonthData(currentMonth,currentYear);
+            data['advance'+mode.charAt(0).toUpperCase()+mode.slice(1)] = parseFloat(document.getElementById('advance'+mode.charAt(0).toUpperCase()+mode.slice(1)).value)||0;
+            updateAllTotals();
+            markUnsaved();
         }
 
         function saveWage(dayNumber) {
@@ -319,15 +382,14 @@
                 updateAllTotals(); updateWeekSummaryCards(); markUnsaved();
             }
         }
-        function saveWorkerInfo() { markUnsaved(); }
-        function saveAdvance() { const data=getMonthData(currentMonth,currentYear); data.advance=parseFloat(document.getElementById('advanceInput').value)||0; updateAllTotals(); markUnsaved(); }
         function getDaysInMonth(m,y) { return new Date(y,m+1,0).getDate(); }
         function getFirstDayOfMonth(m,y) { return new Date(y,m,1).getDay(); }
 
         function autofillDailyWage() {
             const dailyWageDefault = document.getElementById('dailyWage').value;
             if (!dailyWageDefault || parseFloat(dailyWageDefault) <= 0) { showToast('⚠ Please enter a valid amount first.', 'warning'); return; }
-            if (!confirm('Fill ALL empty cells with ' + dailyWageDefault + ' for ' + MODE_LABELS[currentMode] + ' — ' + MONTHS[currentMonth] + ' ' + currentYear + '?')) return;
+            const modeLabel = currentMode==='custom' ? ('✚ '+customModeName) : MODE_LABELS[currentMode];
+            if (!confirm('Fill ALL empty cells with ' + dailyWageDefault + ' for ' + modeLabel + ' — ' + MONTHS[currentMonth] + ' ' + currentYear + '?')) return;
             const daysInMonth = getDaysInMonth(currentMonth, currentYear);
             const data = getMonthData(currentMonth, currentYear);
             if(!data[currentMode])data[currentMode]={};
@@ -345,9 +407,10 @@
         }
 
         function clearCurrentMode() {
-            if(confirm('Clear ALL ' + MODE_LABELS[currentMode] + ' entries for ' + MONTHS[currentMonth] + ' ' + currentYear + '? This cannot be undone.')){
+            const modeLabel = currentMode==='custom' ? ('✚ '+customModeName) : MODE_LABELS[currentMode];
+            if(confirm('Clear ALL ' + modeLabel + ' entries for ' + MONTHS[currentMonth] + ' ' + currentYear + '? This cannot be undone.')){
                 const data=getMonthData(currentMonth,currentYear); data[currentMode]={}; saveAllData(); renderCalendar();
-                showToast('🗑 ' + MODE_LABELS[currentMode] + ' cleared for this month','warning');
+                showToast('🗑 ' + modeLabel + ' cleared for this month','warning');
             }
         }
 
@@ -355,13 +418,18 @@
             if(unsavedChanges){ flushAllChanges(); saveAllData(); }
             loadAllData();
             const data=getMonthData(currentMonth,currentYear);
+            customModeName = data.customName || 'Custom';
             document.getElementById('workerName').value=data.workerInfo.name||'';
             document.getElementById('workerID').value=data.workerInfo.id||'';
             document.getElementById('dailyWage').value=data.workerInfo.dailyWage||'';
             document.getElementById('workerPhone').value=data.workerInfo.phone||'';
-            document.getElementById('workerEmployer').value=data.workerInfo.employer||'';
-            document.getElementById('advanceInput').value=data.advance||'';
-            updateModeButtons();
+            document.getElementById('modeEmployerInput').value = data['employer'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)] || '';
+            document.getElementById('customNameInput').value = customModeName;
+            document.getElementById('advanceWages').value = data.advanceWages||0;
+            document.getElementById('advanceBusfare').value = data.advanceBusfare||0;
+            document.getElementById('advanceLunch').value = data.advanceLunch||0;
+            document.getElementById('advanceCustom').value = data.advanceCustom||0;
+            updateModeUI();
             const monthSelect=document.getElementById('monthSelect'); monthSelect.innerHTML='';
             MONTHS.forEach(function(m,i){ const opt=document.createElement('option'); opt.value=i; opt.textContent=m; if(i===currentMonth)opt.selected=true; monthSelect.appendChild(opt); });
             const yearSelect=document.getElementById('yearSelect'); yearSelect.innerHTML='';
@@ -390,7 +458,7 @@
                         const hasUserValue=(dayData.amount>0||dayData.note!=='');
                         const amountVal=hasUserValue?dayData.amount:'';
                         const noteVal=dayData.note||'';
-                        const placeholderText = (currentMode==='wages') ? 'Wage' : ((currentMode==='busfare') ? 'Bus Fare' : ((currentMode==='lunch') ? 'Lunch' : 'Amount'));
+                        const placeholderText = MODE_PLACEHOLDERS[currentMode] || 'Amount';
                         td.innerHTML='<div class="day-cell"><div class="date-number">'+dayNum+'</div>'+
                             '<input type="number" class="wage-input mode-'+currentMode+(hasUserValue?' has-value':'')+'" '+
                             'id="wage-'+dayNum+'" placeholder="'+placeholderText+'" '+
@@ -420,21 +488,50 @@
             const firstDay=getFirstDayOfMonth(currentMonth,currentYear);
             const totalCellsNeeded=firstDay+daysInMonth;
             const rowsToShow=Math.max(5,Math.ceil(totalCellsNeeded/7));
-            let totalAmount=0; const weekTotals=new Array(rowsToShow).fill(0);
+            const data=getMonthData(currentMonth,currentYear);
+
+            // Calculate totals from stored data for each mode
+            const totals = { wages:0, busfare:0, lunch:0, custom:0 };
+            MODES.forEach(function(mode){
+                const modeData = data[mode] || {};
+                for(let d=1;d<=daysInMonth;d++){
+                    const dd = modeData[d] || {amount:0};
+                    totals[mode] += parseFloat(dd.amount)||0;
+                }
+            });
+
+            // Update total displays
+            document.getElementById('totalWages').textContent = totals.wages.toFixed(2);
+            document.getElementById('totalBusfare').textContent = totals.busfare.toFixed(2);
+            document.getElementById('totalLunch').textContent = totals.lunch.toFixed(2);
+            document.getElementById('totalCustom').textContent = totals.custom.toFixed(2);
+
+            // Net calculations
+            const netWages = totals.wages - (data.advanceWages||0);
+            const netBusfare = totals.busfare - (data.advanceBusfare||0);
+            const netLunch = totals.lunch - (data.advanceLunch||0);
+            const netCustom = totals.custom - (data.advanceCustom||0);
+
+            document.getElementById('netWages').textContent = netWages.toFixed(2);
+            document.getElementById('netBusfare').textContent = netBusfare.toFixed(2);
+            document.getElementById('netLunch').textContent = netLunch.toFixed(2);
+            document.getElementById('netCustom').textContent = netCustom.toFixed(2);
+
+            ['netWages','netBusfare','netLunch','netCustom'].forEach(function(id){
+                const el = document.getElementById(id);
+                const val = parseFloat(el.textContent);
+                el.style.color = val<0 ? '#c0392b' : '#27ae60';
+            });
+
+            // Week totals for current mode
+            const weekTotals=new Array(rowsToShow).fill(0);
             for(let d=1;d<=daysInMonth;d++){
                 const wageInput=document.getElementById('wage-'+d);
                 const amount=wageInput?(parseFloat(wageInput.value)||0):0;
-                totalAmount+=amount;
                 const cellIndex=firstDay+d-1; const weekIndex=Math.floor(cellIndex/7);
                 if(weekIndex>=0&&weekIndex<rowsToShow)weekTotals[weekIndex]+=amount;
             }
             for(let w=0;w<rowsToShow;w++){ const el=document.getElementById('week-total-'+w); if(el)el.textContent=weekTotals[w].toFixed(2); }
-            const advanceEl=document.getElementById('advanceInput');
-            const advance=advanceEl?(parseFloat(advanceEl.value)||0):(getMonthData(currentMonth,currentYear).advance||0);
-            document.getElementById('totalEarnings').textContent=totalAmount.toFixed(2);
-            const netAmount=totalAmount-advance;
-            const netEl=document.getElementById('netPayable'); netEl.textContent=netAmount.toFixed(2);
-            netEl.style.color=netAmount<0?'#c0392b':'#27ae60';
         }
 
         function updateWeekSummaryCards() {
@@ -469,15 +566,24 @@
             flushAllChanges(); saveAllData(); loadAllData();
             const currentData=getMonthData(currentMonth,currentYear);
             const workerName=(currentData.workerInfo.name||'worker').replace(/[^a-zA-Z0-9]/g,'_');
+            const cn = currentData.customName || 'Custom';
             let csv='Ngili Calendar - All Records\nExported: '+new Date().toISOString().split('T')[0]+'\n\n--- Worker Information ---\n';
-            csv+='Name,'+currentData.workerInfo.name+'\nID,'+currentData.workerInfo.id+'\nDaily Amount,'+currentData.workerInfo.dailyWage+'\nPhone,'+currentData.workerInfo.phone+'\nEmployer,'+currentData.workerInfo.employer+'\n\n';
+            csv+='Name,'+currentData.workerInfo.name+'\nID,'+currentData.workerInfo.id+'\nDaily Amount,'+currentData.workerInfo.dailyWage+'\nPhone,'+currentData.workerInfo.phone+'\n\n';
+            csv+='--- Employers ---\n';
+            csv+='Wages Employer,'+(currentData.employerWages||'')+'\n';
+            csv+='Transport Provider,'+(currentData.employerBusfare||'')+'\n';
+            csv+='Lunch Provider,'+(currentData.employerLunch||'')+'\n';
+            csv+=cn+' Employer,'+(currentData.employerCustom||'')+'\n';
+            csv+='Custom Category Name,'+cn+'\n\n';
+
             const sortedKeys=Object.keys(allData).sort();
+            const modeNames = { wages:'Wages', busfare:'Bus Fare', lunch:'Lunch', custom:cn };
             MODES.forEach(function(mode){
-                csv+='\n--- '+MODE_LABELS[mode]+' Records ---\nYear,Month,Day,Date,Amount,Notes\n';
+                csv+='--- '+modeNames[mode]+' Records ---\nYear,Month,Day,Date,Amount,Notes\n';
                 for(let k=0;k<sortedKeys.length;k++){ const key=sortedKeys[k]; const parts=key.split('-'); const year=parseInt(parts[0]); const month=parseInt(parts[1]); const monthData=allData[key]; const dim=new Date(year,month+1,0).getDate(); const modeData=monthData[mode]||{}; for(let d=1;d<=dim;d++){ const dd=modeData[d]||{amount:0,note:''}; if(dd.amount>0||dd.note){ const ds=year+'-'+String(month+1).padStart(2,'0')+'-'+String(d).padStart(2,'0'); const dn=new Date(year,month,d).toLocaleDateString('en-US',{weekday:'short'}); const ne=(dd.note||'').replace(/"/g,'""'); csv+=year+','+MONTHS[month]+','+d+','+ds+' ('+dn+'),'+(dd.amount||0)+',"'+ne+'"\n'; } } }
             });
-            csv+='\n--- Advances/Deductions ---\nYear,Month,Advance Amount\n';
-            for(let k=0;k<sortedKeys.length;k++){ const key=sortedKeys[k]; const parts=key.split('-'); if(allData[key].advance>0)csv+=parts[0]+','+MONTHS[parseInt(parts[1])]+','+allData[key].advance+'\n'; }
+            csv+='\n--- Advances/Deductions ---\nYear,Month,Wages Advance,Bus Fare Advance,Lunch Advance,'+cn+' Advance\n';
+            for(let k=0;k<sortedKeys.length;k++){ const key=sortedKeys[k]; const parts=key.split('-'); const md=allData[key]; csv+=parts[0]+','+MONTHS[parseInt(parts[1])]+','+(md.advanceWages||0)+','+(md.advanceBusfare||0)+','+(md.advanceLunch||0)+','+(md.advanceCustom||0)+'\n'; }
             const ds=new Date().toISOString().split('T')[0];
             const fn='Ngili_Calendar_'+workerName+'_'+currentYear+'_'+MONTHS[currentMonth]+'_'+ds+'.csv';
             try{
@@ -499,15 +605,25 @@
                     let section='header',importedCount=0; const importedData={}; let cwi={}; let currentImportMode='wages';
                     for(let i=0;i<cleanLines.length;i++){
                         const line=cleanLines[i];
-                        if(line.startsWith('---')){ if(line.includes('Worker Information'))section='workerInfo'; else if(line.includes('Wages')&&!line.includes('Bus')&&!line.includes('Lunch')&&!line.includes('Custom')){ section='mode'; currentImportMode='wages'; } else if(line.includes('Bus Fare')){ section='mode'; currentImportMode='busfare'; } else if(line.includes('Lunch')){ section='mode'; currentImportMode='lunch'; } else if(line.includes('Custom')){ section='mode'; currentImportMode='custom'; } else if(line.includes('Advances'))section='advances'; continue; }
+                        if(line.startsWith('---')){
+                            if(line.includes('Worker Information'))section='workerInfo';
+                            else if(line.includes('Employers'))section='employers';
+                            else if(line.includes('Wages Records')||(line.includes('Wages')&&!line.includes('Bus')&&!line.includes('Lunch')&&!line.includes('Custom')&&!line.includes('Advance'))){ section='mode'; currentImportMode='wages'; }
+                            else if(line.includes('Bus Fare')){ section='mode'; currentImportMode='busfare'; }
+                            else if(line.includes('Lunch')){ section='mode'; currentImportMode='lunch'; }
+                            else if(line.includes('Custom')||line.includes(cwi.customName||'Custom')){ section='mode'; currentImportMode='custom'; }
+                            else if(line.includes('Advances'))section='advances';
+                            continue;
+                        }
                         if(line.startsWith('Ngili Calendar')||line.startsWith('Exported:')||line==='')continue;
                         const parts=line.split(',');
-                        if(section==='workerInfo'){ if(parts[0]==='Name')cwi.name=parts[1]||''; if(parts[0]==='ID')cwi.id=parts[1]||''; if(parts[0]==='Daily Wage'||parts[0]==='Daily Amount')cwi.dailyWage=parts[1]||''; if(parts[0]==='Phone')cwi.phone=parts[1]||''; if(parts[0]==='Employer')cwi.employer=parts[1]||''; }
-                        else if(section==='mode'&&!line.startsWith('Year,')){ if(parts.length>=6){ const year=parseInt(parts[0]); const mn=parts[1]; const day=parseInt(parts[2]); const amount=parseFloat(parts[4])||0; let note=parts.slice(5).join(','); if(note.startsWith('"')&&note.endsWith('"'))note=note.slice(1,-1).replace(/""/g,'"'); const mi=MONTHS.indexOf(mn); if(mi>=0&&!isNaN(year)&&!isNaN(day)&&day>0){ const key=year+'-'+mi; if(!importedData[key])importedData[key]={workerInfo:{name:cwi.name,id:cwi.id,dailyWage:cwi.dailyWage,phone:cwi.phone,employer:cwi.employer},wages:{},busfare:{},lunch:{},custom:{},advance:0}; if(amount>0||note){ importedData[key][currentImportMode][day]={amount:amount,note:note}; importedCount++; } } } }
-                        else if(section==='advances'&&!line.startsWith('Year,')){ if(parts.length>=3){ const year=parseInt(parts[0]); const mn=parts[1]; const advance=parseFloat(parts[2])||0; const mi=MONTHS.indexOf(mn); if(mi>=0&&!isNaN(year)){ const key=year+'-'+mi; if(!importedData[key])importedData[key]={workerInfo:{name:cwi.name,id:cwi.id,dailyWage:cwi.dailyWage,phone:cwi.phone,employer:cwi.employer},wages:{},busfare:{},lunch:{},custom:{},advance:0}; importedData[key].advance=advance; } } }
+                        if(section==='workerInfo'){ if(parts[0]==='Name')cwi.name=parts[1]||''; if(parts[0]==='ID')cwi.id=parts[1]||''; if(parts[0]==='Daily Wage'||parts[0]==='Daily Amount')cwi.dailyWage=parts[1]||''; if(parts[0]==='Phone')cwi.phone=parts[1]||''; }
+                        else if(section==='employers'){ if(parts[0]==='Wages Employer')cwi.employerWages=parts[1]||''; if(parts[0]==='Transport Provider')cwi.employerBusfare=parts[1]||''; if(parts[0]==='Lunch Provider')cwi.employerLunch=parts[1]||''; if(parts[0]==='Custom Category Name')cwi.customName=parts[1]||'Custom'; if(parts[0]&&parts[0].includes('Employer')&&!parts[0].includes('Wages')&&!parts[0].includes('Transport')&&!parts[0].includes('Lunch'))cwi.employerCustom=parts[1]||''; }
+                        else if(section==='mode'&&!line.startsWith('Year,')){ if(parts.length>=6){ const year=parseInt(parts[0]); const mn=parts[1]; const day=parseInt(parts[2]); const amount=parseFloat(parts[4])||0; let note=parts.slice(5).join(','); if(note.startsWith('"')&&note.endsWith('"'))note=note.slice(1,-1).replace(/""/g,'"'); const mi=MONTHS.indexOf(mn); if(mi>=0&&!isNaN(year)&&!isNaN(day)&&day>0){ const key=year+'-'+mi; if(!importedData[key])importedData[key]={workerInfo:{name:cwi.name,id:cwi.id,dailyWage:cwi.dailyWage,phone:cwi.phone},customName:cwi.customName||'Custom',employerWages:cwi.employerWages||'',employerBusfare:cwi.employerBusfare||'',employerLunch:cwi.employerLunch||'',employerCustom:cwi.employerCustom||'',wages:{},busfare:{},lunch:{},custom:{},advanceWages:0,advanceBusfare:0,advanceLunch:0,advanceCustom:0}; if(amount>0||note){ importedData[key][currentImportMode][day]={amount:amount,note:note}; importedCount++; } } } }
+                        else if(section==='advances'&&!line.startsWith('Year,')){ if(parts.length>=5){ const year=parseInt(parts[0]); const mn=parts[1]; const mi=MONTHS.indexOf(mn); if(mi>=0&&!isNaN(year)){ const key=year+'-'+mi; if(!importedData[key])importedData[key]={workerInfo:{name:cwi.name,id:cwi.id,dailyWage:cwi.dailyWage,phone:cwi.phone},customName:cwi.customName||'Custom',employerWages:cwi.employerWages||'',employerBusfare:cwi.employerBusfare||'',employerLunch:cwi.employerLunch||'',employerCustom:cwi.employerCustom||'',wages:{},busfare:{},lunch:{},custom:{},advanceWages:0,advanceBusfare:0,advanceLunch:0,advanceCustom:0}; importedData[key].advanceWages=parseFloat(parts[2])||0; importedData[key].advanceBusfare=parseFloat(parts[3])||0; importedData[key].advanceLunch=parseFloat(parts[4])||0; importedData[key].advanceCustom=parseFloat(parts[5])||0; } } }
                     }
                     const impKeys=Object.keys(importedData);
-                    for(let k=0;k<impKeys.length;k++){ const key=impKeys[k]; const ida=importedData[key]; if(!allData[key])allData[key]={workerInfo:{},wages:{},busfare:{},lunch:{},custom:{},advance:0}; if(ida.workerInfo.name)allData[key].workerInfo.name=ida.workerInfo.name; if(ida.workerInfo.id)allData[key].workerInfo.id=ida.workerInfo.id; if(ida.workerInfo.dailyWage)allData[key].workerInfo.dailyWage=ida.workerInfo.dailyWage; if(ida.workerInfo.phone)allData[key].workerInfo.phone=ida.workerInfo.phone; if(ida.workerInfo.employer)allData[key].workerInfo.employer=ida.workerInfo.employer; MODES.forEach(function(mode){ const mk=Object.keys(ida[mode]||{}); for(let w=0;w<mk.length;w++){ if(!allData[key][mode])allData[key][mode]={}; allData[key][mode][mk[w]]=ida[mode][mk[w]]; } }); if(ida.advance>0)allData[key].advance=ida.advance; }
+                    for(let k=0;k<impKeys.length;k++){ const key=impKeys[k]; const ida=importedData[key]; if(!allData[key])allData[key]={workerInfo:{},customName:'Custom',employerWages:'',employerBusfare:'',employerLunch:'',employerCustom:'',wages:{},busfare:{},lunch:{},custom:{},advanceWages:0,advanceBusfare:0,advanceLunch:0,advanceCustom:0}; if(ida.workerInfo.name)allData[key].workerInfo.name=ida.workerInfo.name; if(ida.workerInfo.id)allData[key].workerInfo.id=ida.workerInfo.id; if(ida.workerInfo.dailyWage)allData[key].workerInfo.dailyWage=ida.workerInfo.dailyWage; if(ida.workerInfo.phone)allData[key].workerInfo.phone=ida.workerInfo.phone; if(ida.customName)allData[key].customName=ida.customName; if(ida.employerWages)allData[key].employerWages=ida.employerWages; if(ida.employerBusfare)allData[key].employerBusfare=ida.employerBusfare; if(ida.employerLunch)allData[key].employerLunch=ida.employerLunch; if(ida.employerCustom)allData[key].employerCustom=ida.employerCustom; MODES.forEach(function(mode){ const mk=Object.keys(ida[mode]||{}); for(let w=0;w<mk.length;w++){ if(!allData[key][mode])allData[key][mode]={}; allData[key][mode][mk[w]]=ida[mode][mk[w]]; } }); if(ida.advanceWages)allData[key].advanceWages=ida.advanceWages; if(ida.advanceBusfare)allData[key].advanceBusfare=ida.advanceBusfare; if(ida.advanceLunch)allData[key].advanceLunch=ida.advanceLunch; if(ida.advanceCustom)allData[key].advanceCustom=ida.advanceCustom; }
                     saveAllData(); renderCalendar(); showToast('📤 Imported '+importedCount+' records!','success');
                 }catch(err){ showToast('❌ Error importing CSV.','warning'); }
             };
@@ -515,12 +631,16 @@
         }
 
         function copyDataToClipboard() {
-            flushAllChanges(); const data=getMonthData(currentMonth,currentYear); const dim=getDaysInMonth(currentMonth,currentYear);
-            let text='Ngili Calendar - '+MODE_LABELS[currentMode]+' - '+MONTHS[currentMonth]+' '+currentYear+'\nWorker: '+(data.workerInfo.name||'N/A')+' | ID: '+(data.workerInfo.id||'N/A')+'\nDay\tAmount\tNotes\n';
-            let total=0; const modeData=data[currentMode]||{};
-            for(let d=1;d<=dim;d++){ const dd=modeData[d]||{amount:0,note:''}; if(dd.amount>0||dd.note){ text+=d+'\t'+(dd.amount||0)+'\t'+(dd.note||'')+'\n'; total+=parseFloat(dd.amount)||0; } }
-            text+='\nTotal: '+total.toFixed(2)+'\nAdvances: '+(data.advance||0)+'\nNet: '+(total-(data.advance||0)).toFixed(2);
-            navigator.clipboard.writeText(text).then(function(){ showToast('📋 Data copied!','success'); }).catch(function(){ showToast('⚠ Could not copy.','warning'); });
+            flushAllChanges(); const data=getMonthData(currentMonth,currentYear); const dim=getDaysInMonth(currentMonth,currentYear); const cn=data.customName||'Custom';
+            let text='Ngili Calendar - All Categories - '+MONTHS[currentMonth]+' '+currentYear+'\nWorker: '+(data.workerInfo.name||'N/A')+' | ID: '+(data.workerInfo.id||'N/A')+'\n\n';
+            const modeNames={wages:'Wages',busfare:'Bus Fare',lunch:'Lunch',custom:cn};
+            MODES.forEach(function(mode){
+                text+='--- '+modeNames[mode]+' ---\nDay\tAmount\tNotes\n';
+                let total=0; const modeData=data[mode]||{};
+                for(let d=1;d<=dim;d++){ const dd=modeData[d]||{amount:0,note:''}; if(dd.amount>0||dd.note){ text+=d+'\t'+(dd.amount||0)+'\t'+(dd.note||'')+'\n'; total+=parseFloat(dd.amount)||0; } }
+                text+='Total: '+total.toFixed(2)+'\nAdvance: '+(data['advance'+mode.charAt(0).toUpperCase()+mode.slice(1)]||0)+'\nNet: '+(total-(data['advance'+mode.charAt(0).toUpperCase()+mode.slice(1)]||0)).toFixed(2)+'\n\n';
+            });
+            navigator.clipboard.writeText(text).then(function(){ showToast('📋 All data copied!','success'); }).catch(function(){ showToast('⚠ Could not copy.','warning'); });
         }
 
         function resetAllData() { if(confirm('⚠ DELETE ALL DATA? Cannot be undone!\n\nExport your data first.')){ if(confirm('Final warning: ALL records will be erased. Continue?')){ allData={}; saveAllData(); renderCalendar(); showToast('⚠ All data reset','warning'); } } }
@@ -529,7 +649,7 @@
         document.addEventListener('click',function(e){ if(e.target.classList.contains('modal-overlay')){ e.target.classList.remove('active'); document.body.style.overflow=''; } });
         document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ var ovs=document.querySelectorAll('.modal-overlay.active'); for(var i=0;i<ovs.length;i++){ ovs[i].classList.remove('active'); } document.body.style.overflow=''; } });
         function showToast(message,type){ var toast=document.getElementById('toast'); toast.textContent=message; toast.className='toast '+(type||'')+' show'; clearTimeout(toast._timeout); toast._timeout=setTimeout(function(){ toast.classList.remove('show'); },2500); }
-        function init(){ loadAllData(); renderCalendar(); window.addEventListener('beforeunload',function(){ flushAllChanges(); saveAllData(); }); setInterval(function(){ if(unsavedChanges){ flushAllChanges(); saveAllData(); } },10000); console.log('📅 The Ngili Calendar initialized! © 2026 Safari Softwares'); }
+        function init(){ loadAllData(); renderCalendar(); window.addEventListener('beforeunload',function(){ flushAllChanges(); saveAllData(); }); setInterval(function(){ if(unsavedChanges){ flushAllChanges(); saveAllData(); } },10000); console.log('📅 The Ngili Calendar v2 initialized! © 2026 Safari Softwares'); }
         init();
     </script>
 </body>
