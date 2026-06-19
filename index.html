@@ -126,8 +126,10 @@
             .worker-info-card .field-group { align-items: center; }
             .worker-info-card label { text-align: center; }
             .worker-info-card input { text-align: center; width: 100%; }
-            .controls-bar { flex-direction: column; align-items: center; gap: 6px; }
-            .controls-bar label { text-align: center; }
+            .controls-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; justify-items: center; align-items: start; padding: 12px; }
+.controls-bar label { margin-bottom: 1px; text-align: center; font-size: 0.75em; }
+.controls-bar select { width: 100%; max-width: 120px; }
+.controls-bar .btn { justify-self: center; }
             .summary-card .big-number { font-size: 1.3em; }
             .mode-bar .mode-label { display: block; width: 100%; text-align: center; margin-right: 0; margin-bottom: 4px; }
             .mode-btn { padding: 5px 8px; font-size: 0.68em; } .mode-indicator { margin-left: 4px; }
