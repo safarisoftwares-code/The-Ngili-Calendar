@@ -108,6 +108,7 @@
         .modal h2 { color: var(--primary); margin-bottom: 15px; font-size: 1.4em; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
         .modal h3 { color: var(--text); margin-top: 15px; margin-bottom: 8px; font-size: 1.1em; }
         .modal p, .modal li { font-size: 0.9em; line-height: 1.6; color: var(--text); margin-bottom: 8px; }
+        .modal ul { padding-left: 20px; margin-bottom: 10px; }
         .modal .close-btn { position: sticky; top: 0; float: right; background: var(--danger); color: white; border: none; padding: 8px 16px; border-radius: var(--radius-sm); cursor: pointer; font-weight: 700; z-index: 10; }
         .toast { position: fixed; top: 20px; right: 20px; background: #2c3e50; color: white; padding: 12px 20px; border-radius: var(--radius); font-weight: 600; z-index: 3000; opacity: 0; transform: translateY(-20px); transition: all 0.3s ease; pointer-events: none; }
         .toast.show { opacity: 1; transform: translateY(0); } .toast.success { background: var(--success); } .toast.warning { background: var(--accent); }
@@ -120,7 +121,13 @@
         .unsaved-banner.show { display: block; }
         @media (max-width: 768px) {
             .calendar-table { min-width: auto; font-size: 0.7em; } .calendar-table td { height: 48px; padding: 2px; }
-            .header h1 { font-size: 1.4em; } .worker-info-card { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 5px; padding: 8px; }
+            .header h1 { font-size: 1.4em; }
+            .worker-info-card { grid-template-columns: 1fr 1fr; gap: 5px; padding: 10px; text-align: center; }
+            .worker-info-card .field-group { align-items: center; }
+            .worker-info-card label { text-align: center; }
+            .worker-info-card input { text-align: center; width: 100%; }
+            .controls-bar { flex-direction: column; align-items: center; gap: 6px; }
+            .controls-bar label { text-align: center; }
             .summary-card .big-number { font-size: 1.3em; }
             .mode-bar .mode-label { display: block; width: 100%; text-align: center; margin-right: 0; margin-bottom: 4px; }
             .mode-btn { padding: 5px 8px; font-size: 0.68em; } .mode-indicator { margin-left: 4px; }
@@ -188,11 +195,36 @@
                 <a onclick="openModal('termsModal')">📜 Terms of Use</a>
                 <a onclick="openModal('privacyModal')">🔒 Privacy Policy</a>
             </div>
-            <div class="disclaimer"><strong>Disclaimer:</strong> The Ngili Calendar is a tool to assist workers in tracking their daily wages and calculating totals. Not a substitute for official payroll records. Safari Softwares assumes no liability for discrepancies.</div>
+            <div class="disclaimer"><strong>Disclaimer:</strong> The Ngili Calendar is a tool to assist workers in tracking their daily wages and calculating totals. It is not a substitute for official payroll records. Users are responsible for verifying all calculations. Safari Softwares assumes no liability for any discrepancies, financial losses, or disputes arising from the use of this tool. Always cross-check with official employer records.</div>
         </div>
     </div>
-    <div class="modal-overlay" id="termsModal"><div class="modal"><button class="close-btn" onclick="closeModal('termsModal')">✕ Close</button><h2>📜 Terms of Use</h2><p><strong>Effective:</strong> January 1, 2026</p><p>By using The Ngili Calendar, you agree to these terms. The Software is provided "as is" without warranty. It is the intellectual property of <strong>Safari Softwares</strong>. Contact: 📧 <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p></div></div>
-    <div class="modal-overlay" id="privacyModal"><div class="modal"><button class="close-btn" onclick="closeModal('privacyModal')">✕ Close</button><h2>🔒 Privacy Policy</h2><p><strong>Effective:</strong> January 1, 2026</p><p><strong>Your data is yours. We do not collect it.</strong> All data stored in your browser's localStorage only. No servers, no tracking, no accounts.</p><p>📧 <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p></div></div>
+    <div class="modal-overlay" id="termsModal">
+        <div class="modal">
+            <button class="close-btn" onclick="closeModal('termsModal')">✕ Close</button>
+            <h2>📜 Terms of Use</h2>
+            <p><strong>Effective Date:</strong> January 1, 2026 | <strong>Last Updated:</strong> June 19, 2026</p>
+            <h3>1. Acceptance of Terms</h3><p>By using The Ngili Calendar ("the Software"), you agree to these Terms of Use. If you do not agree, do not use the Software.</p>
+            <h3>2. Description of Service</h3><p>The Ngili Calendar is a browser-based tracking tool for daily earnings, bus fare, lunch costs, and custom expenses. It is provided as-is, free of charge.</p>
+            <h3>3. User Responsibilities</h3><ul><li>You are solely responsible for the accuracy of data you enter.</li><li>You are responsible for backing up your data using the Export CSV feature.</li><li>You agree not to use the Software for any illegal or unauthorized purpose.</li><li>You acknowledge that the Software stores data locally in your browser and is not cloud-synced.</li></ul>
+            <h3>4. Intellectual Property</h3><p>The Ngili Calendar, including its code, design, name, and all associated materials, is the intellectual property of <strong>Safari Softwares</strong>. You may use the Software freely but may not sell, resell, or commercialize it without written permission.</p>
+            <h3>5. Limitation of Liability</h3><p><strong>Safari Softwares</strong> provides The Ngili Calendar "as is" without any warranty. In no event shall Safari Softwares be liable for data loss, financial discrepancies, miscalculations, or any damages arising from use of the Software.</p>
+            <h3>6. Data Loss Disclaimer</h3><p>The Software uses browser localStorage. <strong>It is your responsibility to regularly export your data to CSV and store it safely.</strong></p>
+            <h3>7. Contact</h3><p>📧 <strong>Safari Softwares</strong> — <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p>
+        </div>
+    </div>
+    <div class="modal-overlay" id="privacyModal">
+        <div class="modal">
+            <button class="close-btn" onclick="closeModal('privacyModal')">✕ Close</button>
+            <h2>🔒 Privacy Policy</h2>
+            <p><strong>Effective Date:</strong> January 1, 2026 | <strong>Last Updated:</strong> June 19, 2026</p>
+            <h3>1. Our Commitment to Privacy</h3><p><strong>Your data is yours. We do not collect it.</strong> The Ngili Calendar is designed with privacy as a fundamental principle.</p>
+            <h3>2. Data We DO NOT Collect</h3><ul><li>❌ No personal data is sent to any server.</li><li>❌ No analytics or tracking scripts.</li><li>❌ No cookies beyond localStorage (which stays on your device).</li><li>❌ No accounts, no passwords, no registration.</li><li>❌ No cloud storage — your data never leaves your device unless you choose to export it.</li></ul>
+            <h3>3. Where Your Data Is Stored</h3><p>All data you enter is stored exclusively in your browser's <strong>localStorage</strong>. It is accessible only on this device and this browser, not shared with any third party, and not accessible by Safari Softwares or anyone else.</p>
+            <h3>4. Risks of localStorage</h3><p>localStorage data can be lost if you clear your browser data, lose your device, or reset to factory settings. <strong>Protect yourself:</strong> Use the 📥 Export CSV feature regularly and save the file in a safe location.</p>
+            <h3>5. CSV Export — Your Control</h3><p>When you export your data to CSV, the file is downloaded to your device. You choose where to store it and who to share it with. Safari Softwares has no access to this file.</p>
+            <h3>6. Contact</h3><p>📧 <strong>Safari Softwares</strong> — <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p>
+        </div>
+    </div>
     <div class="toast" id="toast"></div>
 
     <script>
