@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Ngili Calendar - Worker Wage Tracker | Safari Softwares</title>
-    <meta name="description" content="The Ngili Calendar — Track wages, bus fare, lunch, and custom expenses independently.">
+    <meta name="description" content="The Ngili Calendar — Track wages, bus fare, lunch, and custom expenses independently. Dark mode, multi-currency, Swahili, targets.">
     <meta name="author" content="Safari Softwares">
     <meta name="copyright" content="© 2026 Safari Softwares. All rights reserved.">
     <meta name="theme-color" content="#1a5276">
@@ -19,34 +19,37 @@
             --shadow: 0 2px 10px rgba(0,0,0,0.08); --shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
             --radius: 8px; --radius-sm: 4px; --transition: 0.2s ease;
         }
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: var(--text); min-height: 100vh; padding: 15px;
-            -webkit-print-color-adjust: exact; print-color-adjust: exact;
+        .dark-mode {
+            --primary: #2980b9; --primary-light: #3498db; --accent: #f39c12; --success: #2ecc71; --danger: #e74c3c;
+            --bg: #1a1a2e; --card-bg: #16213e; --text: #ecf0f1; --text-light: #bdc3c7; --border: #2c3e50;
+            --weekend: #2c3e50; --today-bg: #1a3a2a; --today-border: #2ecc71;
+            --shadow: 0 2px 10px rgba(0,0,0,0.3); --shadow-lg: 0 10px 30px rgba(0,0,0,0.4);
         }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 15px; transition: background 0.3s, color 0.3s; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         @media print {
             body { background: white !important; padding: 0 !important; font-size: 10px; color: black !important; }
-            .worker-info-card, .calendar-container, .summary-section, .header, .footer-main, .mode-bar { display: block !important; visibility: visible !important; opacity: 1 !important; }
-            .no-print, .controls-bar, .action-bar, .last-saved, #csvFileInput, .unsaved-banner, .footer-links, #termsModal, #privacyModal, .modal-overlay { display: none !important; }
+            .worker-info-card, .calendar-container, .summary-section, .header, .footer-main, .mode-bar { display: block !important; }
+            .no-print, .controls-bar, .action-bar, .last-saved, #csvFileInput, .unsaved-banner, .footer-links, #termsModal, #privacyModal, .modal-overlay, .settings-bar { display: none !important; }
             .calendar-container { box-shadow: none !important; border: 1px solid #ccc; }
             .calendar-table { min-width: auto !important; } .calendar-table td { height: 40px !important; padding: 2px !important; }
-            .worker-info-card { border: 1px solid #ccc !important; box-shadow: none !important; padding: 8px 12px !important; grid-template-columns: repeat(5, 1fr) !important; gap: 4px !important; }
-            .worker-info-card input { border: 1px solid #ccc !important; font-size: 0.7em !important; padding: 3px 5px !important; }
+            .worker-info-card { border: 1px solid #ccc !important; padding: 8px 12px !important; grid-template-columns: repeat(5, 1fr) !important; }
             .summary-card { box-shadow: none !important; border: 1px solid #ccc !important; padding: 6px !important; }
             .header h1 { font-size: 1.3em !important; color: black !important; }
             @page { size: landscape; margin: 4mm; }
         }
         @media screen and (min-width: 1024px) { body { display: flex; justify-content: center; align-items: flex-start; padding: 20px; } .main-wrapper { max-width: 1400px; width: 100%; } }
         .main-wrapper { width: 100%; }
-        .header { text-align: center; margin-bottom: 8px; }
-        .header h1 { font-size: 2.2em; font-weight: 800; color: var(--primary); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; }
+        .header { text-align: center; margin-bottom: 6px; }
+        .header h1 { font-size: 2.2em; font-weight: 800; color: var(--primary); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2px; }
         .header .subtitle { font-size: 0.9em; color: var(--text-light); font-style: italic; }
+        .settings-bar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: center; margin-bottom: 6px; padding: 6px 10px; background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); font-size: 0.78em; }
+        .settings-bar select { padding: 4px 8px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-size: 0.9em; background: var(--card-bg); color: var(--text); }
+        .settings-bar .btn { font-size: 0.8em; padding: 5px 10px; }
         .mode-bar { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; justify-content: center; margin-bottom: 6px; padding: 8px 12px; background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); }
         .mode-bar .mode-label { font-weight: 700; font-size: 0.8em; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; margin-right: 6px; }
         .mode-btn { padding: 8px 14px; border: 2px solid var(--border); border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.82em; font-family: inherit; transition: var(--transition); background: var(--card-bg); color: var(--text); white-space: nowrap; }
-        .mode-btn:hover { filter: brightness(0.95); }
+        .mode-btn:hover { filter: brightness(0.9); }
         .mode-btn.active-wages { background: #2980b9; color: white; border-color: #2980b9; }
         .mode-btn.active-busfare { background: #e67e22; color: white; border-color: #e67e22; }
         .mode-btn.active-lunch { background: #27ae60; color: white; border-color: #27ae60; }
@@ -54,41 +57,40 @@
         .mode-indicator { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 0.75em; font-weight: 700; color: white; margin-left: 8px; }
         .controls-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; margin-bottom: 6px; padding: 10px 15px; background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); }
         .controls-bar label { font-weight: 600; font-size: 0.85em; color: var(--text-light); }
-        .controls-bar select, .controls-bar input { padding: 8px 12px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95em; font-family: inherit; transition: var(--transition); background: var(--card-bg); color: var(--text); }
+        .controls-bar select, .controls-bar input { padding: 8px 12px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95em; font-family: inherit; background: var(--card-bg); color: var(--text); }
         .btn { padding: 8px 16px; border: none; border-radius: var(--radius-sm); cursor: pointer; font-weight: 600; font-size: 0.9em; font-family: inherit; transition: var(--transition); white-space: nowrap; letter-spacing: 0.3px; display: inline-flex; align-items: center; gap: 5px; }
-        .btn-primary { background: var(--primary-light); color: white; } .btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
-        .btn-success { background: var(--success); color: white; } .btn-success:hover { filter: brightness(1.1); }
-        .btn-accent { background: var(--accent); color: white; } .btn-accent:hover { filter: brightness(1.1); }
+        .btn-primary { background: var(--primary-light); color: white; } .btn-primary:hover { filter: brightness(1.1); }
+        .btn-success { background: var(--success); color: white; } .btn-accent { background: var(--accent); color: white; }
         .btn-outline { background: var(--card-bg); color: var(--primary); border: 2px solid var(--primary-light); }
-        .btn-danger { background: var(--danger); color: white; } .btn-danger:hover { filter: brightness(1.1); }
-        .btn-sm { padding: 5px 10px; font-size: 0.78em; }
-        .btn-autofill { background: #8e44ad; color: white; } .btn-autofill:hover { filter: brightness(1.1); }
-        .btn-save { background: #f39c12; color: white; font-weight: 700; animation: pulse-save 2s infinite; } .btn-save:hover { animation: none; filter: brightness(1.1); } .btn-save.saved { animation: none; background: var(--success); }
+        .btn-danger { background: var(--danger); color: white; } .btn-sm { padding: 5px 10px; font-size: 0.78em; }
+        .btn-autofill { background: #8e44ad; color: white; }
+        .btn-save { background: #f39c12; color: white; font-weight: 700; animation: pulse-save 2s infinite; } .btn-save.saved { animation: none; background: var(--success); }
         @keyframes pulse-save { 0%,100% { box-shadow: 0 0 0 0 rgba(243,156,18,0.4); } 50% { box-shadow: 0 0 0 8px rgba(243,156,18,0); } }
         .worker-info-card { background: var(--card-bg); border-radius: var(--radius); padding: 12px 18px; margin-bottom: 6px; box-shadow: var(--shadow); display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; border-left: 4px solid var(--accent); }
         .worker-info-card .field-group { display: flex; flex-direction: column; gap: 3px; }
-        .worker-info-card label { font-size: 0.75em; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; }
-        .worker-info-card input { padding: 7px 10px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-size: 0.9em; font-family: inherit; transition: var(--transition); background: var(--card-bg); color: var(--text); }
-        .worker-info-card input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(230,126,34,0.1); }
+        .worker-info-card label { font-size: 0.75em; font-weight: 700; color: var(--text-light); text-transform: uppercase; }
+        .worker-info-card input { padding: 7px 10px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-size: 0.9em; font-family: inherit; background: var(--card-bg); color: var(--text); }
+        .worker-info-card input:focus { outline: none; border-color: var(--accent); }
         .calendar-container { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow-lg); overflow: hidden; margin-bottom: 8px; }
         .calendar-table { width: 100%; border-collapse: collapse; table-layout: fixed; min-width: 1000px; }
-        .calendar-table th { background: var(--primary); color: white; padding: 10px 6px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; border: 1px solid #1a4466; }
+        .calendar-table th { background: var(--primary); color: white; padding: 10px 6px; font-size: 0.85em; text-transform: uppercase; text-align: center; border: 1px solid #1a4466; }
         .calendar-table th.sunday { background: #c0392b; }
-        .calendar-table td { border: 1px solid var(--border); padding: 4px; vertical-align: top; height: 65px; transition: var(--transition); }
+        .calendar-table td { border: 1px solid var(--border); padding: 4px; vertical-align: top; height: 65px; }
         .calendar-table td.weekend { background: var(--weekend); }
-        .calendar-table td.today-cell { background: var(--today-bg) !important; box-shadow: inset 0 0 0 3px var(--today-border) !important; position: relative; }
-        .calendar-table td.today-cell .date-number { color: var(--today-border) !important; font-size: 1.1em !important; }
+        .calendar-table td.today-cell { background: var(--today-bg) !important; box-shadow: inset 0 0 0 3px var(--today-border) !important; }
+        .calendar-table td.today-cell .date-number { color: var(--today-border) !important; font-size: 1.1em !important; font-weight: 800 !important; }
         .calendar-table td.empty-cell { background: var(--bg); pointer-events: none; opacity: 0.3; }
         .calendar-table td .date-number { font-weight: 700; font-size: 0.9em; margin-bottom: 2px; color: var(--text); }
+        .calendar-table td.weekend .date-number { color: #c0392b; }
         .day-cell { display: flex; flex-direction: column; gap: 2px; }
-        .day-cell input.wage-input { width: 100%; padding: 4px 6px; border: 2px solid #e0e0e0; border-radius: 3px; font-size: 0.85em; font-family: inherit; text-align: right; font-weight: 600; transition: var(--transition); background: #fafafa; }
+        .day-cell input.wage-input { width: 100%; padding: 4px 6px; border: 2px solid #e0e0e0; border-radius: 3px; font-size: 0.85em; font-family: inherit; text-align: right; font-weight: 600; background: #fafafa; }
         .day-cell input.wage-input:focus { outline: none; border-color: var(--accent); background: white; }
         .day-cell input.wage-input.has-value { background: #eafaf1; border-color: #82e0aa; }
         .day-cell input.wage-input.mode-wages { border-left: 3px solid #2980b9; }
         .day-cell input.wage-input.mode-busfare { border-left: 3px solid #e67e22; }
         .day-cell input.wage-input.mode-lunch { border-left: 3px solid #27ae60; }
         .day-cell input.wage-input.mode-custom { border-left: 3px solid #8e44ad; }
-        .day-cell textarea.note-input { width: 100%; padding: 3px 5px; border: 1px solid #e0e0e0; border-radius: 3px; font-size: 0.7em; font-family: inherit; resize: none; height: 22px; transition: var(--transition); background: #fafafa; }
+        .day-cell textarea.note-input { width: 100%; padding: 3px 5px; border: 1px solid #e0e0e0; border-radius: 3px; font-size: 0.7em; font-family: inherit; resize: none; height: 22px; background: #fafafa; }
         .day-cell textarea.note-input:focus { outline: none; border-color: #bdc3c7; height: 36px; }
         .day-cell textarea.note-input.has-note { background: #fef9e7; border-color: #f9e79f; }
         .week-total-row td { background: #eaf2f8 !important; font-weight: 700; text-align: right; padding: 8px 10px; font-size: 0.9em; color: var(--primary); border-top: 3px solid var(--primary-light) !important; }
@@ -98,12 +100,16 @@
         .summary-card { background: var(--card-bg); border-radius: var(--radius); padding: 12px; box-shadow: var(--shadow); text-align: center; border-top: 4px solid var(--primary-light); }
         .summary-card.advance-card { border-top-color: var(--danger); }
         .summary-card.net-card { border-top-color: var(--success); }
-        .summary-card h3 { font-size: 0.75em; text-transform: uppercase; color: var(--text-light); letter-spacing: 0.5px; margin-bottom: 4px; }
+        .summary-card h3 { font-size: 0.75em; text-transform: uppercase; color: var(--text-light); margin-bottom: 4px; }
         .summary-card .big-number { font-size: 1.8em; font-weight: 800; color: var(--text); }
         .summary-card.net-card .big-number { color: var(--success); }
-        .summary-card.advance-card .big-number { color: var(--danger); }
         .summary-card input { width: 100%; padding: 6px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-size: 1.1em; text-align: center; font-weight: 700; font-family: inherit; background: var(--card-bg); color: var(--text); }
         .action-bar { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 8px; }
+        .target-bar { height: 8px; background: var(--border); border-radius: 4px; margin: 8px 0; overflow: hidden; display: none; }
+        .target-bar .target-fill { height: 100%; background: var(--success); border-radius: 4px; transition: width 0.5s ease; }
+        .target-info { text-align: center; font-size: 0.8em; color: var(--text-light); margin-bottom: 6px; display: none; }
+        .backup-reminder { position: fixed; bottom: 20px; right: 20px; background: var(--accent); color: white; padding: 10px 16px; border-radius: var(--radius); font-weight: 600; z-index: 1500; font-size: 0.8em; cursor: pointer; display: none; box-shadow: var(--shadow-lg); }
+        .backup-reminder.show { display: block; animation: pulse-dot 1.5s infinite; }
         .footer-main { background: var(--card-bg); border-radius: var(--radius); padding: 15px 20px; margin-top: 15px; box-shadow: var(--shadow); text-align: center; border-top: 3px solid var(--primary-light); }
         .footer-main .copyright { font-weight: 700; color: var(--primary); font-size: 0.85em; margin-bottom: 6px; }
         .footer-main .developer { font-size: 0.8em; color: var(--text); margin-bottom: 4px; }
@@ -116,7 +122,7 @@
         .modal { background: var(--card-bg); color: var(--text); border-radius: var(--radius); padding: 25px 30px; max-width: 650px; width: 100%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); position: relative; }
         .modal h2 { color: var(--primary); margin-bottom: 15px; font-size: 1.4em; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
         .modal h3 { color: var(--text); margin-top: 15px; margin-bottom: 8px; font-size: 1.1em; }
-        .modal p, .modal li { font-size: 0.9em; line-height: 1.6; color: var(--text); margin-bottom: 8px; }
+        .modal p, .modal li { font-size: 0.9em; line-height: 1.6; margin-bottom: 8px; }
         .modal ul { padding-left: 20px; margin-bottom: 10px; }
         .modal .close-btn { position: sticky; top: 0; float: right; background: var(--danger); color: white; border: none; padding: 8px 16px; border-radius: var(--radius-sm); cursor: pointer; font-weight: 700; z-index: 10; }
         .toast { position: fixed; top: 20px; right: 20px; background: #2c3e50; color: white; padding: 12px 20px; border-radius: var(--radius); font-weight: 600; z-index: 3000; opacity: 0; transform: translateY(-20px); transition: all 0.3s ease; pointer-events: none; }
@@ -140,6 +146,8 @@
             .mode-bar .mode-label { display: block; width: 100%; text-align: center; margin-right: 0; margin-bottom: 4px; }
             .mode-btn { padding: 5px 8px; font-size: 0.68em; } .mode-indicator { margin-left: 4px; }
             .modal { padding: 15px; max-width: 95vw; margin: 10px; }
+            .settings-bar { gap: 4px; padding: 6px; }
+            .settings-bar select { font-size: 0.75em; padding: 3px 6px; }
         }
     </style>
 </head>
@@ -148,6 +156,20 @@
         <div class="header">
             <h1>📅 The Ngili Calendar</h1>
             <p class="subtitle">Worker Wage Tracker — Know Your Earnings, Every Day</p>
+        </div>
+        <div class="settings-bar no-print">
+            <select id="currencySelect" onchange="changeCurrency()">
+                <option value="KES">KES</option><option value="UGX">UGX</option><option value="TZS">TZS</option>
+                <option value="USD">$ USD</option><option value="EUR">€ EUR</option><option value="GBP">£ GBP</option>
+            </select>
+            <button class="btn btn-sm btn-outline" onclick="toggleDarkMode()" id="darkToggle">🌙 Dark</button>
+            <select id="langSelect" onchange="changeLanguage()">
+                <option value="en">English</option><option value="sw">Kiswahili</option>
+            </select>
+            <select id="weekendRateSelect" onchange="changeWeekendRate()">
+                <option value="1">Sun: 1×</option><option value="1.5">Sun: 1.5×</option><option value="2">Sun: 2×</option>
+            </select>
+            <button class="btn btn-sm btn-outline" onclick="setDailyTarget()">🎯 Target</button>
         </div>
         <div class="mode-bar no-print">
             <span class="mode-label">📋 Tracking Mode:</span>
@@ -158,15 +180,13 @@
             <span id="currentModeLabel" class="mode-indicator" style="background:#2980b9;">💰 Wages</span>
         </div>
         <div class="controls-bar no-print">
-            <label for="monthSelect">Month:</label>
-            <select id="monthSelect"></select>
-            <label for="yearSelect">Year:</label>
-            <select id="yearSelect"></select>
+            <label for="monthSelect">Month:</label><select id="monthSelect"></select>
+            <label for="yearSelect">Year:</label><select id="yearSelect"></select>
             <button class="btn btn-primary" onclick="goToToday()">📆 Today</button>
             <button class="btn btn-save" id="manualSaveBtn" onclick="manualSave()">💾 Save Now</button>
             <button class="btn btn-outline btn-sm" onclick="clearCurrentMode()">🗑 Clear This Mode</button>
         </div>
-        <div class="unsaved-banner no-print" id="unsavedBanner">⚠ You have unsaved changes. Click <strong>"💾 Save Now"</strong> to keep your data safe.</div>
+        <div class="unsaved-banner no-print" id="unsavedBanner">⚠ You have unsaved changes. Click <strong>"💾 Save Now"</strong></div>
         <div class="worker-info-card" id="workerInfoCard">
             <div class="field-group"><label>👤 Full Name</label><input type="text" id="workerName" placeholder="Enter your name" oninput="markUnsaved()"></div>
             <div class="field-group"><label>🆔 ID Number</label><input type="text" id="workerID" placeholder="ID / Passport" oninput="markUnsaved()"></div>
@@ -174,13 +194,15 @@
             <div class="field-group"><label>📞 Phone</label><input type="text" id="workerPhone" placeholder="Phone number" oninput="markUnsaved()"></div>
             <div class="field-group"><label id="employerLabel">🏢 Wages Employer</label><input type="text" id="employerInput" placeholder="Employer name" oninput="saveEmployer()"></div>
         </div>
+        <div class="target-bar" id="targetBar"><div class="target-fill" id="targetFill" style="width:0%;"></div></div>
+        <div class="target-info" id="targetInfo"></div>
         <div class="calendar-container">
             <table class="calendar-table" id="calendarTable">
-                <thead><tr><th class="sunday">Sunday</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th></tr></thead>
+                <thead><tr><th class="sunday">Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr></thead>
                 <tbody id="calendarBody"></tbody>
             </table>
         </div>
-        <div class="summary-section" id="modeSummarySection">
+        <div class="summary-section">
             <div class="summary-card"><h3 id="totalLabel">📊 Total Wages (Month)</h3><div class="big-number" id="totalAmount">0.00</div></div>
             <div class="summary-card advance-card"><h3 id="advanceLabel">💸 Wages Advances</h3><input type="number" id="advanceInput" placeholder="0" min="0" step="any" oninput="saveAdvance()"></div>
             <div class="summary-card net-card"><h3 id="netLabel">✅ Wages Net</h3><div class="big-number" id="netAmount">0.00</div></div>
@@ -192,11 +214,13 @@
             <button class="btn btn-success" onclick="exportCSV()">📥 Export CSV</button>
             <button class="btn btn-accent" onclick="document.getElementById('csvFileInput').click()">📤 Import CSV</button>
             <input type="file" id="csvFileInput" accept=".csv" onchange="importCSV(event)">
-            <button class="btn btn-outline" onclick="window.print()">🖨 Print Calendar</button>
-            <button class="btn btn-outline btn-sm" onclick="copyDataToClipboard()">📋 Copy Data</button>
+            <button class="btn btn-outline" onclick="window.print()">🖨 Print</button>
+            <button class="btn btn-outline btn-sm" onclick="copyDataToClipboard()">📋 Copy</button>
+            <button class="btn btn-outline btn-sm" onclick="shareViaWhatsApp()">📱 Share</button>
             <button class="btn btn-danger btn-sm" onclick="resetAllData()">⚠ Reset All</button>
         </div>
         <div class="last-saved no-print"><span class="dot" id="saveDot"></span><span id="lastSavedText">All changes saved ✓</span></div>
+        <div class="backup-reminder" id="backupReminder" onclick="exportCSV()">⚠ No backup in 14 days! Tap to export →</div>
         <div class="footer-main">
             <div class="copyright">© 2026 <strong>The Ngili Calendar</strong>. All Rights Reserved.</div>
             <div class="developer">Developed by <strong>Safari Softwares</strong> | 📧 <a href="mailto:safarisoftwares@gmail.com" style="color: var(--primary-light);">safarisoftwares@gmail.com</a></div>
@@ -204,47 +228,19 @@
                 <a onclick="openModal('termsModal')">📜 Terms of Use</a>
                 <a onclick="openModal('privacyModal')">🔒 Privacy Policy</a>
             </div>
-            <div class="disclaimer"><strong>Disclaimer:</strong> The Ngili Calendar is a tool to assist workers in tracking their daily wages and calculating totals. It is not a substitute for official payroll records. Users are responsible for verifying all calculations. Safari Softwares assumes no liability for any discrepancies, financial losses, or disputes arising from the use of this tool. Always cross-check with official employer records.</div>
+            <div class="disclaimer"><strong>Disclaimer:</strong> The Ngili Calendar is a tool to assist workers. Not a substitute for official payroll records. Safari Softwares assumes no liability.</div>
         </div>
     </div>
-    <div class="modal-overlay" id="termsModal">
-        <div class="modal">
-            <button class="close-btn" onclick="closeModal('termsModal')">✕ Close</button>
-            <h2>📜 Terms of Use</h2>
-            <p><strong>Effective Date:</strong> January 1, 2026 | <strong>Last Updated:</strong> June 20, 2026</p>
-            <h3>1. Acceptance of Terms</h3><p>By using The Ngili Calendar ("the Software"), you agree to these Terms of Use. If you do not agree, do not use the Software.</p>
-            <h3>2. Description of Service</h3><p>The Ngili Calendar is a browser-based tracking tool designed to help workers record daily earnings, bus fare, lunch costs, and custom expenses. It calculates weekly and monthly totals, tracks advances/deductions independently per category, and allows data export. The Software is provided as-is, free of charge.</p>
-            <h3>3. User Responsibilities</h3><ul><li>You are solely responsible for the accuracy of data you enter.</li><li>You are responsible for backing up your data using the Export CSV feature.</li><li>You agree not to use the Software for any illegal or unauthorized purpose.</li><li>You acknowledge that the Software stores data locally in your browser's localStorage and is not cloud-synced.</li></ul>
-            <h3>4. Intellectual Property</h3><p>The Ngili Calendar, including its code, design, name, logo, and all associated materials, is the exclusive intellectual property of <strong>Safari Softwares</strong>. You may use the Software freely for personal purposes but may not: sell, resell, or commercialize the Software without express written permission; remove or alter any copyright notices or attribution; claim ownership of the Software or any derivative works.</p>
-            <h3>5. Limitation of Liability</h3><p><strong>Safari Softwares</strong> provides The Ngili Calendar "as is" without any warranty of any kind, either express or implied. In no event shall Safari Softwares be liable for: data loss due to browser storage clearing, device failure, or user error; financial discrepancies, miscalculations, or disputes with employers; any indirect, incidental, special, or consequential damages arising from use or inability to use the Software.</p>
-            <h3>6. Data Loss Disclaimer</h3><p>The Software uses browser localStorage for data storage. This data can be permanently lost if you clear your browser data, lose your device, reset to factory settings, or uninstall your browser. <strong>It is your sole responsibility to regularly export your data to CSV and store it in a safe location</strong> (email, cloud storage, USB drive, etc.).</p>
-            <h3>7. Modifications to Terms</h3><p>Safari Softwares reserves the right to update these Terms at any time. Continued use of the Software after changes constitutes acceptance of the new Terms.</p>
-            <h3>8. Governing Law</h3><p>These Terms shall be governed by applicable laws. Any disputes shall first be resolved amicably.</p>
-            <h3>9. Contact</h3><p>For questions about these Terms, contact:<br>📧 <strong>Safari Softwares</strong> — <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p>
-        </div>
-    </div>
-    <div class="modal-overlay" id="privacyModal">
-        <div class="modal">
-            <button class="close-btn" onclick="closeModal('privacyModal')">✕ Close</button>
-            <h2>🔒 Privacy Policy</h2>
-            <p><strong>Effective Date:</strong> January 1, 2026 | <strong>Last Updated:</strong> June 20, 2026</p>
-            <h3>1. Our Commitment to Privacy</h3><p><strong>Your data is yours. We do not collect it.</strong> The Ngili Calendar is designed with privacy as a fundamental principle. We believe workers should have full control over their own information.</p>
-            <h3>2. Data We DO NOT Collect</h3><ul><li>❌ <strong>No personal data</strong> is sent to any server.</li><li>❌ <strong>No analytics</strong> or tracking scripts of any kind.</li><li>❌ <strong>No cookies</strong> beyond localStorage (which stays on your device).</li><li>❌ <strong>No accounts</strong>, no passwords, no registration required.</li><li>❌ <strong>No cloud storage</strong> — your data never leaves your device unless you explicitly choose to export it.</li><li>❌ <strong>No third-party services</strong> — the Software is completely self-contained.</li></ul>
-            <h3>3. Where Your Data Is Stored</h3><p>All data you enter (name, ID, wages, notes, advances, employer names, and all mode data) is stored exclusively in your browser's <strong>localStorage</strong>. This is a built-in browser feature that keeps data on your specific device. It is: accessible only on this device and this browser; not shared with any third party; not accessible by Safari Softwares or anyone else.</p>
-            <h3>4. Risks of localStorage</h3><p>You should be aware that localStorage data can be lost if: you clear your browser data/cache; your device is lost, stolen, or reset to factory settings; you uninstall your browser; system cleaning software removes browser data. <strong>Protect yourself:</strong> Use the <strong>📥 Export CSV</strong> feature regularly and save the file in a safe location (email, cloud storage, USB drive).</p>
-            <h3>5. CSV Export — Your Control</h3><p>When you export your data to CSV: the file is downloaded to your device; you choose where to store it; you decide who to share it with; Safari Softwares has no access to this file whatsoever.</p>
-            <h3>6. Printing</h3><p>When you print the calendar, data is sent only to your printer or PDF generator. This happens entirely on your device. No data is transmitted externally.</p>
-            <h3>7. Children's Privacy</h3><p>The Ngili Calendar is intended for working adults. We do not knowingly collect or store data from children under the age of 13.</p>
-            <h3>8. Third-Party Services</h3><p>The Ngili Calendar does not integrate with any third-party services, APIs, analytics platforms, or external tracking tools. It is a single, self-contained HTML file.</p>
-            <h3>9. Changes to This Policy</h3><p>If we update this Privacy Policy, the changes will be reflected in this file. Our commitment to not collecting your data will not change.</p>
-            <h3>10. Contact</h3><p>For privacy-related questions or concerns:<br>📧 <strong>Safari Softwares</strong> — <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p>
-        </div>
-    </div>
+    <div class="modal-overlay" id="termsModal"><div class="modal"><button class="close-btn" onclick="closeModal('termsModal')">✕ Close</button><h2>📜 Terms of Use</h2><p><strong>Effective:</strong> Jan 1, 2026 | <strong>Updated:</strong> June 20, 2026</p><h3>1. Acceptance</h3><p>By using The Ngili Calendar, you agree to these Terms.</p><h3>2. Service</h3><p>Browser-based tracking tool for earnings, bus fare, lunch, and custom expenses. Free of charge.</p><h3>3. User Responsibilities</h3><ul><li>You are responsible for data accuracy.</li><li>Back up data using Export CSV.</li><li>Data stores locally in your browser.</li></ul><h3>4. Intellectual Property</h3><p>The Ngili Calendar is the exclusive property of <strong>Safari Softwares</strong>. You may not sell, resell, or commercialize it without written permission.</p><h3>5. Liability</h3><p>Provided "as is" without warranty. Safari Softwares not liable for data loss, miscalculations, or damages.</p><h3>6. Data Loss</h3><p>localStorage data can be lost. <strong>Export CSV regularly.</strong></p><h3>7. Contact</h3><p>📧 <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p></div></div>
+    <div class="modal-overlay" id="privacyModal"><div class="modal"><button class="close-btn" onclick="closeModal('privacyModal')">✕ Close</button><h2>🔒 Privacy Policy</h2><p><strong>Effective:</strong> Jan 1, 2026 | <strong>Updated:</strong> June 20, 2026</p><h3>1. Our Commitment</h3><p><strong>Your data is yours. We do not collect it.</strong></p><h3>2. No Data Collected</h3><ul><li>❌ No servers</li><li>❌ No tracking</li><li>❌ No accounts</li><li>❌ No cloud storage</li></ul><h3>3. Storage</h3><p>All data in browser localStorage only. Accessible only on this device.</p><h3>4. Protect Yourself</h3><p>Export CSV regularly and save safely.</p><h3>5. Contact</h3><p>📧 <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p></div></div>
     <div class="toast" id="toast"></div>
 
     <script>
-        const STORAGE_KEY = 'ngili_calendar_v5';
+        const STORAGE_KEY = 'ngili_calendar_v6';
         const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        const MONTHS_SW = ['Januari','Februari','Machi','Aprili','Mei','Juni','Julai','Agosti','Septemba','Oktoba','Novemba','Desemba'];
+        const DAYS_EN = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+        const DAYS_SW = ['Jumapili','Jumatatu','Jumanne','Jumatano','Alhamisi','Ijumaa','Jumamosi'];
         const MODES = ['wages','busfare','lunch','custom'];
         const MODE_LABELS = { wages:'💰 Wages', busfare:'🚌 Bus Fare', lunch:'🍽 Lunch', custom:'✚ Custom' };
         const MODE_COLORS = { wages:'#2980b9', busfare:'#e67e22', lunch:'#27ae60', custom:'#8e44ad' };
@@ -261,11 +257,29 @@
         let allData = {};
         let unsavedChanges = false;
         let customModeName = 'Custom';
+        let currencySymbol = 'KES';
+        let weekendMultiplier = 1;
+        let currentLang = 'en';
+        let darkMode = false;
+        let dailyTarget = 0;
+        let lastExportDate = null;
 
         function getStorageKey(m,y) { return y+'-'+m; }
-        function loadAllData() { const s=localStorage.getItem(STORAGE_KEY); if(s){ try{ allData=JSON.parse(s); }catch(e){ allData={}; } }else{ allData={}; } }
-        function saveAllData() { try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(allData)); unsavedChanges=false; updateSaveIndicator(true); hideUnsavedBanner(); updateSaveButtons(true); }catch(e){ showToast('⚠ Storage full! Export your data.','warning'); } }
-        function manualSave() { flushAllChanges(); saveAllData(); showToast('💾 Data saved!','success'); }
+        function loadAllData() {
+            const s=localStorage.getItem(STORAGE_KEY); if(s){ try{ allData=JSON.parse(s); }catch(e){ allData={}; } }else{ allData={}; }
+            const st=JSON.parse(localStorage.getItem('ngili_settings_v6')||'{}');
+            currencySymbol=st.currency||'KES'; currentLang=st.lang||'en'; darkMode=st.darkMode||false;
+            weekendMultiplier=st.weekendRate||1; dailyTarget=st.dailyTarget||0; lastExportDate=st.lastExportDate||null;
+            if(darkMode) document.body.classList.add('dark-mode');
+            document.getElementById('currencySelect').value=currencySymbol;
+            document.getElementById('langSelect').value=currentLang;
+            document.getElementById('weekendRateSelect').value=weekendMultiplier;
+            document.getElementById('darkToggle').textContent=darkMode?'☀️ Light':'🌙 Dark';
+            applyLanguage();
+        }
+        function saveSettings() { localStorage.setItem('ngili_settings_v6',JSON.stringify({currency:currencySymbol,lang:currentLang,darkMode:darkMode,weekendRate:weekendMultiplier,dailyTarget:dailyTarget,lastExportDate:lastExportDate})); }
+        function saveAllData() { try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(allData)); unsavedChanges=false; updateSaveIndicator(true); hideUnsavedBanner(); updateSaveButtons(true); }catch(e){ showToast('⚠ Storage full!','warning'); } }
+        function manualSave() { flushAllChanges(); saveAllData(); showToast('💾 Saved!','success'); }
 
         function getMonthData(m,y) {
             const k=getStorageKey(m,y);
@@ -292,6 +306,16 @@
         function showUnsavedBanner() { const b=document.getElementById('unsavedBanner'); if(b)b.classList.add('show'); }
         function hideUnsavedBanner() { const b=document.getElementById('unsavedBanner'); if(b)b.classList.remove('show'); }
 
+        function toggleDarkMode() { darkMode=!darkMode; if(darkMode){ document.body.classList.add('dark-mode'); }else{ document.body.classList.remove('dark-mode'); } document.getElementById('darkToggle').textContent=darkMode?'☀️ Light':'🌙 Dark'; saveSettings(); }
+        function changeCurrency() { currencySymbol=document.getElementById('currencySelect').value; saveSettings(); updateAllTotals(); updateWeekSummaryCards(); }
+        function changeLanguage() { currentLang=document.getElementById('langSelect').value; saveSettings(); applyLanguage(); renderCalendar(); }
+        function changeWeekendRate() { weekendMultiplier=parseFloat(document.getElementById('weekendRateSelect').value); saveSettings(); }
+
+        function applyLanguage() {
+            const ths=document.querySelectorAll('.calendar-table th');
+            if(ths.length===7){ const days=currentLang==='sw'?DAYS_SW:DAYS_EN; for(let i=0;i<7;i++){ ths[i].textContent=days[i]; } }
+        }
+
         function switchMode(mode) { flushAllChanges(); currentMode=mode; updateModeUI(); renderCalendar(); }
 
         function updateModeUI() {
@@ -312,25 +336,36 @@
         function saveAdvance() { const data=getMonthData(currentMonth,currentYear); data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=parseFloat(document.getElementById('advanceInput').value)||0; updateAllTotals(); markUnsaved(); }
 
         function saveWage(dayNumber) {
-            const data=getMonthData(currentMonth,currentYear);
-            const wi=document.getElementById('wage-'+dayNumber); const ni=document.getElementById('note-'+dayNumber);
-            if(wi&&ni){ const a=parseFloat(wi.value)||0; const n=ni.value; if(!data[currentMode])data[currentMode]={}; if(a===0&&n===''){ delete data[currentMode][dayNumber]; }else{ data[currentMode][dayNumber]={amount:a,note:n}; } wi.classList.toggle('has-value',a>0); ni.classList.toggle('has-note',n!==''); updateAllTotals(); updateWeekSummaryCards(); markUnsaved(); }
+            const data=getMonthData(currentMonth,currentYear); const wi=document.getElementById('wage-'+dayNumber); const ni=document.getElementById('note-'+dayNumber);
+            if(wi&&ni){ const a=parseFloat(wi.value)||0; const n=ni.value; if(!data[currentMode])data[currentMode]={}; if(a===0&&n===''){ delete data[currentMode][dayNumber]; }else{ data[currentMode][dayNumber]={amount:a,note:n}; } wi.classList.toggle('has-value',a>0); ni.classList.toggle('has-note',n!==''); updateAllTotals(); updateWeekSummaryCards(); markUnsaved(); checkTarget(); }
         }
         function getDaysInMonth(m,y) { return new Date(y,m+1,0).getDate(); }
         function getFirstDayOfMonth(m,y) { return new Date(y,m,1).getDay(); }
 
+        function setDailyTarget() { const t=prompt('Set monthly target ('+currencySymbol+'):',dailyTarget||''); if(t!==null){ dailyTarget=parseFloat(t)||0; saveSettings(); if(dailyTarget>0){ checkTarget(); }else{ document.getElementById('targetBar').style.display='none'; document.getElementById('targetInfo').style.display='none'; } } }
+
+        function checkTarget() {
+            if(dailyTarget<=0) return;
+            const dim=getDaysInMonth(currentMonth,currentYear); const data=getMonthData(currentMonth,currentYear); const md=data[currentMode]||{};
+            let total=0; for(let d=1;d<=dim;d++){ total+=parseFloat((md[d]||{}).amount||0); }
+            const pct=Math.min(100,Math.round((total/dailyTarget)*100));
+            document.getElementById('targetBar').style.display='block'; document.getElementById('targetInfo').style.display='block';
+            document.getElementById('targetFill').style.width=pct+'%';
+            document.getElementById('targetInfo').textContent='🎯 Target: '+currencySymbol+' '+dailyTarget+' — '+pct+'% ('+currencySymbol+' '+total.toFixed(0)+' of '+currencySymbol+' '+dailyTarget+')';
+        }
+
         function autofillDailyWage() {
-            const v=document.getElementById('dailyWage').value; if(!v||parseFloat(v)<=0){ showToast('⚠ Enter a valid amount first.','warning'); return; }
+            const v=document.getElementById('dailyWage').value; if(!v||parseFloat(v)<=0){ showToast('⚠ Enter a valid amount.','warning'); return; }
             const ml=currentMode==='custom'?('✚ '+customModeName):MODE_LABELS[currentMode];
             if(!confirm('Fill ALL empty cells with '+v+' for '+ml+'?'))return;
             const dim=getDaysInMonth(currentMonth,currentYear); const data=getMonthData(currentMonth,currentYear); if(!data[currentMode])data[currentMode]={}; let c=0;
             for(let d=1;d<=dim;d++){ const wi=document.getElementById('wage-'+d); if(wi&&(!wi.value||parseFloat(wi.value)===0)){ wi.value=v; wi.classList.add('has-value'); data[currentMode][d]={amount:parseFloat(v),note:(data[currentMode][d]||{}).note||''}; c++; } }
-            markUnsaved(); updateAllTotals(); updateWeekSummaryCards(); showToast('⚡ Autofilled '+c+' cells with '+v,'success');
+            markUnsaved(); updateAllTotals(); updateWeekSummaryCards(); checkTarget(); showToast('⚡ Autofilled '+c+' cells','success');
         }
 
         function clearCurrentMode() {
             const ml=currentMode==='custom'?('✚ '+customModeName):MODE_LABELS[currentMode];
-            if(confirm('Clear ALL '+ml+' entries for '+MONTHS[currentMonth]+' '+currentYear+'?')){ const data=getMonthData(currentMonth,currentYear); data[currentMode]={}; saveAllData(); renderCalendar(); showToast('🗑 '+ml+' cleared','warning'); }
+            if(confirm('Clear ALL '+ml+' entries?')){ const data=getMonthData(currentMonth,currentYear); data[currentMode]={}; saveAllData(); renderCalendar(); showToast('🗑 '+ml+' cleared','warning'); }
         }
 
         function renderCalendar() {
@@ -343,9 +378,10 @@
             document.getElementById('workerPhone').value=data.workerInfo.phone||'';
             document.getElementById('employerInput').value=data['employer'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]||'';
             document.getElementById('advanceInput').value=data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]||0;
-            updateModeUI();
+            updateModeUI(); applyLanguage();
             const ms=document.getElementById('monthSelect'); ms.innerHTML='';
-            MONTHS.forEach(function(m,i){ const o=document.createElement('option'); o.value=i; o.textContent=m; if(i===currentMonth)o.selected=true; ms.appendChild(o); });
+            const mnths=currentLang==='sw'?MONTHS_SW:MONTHS;
+            mnths.forEach(function(m,i){ const o=document.createElement('option'); o.value=i; o.textContent=m; if(i===currentMonth)o.selected=true; ms.appendChild(o); });
             const ys=document.getElementById('yearSelect'); ys.innerHTML=''; for(let y=2020;y<=2035;y++){ const o=document.createElement('option'); o.value=y; o.textContent=y; if(y===currentYear)o.selected=true; ys.appendChild(o); }
             ms.onchange=function(){ currentMonth=parseInt(this.value); renderCalendar(); };
             ys.onchange=function(){ currentYear=parseInt(this.value); renderCalendar(); };
@@ -377,7 +413,7 @@
                 ttr.innerHTML='<td class="week-total-label" colspan="6">'+wl+'</td><td id="week-total-'+row+'" style="font-size:1.1em;">0.00</td>';
                 tbody.appendChild(ttr);
             }
-            unsavedChanges=false; updateSaveIndicator(true); hideUnsavedBanner(); updateSaveButtons(true); updateAllTotals(); updateWeekSummaryCards();
+            unsavedChanges=false; updateSaveIndicator(true); hideUnsavedBanner(); updateSaveButtons(true); updateAllTotals(); updateWeekSummaryCards(); checkTarget(); checkBackupReminder();
         }
 
         function updateAllTotals() {
@@ -386,12 +422,12 @@
             const data=getMonthData(currentMonth,currentYear);
             let total=0; const modeData=data[currentMode]||{};
             for(let d=1;d<=dim;d++){ total+=parseFloat((modeData[d]||{}).amount||0); }
-            document.getElementById('totalAmount').textContent=total.toFixed(2);
+            document.getElementById('totalAmount').textContent=currencySymbol+' '+total.toFixed(2);
             const adv=parseFloat(document.getElementById('advanceInput').value)||0;
-            const net=total-adv; const ne=document.getElementById('netAmount'); ne.textContent=net.toFixed(2); ne.style.color=net<0?'#c0392b':'#27ae60';
+            const net=total-adv; const ne=document.getElementById('netAmount'); ne.textContent=currencySymbol+' '+net.toFixed(2); ne.style.color=net<0?'#c0392b':'#27ae60';
             const wt=new Array(rts).fill(0);
             for(let d=1;d<=dim;d++){ const wi=document.getElementById('wage-'+d); const a=wi?(parseFloat(wi.value)||0):0; const ci=fd+d-1; const wi2=Math.floor(ci/7); if(wi2>=0&&wi2<rts)wt[wi2]+=a; }
-            for(let w=0;w<rts;w++){ const el=document.getElementById('week-total-'+w); if(el)el.textContent=wt[w].toFixed(2); }
+            for(let w=0;w<rts;w++){ const el=document.getElementById('week-total-'+w); if(el)el.textContent=currencySymbol+' '+wt[w].toFixed(2); }
         }
 
         function updateWeekSummaryCards() {
@@ -400,23 +436,43 @@
             for(let d=1;d<=dim;d++){ const wi=document.getElementById('wage-'+d); const a=wi?(parseFloat(wi.value)||0):0; const ci=fd+d-1; const wi2=Math.floor(ci/7); if(wi2>=0&&wi2<rts)wt[wi2]+=a; }
             const sec=document.getElementById('weekSummarySection'); sec.innerHTML=''; sec.style.gridTemplateColumns='repeat('+rts+', 1fr)';
             for(let w=0;w<rts;w++){ const ws=w*7+1-fd; const we=Math.min(ws+6,dim); let lb; if(ws<1)lb='Week '+(w+1); else if(ws>dim)lb='Week '+(w+1)+' (N/A)'; else lb='Week '+(w+1)+' ('+Math.max(1,ws)+'–'+we+')';
-                const cd=document.createElement('div'); cd.className='summary-card'; cd.style.borderTopColor='#8e44ad'; cd.innerHTML='<h3>📋 '+lb+'</h3><div class="big-number" style="font-size:1.4em;">'+wt[w].toFixed(2)+'</div>'; sec.appendChild(cd); }
+                const cd=document.createElement('div'); cd.className='summary-card'; cd.style.borderTopColor='#8e44ad'; cd.innerHTML='<h3>📋 '+lb+'</h3><div class="big-number" style="font-size:1.4em;">'+currencySymbol+' '+wt[w].toFixed(2)+'</div>'; sec.appendChild(cd); }
+        }
+
+        function checkBackupReminder() {
+            if(!lastExportDate) return;
+            const daysSince=(new Date()-new Date(lastExportDate))/(1000*60*60*24);
+            const r=document.getElementById('backupReminder'); if(daysSince>14){ r.classList.add('show'); }else{ r.classList.remove('show'); }
         }
 
         function goToToday() { if(unsavedChanges){ flushAllChanges(); saveAllData(); } currentMonth=new Date().getMonth(); currentYear=new Date().getFullYear(); renderCalendar(); showToast('📆 Showing current month','success'); }
 
+        function shareViaWhatsApp() {
+            flushAllChanges(); const data=getMonthData(currentMonth,currentYear); const dim=getDaysInMonth(currentMonth,currentYear);
+            let text='*Ngili Calendar - '+MODE_LABELS[currentMode]+'*\n'+MONTHS[currentMonth]+' '+currentYear+'\n\n';
+            let total=0; const md=data[currentMode]||{};
+            for(let d=1;d<=dim;d++){ const dd=md[d]||{amount:0}; if(dd.amount>0){ text+=d+': '+currencySymbol+' '+dd.amount+'\n'; total+=dd.amount; } }
+            text+='\n*Total: '+currencySymbol+' '+total.toFixed(2)+'*';
+            const adv=data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]||0;
+            text+='\n*Advance: '+currencySymbol+' '+adv.toFixed(2)+'*';
+            text+='\n*Net: '+currencySymbol+' '+(total-adv).toFixed(2)+'*';
+            text+='\n\n_~ Ngili Calendar by Safari Softwares ~_';
+            window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank');
+        }
+
         function exportCSV() {
             flushAllChanges(); saveAllData(); loadAllData();
+            lastExportDate=new Date().toISOString(); saveSettings();
             const cd=getMonthData(currentMonth,currentYear); const wn=(cd.workerInfo.name||'worker').replace(/[^a-zA-Z0-9]/g,'_'); const cn=cd.customName||'Custom';
-            let csv='Ngili Calendar - All Records\nExported: '+new Date().toISOString().split('T')[0]+'\n\n--- Worker Info ---\nName,'+cd.workerInfo.name+'\nID,'+cd.workerInfo.id+'\nPhone,'+cd.workerInfo.phone+'\n\n--- Employers ---\nWages Employer,'+(cd.employerWages||'')+'\nTransport Provider,'+(cd.employerBusfare||'')+'\nLunch Provider,'+(cd.employerLunch||'')+'\n'+cn+' Employer,'+(cd.employerCustom||'')+'\nCustom Name,'+cn+'\n\n';
+            let csv='Ngili Calendar - All Records\nExported: '+new Date().toISOString().split('T')[0]+'\nCurrency: '+currencySymbol+'\n\n--- Worker Info ---\nName,'+cd.workerInfo.name+'\nID,'+cd.workerInfo.id+'\nPhone,'+cd.workerInfo.phone+'\n\n--- Employers ---\nWages Employer,'+(cd.employerWages||'')+'\nTransport Provider,'+(cd.employerBusfare||'')+'\nLunch Provider,'+(cd.employerLunch||'')+'\n'+cn+' Employer,'+(cd.employerCustom||'')+'\nCustom Name,'+cn+'\n\n';
             const sk=Object.keys(allData).sort(); const mn={wages:'Wages',busfare:'Bus Fare',lunch:'Lunch',custom:cn};
             MODES.forEach(function(mode){ csv+='--- '+mn[mode]+' Records ---\nYear,Month,Day,Date,Amount,Notes\n';
-                for(let k=0;k<sk.length;k++){ const key=sk[k]; const p=key.split('-'); const y=parseInt(p[0]); const m=parseInt(p[1]); const md=allData[key]; const dim=new Date(y,m+1,0).getDate(); const moded=md[mode]||{}; for(let d=1;d<=dim;d++){ const dd=moded[d]||{amount:0,note:''}; if(dd.amount>0||dd.note){ const ds=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0'); const dn2=new Date(y,m,d).toLocaleDateString('en-US',{weekday:'short'}); csv+=y+','+MONTHS[m]+','+d+','+ds+' ('+dn2+'),'+(dd.amount||0)+',"'+(dd.note||'').replace(/"/g,'""')+'"\n'; } } } });
+                for(let k=0;k<sk.length;k++){ const key=sk[k]; const p=key.split('-'); const y=parseInt(p[0]); const m=parseInt(p[1]); const md=allData[key]; const dim=new Date(y,m+1,0).getDate(); const moded=md[mode]||{}; for(let d=1;d<=dim;d++){ const dd=moded[d]||{amount:0,note:''}; if(dd.amount>0||dd.note){ const ds=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0'); csv+=y+','+MONTHS[m]+','+d+','+ds+','+(dd.amount||0)+',"'+(dd.note||'').replace(/"/g,'""')+'"\n'; } } } });
             csv+='\n--- Advances ---\nYear,Month,Wages Advance,Bus Fare Advance,Lunch Advance,'+cn+' Advance\n';
             for(let k=0;k<sk.length;k++){ const key=sk[k]; const p=key.split('-'); const md=allData[key]; csv+=p[0]+','+MONTHS[parseInt(p[1])]+','+(md.advanceWages||0)+','+(md.advanceBusfare||0)+','+(md.advanceLunch||0)+','+(md.advanceCustom||0)+'\n'; }
             const ds2=new Date().toISOString().split('T')[0]; const fn='Ngili_Calendar_'+wn+'_'+currentYear+'_'+MONTHS[currentMonth]+'_'+ds2+'.csv';
             const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=fn; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
-            showToast('📥 CSV exported: '+fn,'success');
+            document.getElementById('backupReminder').classList.remove('show'); showToast('📥 CSV exported!','success');
         }
 
         function importCSV(event) {
@@ -428,7 +484,7 @@
                     for(let i=0;i<cl.length;i++){
                         const line=cl[i];
                         if(line.startsWith('---')){ if(line.includes('Worker Info'))sec='workerInfo'; else if(line.includes('Employers'))sec='employers'; else if(line.includes('Wages')&&!line.includes('Bus')&&!line.includes('Lunch')&&!line.includes('Custom')&&!line.includes('Advance')){ sec='mode'; cim='wages'; } else if(line.includes('Bus Fare')){ sec='mode'; cim='busfare'; } else if(line.includes('Lunch')){ sec='mode'; cim='lunch'; } else if(line.includes('Custom')||line.includes(cwi.customName||'Custom')){ sec='mode'; cim='custom'; } else if(line.includes('Advances'))sec='advances'; continue; }
-                        if(line.startsWith('Ngili')||line.startsWith('Exported:')||line==='')continue;
+                        if(line.startsWith('Ngili')||line.startsWith('Exported:')||line.startsWith('Currency:')||line==='')continue;
                         const parts=line.split(',');
                         if(sec==='workerInfo'){ if(parts[0]==='Name')cwi.name=parts[1]||''; if(parts[0]==='ID')cwi.id=parts[1]||''; if(parts[0]==='Phone')cwi.phone=parts[1]||''; }
                         else if(sec==='employers'){ if(parts[0]==='Wages Employer')cwi.employerWages=parts[1]||''; if(parts[0]==='Transport Provider')cwi.employerBusfare=parts[1]||''; if(parts[0]==='Lunch Provider')cwi.employerLunch=parts[1]||''; if(parts[0]==='Custom Name')cwi.customName=parts[1]||'Custom'; if(parts[0]&&parts[0].includes('Employer')&&!parts[0].includes('Wages')&&!parts[0].includes('Transport')&&!parts[0].includes('Lunch'))cwi.employerCustom=parts[1]||''; }
@@ -445,20 +501,21 @@
 
         function copyDataToClipboard() {
             flushAllChanges(); const data=getMonthData(currentMonth,currentYear); const dim=getDaysInMonth(currentMonth,currentYear);
-            let text='Ngili Calendar - '+MODE_LABELS[currentMode]+' - '+MONTHS[currentMonth]+' '+currentYear+'\nWorker: '+(data.workerInfo.name||'N/A')+'\nDay\tAmount\tNotes\n';
+            let text='Ngili Calendar - '+MODE_LABELS[currentMode]+' - '+MONTHS[currentMonth]+' '+currentYear+'\n';
             let total=0; const md=data[currentMode]||{};
-            for(let d=1;d<=dim;d++){ const dd=md[d]||{amount:0,note:''}; if(dd.amount>0||dd.note){ text+=d+'\t'+(dd.amount||0)+'\t'+(dd.note||'')+'\n'; total+=parseFloat(dd.amount)||0; } }
-            text+='\nTotal: '+total.toFixed(2)+'\nAdvance: '+(data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]||0)+'\nNet: '+(total-(data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]||0)).toFixed(2);
+            for(let d=1;d<=dim;d++){ const dd=md[d]||{amount:0}; if(dd.amount>0){ text+=d+': '+currencySymbol+' '+dd.amount+'\n'; total+=dd.amount; } }
+            text+='\nTotal: '+currencySymbol+' '+total.toFixed(2); const adv=data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]||0;
+            text+='\nNet: '+currencySymbol+' '+(total-adv).toFixed(2);
             navigator.clipboard.writeText(text).then(function(){ showToast('📋 Copied!','success'); }).catch(function(){ showToast('⚠ Could not copy.','warning'); });
         }
 
-        function resetAllData() { if(confirm('⚠ DELETE ALL DATA?\n\nExport first.')){ if(confirm('Final warning: ALL records erased. Continue?')){ allData={}; saveAllData(); renderCalendar(); showToast('⚠ All data reset','warning'); } } }
+        function resetAllData() { if(confirm('⚠ DELETE ALL DATA?\n\nExport first.')){ if(confirm('Final warning. Continue?')){ allData={}; saveAllData(); renderCalendar(); showToast('⚠ All data reset','warning'); } } }
         function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow='hidden'; }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow=''; }
         document.addEventListener('click',function(e){ if(e.target.classList.contains('modal-overlay')){ e.target.classList.remove('active'); document.body.style.overflow=''; } });
         document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ var ovs=document.querySelectorAll('.modal-overlay.active'); for(var i=0;i<ovs.length;i++){ ovs[i].classList.remove('active'); } document.body.style.overflow=''; } });
         function showToast(message,type){ var toast=document.getElementById('toast'); toast.textContent=message; toast.className='toast '+(type||'')+' show'; clearTimeout(toast._timeout); toast._timeout=setTimeout(function(){ toast.classList.remove('show'); },2500); }
-        function init(){ loadAllData(); renderCalendar(); window.addEventListener('beforeunload',function(){ flushAllChanges(); saveAllData(); }); setInterval(function(){ if(unsavedChanges){ flushAllChanges(); saveAllData(); } },10000); console.log('📅 The Ngili Calendar v5 initialized! © 2026 Safari Softwares'); }
+        function init(){ loadAllData(); renderCalendar(); window.addEventListener('beforeunload',function(){ flushAllChanges(); saveAllData(); }); setInterval(function(){ if(unsavedChanges){ flushAllChanges(); saveAllData(); } },10000); console.log('📅 Ngili Calendar v6 — Full Featured! © 2026 Safari Softwares'); }
         init();
     </script>
 </body>
