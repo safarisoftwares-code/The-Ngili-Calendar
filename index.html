@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Ngili Calendar - Worker Wage Tracker | Safari Softwares</title>
-    <meta name="description" content="The Ngili Calendar — Track wages, bus fare, lunch, and custom expenses independently. Dark mode, multi-currency, Swahili, targets.">
+    <meta name="description" content="The Ngili Calendar — Track wages, bus fare, lunch, and custom expenses independently. Dark mode, multi-currency, Swahili.">
     <meta name="author" content="Safari Softwares">
     <meta name="copyright" content="© 2026 Safari Softwares. All rights reserved.">
     <meta name="theme-color" content="#1a5276">
@@ -154,45 +154,38 @@
 <body>
     <div class="main-wrapper">
         <div class="header">
-            <h1>📅 The Ngili Calendar</h1>
-            <p class="subtitle">Worker Wage Tracker — Know Your Earnings, Every Day</p>
+            <h1 data-en="📅 The Ngili Calendar" data-sw="📅 Kalenda ya Ngili">📅 The Ngili Calendar</h1>
+            <p class="subtitle" data-en="Worker Wage Tracker — Know Your Earnings, Every Day" data-sw="Kifuatiliaji cha Mshahara — Jua Mapato Yako, Kila Siku">Worker Wage Tracker — Know Your Earnings, Every Day</p>
         </div>
         <div class="settings-bar no-print">
-            <select id="currencySelect" onchange="changeCurrency()">
-                <option value="KES">KES</option><option value="UGX">UGX</option><option value="TZS">TZS</option>
-                <option value="USD">$ USD</option><option value="EUR">€ EUR</option><option value="GBP">£ GBP</option>
-            </select>
-            <button class="btn btn-sm btn-outline" onclick="toggleDarkMode()" id="darkToggle">🌙 Dark</button>
-            <select id="langSelect" onchange="changeLanguage()">
-                <option value="en">English</option><option value="sw">Kiswahili</option>
-            </select>
-            <select id="weekendRateSelect" onchange="changeWeekendRate()">
-                <option value="1">Sun: 1×</option><option value="1.5">Sun: 1.5×</option><option value="2">Sun: 2×</option>
-            </select>
-            <button class="btn btn-sm btn-outline" onclick="setDailyTarget()">🎯 Target</button>
+            <select id="currencySelect" onchange="changeCurrency()"><option value="KES">KES</option><option value="UGX">UGX</option><option value="TZS">TZS</option><option value="USD">$ USD</option><option value="EUR">€ EUR</option><option value="GBP">£ GBP</option></select>
+            <button class="btn btn-sm btn-outline" onclick="toggleDarkMode()" id="darkToggle" data-en="🌙 Dark" data-sw="🌙 Giza">🌙 Dark</button>
+            <select id="langSelect" onchange="changeLanguage()"><option value="en">English</option><option value="sw">Kiswahili</option></select>
+            <select id="weekendRateSelect" onchange="changeWeekendRate()"><option value="1" data-en="Sun: 1×" data-sw="Jumapili: 1×">Sun: 1×</option><option value="1.5" data-en="Sun: 1.5×" data-sw="Jumapili: 1.5×">Sun: 1.5×</option><option value="2" data-en="Sun: 2×" data-sw="Jumapili: 2×">Sun: 2×</option></select>
+            <button class="btn btn-sm btn-outline" onclick="setDailyTarget()" data-en="🎯 Target" data-sw="🎯 Lengo">🎯 Target</button>
         </div>
         <div class="mode-bar no-print">
-            <span class="mode-label">📋 Tracking Mode:</span>
-            <button class="mode-btn active-wages" id="modeBtnWages" onclick="switchMode('wages')">💰 Wages</button>
-            <button class="mode-btn" id="modeBtnBusfare" onclick="switchMode('busfare')">🚌 Bus Fare</button>
-            <button class="mode-btn" id="modeBtnLunch" onclick="switchMode('lunch')">🍽 Lunch</button>
-            <button class="mode-btn" id="modeBtnCustom" onclick="switchMode('custom')">✚ Custom</button>
+            <span class="mode-label" data-en="📋 Tracking Mode:" data-sw="📋 Hali ya Ufuatiliaji:">📋 Tracking Mode:</span>
+            <button class="mode-btn active-wages" id="modeBtnWages" onclick="switchMode('wages')" data-en="💰 Wages" data-sw="💰 Mshahara">💰 Wages</button>
+            <button class="mode-btn" id="modeBtnBusfare" onclick="switchMode('busfare')" data-en="🚌 Bus Fare" data-sw="🚌 Nauli">🚌 Bus Fare</button>
+            <button class="mode-btn" id="modeBtnLunch" onclick="switchMode('lunch')" data-en="🍽 Lunch" data-sw="🍽 Chakula">🍽 Lunch</button>
+            <button class="mode-btn" id="modeBtnCustom" onclick="switchMode('custom')" data-en="✚ Custom" data-sw="✚ Maalum">✚ Custom</button>
             <span id="currentModeLabel" class="mode-indicator" style="background:#2980b9;">💰 Wages</span>
         </div>
         <div class="controls-bar no-print">
-            <label for="monthSelect">Month:</label><select id="monthSelect"></select>
-            <label for="yearSelect">Year:</label><select id="yearSelect"></select>
-            <button class="btn btn-primary" onclick="goToToday()">📆 Today</button>
-            <button class="btn btn-save" id="manualSaveBtn" onclick="manualSave()">💾 Save Now</button>
-            <button class="btn btn-outline btn-sm" onclick="clearCurrentMode()">🗑 Clear This Mode</button>
+            <label for="monthSelect" data-en="Month:" data-sw="Mwezi:">Month:</label><select id="monthSelect"></select>
+            <label for="yearSelect" data-en="Year:" data-sw="Mwaka:">Year:</label><select id="yearSelect"></select>
+            <button class="btn btn-primary" onclick="goToToday()" data-en="📆 Today" data-sw="📆 Leo">📆 Today</button>
+            <button class="btn btn-save" id="manualSaveBtn" onclick="manualSave()" data-en="💾 Save Now" data-sw="💾 Hifadhi">💾 Save Now</button>
+            <button class="btn btn-outline btn-sm" onclick="clearCurrentMode()" data-en="🗑 Clear This Mode" data-sw="🗑 Futa Hali Hii">🗑 Clear This Mode</button>
         </div>
-        <div class="unsaved-banner no-print" id="unsavedBanner">⚠ You have unsaved changes. Click <strong>"💾 Save Now"</strong></div>
+        <div class="unsaved-banner no-print" id="unsavedBanner"><span data-en="⚠ You have unsaved changes. Click" data-sw="⚠ Una mabadiliko ambayo hayajahifadhiwa. Bonyeza">⚠ You have unsaved changes. Click</span> <strong>"💾 Save Now"</strong></div>
         <div class="worker-info-card" id="workerInfoCard">
-            <div class="field-group"><label>👤 Full Name</label><input type="text" id="workerName" placeholder="Enter your name" oninput="markUnsaved()"></div>
-            <div class="field-group"><label>🆔 ID Number</label><input type="text" id="workerID" placeholder="ID / Passport" oninput="markUnsaved()"></div>
-            <div class="field-group"><label id="dailyWageLabel">💰 Daily Wage (Default)</label><input type="number" id="dailyWage" placeholder="e.g. 500" min="0" step="any" oninput="markUnsaved()"></div>
-            <div class="field-group"><label>📞 Phone</label><input type="text" id="workerPhone" placeholder="Phone number" oninput="markUnsaved()"></div>
-            <div class="field-group"><label id="employerLabel">🏢 Wages Employer</label><input type="text" id="employerInput" placeholder="Employer name" oninput="saveEmployer()"></div>
+            <div class="field-group"><label data-en="👤 Full Name" data-sw="👤 Jina Kamili">👤 Full Name</label><input type="text" id="workerName" placeholder="Enter your name" oninput="markUnsaved()"></div>
+            <div class="field-group"><label data-en="🆔 ID Number" data-sw="🆔 Namba ya Kitambulisho">🆔 ID Number</label><input type="text" id="workerID" placeholder="ID / Passport" oninput="markUnsaved()"></div>
+            <div class="field-group"><label id="dailyWageLabel" data-en="💰 Daily Wage (Default)" data-sw="💰 Mshahara wa Kila Siku">💰 Daily Wage (Default)</label><input type="number" id="dailyWage" placeholder="e.g. 500" min="0" step="any" oninput="markUnsaved()"></div>
+            <div class="field-group"><label data-en="📞 Phone" data-sw="📞 Simu">📞 Phone</label><input type="text" id="workerPhone" placeholder="Phone number" oninput="markUnsaved()"></div>
+            <div class="field-group"><label id="employerLabel" data-en="🏢 Wages Employer" data-sw="🏢 Mwajiri">🏢 Wages Employer</label><input type="text" id="employerInput" placeholder="Employer name" oninput="saveEmployer()"></div>
         </div>
         <div class="target-bar" id="targetBar"><div class="target-fill" id="targetFill" style="width:0%;"></div></div>
         <div class="target-info" id="targetInfo"></div>
@@ -209,47 +202,54 @@
         </div>
         <div class="summary-section" id="weekSummarySection" style="grid-template-columns: repeat(5, 1fr);"></div>
         <div class="action-bar no-print">
-            <button class="btn btn-save" id="manualSaveBtn2" onclick="manualSave()">💾 Save Now</button>
-            <button class="btn btn-autofill" onclick="autofillDailyWage()">⚡ Autofill</button>
-            <button class="btn btn-success" onclick="exportCSV()">📥 Export CSV</button>
-            <button class="btn btn-accent" onclick="document.getElementById('csvFileInput').click()">📤 Import CSV</button>
+            <button class="btn btn-save" id="manualSaveBtn2" onclick="manualSave()" data-en="💾 Save Now" data-sw="💾 Hifadhi">💾 Save Now</button>
+            <button class="btn btn-autofill" onclick="autofillDailyWage()" data-en="⚡ Autofill" data-sw="⚡ Jaza Kiotomatiki">⚡ Autofill</button>
+            <button class="btn btn-success" onclick="exportCSV()" data-en="📥 Export CSV" data-sw="📥 Toa CSV">📥 Export CSV</button>
+            <button class="btn btn-accent" onclick="document.getElementById('csvFileInput').click()" data-en="📤 Import CSV" data-sw="📤 Ingiza CSV">📤 Import CSV</button>
             <input type="file" id="csvFileInput" accept=".csv" onchange="importCSV(event)">
-            <button class="btn btn-outline" onclick="window.print()">🖨 Print</button>
-            <button class="btn btn-outline btn-sm" onclick="copyDataToClipboard()">📋 Copy</button>
-            <button class="btn btn-outline btn-sm" onclick="shareViaWhatsApp()">📱 Share</button>
-            <button class="btn btn-danger btn-sm" onclick="resetAllData()">⚠ Reset All</button>
+            <button class="btn btn-outline" onclick="window.print()" data-en="🖨 Print" data-sw="🖨 Chapisha">🖨 Print</button>
+            <button class="btn btn-outline btn-sm" onclick="copyDataToClipboard()" data-en="📋 Copy" data-sw="📋 Nakili">📋 Copy</button>
+            <button class="btn btn-outline btn-sm" onclick="shareViaWhatsApp()" data-en="📱 Share" data-sw="📱 Shiriki">📱 Share</button>
+            <button class="btn btn-danger btn-sm" onclick="resetAllData()" data-en="⚠ Reset All" data-sw="⚠ Futa Yote">⚠ Reset All</button>
         </div>
-        <div class="last-saved no-print"><span class="dot" id="saveDot"></span><span id="lastSavedText">All changes saved ✓</span></div>
-        <div class="backup-reminder" id="backupReminder" onclick="exportCSV()">⚠ No backup in 14 days! Tap to export →</div>
+        <div class="last-saved no-print"><span class="dot" id="saveDot"></span><span id="lastSavedText" data-en="All changes saved ✓" data-sw="Mabadiliko yamehifadhiwa ✓">All changes saved ✓</span></div>
+        <div class="backup-reminder" id="backupReminder" onclick="exportCSV()" data-en="⚠ No backup in 14 days! Tap to export →" data-sw="⚠ Hakuna hifadhi kwa siku 14! Gusa kutoa →">⚠ No backup in 14 days! Tap to export →</div>
         <div class="footer-main">
-            <div class="copyright">© 2026 <strong>The Ngili Calendar</strong>. All Rights Reserved.</div>
-            <div class="developer">Developed by <strong>Safari Softwares</strong> | 📧 <a href="mailto:safarisoftwares@gmail.com" style="color: var(--primary-light);">safarisoftwares@gmail.com</a></div>
+            <div class="copyright">© 2026 <strong>The Ngili Calendar</strong>. <span data-en="All Rights Reserved." data-sw="Haki Zote Zimehifadhiwa.">All Rights Reserved.</span></div>
+            <div class="developer"><span data-en="Developed by" data-sw="Imetengenezwa na">Developed by</span> <strong>Safari Softwares</strong> | 📧 <a href="mailto:safarisoftwares@gmail.com" style="color: var(--primary-light);">safarisoftwares@gmail.com</a></div>
             <div class="footer-links no-print">
-                <a onclick="openModal('termsModal')">📜 Terms of Use</a>
-                <a onclick="openModal('privacyModal')">🔒 Privacy Policy</a>
+                <a onclick="openModal('termsModal')" data-en="📜 Terms of Use" data-sw="📜 Masharti ya Matumizi">📜 Terms of Use</a>
+                <a onclick="openModal('privacyModal')" data-en="🔒 Privacy Policy" data-sw="🔒 Sera ya Faragha">🔒 Privacy Policy</a>
             </div>
-            <div class="disclaimer"><strong>Disclaimer:</strong> The Ngili Calendar is a tool to assist workers. Not a substitute for official payroll records. Safari Softwares assumes no liability.</div>
+            <div class="disclaimer" data-en="Disclaimer: The Ngili Calendar is a tool to assist workers. Not a substitute for official payroll records. Safari Softwares assumes no liability." data-sw="Kanusho: Kalenda ya Ngili ni zana ya kusaidia wafanyakazi. Sio mbadala wa rekodi rasmi za malipo. Safari Softwares haiwajibiki kwa hasara zozote.">Disclaimer: The Ngili Calendar is a tool to assist workers. Not a substitute for official payroll records. Safari Softwares assumes no liability.</div>
         </div>
     </div>
-    <div class="modal-overlay" id="termsModal"><div class="modal"><button class="close-btn" onclick="closeModal('termsModal')">✕ Close</button><h2>📜 Terms of Use</h2><p><strong>Effective:</strong> Jan 1, 2026 | <strong>Updated:</strong> June 20, 2026</p><h3>1. Acceptance</h3><p>By using The Ngili Calendar, you agree to these Terms.</p><h3>2. Service</h3><p>Browser-based tracking tool for earnings, bus fare, lunch, and custom expenses. Free of charge.</p><h3>3. User Responsibilities</h3><ul><li>You are responsible for data accuracy.</li><li>Back up data using Export CSV.</li><li>Data stores locally in your browser.</li></ul><h3>4. Intellectual Property</h3><p>The Ngili Calendar is the exclusive property of <strong>Safari Softwares</strong>. You may not sell, resell, or commercialize it without written permission.</p><h3>5. Liability</h3><p>Provided "as is" without warranty. Safari Softwares not liable for data loss, miscalculations, or damages.</p><h3>6. Data Loss</h3><p>localStorage data can be lost. <strong>Export CSV regularly.</strong></p><h3>7. Contact</h3><p>📧 <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p></div></div>
-    <div class="modal-overlay" id="privacyModal"><div class="modal"><button class="close-btn" onclick="closeModal('privacyModal')">✕ Close</button><h2>🔒 Privacy Policy</h2><p><strong>Effective:</strong> Jan 1, 2026 | <strong>Updated:</strong> June 20, 2026</p><h3>1. Our Commitment</h3><p><strong>Your data is yours. We do not collect it.</strong></p><h3>2. No Data Collected</h3><ul><li>❌ No servers</li><li>❌ No tracking</li><li>❌ No accounts</li><li>❌ No cloud storage</li></ul><h3>3. Storage</h3><p>All data in browser localStorage only. Accessible only on this device.</p><h3>4. Protect Yourself</h3><p>Export CSV regularly and save safely.</p><h3>5. Contact</h3><p>📧 <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p></div></div>
+    <div class="modal-overlay" id="termsModal"><div class="modal"><button class="close-btn" onclick="closeModal('termsModal')">✕ <span data-en="Close" data-sw="Funga">Close</span></button><h2 data-en="📜 Terms of Use" data-sw="📜 Masharti ya Matumizi">📜 Terms of Use</h2><p><strong data-en="Effective:" data-sw="Tangu:">Effective:</strong> Jan 1, 2026 | <strong data-en="Updated:" data-sw="Imesasishwa:">Updated:</strong> June 20, 2026</p><h3 data-en="1. Acceptance" data-sw="1. Kukubalika">1. Acceptance</h3><p data-en="By using The Ngili Calendar, you agree to these Terms." data-sw="Kwa kutumia Kalenda ya Ngili, unakubali Masharti haya.">By using The Ngili Calendar, you agree to these Terms.</p><h3 data-en="2. Service" data-sw="2. Huduma">2. Service</h3><p data-en="Browser-based tracking tool for earnings, bus fare, lunch, and custom expenses. Free of charge." data-sw="Zana ya kufuatilia mapato, nauli, chakula, na gharama maalum. Bure.">Browser-based tracking tool for earnings, bus fare, lunch, and custom expenses. Free of charge.</p><h3 data-en="3. User Responsibilities" data-sw="3. Majukumu ya Mtumiaji">3. User Responsibilities</h3><ul><li data-en="You are responsible for data accuracy." data-sw="Unawajibika kwa usahihi wa data.">You are responsible for data accuracy.</li><li data-en="Back up data using Export CSV." data-sw="Hifadhi data kwa kutumia Toa CSV.">Back up data using Export CSV.</li><li data-en="Data stores locally in your browser." data-sw="Data huhifadhiwa kwenye kivinjari chako.">Data stores locally in your browser.</li></ul><h3 data-en="4. Intellectual Property" data-sw="4. Miliki">4. Intellectual Property</h3><p data-en="The Ngili Calendar is the exclusive property of Safari Softwares." data-sw="Kalenda ya Ngili ni miliki ya kipekee ya Safari Softwares.">The Ngili Calendar is the exclusive property of <strong>Safari Softwares</strong>.</p><h3 data-en="5. Liability" data-sw="5. Dhima">5. Liability</h3><p data-en="Provided 'as is' without warranty." data-sw="Imetolewa 'kama ilivyo' bila dhamana.">Provided "as is" without warranty.</p><h3 data-en="6. Data Loss" data-sw="6. Upotevu wa Data">6. Data Loss</h3><p data-en="localStorage data can be lost. Export CSV regularly." data-sw="Data ya localStorage inaweza kupotea. Toa CSV mara kwa mara.">localStorage data can be lost. <strong>Export CSV regularly.</strong></p><h3 data-en="7. Contact" data-sw="7. Mawasiliano">7. Contact</h3><p>📧 <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p></div></div>
+    <div class="modal-overlay" id="privacyModal"><div class="modal"><button class="close-btn" onclick="closeModal('privacyModal')">✕ <span data-en="Close" data-sw="Funga">Close</span></button><h2 data-en="🔒 Privacy Policy" data-sw="🔒 Sera ya Faragha">🔒 Privacy Policy</h2><p><strong data-en="Effective:" data-sw="Tangu:">Effective:</strong> Jan 1, 2026 | <strong data-en="Updated:" data-sw="Imesasishwa:">Updated:</strong> June 20, 2026</p><h3 data-en="1. Our Commitment" data-sw="1. Ahadi Yetu">1. Our Commitment</h3><p data-en="Your data is yours. We do not collect it." data-sw="Data yako ni yako. Hatuikusanyi."><strong>Your data is yours. We do not collect it.</strong></p><h3 data-en="2. No Data Collected" data-sw="2. Hakuna Data Inayokusanywa">2. No Data Collected</h3><ul><li data-en="No servers" data-sw="Hakuna seva">❌ No servers</li><li data-en="No tracking" data-sw="Hakuna ufuatiliaji">❌ No tracking</li><li data-en="No accounts" data-sw="Hakuna akaunti">❌ No accounts</li><li data-en="No cloud storage" data-sw="Hakuna hifadhi ya wingu">❌ No cloud storage</li></ul><h3 data-en="3. Storage" data-sw="3. Uhifadhi">3. Storage</h3><p data-en="All data in browser localStorage only." data-sw="Data yote kwenye localStorage ya kivinjari pekee.">All data in browser localStorage only.</p><h3 data-en="4. Protect Yourself" data-sw="4. Jilinde">4. Protect Yourself</h3><p data-en="Export CSV regularly and save safely." data-sw="Toa CSV mara kwa mara na uhifadhi salama.">Export CSV regularly and save safely.</p><h3 data-en="5. Contact" data-sw="5. Mawasiliano">5. Contact</h3><p>📧 <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p></div></div>
     <div class="toast" id="toast"></div>
 
     <script>
-        const STORAGE_KEY = 'ngili_calendar_v6';
+        const STORAGE_KEY = 'ngili_calendar_v7';
         const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
         const MONTHS_SW = ['Januari','Februari','Machi','Aprili','Mei','Juni','Julai','Agosti','Septemba','Oktoba','Novemba','Desemba'];
         const DAYS_EN = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
         const DAYS_SW = ['Jumapili','Jumatatu','Jumanne','Jumatano','Alhamisi','Ijumaa','Jumamosi'];
         const MODES = ['wages','busfare','lunch','custom'];
-        const MODE_LABELS = { wages:'💰 Wages', busfare:'🚌 Bus Fare', lunch:'🍽 Lunch', custom:'✚ Custom' };
+        const MODE_LABELS_EN = { wages:'💰 Wages', busfare:'🚌 Bus Fare', lunch:'🍽 Lunch', custom:'✚ Custom' };
+        const MODE_LABELS_SW = { wages:'💰 Mshahara', busfare:'🚌 Nauli', lunch:'🍽 Chakula', custom:'✚ Maalum' };
         const MODE_COLORS = { wages:'#2980b9', busfare:'#e67e22', lunch:'#27ae60', custom:'#8e44ad' };
-        const MODE_TOTAL_LABELS = { wages:'📊 Total Wages (Month)', busfare:'🚌 Total Bus Fare (Month)', lunch:'🍽 Total Lunch (Month)', custom:'✚ Total Custom (Month)' };
-        const MODE_ADVANCE_LABELS = { wages:'💸 Wages Advances', busfare:'💸 Bus Fare Advances', lunch:'💸 Lunch Advances', custom:'💸 Custom Advances' };
-        const MODE_NET_LABELS = { wages:'✅ Wages Net', busfare:'✅ Bus Fare Net', lunch:'✅ Lunch Net', custom:'✅ Custom Net' };
-        const MODE_EMPLOYER_LABELS = { wages:'🏢 Wages Employer', busfare:'🚌 Transport Provider', lunch:'🍽 Lunch Provider', custom:'🏢 Custom Employer' };
-        const DAILY_LABELS = { wages:'💰 Daily Wage (Default)', busfare:'🚌 Daily Bus Fare (Default)', lunch:'🍽 Daily Lunch (Default)', custom:'✚ Daily Amount (Default)' };
-        const PLACEHOLDERS = { wages:'Wage', busfare:'Bus Fare', lunch:'Lunch', custom:'Amount' };
+        const MODE_TOTAL_EN = { wages:'📊 Total Wages (Month)', busfare:'🚌 Total Bus Fare (Month)', lunch:'🍽 Total Lunch (Month)', custom:'✚ Total Custom (Month)' };
+        const MODE_TOTAL_SW = { wages:'📊 Jumla ya Mshahara (Mwezi)', busfare:'🚌 Jumla ya Nauli (Mwezi)', lunch:'🍽 Jumla ya Chakula (Mwezi)', custom:'✚ Jumla ya Maalum (Mwezi)' };
+        const MODE_ADVANCE_EN = { wages:'💸 Wages Advances', busfare:'💸 Bus Fare Advances', lunch:'💸 Lunch Advances', custom:'💸 Custom Advances' };
+        const MODE_ADVANCE_SW = { wages:'💸 Malimbikizo ya Mshahara', busfare:'💸 Malimbikizo ya Nauli', lunch:'💸 Malimbikizo ya Chakula', custom:'💸 Malimbikizo ya Maalum' };
+        const MODE_NET_EN = { wages:'✅ Wages Net', busfare:'✅ Bus Fare Net', lunch:'✅ Lunch Net', custom:'✅ Custom Net' };
+        const MODE_NET_SW = { wages:'✅ Mshahara Halisi', busfare:'✅ Nauli Halisi', lunch:'✅ Chakula Halisi', custom:'✅ Maalum Halisi' };
+        const MODE_EMPLOYER_EN = { wages:'🏢 Wages Employer', busfare:'🚌 Transport Provider', lunch:'🍽 Lunch Provider', custom:'🏢 Custom Employer' };
+        const MODE_EMPLOYER_SW = { wages:'🏢 Mwajiri wa Mshahara', busfare:'🚌 Mtoa Usafiri', lunch:'🍽 Mtoa Chakula', custom:'🏢 Mwajiri Maalum' };
+        const DAILY_EN = { wages:'💰 Daily Wage (Default)', busfare:'🚌 Daily Bus Fare (Default)', lunch:'🍽 Daily Lunch (Default)', custom:'✚ Daily Amount (Default)' };
+        const DAILY_SW = { wages:'💰 Mshahara wa Kila Siku', busfare:'🚌 Nauli ya Kila Siku', lunch:'🍽 Chakula cha Kila Siku', custom:'✚ Kiasi cha Kila Siku' };
+        const PLACEHOLDERS_EN = { wages:'Wage', busfare:'Bus Fare', lunch:'Lunch', custom:'Amount' };
+        const PLACEHOLDERS_SW = { wages:'Mshahara', busfare:'Nauli', lunch:'Chakula', custom:'Kiasi' };
 
         let currentMonth = new Date().getMonth();
         let currentYear = new Date().getFullYear();
@@ -264,10 +264,11 @@
         let dailyTarget = 0;
         let lastExportDate = null;
 
+        function t(en,sw) { return currentLang==='sw' ? sw : en; }
         function getStorageKey(m,y) { return y+'-'+m; }
         function loadAllData() {
             const s=localStorage.getItem(STORAGE_KEY); if(s){ try{ allData=JSON.parse(s); }catch(e){ allData={}; } }else{ allData={}; }
-            const st=JSON.parse(localStorage.getItem('ngili_settings_v6')||'{}');
+            const st=JSON.parse(localStorage.getItem('ngili_settings_v7')||'{}');
             currencySymbol=st.currency||'KES'; currentLang=st.lang||'en'; darkMode=st.darkMode||false;
             weekendMultiplier=st.weekendRate||1; dailyTarget=st.dailyTarget||0; lastExportDate=st.lastExportDate||null;
             if(darkMode) document.body.classList.add('dark-mode');
@@ -277,9 +278,9 @@
             document.getElementById('darkToggle').textContent=darkMode?'☀️ Light':'🌙 Dark';
             applyLanguage();
         }
-        function saveSettings() { localStorage.setItem('ngili_settings_v6',JSON.stringify({currency:currencySymbol,lang:currentLang,darkMode:darkMode,weekendRate:weekendMultiplier,dailyTarget:dailyTarget,lastExportDate:lastExportDate})); }
+        function saveSettings() { localStorage.setItem('ngili_settings_v7',JSON.stringify({currency:currencySymbol,lang:currentLang,darkMode:darkMode,weekendRate:weekendMultiplier,dailyTarget:dailyTarget,lastExportDate:lastExportDate})); }
         function saveAllData() { try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(allData)); unsavedChanges=false; updateSaveIndicator(true); hideUnsavedBanner(); updateSaveButtons(true); }catch(e){ showToast('⚠ Storage full!','warning'); } }
-        function manualSave() { flushAllChanges(); saveAllData(); showToast('💾 Saved!','success'); }
+        function manualSave() { flushAllChanges(); saveAllData(); showToast(t('💾 Saved!','💾 Imehifadhiwa!'),'success'); }
 
         function getMonthData(m,y) {
             const k=getStorageKey(m,y);
@@ -301,8 +302,8 @@
         }
 
         function markUnsaved() { unsavedChanges=true; updateSaveIndicator(false); showUnsavedBanner(); updateSaveButtons(false); }
-        function updateSaveButtons(saved) { [document.getElementById('manualSaveBtn'),document.getElementById('manualSaveBtn2')].forEach(function(btn){ if(!btn)return; if(saved){ btn.classList.add('saved'); btn.innerHTML='✅ Saved'; setTimeout(function(){ btn.classList.remove('saved'); btn.innerHTML='💾 Save Now'; },2000); }else{ btn.classList.remove('saved'); btn.innerHTML='💾 Save Now'; } }); }
-        function updateSaveIndicator(saved) { const dot=document.getElementById('saveDot'); const text=document.getElementById('lastSavedText'); if(saved){ dot.className='dot'; text.textContent='All changes saved ✓'; }else{ dot.className='dot unsaved'; text.textContent='Unsaved changes — click Save Now'; } }
+        function updateSaveButtons(saved) { [document.getElementById('manualSaveBtn'),document.getElementById('manualSaveBtn2')].forEach(function(btn){ if(!btn)return; if(saved){ btn.classList.add('saved'); btn.innerHTML='✅ '+(currentLang==='sw'?'Imehifadhiwa':'Saved'); setTimeout(function(){ btn.classList.remove('saved'); btn.innerHTML=t('💾 Save Now','💾 Hifadhi'); },2000); }else{ btn.classList.remove('saved'); btn.innerHTML=t('💾 Save Now','💾 Hifadhi'); } }); }
+        function updateSaveIndicator(saved) { const dot=document.getElementById('saveDot'); const text=document.getElementById('lastSavedText'); if(saved){ dot.className='dot'; }else{ dot.className='dot unsaved'; } applyLanguage(); }
         function showUnsavedBanner() { const b=document.getElementById('unsavedBanner'); if(b)b.classList.add('show'); }
         function hideUnsavedBanner() { const b=document.getElementById('unsavedBanner'); if(b)b.classList.remove('show'); }
 
@@ -312,8 +313,19 @@
         function changeWeekendRate() { weekendMultiplier=parseFloat(document.getElementById('weekendRateSelect').value); saveSettings(); }
 
         function applyLanguage() {
+            document.querySelectorAll('[data-en][data-sw]').forEach(function(el){
+                if(el.tagName==='OPTION'){
+                    el.textContent = currentLang==='sw' ? el.getAttribute('data-sw') : el.getAttribute('data-en');
+                }else{
+                    el.textContent = currentLang==='sw' ? el.getAttribute('data-sw') : el.getAttribute('data-en');
+                }
+            });
             const ths=document.querySelectorAll('.calendar-table th');
             if(ths.length===7){ const days=currentLang==='sw'?DAYS_SW:DAYS_EN; for(let i=0;i<7;i++){ ths[i].textContent=days[i]; } }
+            document.getElementById('lastSavedText').textContent = currentLang==='sw' ? 'Mabadiliko yamehifadhiwa ✓' : 'All changes saved ✓';
+            document.getElementById('darkToggle').textContent = darkMode ? '☀️ Light' : (currentLang==='sw'?'🌙 Giza':'🌙 Dark');
+            document.getElementById('backupReminder').textContent = currentLang==='sw' ? '⚠ Hakuna hifadhi kwa siku 14! Gusa kutoa →' : '⚠ No backup in 14 days! Tap to export →';
+            updateModeUI();
         }
 
         function switchMode(mode) { flushAllChanges(); currentMode=mode; updateModeUI(); renderCalendar(); }
@@ -323,13 +335,19 @@
             const ab=document.getElementById('modeBtn'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1));
             if(ab)ab.classList.add('active-'+currentMode);
             const lbl=document.getElementById('currentModeLabel');
-            lbl.textContent=currentMode==='custom'?('✚ '+customModeName):MODE_LABELS[currentMode];
+            const modeLabels = currentLang==='sw' ? MODE_LABELS_SW : MODE_LABELS_EN;
+            lbl.textContent = currentMode==='custom' ? ('✚ '+customModeName) : modeLabels[currentMode];
             lbl.style.background=MODE_COLORS[currentMode];
-            document.getElementById('totalLabel').textContent=MODE_TOTAL_LABELS[currentMode];
-            document.getElementById('advanceLabel').textContent=MODE_ADVANCE_LABELS[currentMode];
-            document.getElementById('netLabel').textContent=MODE_NET_LABELS[currentMode];
-            document.getElementById('employerLabel').textContent=MODE_EMPLOYER_LABELS[currentMode];
-            document.getElementById('dailyWageLabel').textContent=DAILY_LABELS[currentMode];
+            const totalLabels = currentLang==='sw' ? MODE_TOTAL_SW : MODE_TOTAL_EN;
+            const advLabels = currentLang==='sw' ? MODE_ADVANCE_SW : MODE_ADVANCE_EN;
+            const netLabels = currentLang==='sw' ? MODE_NET_SW : MODE_NET_EN;
+            const empLabels = currentLang==='sw' ? MODE_EMPLOYER_SW : MODE_EMPLOYER_EN;
+            const dailyLabels = currentLang==='sw' ? DAILY_SW : DAILY_EN;
+            document.getElementById('totalLabel').textContent = totalLabels[currentMode];
+            document.getElementById('advanceLabel').textContent = advLabels[currentMode];
+            document.getElementById('netLabel').textContent = netLabels[currentMode];
+            document.getElementById('employerLabel').textContent = empLabels[currentMode];
+            document.getElementById('dailyWageLabel').textContent = dailyLabels[currentMode];
         }
 
         function saveEmployer() { const data=getMonthData(currentMonth,currentYear); data['employer'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=document.getElementById('employerInput').value; markUnsaved(); }
@@ -342,7 +360,7 @@
         function getDaysInMonth(m,y) { return new Date(y,m+1,0).getDate(); }
         function getFirstDayOfMonth(m,y) { return new Date(y,m,1).getDay(); }
 
-        function setDailyTarget() { const t=prompt('Set monthly target ('+currencySymbol+'):',dailyTarget||''); if(t!==null){ dailyTarget=parseFloat(t)||0; saveSettings(); if(dailyTarget>0){ checkTarget(); }else{ document.getElementById('targetBar').style.display='none'; document.getElementById('targetInfo').style.display='none'; } } }
+        function setDailyTarget() { const t=prompt(t('Set monthly target ('+currencySymbol+'):','Weka lengo la mwezi ('+currencySymbol+'):'),dailyTarget||''); if(t!==null){ dailyTarget=parseFloat(t)||0; saveSettings(); if(dailyTarget>0){ checkTarget(); }else{ document.getElementById('targetBar').style.display='none'; document.getElementById('targetInfo').style.display='none'; } } }
 
         function checkTarget() {
             if(dailyTarget<=0) return;
@@ -351,21 +369,21 @@
             const pct=Math.min(100,Math.round((total/dailyTarget)*100));
             document.getElementById('targetBar').style.display='block'; document.getElementById('targetInfo').style.display='block';
             document.getElementById('targetFill').style.width=pct+'%';
-            document.getElementById('targetInfo').textContent='🎯 Target: '+currencySymbol+' '+dailyTarget+' — '+pct+'% ('+currencySymbol+' '+total.toFixed(0)+' of '+currencySymbol+' '+dailyTarget+')';
+            document.getElementById('targetInfo').textContent = t('🎯 Target: ','🎯 Lengo: ')+currencySymbol+' '+dailyTarget+' — '+pct+'% ('+currencySymbol+' '+total.toFixed(0)+' / '+currencySymbol+' '+dailyTarget+')';
         }
 
         function autofillDailyWage() {
-            const v=document.getElementById('dailyWage').value; if(!v||parseFloat(v)<=0){ showToast('⚠ Enter a valid amount.','warning'); return; }
-            const ml=currentMode==='custom'?('✚ '+customModeName):MODE_LABELS[currentMode];
-            if(!confirm('Fill ALL empty cells with '+v+' for '+ml+'?'))return;
+            const v=document.getElementById('dailyWage').value; if(!v||parseFloat(v)<=0){ showToast(t('⚠ Enter a valid amount.','⚠ Weka kiasi halali.'),'warning'); return; }
+            const ml=currentMode==='custom'?('✚ '+customModeName):(currentLang==='sw'?MODE_LABELS_SW[currentMode]:MODE_LABELS_EN[currentMode]);
+            if(!confirm(t('Fill ALL empty cells with '+v+' for '+ml+'?','Jaza seli ZOTE tupu na '+v+' kwa '+ml+'?')))return;
             const dim=getDaysInMonth(currentMonth,currentYear); const data=getMonthData(currentMonth,currentYear); if(!data[currentMode])data[currentMode]={}; let c=0;
             for(let d=1;d<=dim;d++){ const wi=document.getElementById('wage-'+d); if(wi&&(!wi.value||parseFloat(wi.value)===0)){ wi.value=v; wi.classList.add('has-value'); data[currentMode][d]={amount:parseFloat(v),note:(data[currentMode][d]||{}).note||''}; c++; } }
-            markUnsaved(); updateAllTotals(); updateWeekSummaryCards(); checkTarget(); showToast('⚡ Autofilled '+c+' cells','success');
+            markUnsaved(); updateAllTotals(); updateWeekSummaryCards(); checkTarget(); showToast(t('⚡ Autofilled '+c+' cells','⚡ Zilijazwa seli '+c),'success');
         }
 
         function clearCurrentMode() {
-            const ml=currentMode==='custom'?('✚ '+customModeName):MODE_LABELS[currentMode];
-            if(confirm('Clear ALL '+ml+' entries?')){ const data=getMonthData(currentMonth,currentYear); data[currentMode]={}; saveAllData(); renderCalendar(); showToast('🗑 '+ml+' cleared','warning'); }
+            const ml=currentMode==='custom'?('✚ '+customModeName):(currentLang==='sw'?MODE_LABELS_SW[currentMode]:MODE_LABELS_EN[currentMode]);
+            if(confirm(t('Clear ALL '+ml+' entries?','Futa maingizo YOTE ya '+ml+'?'))){ const data=getMonthData(currentMonth,currentYear); data[currentMode]={}; saveAllData(); renderCalendar(); showToast(t('🗑 '+ml+' cleared','🗑 '+ml+' imefutwa'),'warning'); }
         }
 
         function renderCalendar() {
@@ -391,6 +409,7 @@
             const tcn=fd+dim; const rts=Math.max(5,Math.ceil(tcn/7));
             const modeData=data[currentMode]||{};
             const tbody=document.getElementById('calendarBody'); tbody.innerHTML=''; let dc=1;
+            const phs = currentLang==='sw' ? PLACEHOLDERS_SW : PLACEHOLDERS_EN;
             for(let row=0;row<rts;row++){
                 const tr=document.createElement('tr'); tr.setAttribute('data-week',row);
                 for(let col=0;col<7;col++){
@@ -400,8 +419,8 @@
                         const dn=dc; const iw=(col===0); const it=(isCMV&&dn===td);
                         if(iw)td.classList.add('weekend'); if(it)td.classList.add('today-cell');
                         const dd=modeData[dn]||{amount:0,note:''}; const huv=(dd.amount>0||dd.note!=='');
-                        const ph=PLACEHOLDERS[currentMode]||'Amount';
-                        td.innerHTML='<div class="day-cell"><div class="date-number">'+dn+'</div><input type="number" class="wage-input mode-'+currentMode+(huv?' has-value':'')+'" id="wage-'+dn+'" placeholder="'+ph+'" value="'+(huv?dd.amount:'')+'" step="any" min="0" oninput="saveWage('+dn+')" onfocus="this.select()"><textarea class="note-input'+(dd.note?' has-note':'')+'" id="note-'+dn+'" placeholder="Note" oninput="saveWage('+dn+')">'+(dd.note||'')+'</textarea></div>';
+                        const ph=phs[currentMode]||'Amount';
+                        td.innerHTML='<div class="day-cell"><div class="date-number">'+dn+'</div><input type="number" class="wage-input mode-'+currentMode+(huv?' has-value':'')+'" id="wage-'+dn+'" placeholder="'+ph+'" value="'+(huv?dd.amount:'')+'" step="any" min="0" oninput="saveWage('+dn+')" onfocus="this.select()"><textarea class="note-input'+(dd.note?' has-note':'')+'" id="note-'+dn+'" placeholder="'+(currentLang==='sw'?'Maelezo':'Note')+'" oninput="saveWage('+dn+')">'+(dd.note||'')+'</textarea></div>';
                         dc++;
                     }
                     tr.appendChild(td);
@@ -409,7 +428,8 @@
                 tbody.appendChild(tr);
                 const ttr=document.createElement('tr'); ttr.classList.add('week-total-row');
                 const wsd=row*7+1-fd; const wed=Math.min(wsd+6,dim);
-                let wl; if(wsd<1)wl='Week '+(row+1); else if(wsd>dim)wl='Week '+(row+1)+' (N/A)'; else wl='Week '+(row+1)+' Total (Days '+Math.max(1,wsd)+'–'+wed+')';
+                let wl; const wLabel = currentLang==='sw' ? 'Wiki' : 'Week'; const totLabel = currentLang==='sw' ? 'Jumla' : 'Total'; const daysLabel = currentLang==='sw' ? 'Siku' : 'Days';
+                if(wsd<1)wl=wLabel+' '+(row+1); else if(wsd>dim)wl=wLabel+' '+(row+1)+' (N/A)'; else wl=wLabel+' '+(row+1)+' '+totLabel+' ('+daysLabel+' '+Math.max(1,wsd)+'–'+wed+')';
                 ttr.innerHTML='<td class="week-total-label" colspan="6">'+wl+'</td><td id="week-total-'+row+'" style="font-size:1.1em;">0.00</td>';
                 tbody.appendChild(ttr);
             }
@@ -435,27 +455,29 @@
             const tcn=fd+dim; const rts=Math.max(5,Math.ceil(tcn/7)); const wt=new Array(rts).fill(0);
             for(let d=1;d<=dim;d++){ const wi=document.getElementById('wage-'+d); const a=wi?(parseFloat(wi.value)||0):0; const ci=fd+d-1; const wi2=Math.floor(ci/7); if(wi2>=0&&wi2<rts)wt[wi2]+=a; }
             const sec=document.getElementById('weekSummarySection'); sec.innerHTML=''; sec.style.gridTemplateColumns='repeat('+rts+', 1fr)';
-            for(let w=0;w<rts;w++){ const ws=w*7+1-fd; const we=Math.min(ws+6,dim); let lb; if(ws<1)lb='Week '+(w+1); else if(ws>dim)lb='Week '+(w+1)+' (N/A)'; else lb='Week '+(w+1)+' ('+Math.max(1,ws)+'–'+we+')';
+            const wLabel = currentLang==='sw' ? 'Wiki' : 'Week'; const daysLabel = currentLang==='sw' ? 'Siku' : 'Days';
+            for(let w=0;w<rts;w++){ const ws=w*7+1-fd; const we=Math.min(ws+6,dim); let lb; if(ws<1)lb=wLabel+' '+(w+1); else if(ws>dim)lb=wLabel+' '+(w+1)+' (N/A)'; else lb=wLabel+' '+(w+1)+' ('+Math.max(1,ws)+'–'+we+')';
                 const cd=document.createElement('div'); cd.className='summary-card'; cd.style.borderTopColor='#8e44ad'; cd.innerHTML='<h3>📋 '+lb+'</h3><div class="big-number" style="font-size:1.4em;">'+currencySymbol+' '+wt[w].toFixed(2)+'</div>'; sec.appendChild(cd); }
         }
 
         function checkBackupReminder() {
             if(!lastExportDate) return;
             const daysSince=(new Date()-new Date(lastExportDate))/(1000*60*60*24);
-            const r=document.getElementById('backupReminder'); if(daysSince>14){ r.classList.add('show'); }else{ r.classList.remove('show'); }
+            const r=document.getElementById('backupReminder'); if(daysSince>14){ r.classList.add('show'); r.textContent = currentLang==='sw' ? '⚠ Hakuna hifadhi kwa siku 14! Gusa kutoa →' : '⚠ No backup in 14 days! Tap to export →'; }else{ r.classList.remove('show'); }
         }
 
-        function goToToday() { if(unsavedChanges){ flushAllChanges(); saveAllData(); } currentMonth=new Date().getMonth(); currentYear=new Date().getFullYear(); renderCalendar(); showToast('📆 Showing current month','success'); }
+        function goToToday() { if(unsavedChanges){ flushAllChanges(); saveAllData(); } currentMonth=new Date().getMonth(); currentYear=new Date().getFullYear(); renderCalendar(); showToast(t('📆 Showing current month','📆 Inaonyesha mwezi huu'),'success'); }
 
         function shareViaWhatsApp() {
             flushAllChanges(); const data=getMonthData(currentMonth,currentYear); const dim=getDaysInMonth(currentMonth,currentYear);
-            let text='*Ngili Calendar - '+MODE_LABELS[currentMode]+'*\n'+MONTHS[currentMonth]+' '+currentYear+'\n\n';
+            const ml=currentMode==='custom'?('✚ '+customModeName):(currentLang==='sw'?MODE_LABELS_SW[currentMode]:MODE_LABELS_EN[currentMode]);
+            let text='*Ngili Calendar - '+ml+'*\n'+MONTHS[currentMonth]+' '+currentYear+'\n\n';
             let total=0; const md=data[currentMode]||{};
             for(let d=1;d<=dim;d++){ const dd=md[d]||{amount:0}; if(dd.amount>0){ text+=d+': '+currencySymbol+' '+dd.amount+'\n'; total+=dd.amount; } }
-            text+='\n*Total: '+currencySymbol+' '+total.toFixed(2)+'*';
+            text+='\n*'+t('Total: ','Jumla: ')+currencySymbol+' '+total.toFixed(2)+'*';
             const adv=data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]||0;
-            text+='\n*Advance: '+currencySymbol+' '+adv.toFixed(2)+'*';
-            text+='\n*Net: '+currencySymbol+' '+(total-adv).toFixed(2)+'*';
+            text+='\n*'+t('Advance: ','Malimbikizo: ')+currencySymbol+' '+adv.toFixed(2)+'*';
+            text+='\n*'+t('Net: ','Halisi: ')+currencySymbol+' '+(total-adv).toFixed(2)+'*';
             text+='\n\n_~ Ngili Calendar by Safari Softwares ~_';
             window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank');
         }
@@ -493,29 +515,29 @@
                     }
                     const ik=Object.keys(id);
                     for(let k=0;k<ik.length;k++){ const key=ik[k]; const ida=id[key]; if(!allData[key])allData[key]={workerInfo:{},customName:'Custom',employerWages:'',employerBusfare:'',employerLunch:'',employerCustom:'',wages:{},busfare:{},lunch:{},custom:{},advanceWages:0,advanceBusfare:0,advanceLunch:0,advanceCustom:0}; if(ida.workerInfo.name)allData[key].workerInfo.name=ida.workerInfo.name; if(ida.workerInfo.id)allData[key].workerInfo.id=ida.workerInfo.id; if(ida.workerInfo.phone)allData[key].workerInfo.phone=ida.workerInfo.phone; if(ida.customName)allData[key].customName=ida.customName; if(ida.employerWages)allData[key].employerWages=ida.employerWages; if(ida.employerBusfare)allData[key].employerBusfare=ida.employerBusfare; if(ida.employerLunch)allData[key].employerLunch=ida.employerLunch; if(ida.employerCustom)allData[key].employerCustom=ida.employerCustom; MODES.forEach(function(mode){ const mk=Object.keys(ida[mode]||{}); for(let w=0;w<mk.length;w++){ if(!allData[key][mode])allData[key][mode]={}; allData[key][mode][mk[w]]=ida[mode][mk[w]]; } }); if(ida.advanceWages)allData[key].advanceWages=ida.advanceWages; if(ida.advanceBusfare)allData[key].advanceBusfare=ida.advanceBusfare; if(ida.advanceLunch)allData[key].advanceLunch=ida.advanceLunch; if(ida.advanceCustom)allData[key].advanceCustom=ida.advanceCustom; }
-                    saveAllData(); renderCalendar(); showToast('📤 Imported '+ic+' records!','success');
-                }catch(err){ showToast('❌ Error importing CSV.','warning'); }
+                    saveAllData(); renderCalendar(); showToast(t('📤 Imported '+ic+' records!','📤 Imeingiza rekodi '+ic+'!'),'success');
+                }catch(err){ showToast(t('❌ Error importing CSV.','❌ Hitilafu katika CSV.'),'warning'); }
             };
             reader.readAsText(file); event.target.value='';
         }
 
         function copyDataToClipboard() {
             flushAllChanges(); const data=getMonthData(currentMonth,currentYear); const dim=getDaysInMonth(currentMonth,currentYear);
-            let text='Ngili Calendar - '+MODE_LABELS[currentMode]+' - '+MONTHS[currentMonth]+' '+currentYear+'\n';
+            let text='Ngili Calendar - '+(currentLang==='sw'?MODE_LABELS_SW[currentMode]:MODE_LABELS_EN[currentMode])+' - '+MONTHS[currentMonth]+' '+currentYear+'\n';
             let total=0; const md=data[currentMode]||{};
             for(let d=1;d<=dim;d++){ const dd=md[d]||{amount:0}; if(dd.amount>0){ text+=d+': '+currencySymbol+' '+dd.amount+'\n'; total+=dd.amount; } }
-            text+='\nTotal: '+currencySymbol+' '+total.toFixed(2); const adv=data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]||0;
-            text+='\nNet: '+currencySymbol+' '+(total-adv).toFixed(2);
-            navigator.clipboard.writeText(text).then(function(){ showToast('📋 Copied!','success'); }).catch(function(){ showToast('⚠ Could not copy.','warning'); });
+            text+='\n'+t('Total: ','Jumla: ')+currencySymbol+' '+total.toFixed(2); const adv=data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]||0;
+            text+='\n'+t('Net: ','Halisi: ')+currencySymbol+' '+(total-adv).toFixed(2);
+            navigator.clipboard.writeText(text).then(function(){ showToast(t('📋 Copied!','📋 Imenakiliwa!'),'success'); }).catch(function(){ showToast(t('⚠ Could not copy.','⚠ Haiwezi kunakili.'),'warning'); });
         }
 
-        function resetAllData() { if(confirm('⚠ DELETE ALL DATA?\n\nExport first.')){ if(confirm('Final warning. Continue?')){ allData={}; saveAllData(); renderCalendar(); showToast('⚠ All data reset','warning'); } } }
+        function resetAllData() { if(confirm(t('⚠ DELETE ALL DATA?\n\nExport first.','⚠ Futa DATA YOTE?\n\nToa kwanza.'))){ if(confirm(t('Final warning. Continue?','Onyo la mwisho. Endelea?'))){ allData={}; saveAllData(); renderCalendar(); showToast(t('⚠ All data reset','⚠ Data yote imefutwa'),'warning'); } } }
         function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow='hidden'; }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow=''; }
         document.addEventListener('click',function(e){ if(e.target.classList.contains('modal-overlay')){ e.target.classList.remove('active'); document.body.style.overflow=''; } });
         document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ var ovs=document.querySelectorAll('.modal-overlay.active'); for(var i=0;i<ovs.length;i++){ ovs[i].classList.remove('active'); } document.body.style.overflow=''; } });
         function showToast(message,type){ var toast=document.getElementById('toast'); toast.textContent=message; toast.className='toast '+(type||'')+' show'; clearTimeout(toast._timeout); toast._timeout=setTimeout(function(){ toast.classList.remove('show'); },2500); }
-        function init(){ loadAllData(); renderCalendar(); window.addEventListener('beforeunload',function(){ flushAllChanges(); saveAllData(); }); setInterval(function(){ if(unsavedChanges){ flushAllChanges(); saveAllData(); } },10000); console.log('📅 Ngili Calendar v6 — Full Featured! © 2026 Safari Softwares'); }
+        function init(){ loadAllData(); renderCalendar(); window.addEventListener('beforeunload',function(){ flushAllChanges(); saveAllData(); }); setInterval(function(){ if(unsavedChanges){ flushAllChanges(); saveAllData(); } },10000); console.log('📅 Ngili Calendar v7 — Full Swahili Translation! © 2026 Safari Softwares'); }
         init();
     </script>
 </body>
