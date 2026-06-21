@@ -191,6 +191,7 @@
             <div class="field-group"><label id="employerLabel" data-en="🏢 Wages Employer" data-sw="🏢 Mwajiri" data-de="🏢 Arbeitgeber" data-fr="🏢 Employeur">🏢 Wages Employer</label><input type="text" id="employerInput" placeholder="Employer name" oninput="saveEmployer()"></div>
         </div>
 
+
         <div class="target-bar" id="targetBar"><div class="target-fill" id="targetFill" style="width:0%;"></div></div>
         <div class="target-info" id="targetInfo"></div>
         <div class="calendar-container">
@@ -385,6 +386,7 @@
             document.getElementById('targetInfo').textContent = '🎯 Target: '+currencySymbol+' '+dailyTarget+' — '+pct+'% ('+currencySymbol+' '+total.toFixed(0)+')';
         }
 
+
         function autofillDailyWage() {
             const v=document.getElementById('dailyWage').value; if(!v||parseFloat(v)<=0){ showToast('⚠ Enter a valid amount.','warning'); return; }
             const ml=currentMode==='custom'?('✚ '+customModeName):((MODE_LABELS[currentLang]||MODE_LABELS['en'])[currentMode]);
@@ -494,7 +496,6 @@
         function goToToday() { if(unsavedChanges){ flushAllChanges(); saveAllData(); } currentMonth=new Date().getMonth(); currentYear=new Date().getFullYear(); renderCalendar(); showToast('📆 Showing current month','success'); }
 
         function printCalendar() {
-            // Trigger browser print dialog — works on both desktop and mobile
             window.print();
         }
 
@@ -515,37 +516,86 @@
         function exportCSV() {
             flushAllChanges(); saveAllData(); loadAllData();
             lastExportDate=new Date().toISOString(); saveSettings();
-            const cd=getMonthData(currentMonth,currentYear); const wn=(cd.workerInfo.name||'worker').replace(/[^a-zA-Z0-9]/g,'_'); const cn=cd.customName||'Custom';
-            let csv='Ngili Calendar - All Records\nExported: '+new Date().toISOString().split('T')[0]+'\nCurrency: '+currencySymbol+'\n\n--- Worker Info ---\nName,'+cd.workerInfo.name+'\nID,'+cd.workerInfo.id+'\nCitizenship,'+(cd.workerInfo.citizenship||'')+'\nPhone,'+cd.workerInfo.phone+'\n\n--- Employers ---\nWages Employer,'+(cd.employerWages||'')+'\nTransport Provider,'+(cd.employerBusfare||'')+'\nLunch Provider,'+(cd.employerLunch||'')+'\n'+cn+' Employer,'+(cd.employerCustom||'')+'\nCustom Name,'+cn+'\n\n';
-            const sk=Object.keys(allData).sort(); const mn={wages:'Wages',busfare:'Bus Fare',lunch:'Lunch',custom:cn};
-            MODES.forEach(function(mode){ csv+='--- '+mn[mode]+' Records ---\nYear,Month,Day,Date,Amount,Notes\n';
-                for(let k=0;k<sk.length;k++){ const key=sk[k]; const p=key.split('-'); const y=parseInt(p[0]); const m=parseInt(p[1]); const md=allData[key]; const dim=new Date(y,m+1,0).getDate(); const moded=md[mode]||{}; for(let d=1;d<=dim;d++){ const dd=moded[d]||{amount:0,note:''}; if(dd.amount>0||dd.note){ const ds=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0'); csv+=y+','+MONTHS[m]+','+d+','+ds+','+(dd.amount||0)+',"'+(dd.note||'').replace(/"/g,'""')+'"\n'; } } } });
-            csv+='\n--- Advances ---\nYear,Month,Wages Advance,Bus Fare Advance,Lunch Advance,'+cn+' Advance\n';
-            for(let k=0;k<sk.length;k++){ const key=sk[k]; const p=key.split('-'); const md=allData[key]; csv+=p[0]+','+MONTHS[parseInt(p[1])]+','+(md.advanceWages||0)+','+(md.advanceBusfare||0)+','+(md.advanceLunch||0)+','+(md.advanceCustom||0)+'\n'; }
-            const ds2=new Date().toISOString().split('T')[0]; const fn='Ngili_Calendar_'+wn+'_'+currentYear+'_'+MONTHS[currentMonth]+'_'+ds2+'.csv';
-            const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+            const cd=getMonthData(currentMonth,currentYear); 
+            const workerName = cd.workerInfo.name || 'worker';
+            const wn=workerName.replace(/[^a-zA-Z0-9]/g,'_'); 
+            const cn=cd.customName||'Custom';
             
-            // Try download (works on desktop, some mobile)
-            try {
-                const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=fn; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
-                const isMobile=/Android|iPhone|iPad|iPod|webOS/i.test(navigator.userAgent);
-                if(isMobile){
-                    // Also offer share on mobile
-                    if(navigator.share){
-                        navigator.share({files:[new File([blob],fn,{type:'text/csv'})],title:'Ngili Calendar Export'}).catch(function(){});
-                    }
-                    showToast('📥 CSV saved! Check Downloads or use Share.','success');
-                }else{
-                    showToast('📥 CSV exported: '+fn,'success');
-                }
-            }catch(err){
-                // Fallback: open in new tab
-                const dataUri='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
-                window.open(dataUri,'_blank');
-                showToast('📥 CSV opened in new tab. Save it.','success');
+            let csv='Ngili Calendar - All Records\n';
+            csv+='Worker: '+workerName+'\n';
+            csv+='Exported: '+new Date().toISOString().split('T')[0]+'\n';
+            csv+='Currency: '+currencySymbol+'\n\n';
+            csv+='--- Worker Info ---\nName,'+workerName+'\nID,'+cd.workerInfo.id+'\nCitizenship,'+(cd.workerInfo.citizenship||'')+'\nPhone,'+cd.workerInfo.phone+'\n\n';
+            csv+='--- Employers ---\nWages Employer,'+(cd.employerWages||'')+'\nTransport Provider,'+(cd.employerBusfare||'')+'\nLunch Provider,'+(cd.employerLunch||'')+'\n'+cn+' Employer,'+(cd.employerCustom||'')+'\nCustom Name,'+cn+'\n\n';
+            
+            const sk=Object.keys(allData).sort(); const mn={wages:'Wages',busfare:'Bus Fare',lunch:'Lunch',custom:cn};
+            MODES.forEach(function(mode){ 
+                csv+='--- '+mn[mode]+' Records ---\nYear,Month,Day,Date,Amount,Notes\n';
+                for(let k=0;k<sk.length;k++){ 
+                    const key=sk[k]; const p=key.split('-'); const y=parseInt(p[0]); const m=parseInt(p[1]); 
+                    const md=allData[key]; const dim=new Date(y,m+1,0).getDate(); const moded=md[mode]||{}; 
+                    for(let d=1;d<=dim;d++){ 
+                        const dd=moded[d]||{amount:0,note:''}; 
+                        if(dd.amount>0||dd.note){ 
+                            const ds=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0'); 
+                            csv+=y+','+MONTHS[m]+','+d+','+ds+','+(dd.amount||0)+',"'+(dd.note||'').replace(/"/g,'""')+'"\n'; 
+                        } 
+                    } 
+                } 
+            });
+            
+            csv+='\n--- Advances ---\nYear,Month,Wages Advance,Bus Fare Advance,Lunch Advance,'+cn+' Advance\n';
+            for(let k=0;k<sk.length;k++){ 
+                const key=sk[k]; const p=key.split('-'); const md=allData[key]; 
+                csv+=p[0]+','+MONTHS[parseInt(p[1])]+','+(md.advanceWages||0)+','+(md.advanceBusfare||0)+','+(md.advanceLunch||0)+','+(md.advanceCustom||0)+'\n'; 
             }
+            
+            const dateStr = new Date().toISOString().split('T')[0];
+            const filename = 'Ngili_Calendar_'+wn+'_'+MONTHS[currentMonth]+'_'+currentYear+'_'+dateStr+'.csv';
+            
+            const isMobile = /Android|iPhone|iPad|iPod|webOS/i.test(navigator.userAgent);
+            const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+            
+            // Try download
+            try {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); }, 1000);
+            } catch(e) {}
+            
+            // For mobile: also open in new tab AND copy to clipboard
+            if (isMobile) {
+                const dataUri = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+                window.open(dataUri, '_blank');
+                
+                navigator.clipboard.writeText(csv).then(function(){}).catch(function(){});
+                
+                setTimeout(function(){
+                    alert(
+                        '✅ CSV EXPORTED SUCCESSFULLY!\n\n' +
+                        '📁 File: ' + filename + '\n\n' +
+                        '📍 WHERE TO FIND IT:\n' +
+                        '• Check your Downloads folder\n' +
+                        '• A new tab opened — save it from there\n' +
+                        '• Also copied to clipboard\n\n' +
+                        '💡 TIP: In the opened tab, tap Share → Save to Files\n' +
+                        '   Or long-press and select "Download Linked File"\n\n' +
+                        '📧 You can also paste (long-press) into an email to yourself!'
+                    );
+                }, 600);
+            } else {
+                // Desktop
+                showToast('📥 CSV exported!\n\nFile: ' + filename + '\n\nCheck your Downloads folder.', 'success');
+            }
+            
             document.getElementById('backupReminder').classList.remove('show');
         }
+
 
         function importCSV(event) {
             const file=event.target.files[0]; if(!file)return; const reader=new FileReader();
