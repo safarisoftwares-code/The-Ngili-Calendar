@@ -11,8 +11,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Ngili Calendar">
     <link rel="manifest" href="data:application/json,{}">
-
-    <!-- ==================== PART 1: CSS STYLING ==================== -->
     <style>
         :root {
             --primary: #1a5276; --primary-light: #2980b9; --accent: #e67e22; --success: #27ae60; --danger: #c0392b;
@@ -68,6 +66,7 @@
         .btn-danger { background: var(--danger); color: white; } .btn-sm { padding: 5px 10px; font-size: 0.78em; }
         .btn-autofill { background: #8e44ad; color: white; }
         .btn-save { background: #f39c12; color: white; font-weight: 700; animation: pulse-save 2s infinite; } .btn-save.saved { animation: none; background: var(--success); }
+        .btn-report { background: #16a085; color: white; }
         @keyframes pulse-save { 0%,100% { box-shadow: 0 0 0 0 rgba(243,156,18,0.4); } 50% { box-shadow: 0 0 0 8px rgba(243,156,18,0); } }
         .worker-info-card { background: var(--card-bg); border-radius: var(--radius); padding: 12px 15px; margin-bottom: 6px; box-shadow: var(--shadow); display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; border-left: 4px solid var(--accent); }
         .worker-info-card .field-group { display: flex; flex-direction: column; gap: 3px; }
@@ -140,10 +139,18 @@
         .modal-overlay.active { display: flex; }
         .modal { background: var(--card-bg); color: var(--text); border-radius: var(--radius); padding: 25px 30px; max-width: 650px; width: 100%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); position: relative; }
         .modal h2 { color: var(--primary); margin-bottom: 15px; font-size: 1.4em; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
-        .modal h3 { color: var(--text); margin-top: 15px; margin-bottom: 8px; font-size: 1.1em; }
-        .modal p, .modal li { font-size: 0.9em; line-height: 1.6; margin-bottom: 8px; }
-        .modal ul { padding-left: 20px; margin-bottom: 10px; }
         .modal .close-btn { position: sticky; top: 0; float: right; background: var(--danger); color: white; border: none; padding: 8px 16px; border-radius: var(--radius-sm); cursor: pointer; font-weight: 700; z-index: 10; }
+        .modal .report-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.85em; }
+        .modal .report-table th { background: var(--primary); color: white; padding: 8px; text-align: center; }
+        .modal .report-table td { padding: 6px 8px; border: 1px solid var(--border); text-align: right; }
+        .modal .report-table td:first-child { text-align: left; }
+        .star-rating { display: flex; justify-content: center; gap: 5px; font-size: 2em; cursor: pointer; margin: 10px 0; }
+        .star-rating .star { color: #ddd; transition: color 0.1s; user-select: none; }
+        .star-rating .star.active { color: #f39c12; }
+        .review-item { border-bottom: 1px solid var(--border); padding: 10px 0; }
+        .review-item .review-header { display: flex; justify-content: space-between; font-size: 0.8em; color: var(--text-light); margin-bottom: 4px; }
+        .review-item .review-stars { color: #f39c12; }
+        .review-item .review-text { font-size: 0.9em; }
         .toast { position: fixed; top: 20px; right: 20px; background: #2c3e50; color: white; padding: 12px 20px; border-radius: var(--radius); font-weight: 600; z-index: 3000; opacity: 0; transform: translateY(-20px); transition: all 0.3s ease; pointer-events: none; }
         .toast.show { opacity: 1; transform: translateY(0); } .toast.success { background: var(--success); } .toast.warning { background: var(--accent); }
         #csvFileInput { display: none; }
@@ -171,37 +178,18 @@
     </style>
 </head>
 <body>
-
-    <!-- ==================== PART 2: HTML STRUCTURE ==================== -->
     <div class="main-wrapper">
-        <!-- HEADER -->
         <div class="header">
             <h1 data-en="📅 The Ngili Calendar" data-sw="📅 Kalenda ya Ngili" data-de="📅 Der Ngili Kalender" data-fr="📅 Le Calendrier Ngili">📅 The Ngili Calendar</h1>
             <p class="subtitle" data-en="Worker Wage Tracker — Know Your Earnings, Every Day" data-sw="Kifuatiliaji cha Mshahara — Jua Mapato Yako, Kila Siku" data-de="Arbeitslohn-Tracker — Kennen Sie Ihre Einkünfte, jeden Tag" data-fr="Suivi des Salaires — Connaissez vos revenus, chaque jour">Worker Wage Tracker — Know Your Earnings, Every Day</p>
         </div>
-
-        <!-- SETTINGS BAR -->
         <div class="settings-bar no-print">
-            <select id="currencySelect" onchange="changeCurrency()">
-                <option value="KES">KES</option><option value="UGX">UGX</option><option value="TZS">TZS</option>
-                <option value="USD">$ USD</option><option value="EUR">€ EUR</option><option value="GBP">£ GBP</option>
-                <option value="ZAR">R ZAR</option><option value="NGN">₦ NGN</option><option value="GHS">₵ GHS</option>
-                <option value="INR">₹ INR</option><option value="CNY">¥ CNY</option><option value="JPY">¥ JPY</option>
-                <option value="AUD">$ AUD</option><option value="CAD">$ CAD</option>
-            </select>
+            <select id="currencySelect" onchange="changeCurrency()"><option value="KES">KES</option><option value="UGX">UGX</option><option value="TZS">TZS</option><option value="USD">$ USD</option><option value="EUR">€ EUR</option><option value="GBP">£ GBP</option><option value="ZAR">R ZAR</option><option value="NGN">₦ NGN</option><option value="GHS">₵ GHS</option><option value="INR">₹ INR</option><option value="CNY">¥ CNY</option><option value="JPY">¥ JPY</option><option value="AUD">$ AUD</option><option value="CAD">$ CAD</option></select>
             <button class="btn btn-sm btn-outline" onclick="toggleDarkMode()" id="darkToggle" data-en="🌙 Dark" data-sw="🌙 Giza" data-de="🌙 Dunkel" data-fr="🌙 Sombre">🌙 Dark</button>
-            <select id="langSelect" onchange="changeLanguage()">
-                <option value="en">English</option><option value="sw">Kiswahili</option>
-                <option value="de">Deutsch</option><option value="fr">Français</option>
-            </select>
-            <select id="weekendRateSelect" onchange="changeWeekendRate()">
-                <option value="1">Sun: 1×</option><option value="1.5">Sun: 1.5×</option>
-                <option value="2">Sun: 2×</option><option value="2.5">Sun: 2.5×</option><option value="3">Sun: 3×</option>
-            </select>
+            <select id="langSelect" onchange="changeLanguage()"><option value="en">English</option><option value="sw">Kiswahili</option><option value="de">Deutsch</option><option value="fr">Français</option></select>
+            <select id="weekendRateSelect" onchange="changeWeekendRate()"><option value="1">Sun: 1×</option><option value="1.5">Sun: 1.5×</option><option value="2">Sun: 2×</option><option value="2.5">Sun: 2.5×</option><option value="3">Sun: 3×</option></select>
             <button class="btn btn-sm btn-outline" onclick="setDailyTarget()" data-en="🎯 Target" data-sw="🎯 Lengo" data-de="🎯 Ziel" data-fr="🎯 Objectif">🎯 Target</button>
         </div>
-
-        <!-- MODE BAR -->
         <div class="mode-bar no-print">
             <span class="mode-label" data-en="📋 Tracking Mode:" data-sw="📋 Hali ya Ufuatiliaji:" data-de="📋 Modus:" data-fr="📋 Mode de Suivi:">📋 Tracking Mode:</span>
             <button class="mode-btn active-wages" id="modeBtnWages" onclick="switchMode('wages')" data-en="💰 Wages" data-sw="💰 Mshahara" data-de="💰 Lohn" data-fr="💰 Salaire">💰 Wages</button>
@@ -210,81 +198,42 @@
             <button class="mode-btn" id="modeBtnCustom" onclick="switchMode('custom')" data-en="✚ Custom" data-sw="✚ Maalum" data-de="✚ Benutzer" data-fr="✚ Personnalisé">✚ Custom</button>
             <span id="currentModeLabel" class="mode-indicator" style="background:#2980b9;">💰 Wages</span>
         </div>
-
-        <!-- CONTROLS BAR -->
         <div class="controls-bar no-print">
-            <label for="monthSelect" data-en="Month:" data-sw="Mwezi:" data-de="Monat:" data-fr="Mois:">Month:</label>
-            <select id="monthSelect"></select>
-            <label for="yearSelect" data-en="Year:" data-sw="Mwaka:" data-de="Jahr:" data-fr="Année:">Year:</label>
-            <select id="yearSelect"></select>
+            <label for="monthSelect" data-en="Month:" data-sw="Mwezi:" data-de="Monat:" data-fr="Mois:">Month:</label><select id="monthSelect"></select>
+            <label for="yearSelect" data-en="Year:" data-sw="Mwaka:" data-de="Jahr:" data-fr="Année:">Year:</label><select id="yearSelect"></select>
             <button class="btn btn-primary" onclick="goToToday()" data-en="📆 Today" data-sw="📆 Leo" data-de="📆 Heute" data-fr="📆 Aujourd'hui">📆 Today</button>
             <button class="btn btn-save" id="manualSaveBtn" onclick="manualSave()" data-en="💾 Save Now" data-sw="💾 Hifadhi" data-de="💾 Speichern" data-fr="💾 Sauver">💾 Save Now</button>
+            <button class="btn btn-report" onclick="openModal('reportModal')">📊 Reports</button>
             <button class="btn btn-outline btn-sm" onclick="clearCurrentMode()" data-en="🗑 Clear This Mode" data-sw="🗑 Futa Hali Hii" data-de="🗑 Modus Löschen" data-fr="🗑 Effacer ce Mode">🗑 Clear This Mode</button>
         </div>
-
-        <!-- UNSAVED BANNER -->
-        <div class="unsaved-banner no-print" id="unsavedBanner">
-            <span data-en="⚠ You have unsaved changes. Click" data-sw="⚠ Una mabadiliko ambayo hayajahifadhiwa. Bonyeza" data-de="⚠ Ungespeicherte Änderungen." data-fr="⚠ Modifications non sauvegardées.">⚠ You have unsaved changes. Click</span> 
-            <strong>"💾 Save Now"</strong>
-        </div>
-
-        <!-- WORKER INFO CARD -->
+        <div class="unsaved-banner no-print" id="unsavedBanner"><span data-en="⚠ You have unsaved changes. Click" data-sw="⚠ Una mabadiliko ambayo hayajahifadhiwa. Bonyeza" data-de="⚠ Ungespeicherte Änderungen." data-fr="⚠ Modifications non sauvegardées.">⚠ You have unsaved changes. Click</span> <strong>"💾 Save Now"</strong></div>
         <div class="worker-info-card" id="workerInfoCard">
-            <div class="field-group">
-                <label data-en="👤 Full Name" data-sw="👤 Jina Kamili" data-de="👤 Vollständiger Name" data-fr="👤 Nom Complet">👤 Full Name</label>
-                <input type="text" id="workerName" placeholder="Enter your name" oninput="markUnsaved()">
-            </div>
-            <div class="field-group">
-                <label data-en="🆔 ID Number" data-sw="🆔 Namba ya Kitambulisho" data-de="🆔 Ausweisnummer" data-fr="🆔 Numéro d'ID">🆔 ID Number</label>
-                <input type="text" id="workerID" placeholder="ID / Passport" oninput="markUnsaved()">
-            </div>
+            <div class="field-group"><label data-en="👤 Full Name" data-sw="👤 Jina Kamili" data-de="👤 Vollständiger Name" data-fr="👤 Nom Complet">👤 Full Name</label><input type="text" id="workerName" placeholder="Enter your name" oninput="markUnsaved()"></div>
+            <div class="field-group"><label data-en="🆔 ID Number" data-sw="🆔 Namba ya Kitambulisho" data-de="🆔 Ausweisnummer" data-fr="🆔 Numéro d'ID">🆔 ID Number</label><input type="text" id="workerID" placeholder="ID / Passport" oninput="markUnsaved()"></div>
             <div class="field-group" style="position:relative;">
                 <label data-en="🌍 Citizenship" data-sw="🌍 Uraia" data-de="🌍 Staatsangehörigkeit" data-fr="🌍 Nationalité">🌍 Citizenship</label>
-                <input type="text" id="citizenshipSearch" placeholder="Type to search..." autocomplete="off" oninput="filterCountries()" onfocus="showCountryList()">
+                <input type="text" id="citizenshipSearch" placeholder="Type to search..." autocomplete="off" oninput="filterCountries()" onfocus="showCountryList()" style="padding:7px 10px;border:2px solid var(--border);border-radius:4px;font-size:0.9em;font-family:inherit;background:var(--card-bg);color:var(--text);width:100%;">
                 <input type="hidden" id="workerCitizenship" value="">
                 <div id="countryDropdown" style="display:none;position:absolute;top:100%;left:0;width:100%;max-height:200px;overflow-y:auto;background:var(--card-bg);border:2px solid var(--accent);border-radius:4px;z-index:1000;box-shadow:var(--shadow-lg);"></div>
             </div>
-            <div class="field-group">
-                <label id="dailyWageLabel" data-en="💰 Daily Wage (Default)" data-sw="💰 Mshahara wa Kila Siku" data-de="💰 Täglicher Lohn" data-fr="💰 Salaire Journalier">💰 Daily Wage (Default)</label>
-                <input type="number" id="dailyWage" placeholder="e.g. 500" min="0" step="any" oninput="markUnsaved()">
-            </div>
-            <div class="field-group">
-                <label data-en="📞 Phone" data-sw="📞 Simu" data-de="📞 Telefon" data-fr="📞 Téléphone">📞 Phone</label>
-                <input type="text" id="workerPhone" placeholder="Phone number" oninput="markUnsaved()">
-            </div>
-            <div class="field-group">
-                <label id="employerLabel" data-en="🏢 Wages Employer" data-sw="🏢 Mwajiri" data-de="🏢 Arbeitgeber" data-fr="🏢 Employeur">🏢 Wages Employer</label>
-                <input type="text" id="employerInput" placeholder="Employer name" oninput="saveEmployer()">
-            </div>
+            <div class="field-group"><label id="dailyWageLabel" data-en="💰 Daily Wage (Default)" data-sw="💰 Mshahara wa Kila Siku" data-de="💰 Täglicher Lohn" data-fr="💰 Salaire Journalier">💰 Daily Wage (Default)</label><input type="number" id="dailyWage" placeholder="e.g. 500" min="0" step="any" oninput="markUnsaved()"></div>
+            <div class="field-group"><label data-en="📞 Phone" data-sw="📞 Simu" data-de="📞 Telefon" data-fr="📞 Téléphone">📞 Phone</label><input type="text" id="workerPhone" placeholder="Phone number" oninput="markUnsaved()"></div>
+            <div class="field-group"><label id="employerLabel" data-en="🏢 Wages Employer" data-sw="🏢 Mwajiri" data-de="🏢 Arbeitgeber" data-fr="🏢 Employeur">🏢 Wages Employer</label><input type="text" id="employerInput" placeholder="Employer name" oninput="saveEmployer()"></div>
         </div>
-
-        <!-- TARGET PROGRESS BAR -->
         <div class="target-bar" id="targetBar"><div class="target-fill" id="targetFill" style="width:0%;"></div></div>
         <div class="target-info" id="targetInfo"></div>
-
-        <!-- CALENDAR -->
         <div class="calendar-container">
             <table class="calendar-table" id="calendarTable">
-                <thead>
-                    <tr>
-                        <th class="sunday">Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th>
-                    </tr>
-                </thead>
+                <thead><tr><th class="sunday">Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr></thead>
                 <tbody id="calendarBody"></tbody>
             </table>
         </div>
-
-        <!-- MONTHLY SUMMARY -->
         <div class="summary-section">
             <div class="summary-card"><h3 id="totalLabel">📊 Total Wages (Month)</h3><div class="big-number" id="totalAmount">0.00</div></div>
             <div class="summary-card advance-card"><h3 id="advanceLabel">💸 Wages Advances</h3><input type="number" id="advanceInput" placeholder="0" min="0" step="any" oninput="saveAdvance()"></div>
             <div class="summary-card net-card"><h3 id="netLabel">✅ Wages Net</h3><div class="big-number" id="netAmount">0.00</div></div>
         </div>
-
-        <!-- WEEKLY SUMMARY -->
         <div class="summary-section" id="weekSummarySection" style="grid-template-columns: repeat(5, 1fr);"></div>
-
-        <!-- ACTION BUTTONS -->
         <div class="action-bar no-print">
             <button class="btn btn-save" id="manualSaveBtn2" onclick="manualSave()" data-en="💾 Save Now" data-sw="💾 Hifadhi" data-de="💾 Speichern" data-fr="💾 Sauver">💾 Save Now</button>
             <button class="btn btn-autofill" onclick="autofillDailyWage()" data-en="⚡ Autofill" data-sw="⚡ Jaza Kiotomatiki" data-de="⚡ Autofill" data-fr="⚡ Remplir">⚡ Autofill</button>
@@ -296,1094 +245,162 @@
             <button class="btn btn-outline btn-sm" onclick="shareViaWhatsApp()" data-en="📱 Share" data-sw="📱 Shiriki" data-de="📱 Teilen" data-fr="📱 Partager">📱 Share</button>
             <button class="btn btn-danger btn-sm" onclick="resetAllData()" data-en="⚠ Reset All" data-sw="⚠ Futa Yote" data-de="⚠ Alles Löschen" data-fr="⚠ Tout Réinitialiser">⚠ Reset All</button>
         </div>
-
-        <!-- SAVE STATUS -->
-        <div class="last-saved no-print">
-            <span class="dot" id="saveDot"></span>
-            <span id="lastSavedText" data-en="All changes saved ✓" data-sw="Mabadiliko yamehifadhiwa ✓" data-de="Alle Änderungen gespeichert ✓" data-fr="Modifications sauvegardées ✓">All changes saved ✓</span>
-        </div>
-
-        <!-- BACKUP REMINDER -->
+        <div class="last-saved no-print"><span class="dot" id="saveDot"></span><span id="lastSavedText" data-en="All changes saved ✓" data-sw="Mabadiliko yamehifadhiwa ✓" data-de="Alle Änderungen gespeichert ✓" data-fr="Modifications sauvegardées ✓">All changes saved ✓</span></div>
         <div class="backup-reminder" id="backupReminder" onclick="exportCSV()" data-en="⚠ No backup in 14 days! Tap to export →" data-sw="⚠ Hakuna hifadhi kwa siku 14! Gusa kutoa →" data-de="⚠ Kein Backup seit 14 Tagen!" data-fr="⚠ Pas de sauvegarde depuis 14 jours!">⚠ No backup in 14 days! Tap to export →</div>
-
-        <!-- FOOTER -->
         <div class="footer-main">
             <div class="copyright">© 2026 <strong>The Ngili Calendar</strong>. <span data-en="All Rights Reserved." data-sw="Haki Zote Zimehifadhiwa." data-de="Alle Rechte vorbehalten." data-fr="Tous droits réservés.">All Rights Reserved.</span></div>
             <div class="developer"><span data-en="Developed by" data-sw="Imetengenezwa na" data-de="Entwickelt von" data-fr="Développé par">Developed by</span> <strong>Safari Softwares</strong> | 📧 <a href="mailto:safarisoftwares@gmail.com" style="color: var(--primary-light);">safarisoftwares@gmail.com</a></div>
             <div class="footer-links no-print">
                 <a onclick="openModal('termsModal')" data-en="📜 Terms of Use" data-sw="📜 Masharti ya Matumizi" data-de="📜 Nutzungsbedingungen" data-fr="📜 Conditions d'Utilisation">📜 Terms of Use</a>
                 <a onclick="openModal('privacyModal')" data-en="🔒 Privacy Policy" data-sw="🔒 Sera ya Faragha" data-de="🔒 Datenschutz" data-fr="🔒 Politique de Confidentialité">🔒 Privacy Policy</a>
+                <a onclick="openModal('reviewsModal')">⭐ Reviews</a>
             </div>
             <div class="disclaimer" data-en="Disclaimer: The Ngili Calendar is a tool to assist workers. Not a substitute for official payroll records. Safari Softwares assumes no liability." data-sw="Kanusho: Kalenda ya Ngili ni zana ya kusaidia wafanyakazi. Sio mbadala wa rekodi rasmi za malipo." data-de="Haftungsausschluss: Der Ngili Kalender ist ein Hilfsmittel. Kein Ersatz für offizielle Lohnabrechnungen." data-fr="Avertissement: Le Calendrier Ngili est un outil d'aide. Ne remplace pas les registres de paie officiels.">Disclaimer: The Ngili Calendar is a tool to assist workers. Not a substitute for official payroll records. Safari Softwares assumes no liability.</div>
         </div>
     </div>
+    <div class="modal-overlay" id="termsModal"><div class="modal"><button class="close-btn" onclick="closeModal('termsModal')">✕ <span data-en="Close" data-sw="Funga" data-de="Schließen" data-fr="Fermer">Close</span></button><h2 data-en="📜 Terms of Use" data-sw="📜 Masharti ya Matumizi" data-de="📜 Nutzungsbedingungen" data-fr="📜 Conditions d'Utilisation">📜 Terms of Use</h2><p><strong>Effective: Jan 1, 2026 | Updated: June 21, 2026</strong></p><h3>1. Acceptance</h3><p>By using The Ngili Calendar, you agree to these Terms.</p><h3>2. Service</h3><p>Browser-based tracking tool for earnings, bus fare, lunch, and custom expenses. Free of charge.</p><h3>3. User Responsibilities</h3><ul><li>You are responsible for data accuracy.</li><li>Back up data using Export CSV.</li><li>Data stores locally in your browser.</li></ul><h3>4. Intellectual Property</h3><p>Property of <strong>Safari Softwares</strong>.</p><h3>5. Liability</h3><p>Provided "as is" without warranty.</p><h3>6. Contact</h3><p>📧 <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p></div></div>
+    <div class="modal-overlay" id="privacyModal"><div class="modal"><button class="close-btn" onclick="closeModal('privacyModal')">✕ <span data-en="Close" data-sw="Funga" data-de="Schließen" data-fr="Fermer">Close</span></button><h2 data-en="🔒 Privacy Policy" data-sw="🔒 Sera ya Faragha" data-de="🔒 Datenschutz" data-fr="🔒 Politique de Confidentialité">🔒 Privacy Policy</h2><p><strong>Effective: Jan 1, 2026 | Updated: June 21, 2026</strong></p><h3>1. Our Commitment</h3><p><strong>Your data is yours. We do not collect it.</strong></p><h3>2. No Data Collected</h3><ul><li>❌ No servers</li><li>❌ No tracking</li><li>❌ No accounts</li></ul><h3>3. Storage</h3><p>Browser localStorage only.</p><h3>4. Protect Yourself</h3><p>Export CSV regularly.</p><h3>5. Contact</h3><p>📧 <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p></div></div>
+    
+    <!-- REPORTS MODAL -->
+    <div class="modal-overlay" id="reportModal"><div class="modal"><button class="close-btn" onclick="closeModal('reportModal')">✕ Close</button><h2>📊 Cross-Month Reports</h2><div style="display:flex;gap:15px;flex-wrap:wrap;align-items:center;margin-bottom:15px;"><div><label>From:</label><br><select id="reportFromMonth" onchange="generateReport()"></select><select id="reportFromYear" onchange="generateReport()"></select></div><div><label>To:</label><br><select id="reportToMonth" onchange="generateReport()"></select><select id="reportToYear" onchange="generateReport()"></select></div><div><label>Mode:</label><br><select id="reportMode" onchange="generateReport()"><option value="wages">💰 Wages</option><option value="busfare">🚌 Bus Fare</option><option value="lunch">🍽 Lunch</option><option value="custom">✚ Custom</option></select></div><button class="btn btn-primary btn-sm" onclick="generateReport()">🔄 Generate</button></div><div id="reportOutput"></div></div></div>
 
-    <!-- TERMS MODAL -->
-    <div class="modal-overlay" id="termsModal">
-        <div class="modal">
-            <button class="close-btn" onclick="closeModal('termsModal')">✕ <span data-en="Close" data-sw="Funga" data-de="Schließen" data-fr="Fermer">Close</span></button>
-            <h2 data-en="📜 Terms of Use" data-sw="📜 Masharti ya Matumizi" data-de="📜 Nutzungsbedingungen" data-fr="📜 Conditions d'Utilisation">📜 Terms of Use</h2>
-            <p><strong>Effective: Jan 1, 2026 | Updated: June 21, 2026</strong></p>
-            <h3>1. Acceptance</h3><p>By using The Ngili Calendar, you agree to these Terms.</p>
-            <h3>2. Service</h3><p>Browser-based tracking tool for earnings, bus fare, lunch, and custom expenses. Free of charge.</p>
-            <h3>3. User Responsibilities</h3>
-            <ul><li>You are responsible for data accuracy.</li><li>Back up data using Export CSV.</li><li>Data stores locally in your browser.</li></ul>
-            <h3>4. Intellectual Property</h3><p>Property of <strong>Safari Softwares</strong>.</p>
-            <h3>5. Liability</h3><p>Provided "as is" without warranty.</p>
-            <h3>6. Contact</h3><p>📧 <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p>
-        </div>
-    </div>
+    <!-- REVIEWS MODAL -->
+    <div class="modal-overlay" id="reviewsModal"><div class="modal"><button class="close-btn" onclick="closeModal('reviewsModal')">✕ Close</button><h2>⭐ Reviews & Feedback</h2><p style="text-align:center;color:var(--text-light);margin-bottom:10px;" id="reviewCount">0 reviews | Average: —</p><div style="display:flex;flex-direction:column;gap:8px;margin-bottom:15px;"><input type="text" id="reviewName" placeholder="Your name (optional)" style="padding:8px;border:2px solid var(--border);border-radius:4px;font-family:inherit;background:var(--card-bg);color:var(--text);"><div class="star-rating" id="starRating"><span class="star" data-star="1">☆</span><span class="star" data-star="2">☆</span><span class="star" data-star="3">☆</span><span class="star" data-star="4">☆</span><span class="star" data-star="5">☆</span></div><input type="hidden" id="reviewStars" value="0"><textarea id="reviewText" placeholder="Share your experience with The Ngili Calendar..." style="padding:8px;border:2px solid var(--border);border-radius:4px;font-family:inherit;height:80px;resize:vertical;background:var(--card-bg);color:var(--text);"></textarea><button class="btn btn-accent" onclick="submitReview()">📝 Submit Review</button></div><div id="reviewList"></div></div></div>
 
-    <!-- PRIVACY MODAL -->
-    <div class="modal-overlay" id="privacyModal">
-        <div class="modal">
-            <button class="close-btn" onclick="closeModal('privacyModal')">✕ <span data-en="Close" data-sw="Funga" data-de="Schließen" data-fr="Fermer">Close</span></button>
-            <h2 data-en="🔒 Privacy Policy" data-sw="🔒 Sera ya Faragha" data-de="🔒 Datenschutz" data-fr="🔒 Politique de Confidentialité">🔒 Privacy Policy</h2>
-            <p><strong>Effective: Jan 1, 2026 | Updated: June 21, 2026</strong></p>
-            <h3>1. Our Commitment</h3><p><strong>Your data is yours. We do not collect it.</strong></p>
-            <h3>2. No Data Collected</h3><ul><li>❌ No servers</li><li>❌ No tracking</li><li>❌ No accounts</li></ul>
-            <h3>3. Storage</h3><p>Browser localStorage only.</p>
-            <h3>4. Protect Yourself</h3><p>Export CSV regularly.</p>
-            <h3>5. Contact</h3><p>📧 <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a></p>
-        </div>
-    </div>
-
-    <!-- TOAST NOTIFICATION -->
     <div class="toast" id="toast"></div>
-
-    <!-- ==================== PART 3: JAVASCRIPT - DATA & SETTINGS ==================== -->
     <script>
-        // ==================== CONSTANTS & GLOBAL VARIABLES ====================
-        const STORAGE_KEY = 'ngili_calendar_v9';
-        const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-        const MONTHS_SW = ['Januari','Februari','Machi','Aprili','Mei','Juni','Julai','Agosti','Septemba','Oktoba','Novemba','Desemba'];
-        const MONTHS_DE = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
-        const MONTHS_FR = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
-        const DAYS_EN = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-        const DAYS_SW = ['Jumapili','Jumatatu','Jumanne','Jumatano','Alhamisi','Ijumaa','Jumamosi'];
-        const DAYS_DE = ['So','Mo','Di','Mi','Do','Fr','Sa'];
-        const DAYS_FR = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
-        const MODES = ['wages','busfare','lunch','custom'];
-        const MODE_LABELS = { 
-            en:{wages:'💰 Wages',busfare:'🚌 Bus Fare',lunch:'🍽 Lunch',custom:'✚ Custom'}, 
-            sw:{wages:'💰 Mshahara',busfare:'🚌 Nauli',lunch:'🍽 Chakula',custom:'✚ Maalum'}, 
-            de:{wages:'💰 Lohn',busfare:'🚌 Busgeld',lunch:'🍽 Mittagessen',custom:'✚ Benutzer'}, 
-            fr:{wages:'💰 Salaire',busfare:'🚌 Transport',lunch:'🍽 Déjeuner',custom:'✚ Personnalisé'} 
-        };
-        const MODE_COLORS = { wages:'#2980b9', busfare:'#e67e22', lunch:'#27ae60', custom:'#8e44ad' };
-        const LABELS = {
+        const STORAGE_KEY='ngili_calendar_v9',REVIEWS_KEY='ngili_reviews_v1';
+        const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+        const MONTHS_SW=['Januari','Februari','Machi','Aprili','Mei','Juni','Julai','Agosti','Septemba','Oktoba','Novemba','Desemba'];
+        const MONTHS_DE=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+        const MONTHS_FR=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+        const DAYS_EN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],DAYS_SW=['Jumapili','Jumatatu','Jumanne','Jumatano','Alhamisi','Ijumaa','Jumamosi'];
+        const DAYS_DE=['So','Mo','Di','Mi','Do','Fr','Sa'],DAYS_FR=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+        const MODES=['wages','busfare','lunch','custom'];
+        const MODE_LABELS={en:{wages:'💰 Wages',busfare:'🚌 Bus Fare',lunch:'🍽 Lunch',custom:'✚ Custom'},sw:{wages:'💰 Mshahara',busfare:'🚌 Nauli',lunch:'🍽 Chakula',custom:'✚ Maalum'},de:{wages:'💰 Lohn',busfare:'🚌 Busgeld',lunch:'🍽 Mittagessen',custom:'✚ Benutzer'},fr:{wages:'💰 Salaire',busfare:'🚌 Transport',lunch:'🍽 Déjeuner',custom:'✚ Personnalisé'}};
+        const MODE_COLORS={wages:'#2980b9',busfare:'#e67e22',lunch:'#27ae60',custom:'#8e44ad'};
+        const LABELS={
             total:{en:{wages:'📊 Total Wages (Month)',busfare:'🚌 Total Bus Fare (Month)',lunch:'🍽 Total Lunch (Month)',custom:'✚ Total Custom (Month)'},sw:{wages:'📊 Jumla ya Mshahara (Mwezi)',busfare:'🚌 Jumla ya Nauli (Mwezi)',lunch:'🍽 Jumla ya Chakula (Mwezi)',custom:'✚ Jumla ya Maalum (Mwezi)'},de:{wages:'📊 Gesamtlohn (Monat)',busfare:'🚌 Gesamtbusgeld (Monat)',lunch:'🍽 Gesamt Mittagessen (Monat)',custom:'✚ Gesamt Benutzer (Monat)'},fr:{wages:'📊 Salaire Total (Mois)',busfare:'🚌 Transport Total (Mois)',lunch:'🍽 Déjeuner Total (Mois)',custom:'✚ Total Personnalisé (Mois)'}},
             advance:{en:{wages:'💸 Wages Advances',busfare:'💸 Bus Fare Advances',lunch:'💸 Lunch Advances',custom:'💸 Custom Advances'},sw:{wages:'💸 Malimbikizo ya Mshahara',busfare:'💸 Malimbikizo ya Nauli',lunch:'💸 Malimbikizo ya Chakula',custom:'💸 Malimbikizo ya Maalum'},de:{wages:'💸 Lohnvorschüsse',busfare:'💸 Busgeld Vorschüsse',lunch:'💸 Mittagessen Vorschüsse',custom:'💸 Benutzer Vorschüsse'},fr:{wages:'💸 Avances Salaire',busfare:'💸 Avances Transport',lunch:'💸 Avances Déjeuner',custom:'💸 Avances Personnalisé'}},
             net:{en:{wages:'✅ Wages Net',busfare:'✅ Bus Fare Net',lunch:'✅ Lunch Net',custom:'✅ Custom Net'},sw:{wages:'✅ Mshahara Halisi',busfare:'✅ Nauli Halisi',lunch:'✅ Chakula Halisi',custom:'✅ Maalum Halisi'},de:{wages:'✅ Nettolohn',busfare:'✅ Netto Busgeld',lunch:'✅ Netto Mittagessen',custom:'✅ Netto Benutzer'},fr:{wages:'✅ Salaire Net',busfare:'✅ Transport Net',lunch:'✅ Déjeuner Net',custom:'✅ Net Personnalisé'}},
             employer:{en:{wages:'🏢 Wages Employer',busfare:'🚌 Transport Provider',lunch:'🍽 Lunch Provider',custom:'🏢 Custom Employer'},sw:{wages:'🏢 Mwajiri wa Mshahara',busfare:'🚌 Mtoa Usafiri',lunch:'🍽 Mtoa Chakula',custom:'🏢 Mwajiri Maalum'},de:{wages:'🏢 Arbeitgeber',busfare:'🚌 Transportanbieter',lunch:'🍽 Essensanbieter',custom:'🏢 Benutzer Arbeitgeber'},fr:{wages:'🏢 Employeur',busfare:'🚌 Transporteur',lunch:'🍽 Fournisseur Repas',custom:'🏢 Employeur Personnalisé'}},
-            daily:{en:{wages:'💰 Daily Wage (Default)',busfare:'🚌 Daily Bus Fare (Default)',lunch:'🍽 Daily Lunch (Default)',custom:'✚ Daily Amount (Default)'},sw:{wages:'💰 Mshahara wa Kila Siku',busfare:'🚌 Nauli ya Kila Siku',lunch:'🍽 Chakula cha Kila Siku',custom:'✚ Kiasi cha Kila Siku'},de:{wages:'💰 Täglicher Lohn',busfare:'🚌 Tägliches Busgeld',lunch:'🍽 Tägliches Mittagessen',custom:'✚ Täglicher Betrag'},fr:{wages:'💰 Salaire Journalier',busfare:'🚌 Transport Journalier',lunch:'🍽 Déjeuner Journalier',custom:'✚ Montant Journalier'}},
-            placeholder:{en:{wages:'Wage',busfare:'Bus Fare',lunch:'Lunch',custom:'Amount'},sw:{wages:'Mshahara',busfare:'Nauli',lunch:'Chakula',custom:'Kiasi'},de:{wages:'Lohn',busfare:'Busgeld',lunch:'Mittagessen',custom:'Betrag'},fr:{wages:'Salaire',busfare:'Transport',lunch:'Déjeuner',custom:'Montant'}},
-            week:{en:'Week',sw:'Wiki',de:'Woche',fr:'Semaine'},
-            totalWord:{en:'Total',sw:'Jumla',de:'Gesamt',fr:'Total'},
-            days:{en:'Days',sw:'Siku',de:'Tage',fr:'Jours'},
-            note:{en:'Note',sw:'Maelezo',de:'Notiz',fr:'Note'},
-            saved:{en:'All changes saved ✓',sw:'Mabadiliko yamehifadhiwa ✓',de:'Alle Änderungen gespeichert ✓',fr:'Modifications sauvegardées ✓'},
-            unsaved:{en:'Unsaved changes — click Save Now',sw:'Mabadiliko hayajahifadhiwa — Bonyeza Hifadhi',de:'Ungespeichert — Speichern klicken',fr:'Non sauvegardé — Cliquez Sauver'},
-            backupReminder:{en:'⚠ No backup in 14 days! Tap to export →',sw:'⚠ Hakuna hifadhi kwa siku 14! Gusa kutoa →',de:'⚠ Kein Backup seit 14 Tagen!',fr:'⚠ Pas de sauvegarde depuis 14 jours!'},
-            saveBtn:{en:'💾 Save Now',sw:'💾 Hifadhi',de:'💾 Speichern',fr:'💾 Sauver'},
-            savedBtn:{en:'✅ Saved',sw:'✅ Imehifadhiwa',de:'✅ Gespeichert',fr:'✅ Sauvegardé'}
+            daily:{en:{wages:'💰 Daily Wage (Default)',busfare:'🚌 Daily Bus Fare (Default)',lunch:'🍽 Daily Lunch (Default)',custom:'✚ Daily Amount (Default)'},sw:{wages:'💰 Mshahara wa Kila Siku',busfare:'🚌 Nauli ya Kila Siku',lunch:'🍽 Chakula cha Kila Siku',custom:'✚ Kiasi cha Kila Siku'},de:{wages:'💰 Täglicher Lohn',busfare:'🚌 Tägliches Busgeld',lunch:'🍽 Tägliches Mittagessen',custom:'✚ Täglicher Betrag'},fr:{wages:'💰 Salaire Journalier',busfare:'🚌 Transport Journalier',lunch:'🍽 Déjeuner Journalier',custom:'✚ Montant Journalier'}}
         };
+        const ALL_COUNTRIES=[{name:'Kenya',flag:'🇰🇪'},{name:'Tanzania',flag:'🇹🇿'},{name:'Uganda',flag:'🇺🇬'},{name:'Rwanda',flag:'🇷🇼'},{name:'Burundi',flag:'🇧🇮'},{name:'South Africa',flag:'🇿🇦'},{name:'Nigeria',flag:'🇳🇬'},{name:'Ghana',flag:'🇬🇭'},{name:'Ethiopia',flag:'🇪🇹'},{name:'Somalia',flag:'🇸🇴'},{name:'South Sudan',flag:'🇸🇸'},{name:'Sudan',flag:'🇸🇩'},{name:'Egypt',flag:'🇪🇬'},{name:'DRC',flag:'🇨🇩'},{name:'Germany',flag:'🇩🇪'},{name:'France',flag:'🇫🇷'},{name:'UK',flag:'🇬🇧'},{name:'USA',flag:'🇺🇸'},{name:'Canada',flag:'🇨🇦'},{name:'India',flag:'🇮🇳'},{name:'China',flag:'🇨🇳'},{name:'Japan',flag:'🇯🇵'},{name:'Australia',flag:'🇦🇺'},{name:'UAE',flag:'🇦🇪'},{name:'Other',flag:'🌐'}];
 
-        let currentMonth = new Date().getMonth();
-        let currentYear = new Date().getFullYear();
-        let currentMode = 'wages';
-        let allData = {};
-        let unsavedChanges = false;
-        let customModeName = 'Custom';
-        let currencySymbol = 'KES';
-        let weekendMultiplier = 1;
-        let currentLang = 'en';
-        let darkMode = false;
-        let dailyTarget = 0;
-        let lastExportDate = null;
+        let currentMonth=new Date().getMonth(),currentYear=new Date().getFullYear(),currentMode='wages',allData={},unsavedChanges=false,customModeName='Custom',currencySymbol='KES',weekendMultiplier=1,currentLang='en',darkMode=false,dailyTarget=0,lastExportDate=null;
 
-        // ==================== COUNTRY LIST ====================
-        const ALL_COUNTRIES = [
-            {name:'Afghanistan',flag:'🇦🇫'},{name:'Albania',flag:'🇦🇱'},{name:'Algeria',flag:'🇩🇿'},{name:'Angola',flag:'🇦🇴'},
-            {name:'Argentina',flag:'🇦🇷'},{name:'Australia',flag:'🇦🇺'},{name:'Austria',flag:'🇦🇹'},{name:'Bangladesh',flag:'🇧🇩'},
-            {name:'Belgium',flag:'🇧🇪'},{name:'Bolivia',flag:'🇧🇴'},{name:'Botswana',flag:'🇧🇼'},{name:'Brazil',flag:'🇧🇷'},
-            {name:'Bulgaria',flag:'🇧🇬'},{name:'Burundi',flag:'🇧🇮'},{name:'Cameroon',flag:'🇨🇲'},{name:'Canada',flag:'🇨🇦'},
-            {name:'Chad',flag:'🇹🇩'},{name:'Chile',flag:'🇨🇱'},{name:'China',flag:'🇨🇳'},{name:'Colombia',flag:'🇨🇴'},
-            {name:'Congo',flag:'🇨🇬'},{name:'Costa Rica',flag:'🇨🇷'},{name:'Croatia',flag:'🇭🇷'},{name:'Cuba',flag:'🇨🇺'},
-            {name:'Czech Republic',flag:'🇨🇿'},{name:'Denmark',flag:'🇩🇰'},{name:'DRC',flag:'🇨🇩'},{name:'Ecuador',flag:'🇪🇨'},
-            {name:'Egypt',flag:'🇪🇬'},{name:'Eritrea',flag:'🇪🇷'},{name:'Ethiopia',flag:'🇪🇹'},{name:'Finland',flag:'🇫🇮'},
-            {name:'France',flag:'🇫🇷'},{name:'Gabon',flag:'🇬🇦'},{name:'Gambia',flag:'🇬🇲'},{name:'Germany',flag:'🇩🇪'},
-            {name:'Ghana',flag:'🇬🇭'},{name:'Greece',flag:'🇬🇷'},{name:'Guinea',flag:'🇬🇳'},{name:'Haiti',flag:'🇭🇹'},
-            {name:'India',flag:'🇮🇳'},{name:'Indonesia',flag:'🇮🇩'},{name:'Iran',flag:'🇮🇷'},{name:'Iraq',flag:'🇮🇶'},
-            {name:'Ireland',flag:'🇮🇪'},{name:'Israel',flag:'🇮🇱'},{name:'Italy',flag:'🇮🇹'},{name:'Ivory Coast',flag:'🇨🇮'},
-            {name:'Jamaica',flag:'🇯🇲'},{name:'Japan',flag:'🇯🇵'},{name:'Jordan',flag:'🇯🇴'},{name:'Kenya',flag:'🇰🇪'},
-            {name:'Kuwait',flag:'🇰🇼'},{name:'Lebanon',flag:'🇱🇧'},{name:'Lesotho',flag:'🇱🇸'},{name:'Liberia',flag:'🇱🇷'},
-            {name:'Libya',flag:'🇱🇾'},{name:'Madagascar',flag:'🇲🇬'},{name:'Malawi',flag:'🇲🇼'},{name:'Malaysia',flag:'🇲🇾'},
-            {name:'Mali',flag:'🇲🇱'},{name:'Mexico',flag:'🇲🇽'},{name:'Morocco',flag:'🇲🇦'},{name:'Mozambique',flag:'🇲🇿'},
-            {name:'Myanmar',flag:'🇲🇲'},{name:'Namibia',flag:'🇳🇦'},{name:'Nepal',flag:'🇳🇵'},{name:'Netherlands',flag:'🇳🇱'},
-            {name:'New Zealand',flag:'🇳🇿'},{name:'Niger',flag:'🇳🇪'},{name:'Nigeria',flag:'🇳🇬'},{name:'Norway',flag:'🇳🇴'},
-            {name:'Pakistan',flag:'🇵🇰'},{name:'Peru',flag:'🇵🇪'},{name:'Philippines',flag:'🇵🇭'},{name:'Poland',flag:'🇵🇱'},
-            {name:'Portugal',flag:'🇵🇹'},{name:'Qatar',flag:'🇶🇦'},{name:'Romania',flag:'🇷🇴'},{name:'Russia',flag:'🇷🇺'},
-            {name:'Rwanda',flag:'🇷🇼'},{name:'Saudi Arabia',flag:'🇸🇦'},{name:'Senegal',flag:'🇸🇳'},{name:'Sierra Leone',flag:'🇸🇱'},
-            {name:'Somalia',flag:'🇸🇴'},{name:'South Africa',flag:'🇿🇦'},{name:'South Korea',flag:'🇰🇷'},{name:'South Sudan',flag:'🇸🇸'},
-            {name:'Spain',flag:'🇪🇸'},{name:'Sri Lanka',flag:'🇱🇰'},{name:'Sudan',flag:'🇸🇩'},{name:'Sweden',flag:'🇸🇪'},
-            {name:'Switzerland',flag:'🇨🇭'},{name:'Tanzania',flag:'🇹🇿'},{name:'Thailand',flag:'🇹🇭'},{name:'Togo',flag:'🇹🇬'},
-            {name:'Tunisia',flag:'🇹🇳'},{name:'Turkey',flag:'🇹🇷'},{name:'Uganda',flag:'🇺🇬'},{name:'Ukraine',flag:'🇺🇦'},
-            {name:'UAE',flag:'🇦🇪'},{name:'UK',flag:'🇬🇧'},{name:'USA',flag:'🇺🇸'},{name:'Venezuela',flag:'🇻🇪'},
-            {name:'Vietnam',flag:'🇻🇳'},{name:'Yemen',flag:'🇾🇪'},{name:'Zambia',flag:'🇿🇲'},{name:'Zimbabwe',flag:'🇿🇼'},
-            {name:'Other',flag:'🌐'}
-        ];
-
-        // ==================== HELPER FUNCTIONS ====================
-        function t(key) { return (LABELS[key]&&LABELS[key][currentLang])?LABELS[key][currentLang]:key; }
-        function tm(key) { const lbls=LABELS[key]; if(!lbls)return key; const langLbls=lbls[currentLang]||lbls['en']; return langLbls[currentMode]||key; }
-        function getStorageKey(m,y) { return y+'-'+m; }
+        function t(key){return(LABELS[key]&&LABELS[key][currentLang])?LABELS[key][currentLang]:key;}
+        function tm(key){const lbls=LABELS[key];if(!lbls)return key;const langLbls=lbls[currentLang]||lbls['en'];return langLbls[currentMode]||key;}
+        function gsk(m,y){return y+'-'+m;}
+        function loadAllData(){const s=localStorage.getItem(STORAGE_KEY);if(s){try{allData=JSON.parse(s);}catch(e){allData={};}}else{allData={};}const st=JSON.parse(localStorage.getItem('ngili_settings_v9')||'{}');currencySymbol=st.currency||'KES';currentLang=st.lang||'en';darkMode=st.darkMode||false;weekendMultiplier=st.weekendRate||1;dailyTarget=st.dailyTarget||0;lastExportDate=st.lastExportDate||null;if(darkMode)document.body.classList.add('dark-mode');document.getElementById('currencySelect').value=currencySymbol;document.getElementById('langSelect').value=currentLang;document.getElementById('weekendRateSelect').value=weekendMultiplier;document.getElementById('darkToggle').textContent=darkMode?'☀️ Light':'🌙 Dark';applyLanguage();}
+        function saveSettings(){localStorage.setItem('ngili_settings_v9',JSON.stringify({currency:currencySymbol,lang:currentLang,darkMode:darkMode,weekendRate:weekendMultiplier,dailyTarget:dailyTarget,lastExportDate:lastExportDate}));}
+        function saveAllData(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(allData));unsavedChanges=false;updateSaveIndicator(true);hideUnsavedBanner();updateSaveButtons(true);}catch(e){showToast('⚠ Storage full!','warning');}}
+        function manualSave(){flushAllChanges();saveAllData();showToast('💾 Saved!','success');}
+        function getMonthData(m,y){const k=gsk(m,y);if(!allData[k]){allData[k]={workerInfo:{name:'',id:'',citizenship:'',dailyWage:'',phone:''},customName:'Custom',employerWages:'',employerBusfare:'',employerLunch:'',employerCustom:'',wages:{},busfare:{},lunch:{},custom:{},advanceWages:0,advanceBusfare:0,advanceLunch:0,advanceCustom:0};}if(!allData[k].customName)allData[k].customName='Custom';MODES.forEach(function(m){if(!allData[k][m])allData[k][m]={};});return allData[k];}
+        function flushAllChanges(){const data=getMonthData(currentMonth,currentYear);data.workerInfo={name:document.getElementById('workerName').value,id:document.getElementById('workerID').value,citizenship:document.getElementById('workerCitizenship').value,dailyWage:document.getElementById('dailyWage').value,phone:document.getElementById('workerPhone').value};data.customName=customModeName;data['employer'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=document.getElementById('employerInput').value;data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=parseFloat(document.getElementById('advanceInput').value)||0;const dim=getDaysInMonth(currentMonth,currentYear);if(!data[currentMode])data[currentMode]={};for(let d=1;d<=dim;d++){const wi=document.getElementById('wage-'+d);const ni=document.getElementById('note-'+d);if(wi&&ni){const w=parseFloat(wi.value)||0;const n=ni.value;if(w===0&&n===''){delete data[currentMode][d];}else{data[currentMode][d]={amount:w,note:n};}}}}
+        function markUnsaved(){unsavedChanges=true;updateSaveIndicator(false);showUnsavedBanner();updateSaveButtons(false);}
+        function updateSaveButtons(saved){[document.getElementById('manualSaveBtn'),document.getElementById('manualSaveBtn2')].forEach(function(btn){if(!btn)return;if(saved){btn.classList.add('saved');btn.innerHTML='✅ Saved';setTimeout(function(){btn.classList.remove('saved');btn.innerHTML='💾 Save Now';},2000);}else{btn.classList.remove('saved');btn.innerHTML='💾 Save Now';}});}
+        function updateSaveIndicator(saved){const dot=document.getElementById('saveDot');if(saved){dot.className='dot';}else{dot.className='dot unsaved';}document.getElementById('lastSavedText').textContent=saved?'All changes saved ✓':'Unsaved changes';}
+        function showUnsavedBanner(){const b=document.getElementById('unsavedBanner');if(b)b.classList.add('show');}
+        function hideUnsavedBanner(){const b=document.getElementById('unsavedBanner');if(b)b.classList.remove('show');}
+        function toggleDarkMode(){darkMode=!darkMode;if(darkMode){document.body.classList.add('dark-mode');}else{document.body.classList.remove('dark-mode');}document.getElementById('darkToggle').textContent=darkMode?'☀️ Light':'🌙 Dark';saveSettings();}
+        function changeCurrency(){currencySymbol=document.getElementById('currencySelect').value;saveSettings();updateAllTotals();updateWeekSummaryCards();}
+        function changeLanguage(){currentLang=document.getElementById('langSelect').value;saveSettings();applyLanguage();renderCalendar();}
+        function changeWeekendRate(){weekendMultiplier=parseFloat(document.getElementById('weekendRateSelect').value);saveSettings();updateAllTotals();updateWeekSummaryCards();}
+        function autoMatchCurrency(){const country=document.getElementById('workerCitizenship').value;const currencyMap={'Kenya':'KES','Tanzania':'TZS','Uganda':'UGX','Rwanda':'RWF','South Africa':'ZAR','Nigeria':'NGN','Ghana':'GHS','Ethiopia':'ETB','Germany':'EUR','France':'EUR','UK':'GBP','USA':'USD','India':'INR','Other':'USD'};if(currencyMap[country]){currencySymbol=currencyMap[country];document.getElementById('currencySelect').value=currencySymbol;saveSettings();updateAllTotals();updateWeekSummaryCards();}}
+        function showCountryList(){const si=document.getElementById('citizenshipSearch');si.value='';si.placeholder='Type to search country...';document.getElementById('countryDropdown').style.display='block';filterCountries();}
+        function filterCountries(){const search=document.getElementById('citizenshipSearch').value.toLowerCase(),dd=document.getElementById('countryDropdown'),cc=document.getElementById('workerCitizenship').value;dd.innerHTML='';let filtered=search===''?[...ALL_COUNTRIES]:ALL_COUNTRIES.filter(function(c){return c.name.toLowerCase().includes(search);});if(search===''&&cc){const idx=filtered.findIndex(function(c){return c.name===cc;});if(idx>-1){const sel=filtered.splice(idx,1)[0];filtered.unshift(sel);}}if(filtered.length===0){dd.innerHTML='<div class="country-option" style="color:var(--text-light);">❌ No country found</div>';}else{filtered.forEach(function(c){const div=document.createElement('div');div.className='country-option';div.textContent=(c.name===cc?'✅ ':'')+c.flag+' '+c.name+(c.name===cc?' (current)':'');div.onclick=function(){document.getElementById('citizenshipSearch').value=c.flag+' '+c.name;document.getElementById('workerCitizenship').value=c.name;dd.style.display='none';markUnsaved();autoMatchCurrency();};dd.appendChild(div);});}}
+        document.addEventListener('click',function(e){const dd=document.getElementById('countryDropdown'),si=document.getElementById('citizenshipSearch'),sc=document.getElementById('workerCitizenship').value;if(e.target!==si&&e.target!==dd&&!dd.contains(e.target)){dd.style.display='none';if(si.value===''&&sc){const f=ALL_COUNTRIES.find(function(c){return c.name===sc;});si.value=f?(f.flag+' '+f.name):sc;}}});
+        document.getElementById('citizenshipSearch').addEventListener('keydown',function(e){const dd=document.getElementById('countryDropdown');if(dd.style.display==='none')return;const opts=dd.querySelectorAll('.country-option');if(opts.length===0)return;let ci=-1;opts.forEach(function(o,i){if(o.classList.contains('selected')||o.style.background==='var(--accent)')ci=i;});if(e.key==='ArrowDown'){e.preventDefault();ci=(ci+1)%opts.length;highlightOption(opts,ci);}else if(e.key==='ArrowUp'){e.preventDefault();ci=(ci-1+opts.length)%opts.length;highlightOption(opts,ci);}else if(e.key==='Enter'){e.preventDefault();if(ci>-1)opts[ci].click();}else if(e.key==='Escape'){dd.style.display='none';const sc=document.getElementById('workerCitizenship').value;if(sc){const f=ALL_COUNTRIES.find(function(c){return c.name===sc;});document.getElementById('citizenshipSearch').value=f?(f.flag+' '+f.name):sc;}}});
+        function highlightOption(opts,idx){opts.forEach(function(o,i){o.style.background=(i===idx)?'var(--accent)':'';o.style.color=(i===idx)?'white':'';});if(opts[idx])opts[idx].scrollIntoView({block:'nearest'});}
+        function applyLanguage(){document.querySelectorAll('[data-en][data-sw][data-de][data-fr]').forEach(function(el){const txt=el.getAttribute('data-'+currentLang);if(txt){if(el.tagName==='OPTION'){el.textContent=txt;}else{el.textContent=txt;}}});const ths=document.querySelectorAll('.calendar-table th');if(ths.length===7){const days={'en':DAYS_EN,'sw':DAYS_SW,'de':DAYS_DE,'fr':DAYS_FR}[currentLang]||DAYS_EN;for(let i=0;i<7;i++){ths[i].textContent=days[i];}}document.getElementById('darkToggle').textContent=darkMode?'☀️ Light':'🌙 Dark';updateModeUI();}
+        function switchMode(mode){flushAllChanges();currentMode=mode;updateModeUI();renderCalendar();}
+        function updateModeUI(){MODES.forEach(function(m){const btn=document.getElementById('modeBtn'+m.charAt(0).toUpperCase()+m.slice(1));if(btn)btn.className='mode-btn';});const ab=document.getElementById('modeBtn'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1));if(ab)ab.classList.add('active-'+currentMode);const lbl=document.getElementById('currentModeLabel');const modeLbls=MODE_LABELS[currentLang]||MODE_LABELS['en'];lbl.textContent=currentMode==='custom'?('✚ '+customModeName):modeLbls[currentMode];lbl.style.background=MODE_COLORS[currentMode];document.getElementById('totalLabel').textContent=tm('total');document.getElementById('advanceLabel').textContent=tm('advance');document.getElementById('netLabel').textContent=tm('net');document.getElementById('employerLabel').textContent=tm('employer');document.getElementById('dailyWageLabel').textContent=tm('daily');}
+        function saveEmployer(){const data=getMonthData(currentMonth,currentYear);data['employer'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=document.getElementById('employerInput').value;markUnsaved();}
+        function saveAdvance(){const data=getMonthData(currentMonth,currentYear);data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=parseFloat(document.getElementById('advanceInput').value)||0;updateAllTotals();markUnsaved();}
+        function isSunday(d,m,y){return new Date(y,m,d).getDay()===0;}
+        function saveWage(dn){const data=getMonthData(currentMonth,currentYear),wi=document.getElementById('wage-'+dn),ni=document.getElementById('note-'+dn);if(wi&&ni){let a=parseFloat(wi.value)||0;const n=ni.value;if(!data[currentMode])data[currentMode]={};if(a===0&&n===''){delete data[currentMode][dn];}else{data[currentMode][dn]={amount:a,note:n};}wi.classList.toggle('has-value',a>0);ni.classList.toggle('has-note',n!=='');updateAllTotals();updateWeekSummaryCards();markUnsaved();checkTarget();}}
+        function getDaysInMonth(m,y){return new Date(y,m+1,0).getDate();}
+        function getFirstDayOfMonth(m,y){return new Date(y,m,1).getDay();}
+        function setDailyTarget(){const t=prompt('Set monthly target ('+currencySymbol+'):',dailyTarget||'');if(t!==null){dailyTarget=parseFloat(t)||0;saveSettings();if(dailyTarget>0){checkTarget();}else{document.getElementById('targetBar').style.display='none';document.getElementById('targetInfo').style.display='none';}}}
+        function checkTarget(){if(dailyTarget<=0)return;const dim=getDaysInMonth(currentMonth,currentYear),data=getMonthData(currentMonth,currentYear),md=data[currentMode]||{};let total=0;for(let d=1;d<=dim;d++){total+=parseFloat((md[d]||{}).amount||0);}const pct=Math.min(100,Math.round((total/dailyTarget)*100));document.getElementById('targetBar').style.display='block';document.getElementById('targetInfo').style.display='block';document.getElementById('targetFill').style.width=pct+'%';document.getElementById('targetInfo').textContent='🎯 Target: '+currencySymbol+' '+dailyTarget+' — '+pct+'% ('+currencySymbol+' '+total.toFixed(0)+')';}
+        function autofillDailyWage(){const v=document.getElementById('dailyWage').value;if(!v||parseFloat(v)<=0){showToast('⚠ Enter a valid amount.','warning');return;}const ml=currentMode==='custom'?('✚ '+customModeName):((MODE_LABELS[currentLang]||MODE_LABELS['en'])[currentMode]);let msg='Fill ALL empty cells with '+v+' for '+ml+'?';if(weekendMultiplier>1)msg+=' Sundays will use '+weekendMultiplier+'× multiplier.';if(!confirm(msg))return;const dim=getDaysInMonth(currentMonth,currentYear),data=getMonthData(currentMonth,currentYear);if(!data[currentMode])data[currentMode]={};let c=0;for(let d=1;d<=dim;d++){const wi=document.getElementById('wage-'+d);if(wi&&(!wi.value||parseFloat(wi.value)===0)){let amount=parseFloat(v);if(isSunday(d,currentMonth,currentYear)&&weekendMultiplier>1){amount=parseFloat(v)*weekendMultiplier;}wi.value=amount;wi.classList.add('has-value');data[currentMode][d]={amount:amount,note:(data[currentMode][d]||{}).note||''};c++;}}markUnsaved();updateAllTotals();updateWeekSummaryCards();checkTarget();showToast('⚡ Autofilled '+c+' cells'+(weekendMultiplier>1?' (Sunday ×'+weekendMultiplier+')':'')+'','success');}
+        function clearCurrentMode(){const ml=currentMode==='custom'?('✚ '+customModeName):((MODE_LABELS[currentLang]||MODE_LABELS['en'])[currentMode]);if(confirm('Clear ALL '+ml+' entries?')){const data=getMonthData(currentMonth,currentYear);data[currentMode]={};saveAllData();renderCalendar();showToast('🗑 '+ml+' cleared','warning');}}
         
-        function loadAllData() {
-            const s=localStorage.getItem(STORAGE_KEY); 
-            if(s){ try{ allData=JSON.parse(s); }catch(e){ allData={}; } }else{ allData={}; }
-            const st=JSON.parse(localStorage.getItem('ngili_settings_v9')||'{}');
-            currencySymbol=st.currency||'KES'; currentLang=st.lang||'en'; darkMode=st.darkMode||false;
-            weekendMultiplier=st.weekendRate||1; dailyTarget=st.dailyTarget||0; lastExportDate=st.lastExportDate||null;
-            if(darkMode) document.body.classList.add('dark-mode');
-            document.getElementById('currencySelect').value=currencySymbol;
-            document.getElementById('langSelect').value=currentLang;
-            document.getElementById('weekendRateSelect').value=weekendMultiplier;
-            document.getElementById('darkToggle').textContent=darkMode?'☀️ Light':'🌙 Dark';
-            applyLanguage();
-        }
-        
-        function saveSettings() { 
-            localStorage.setItem('ngili_settings_v9',JSON.stringify({
-                currency:currencySymbol,lang:currentLang,darkMode:darkMode,
-                weekendRate:weekendMultiplier,dailyTarget:dailyTarget,lastExportDate:lastExportDate
-            })); 
-        }
-        
-        function saveAllData() { 
-            try{ 
-                localStorage.setItem(STORAGE_KEY,JSON.stringify(allData)); 
-                unsavedChanges=false; 
-                updateSaveIndicator(true); 
-                hideUnsavedBanner(); 
-                updateSaveButtons(true); 
-            }catch(e){ 
-                showToast('⚠ Storage full!','warning'); 
-            } 
-        }
-        
-        function manualSave() { 
-            flushAllChanges(); 
-            saveAllData(); 
-            showToast('💾 Saved!','success'); 
-        }
-
-        function getMonthData(m,y) {
-            const k=getStorageKey(m,y);
-            if(!allData[k]){ 
-                allData[k]={ 
-                    workerInfo:{name:'',id:'',citizenship:'',dailyWage:'',phone:''}, 
-                    customName:'Custom', employerWages:'', employerBusfare:'', employerLunch:'', employerCustom:'', 
-                    wages:{}, busfare:{}, lunch:{}, custom:{}, 
-                    advanceWages:0, advanceBusfare:0, advanceLunch:0, advanceCustom:0 
-                }; 
-            }
-            if(!allData[k].customName) allData[k].customName='Custom';
-            MODES.forEach(function(m){ if(!allData[k][m])allData[k][m]={}; });
-            return allData[k];
-        }
-
-        function flushAllChanges() {
-            const data=getMonthData(currentMonth,currentYear);
-            data.workerInfo={ 
-                name:document.getElementById('workerName').value, 
-                id:document.getElementById('workerID').value, 
-                citizenship:document.getElementById('workerCitizenship').value, 
-                dailyWage:document.getElementById('dailyWage').value, 
-                phone:document.getElementById('workerPhone').value 
-            };
-            data.customName=customModeName;
-            data['employer'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=document.getElementById('employerInput').value;
-            data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=parseFloat(document.getElementById('advanceInput').value)||0;
-            const dim=getDaysInMonth(currentMonth,currentYear);
-            if(!data[currentMode])data[currentMode]={};
-            for(let d=1;d<=dim;d++){ 
-                const wi=document.getElementById('wage-'+d); 
-                const ni=document.getElementById('note-'+d); 
-                if(wi&&ni){ 
-                    const w=parseFloat(wi.value)||0; 
-                    const n=ni.value; 
-                    if(w===0&&n===''){ 
-                        delete data[currentMode][d]; 
-                    }else{ 
-                        data[currentMode][d]={amount:w,note:n}; 
-                    } 
-                } 
-            }
-        }
-
-        function markUnsaved() { 
-            unsavedChanges=true; 
-            updateSaveIndicator(false); 
-            showUnsavedBanner(); 
-            updateSaveButtons(false); 
-        }
-        
-        function updateSaveButtons(saved) { 
-            [document.getElementById('manualSaveBtn'),document.getElementById('manualSaveBtn2')].forEach(function(btn){ 
-                if(!btn)return; 
-                if(saved){ 
-                    btn.classList.add('saved'); 
-                    btn.innerHTML=t('savedBtn'); 
-                    setTimeout(function(){ 
-                        btn.classList.remove('saved'); 
-                        btn.innerHTML=t('saveBtn'); 
-                    },2000); 
-                }else{ 
-                    btn.classList.remove('saved'); 
-                    btn.innerHTML=t('saveBtn'); 
-                } 
-            }); 
-        }
-        
-        function updateSaveIndicator(saved) { 
-            const dot=document.getElementById('saveDot'); 
-            if(saved){ dot.className='dot'; }else{ dot.className='dot unsaved'; } 
-            document.getElementById('lastSavedText').textContent = saved ? t('saved') : t('unsaved'); 
-        }
-        
-        function showUnsavedBanner() { 
-            const b=document.getElementById('unsavedBanner'); 
-            if(b)b.classList.add('show'); 
-        }
-        
-        function hideUnsavedBanner() { 
-            const b=document.getElementById('unsavedBanner'); 
-            if(b)b.classList.remove('show'); 
-        }
-
-        // ==================== SETTINGS FUNCTIONS ====================
-        function toggleDarkMode() { 
-            darkMode=!darkMode; 
-            if(darkMode){ document.body.classList.add('dark-mode'); }else{ document.body.classList.remove('dark-mode'); } 
-            document.getElementById('darkToggle').textContent=darkMode?'☀️ Light':'🌙 Dark'; 
-            saveSettings(); 
-        }
-        
-        function changeCurrency() { 
-            currencySymbol=document.getElementById('currencySelect').value; 
-            saveSettings(); 
-            updateAllTotals(); 
-            updateWeekSummaryCards(); 
-        }
-        
-        function changeLanguage() { 
-            currentLang=document.getElementById('langSelect').value; 
-            saveSettings(); 
-            applyLanguage(); 
-            renderCalendar(); 
-        }
-        
-        function changeWeekendRate() { 
-            weekendMultiplier=parseFloat(document.getElementById('weekendRateSelect').value); 
-            saveSettings(); 
-            updateAllTotals(); 
-            updateWeekSummaryCards(); 
-        }
-
-        function autoMatchCurrency() {
-            const country = document.getElementById('workerCitizenship').value;
-            const currencyMap = {
-                'Kenya':'KES','Tanzania':'TZS','Uganda':'UGX','Rwanda':'RWF','Burundi':'BIF',
-                'South Africa':'ZAR','Nigeria':'NGN','Ghana':'GHS','Ethiopia':'ETB','Somalia':'SOS',
-                'South Sudan':'SSP','Sudan':'SDG','Egypt':'EGP','Libya':'LYD','Tunisia':'TND',
-                'Morocco':'MAD','Algeria':'DZD','Zambia':'ZMW','Zimbabwe':'ZWD','Malawi':'MWK',
-                'Botswana':'BWP','Namibia':'NAD','Lesotho':'LSL','Mozambique':'MZN','Angola':'AOA',
-                'DRC':'CDF','Congo':'XAF','Cameroon':'XAF','Gabon':'XAF','Chad':'XAF',
-                'Senegal':'XOF','Mali':'XOF','Niger':'XOF','Ivory Coast':'XOF','Togo':'XOF',
-                'Guinea':'GNF','Sierra Leone':'SLL','Liberia':'LRD','Gambia':'GMD',
-                'Madagascar':'MGA','Germany':'EUR','France':'EUR','Italy':'EUR','Spain':'EUR',
-                'Netherlands':'EUR','Belgium':'EUR','Austria':'EUR','Ireland':'EUR','Portugal':'EUR',
-                'Greece':'EUR','Finland':'EUR','Croatia':'EUR','UK':'GBP','USA':'USD',
-                'Canada':'CAD','Australia':'AUD','New Zealand':'NZD','Japan':'JPY','China':'CNY',
-                'India':'INR','South Korea':'KRW','Pakistan':'PKR','Bangladesh':'BDT','Sri Lanka':'LKR',
-                'Nepal':'NPR','Indonesia':'IDR','Malaysia':'MYR','Philippines':'PHP','Thailand':'THB',
-                'Vietnam':'VND','UAE':'AED','Saudi Arabia':'SAR','Qatar':'QAR','Kuwait':'KWD',
-                'Israel':'ILS','Switzerland':'CHF','Sweden':'SEK','Norway':'NOK','Denmark':'DKK',
-                'Poland':'PLN','Czech Republic':'CZK','Hungary':'HUF','Romania':'RON','Bulgaria':'BGN',
-                'Russia':'RUB','Ukraine':'UAH','Turkey':'TRY','Brazil':'BRL','Mexico':'MXN',
-                'Argentina':'ARS','Chile':'CLP','Colombia':'COP','Peru':'PEN','Other':'USD'
-            };
-            if(currencyMap[country]){
-                currencySymbol = currencyMap[country];
-                document.getElementById('currencySelect').value = currencySymbol;
-                saveSettings();
-                updateAllTotals();
-                updateWeekSummaryCards();
-            }
-        }
-
-        // ==================== SEARCHABLE COUNTRY DROPDOWN (IMPROVED) ====================
-        function showCountryList() {
-            const searchInput = document.getElementById('citizenshipSearch');
-            const dd = document.getElementById('countryDropdown');
-            
-            // Clear the search field when user focuses — ready for new search
-            searchInput.value = '';
-            searchInput.placeholder = 'Type to search country...';
-            
-            dd.style.display = 'block';
-            filterCountries();
-        }
-
-        function filterCountries() {
-            const search = document.getElementById('citizenshipSearch').value.toLowerCase();
-            const dd = document.getElementById('countryDropdown');
-            const currentCitizenship = document.getElementById('workerCitizenship').value;
-            
-            dd.innerHTML = '';
-            
-            // Show all countries if search is empty, otherwise filter
-            let filtered;
-            if (search === '') {
-                // Show all countries, but put previously selected at top
-                filtered = [...ALL_COUNTRIES];
-                if (currentCitizenship) {
-                    const selectedIdx = filtered.findIndex(function(c){ return c.name === currentCitizenship; });
-                    if (selectedIdx > -1) {
-                        const selected = filtered.splice(selectedIdx, 1)[0];
-                        filtered.unshift(selected); // Move to top
-                    }
-                }
-            } else {
-                filtered = ALL_COUNTRIES.filter(function(c){ return c.name.toLowerCase().includes(search); });
-            }
-            
-            if (filtered.length === 0) {
-                dd.innerHTML = '<div class="country-option" style="color:var(--text-light);">❌ No country found</div>';
-            } else {
-                filtered.forEach(function(c){
-                    const div = document.createElement('div');
-                    div.className = 'country-option';
-                    
-                    // Highlight the previously selected country
-                    if (c.name === currentCitizenship) {
-                        div.classList.add('selected');
-                        div.textContent = '✅ ' + c.flag + ' ' + c.name + ' (current)';
-                    } else {
-                        div.textContent = c.flag + ' ' + c.name;
-                    }
-                    
-                    div.onclick = function(){
-                        const searchInput = document.getElementById('citizenshipSearch');
-                        searchInput.value = c.flag + ' ' + c.name;
-                        searchInput.placeholder = c.flag + ' ' + c.name;
-                        document.getElementById('workerCitizenship').value = c.name;
-                        dd.style.display = 'none';
-                        markUnsaved();
-                        autoMatchCurrency();
-                    };
-                    dd.appendChild(div);
-                });
-            }
-        }
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(e){
-            const dd = document.getElementById('countryDropdown');
-            const searchInput = document.getElementById('citizenshipSearch');
-            const savedCitizenship = document.getElementById('workerCitizenship').value;
-            
-            if (e.target !== searchInput && e.target !== dd && !dd.contains(e.target)) {
-                dd.style.display = 'none';
-                
-                // If user clicked away without selecting, restore the previous value
-                if (searchInput.value === '' && savedCitizenship) {
-                    const found = ALL_COUNTRIES.find(function(c){ return c.name === savedCitizenship; });
-                    searchInput.value = found ? (found.flag + ' ' + found.name) : savedCitizenship;
-                    searchInput.placeholder = found ? (found.flag + ' ' + found.name) : 'Type to search...';
-                }
-                
-                // If nothing was ever selected and field is empty, reset placeholder
-                if (!savedCitizenship && searchInput.value === '') {
-                    searchInput.placeholder = 'Type to search...';
-                }
-            }
-        });
-
-        // Allow keyboard navigation
-        document.getElementById('citizenshipSearch').addEventListener('keydown', function(e){
-            const dd = document.getElementById('countryDropdown');
-            if (dd.style.display === 'none') return;
-            
-            const options = dd.querySelectorAll('.country-option');
-            if (options.length === 0) return;
-            
-            let currentIndex = -1;
-            options.forEach(function(opt, i){
-                if (opt.classList.contains('selected') || opt.style.background === 'var(--accent)') {
-                    currentIndex = i;
-                }
-            });
-            
-            if (e.key === 'ArrowDown') {
-                e.preventDefault();
-                currentIndex = (currentIndex + 1) % options.length;
-                highlightOption(options, currentIndex);
-            } else if (e.key === 'ArrowUp') {
-                e.preventDefault();
-                currentIndex = (currentIndex - 1 + options.length) % options.length;
-                highlightOption(options, currentIndex);
-            } else if (e.key === 'Enter') {
-                e.preventDefault();
-                if (currentIndex > -1) {
-                    options[currentIndex].click();
-                }
-            } else if (e.key === 'Escape') {
-                dd.style.display = 'none';
-                const savedCitizenship = document.getElementById('workerCitizenship').value;
-                const searchInput = document.getElementById('citizenshipSearch');
-                if (savedCitizenship) {
-                    const found = ALL_COUNTRIES.find(function(c){ return c.name === savedCitizenship; });
-                    searchInput.value = found ? (found.flag + ' ' + found.name) : savedCitizenship;
-                }
-            }
-        });
-
-        function highlightOption(options, index) {
-            options.forEach(function(opt, i){
-                opt.style.background = (i === index) ? 'var(--accent)' : '';
-                opt.style.color = (i === index) ? 'white' : '';
-            });
-            if (options[index]) {
-                options[index].scrollIntoView({ block: 'nearest' });
-            }
-        }
-
-        // ==================== LANGUAGE FUNCTIONS ====================
-        function applyLanguage() {
-            document.querySelectorAll('[data-en][data-sw][data-de][data-fr]').forEach(function(el){
-                const txt = el.getAttribute('data-'+currentLang);
-                if(txt){ 
-                    if(el.tagName==='OPTION'){ el.textContent=txt; }else{ el.textContent=txt; } 
-                }
-            });
-            const ths=document.querySelectorAll('.calendar-table th');
-            if(ths.length===7){ 
-                const days={'en':DAYS_EN,'sw':DAYS_SW,'de':DAYS_DE,'fr':DAYS_FR}[currentLang]||DAYS_EN; 
-                for(let i=0;i<7;i++){ ths[i].textContent=days[i]; } 
-            }
-            document.getElementById('darkToggle').textContent = darkMode ? '☀️ Light' : '🌙 Dark';
-            document.getElementById('backupReminder').textContent = t('backupReminder');
-            updateModeUI();
-        }
-
-        function switchMode(mode) { 
-            flushAllChanges(); 
-            currentMode=mode; 
-            updateModeUI(); 
-            renderCalendar(); 
-        }
-
-        function updateModeUI() {
-            MODES.forEach(function(m){ 
-                const btn=document.getElementById('modeBtn'+m.charAt(0).toUpperCase()+m.slice(1)); 
-                if(btn)btn.className='mode-btn'; 
-            });
-            const ab=document.getElementById('modeBtn'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1));
-            if(ab)ab.classList.add('active-'+currentMode);
-            const lbl=document.getElementById('currentModeLabel');
-            const modeLbls=MODE_LABELS[currentLang]||MODE_LABELS['en'];
-            lbl.textContent=currentMode==='custom'?('✚ '+customModeName):modeLbls[currentMode];
-            lbl.style.background=MODE_COLORS[currentMode];
-            document.getElementById('totalLabel').textContent=tm('total');
-            document.getElementById('advanceLabel').textContent=tm('advance');
-            document.getElementById('netLabel').textContent=tm('net');
-            document.getElementById('employerLabel').textContent=tm('employer');
-            document.getElementById('dailyWageLabel').textContent=tm('daily');
-        }
-
-        function saveEmployer() { 
-            const data=getMonthData(currentMonth,currentYear); 
-            data['employer'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=document.getElementById('employerInput').value; 
-            markUnsaved(); 
-        }
-        
-        function saveAdvance() { 
-            const data=getMonthData(currentMonth,currentYear); 
-            data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=parseFloat(document.getElementById('advanceInput').value)||0; 
-            updateAllTotals(); 
-            markUnsaved(); 
-        }
-
-        function isSunday(dayNumber,month,year) { 
-            return new Date(year,month,dayNumber).getDay()===0; 
-        }
-
-        function saveWage(dayNumber) {
-            const data=getMonthData(currentMonth,currentYear); 
-            const wi=document.getElementById('wage-'+dayNumber); 
-            const ni=document.getElementById('note-'+dayNumber);
-            if(wi&&ni){
-                let a=parseFloat(wi.value)||0;
-                const n=ni.value; 
-                if(!data[currentMode])data[currentMode]={}; 
-                if(a===0&&n===''){ 
-                    delete data[currentMode][dayNumber]; 
-                }else{ 
-                    data[currentMode][dayNumber]={amount:a,note:n}; 
-                }
-                wi.classList.toggle('has-value',a>0); 
-                ni.classList.toggle('has-note',n!==''); 
-                updateAllTotals(); 
-                updateWeekSummaryCards(); 
-                markUnsaved(); 
-                checkTarget();
-            }
-        }
-        
-        function getDaysInMonth(m,y) { return new Date(y,m+1,0).getDate(); }
-        function getFirstDayOfMonth(m,y) { return new Date(y,m,1).getDay(); }
-
-        function setDailyTarget() { 
-            const t=prompt('Set monthly target ('+currencySymbol+'):',dailyTarget||''); 
-            if(t!==null){ 
-                dailyTarget=parseFloat(t)||0; 
-                saveSettings(); 
-                if(dailyTarget>0){ 
-                    checkTarget(); 
-                }else{ 
-                    document.getElementById('targetBar').style.display='none'; 
-                    document.getElementById('targetInfo').style.display='none'; 
-                } 
-            } 
-        }
-
-        function checkTarget() {
-            if(dailyTarget<=0) return;
-            const dim=getDaysInMonth(currentMonth,currentYear); 
-            const data=getMonthData(currentMonth,currentYear); 
-            const md=data[currentMode]||{};
-            let total=0; 
-            for(let d=1;d<=dim;d++){ total+=parseFloat((md[d]||{}).amount||0); }
-            const pct=Math.min(100,Math.round((total/dailyTarget)*100));
-            document.getElementById('targetBar').style.display='block'; 
-            document.getElementById('targetInfo').style.display='block';
-            document.getElementById('targetFill').style.width=pct+'%';
-            document.getElementById('targetInfo').textContent = '🎯 Target: '+currencySymbol+' '+dailyTarget+' — '+pct+'% ('+currencySymbol+' '+total.toFixed(0)+')';
-        }
-
-    <!-- ==================== PART 4: JAVASCRIPT - CALENDAR, TOTALS, EXPORT, INIT ==================== -->
-
-        // ==================== AUTOFILL & CLEAR ====================
-        function autofillDailyWage() {
-            const v=document.getElementById('dailyWage').value; 
-            if(!v||parseFloat(v)<=0){ showToast('⚠ Enter a valid amount.','warning'); return; }
-            const ml=currentMode==='custom'?('✚ '+customModeName):((MODE_LABELS[currentLang]||MODE_LABELS['en'])[currentMode]);
-            let confirmMsg = 'Fill ALL empty cells with '+v+' for '+ml+'?';
-            if(weekendMultiplier>1){ confirmMsg += ' Sundays will use '+weekendMultiplier+'× multiplier.'; }
-            if(!confirm(confirmMsg))return;
-            const dim=getDaysInMonth(currentMonth,currentYear); 
-            const data=getMonthData(currentMonth,currentYear); 
-            if(!data[currentMode])data[currentMode]={}; 
-            let c=0;
-            for(let d=1;d<=dim;d++){
-                const wi=document.getElementById('wage-'+d);
-                if(wi&&(!wi.value||parseFloat(wi.value)===0)){
-                    let amount = parseFloat(v);
-                    if(isSunday(d,currentMonth,currentYear) && weekendMultiplier>1){
-                        amount = parseFloat(v) * weekendMultiplier;
-                    }
-                    wi.value=amount; 
-                    wi.classList.add('has-value');
-                    data[currentMode][d]={amount:amount,note:(data[currentMode][d]||{}).note||''}; 
-                    c++;
-                }
-            }
-            markUnsaved(); 
-            updateAllTotals(); 
-            updateWeekSummaryCards(); 
-            checkTarget(); 
-            showToast('⚡ Autofilled '+c+' cells'+(weekendMultiplier>1?' (Sunday ×'+weekendMultiplier+')':'')+'','success');
-        }
-
-        function clearCurrentMode() {
-            const ml=currentMode==='custom'?('✚ '+customModeName):((MODE_LABELS[currentLang]||MODE_LABELS['en'])[currentMode]);
-            if(confirm('Clear ALL '+ml+' entries?')){ 
-                const data=getMonthData(currentMonth,currentYear); 
-                data[currentMode]={}; 
-                saveAllData(); 
-                renderCalendar(); 
-                showToast('🗑 '+ml+' cleared','warning'); 
-            }
-        }
-
-        // ==================== CALENDAR RENDERING ====================
-        function renderCalendar() {
-            if(unsavedChanges){ flushAllChanges(); saveAllData(); }
-            loadAllData(); 
-            const data=getMonthData(currentMonth,currentYear);
-            customModeName=data.customName||'Custom';
-            
-            // Populate worker info
-            document.getElementById('workerName').value=data.workerInfo.name||'';
-            document.getElementById('workerID').value=data.workerInfo.id||'';
-            const savedCitizenship = data.workerInfo.citizenship||'';
-            document.getElementById('workerCitizenship').value = savedCitizenship;
-            if(savedCitizenship){
-                const found = ALL_COUNTRIES.find(function(c){ return c.name === savedCitizenship; });
-                document.getElementById('citizenshipSearch').value = found ? (found.flag + ' ' + found.name) : savedCitizenship;
-                document.getElementById('citizenshipSearch').placeholder = found ? (found.flag + ' ' + found.name) : 'Type to search...';
-            } else {
-                document.getElementById('citizenshipSearch').value = '';
-                document.getElementById('citizenshipSearch').placeholder = 'Type to search...';
-            }
-            document.getElementById('dailyWage').value=data.workerInfo.dailyWage||'';
-            document.getElementById('workerPhone').value=data.workerInfo.phone||'';
+        function renderCalendar(){
+            if(unsavedChanges){flushAllChanges();saveAllData();}
+            loadAllData();const data=getMonthData(currentMonth,currentYear);customModeName=data.customName||'Custom';
+            document.getElementById('workerName').value=data.workerInfo.name||'';document.getElementById('workerID').value=data.workerInfo.id||'';
+            const sc=data.workerInfo.citizenship||'';document.getElementById('workerCitizenship').value=sc;
+            if(sc){const f=ALL_COUNTRIES.find(function(c){return c.name===sc;});document.getElementById('citizenshipSearch').value=f?(f.flag+' '+f.name):sc;}else{document.getElementById('citizenshipSearch').value='';}
+            document.getElementById('dailyWage').value=data.workerInfo.dailyWage||'';document.getElementById('workerPhone').value=data.workerInfo.phone||'';
             document.getElementById('employerInput').value=data['employer'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]||'';
             document.getElementById('advanceInput').value=data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]||0;
+            updateModeUI();applyLanguage();
+            const ms=document.getElementById('monthSelect');ms.innerHTML='';const monthNames={'en':MONTHS,'sw':MONTHS_SW,'de':MONTHS_DE,'fr':MONTHS_FR}[currentLang]||MONTHS;
+            monthNames.forEach(function(m,i){const o=document.createElement('option');o.value=i;o.textContent=m;if(i===currentMonth)o.selected=true;ms.appendChild(o);});
+            const ys=document.getElementById('yearSelect');ys.innerHTML='';for(let y=2020;y<=2035;y++){const o=document.createElement('option');o.value=y;o.textContent=y;if(y===currentYear)o.selected=true;ys.appendChild(o);}
+            ms.onchange=function(){currentMonth=parseInt(this.value);renderCalendar();};ys.onchange=function(){currentYear=parseInt(this.value);renderCalendar();};
             
-            updateModeUI(); 
-            applyLanguage();
+            // FIXED: Today highlight variables
+            const dim=getDaysInMonth(currentMonth,currentYear),fd=getFirstDayOfMonth(currentMonth,currentYear);
+            const todayDate=new Date(),todayDay=todayDate.getDate(),todayMonth=todayDate.getMonth(),todayYear=todayDate.getFullYear();
+            const isCurrentMonthView=(currentMonth===todayMonth&&currentYear===todayYear);
+            const tcn=fd+dim,rts=Math.max(5,Math.ceil(tcn/7)),modeData=data[currentMode]||{};
             
-            // Build month/year selects
-            const ms=document.getElementById('monthSelect'); 
-            ms.innerHTML='';
-            const monthNames={'en':MONTHS,'sw':MONTHS_SW,'de':MONTHS_DE,'fr':MONTHS_FR}[currentLang]||MONTHS;
-            monthNames.forEach(function(m,i){ 
-                const o=document.createElement('option'); 
-                o.value=i; 
-                o.textContent=m; 
-                if(i===currentMonth)o.selected=true; 
-                ms.appendChild(o); 
-            });
-            const ys=document.getElementById('yearSelect'); 
-            ys.innerHTML=''; 
-            for(let y=2020;y<=2035;y++){ 
-                const o=document.createElement('option'); 
-                o.value=y; 
-                o.textContent=y; 
-                if(y===currentYear)o.selected=true; 
-                ys.appendChild(o); 
-            }
-            ms.onchange=function(){ currentMonth=parseInt(this.value); renderCalendar(); };
-            ys.onchange=function(){ currentYear=parseInt(this.value); renderCalendar(); };
+            const tbody=document.getElementById('calendarBody');tbody.innerHTML='';let dc=1;
+            const phs={en:{wages:'Wage',busfare:'Bus Fare',lunch:'Lunch',custom:'Amount'},sw:{wages:'Mshahara',busfare:'Nauli',lunch:'Chakula',custom:'Kiasi'},de:{wages:'Lohn',busfare:'Busgeld',lunch:'Mittagessen',custom:'Betrag'},fr:{wages:'Salaire',busfare:'Transport',lunch:'Déjeuner',custom:'Montant'}};
+            const notePh={en:'Note',sw:'Maelezo',de:'Notiz',fr:'Note'}[currentLang]||'Note';
             
-            // Build calendar grid
-            const dim=getDaysInMonth(currentMonth,currentYear); 
-            const fd=getFirstDayOfMonth(currentMonth,currentYear);
-            const today=new Date(); 
-            const td=today.getDate(); 
-            const tm=today.getMonth(); 
-            const ty=today.getFullYear();
-            const isCMV=(currentMonth===tm&&currentYear===ty);
-            const tcn=fd+dim; 
-            const rts=Math.max(5,Math.ceil(tcn/7));
-            const modeData=data[currentMode]||{};
-            const tbody=document.getElementById('calendarBody'); 
-            tbody.innerHTML=''; 
-            let dc=1;
-            const phs = (LABELS.placeholder[currentLang]||LABELS.placeholder['en']);
-            const notePlaceholder = (LABELS.note[currentLang]||'Note');
-            
-            for(let row=0;row<rts;row++){
-                const tr=document.createElement('tr'); 
-                tr.setAttribute('data-week',row);
-                for(let col=0;col<7;col++){
-                    const td=document.createElement('td'); 
-                    const ci=row*7+col;
-                    if(ci<fd||dc>dim){ 
-                        td.classList.add('empty-cell'); 
-                        td.innerHTML='<div class="date-number" style="color:#ccc;">·</div>'; 
-                    }
+            for(let row=0;row<rts;row++){const tr=document.createElement('tr');tr.setAttribute('data-week',row);
+                for(let col=0;col<7;col++){const td=document.createElement('td');const ci=row*7+col;
+                    if(ci<fd||dc>dim){td.classList.add('empty-cell');td.innerHTML='<div class="date-number" style="color:#ccc;">·</div>';}
                     else{
-                        const dn=dc; 
-                        const iw=(col===0); 
-                        const it=(isCMV&&dn===td);
-                        if(iw)td.classList.add('weekend'); 
-                        if(it)td.classList.add('today-cell');
-                        const dd=modeData[dn]||{amount:0,note:''}; 
-                        const huv=(dd.amount>0||dd.note!=='');
-                        const ph=phs[currentMode]||'Amount';
-                        td.innerHTML='<div class="day-cell"><div class="date-number">'+dn+'</div><input type="number" class="wage-input mode-'+currentMode+(huv?' has-value':'')+'" id="wage-'+dn+'" placeholder="'+ph+'" value="'+(huv?dd.amount:'')+'" step="any" min="0" oninput="saveWage('+dn+')" onfocus="this.select()"><textarea class="note-input'+(dd.note?' has-note':'')+'" id="note-'+dn+'" placeholder="'+notePlaceholder+'" oninput="saveWage('+dn+')">'+(dd.note||'')+'</textarea></div>';
+                        const dn=dc,iw=(col===0),it=(isCurrentMonthView&&dn===todayDay);
+                        if(iw)td.classList.add('weekend');if(it)td.classList.add('today-cell');
+                        const dd=modeData[dn]||{amount:0,note:''},huv=(dd.amount>0||dd.note!=='');
+                        const ph=(phs[currentLang]||phs['en'])[currentMode]||'Amount';
+                        td.innerHTML='<div class="day-cell"><div class="date-number">'+dn+'</div><input type="number" class="wage-input mode-'+currentMode+(huv?' has-value':'')+'" id="wage-'+dn+'" placeholder="'+ph+'" value="'+(huv?dd.amount:'')+'" step="any" min="0" oninput="saveWage('+dn+')" onfocus="this.select()"><textarea class="note-input'+(dd.note?' has-note':'')+'" id="note-'+dn+'" placeholder="'+notePh+'" oninput="saveWage('+dn+')">'+(dd.note||'')+'</textarea></div>';
                         dc++;
-                    }
-                    tr.appendChild(td);
-                }
-                tbody.appendChild(tr);
-                
-                // Week total row
-                const ttr=document.createElement('tr'); 
-                ttr.classList.add('week-total-row');
-                const wsd=row*7+1-fd; 
-                const wed=Math.min(wsd+6,dim);
-                const wLabel = t('week'); 
-                const totLabel = t('totalWord'); 
-                const daysLabel = t('days');
-                let wl; 
-                if(wsd<1)wl=wLabel+' '+(row+1); 
-                else if(wsd>dim)wl=wLabel+' '+(row+1)+' (N/A)'; 
-                else wl=wLabel+' '+(row+1)+' '+totLabel+' ('+daysLabel+' '+Math.max(1,wsd)+'–'+wed+')';
+                    }tr.appendChild(td);
+                }tbody.appendChild(tr);
+                const ttr=document.createElement('tr');ttr.classList.add('week-total-row');
+                const wsd=row*7+1-fd,wed=Math.min(wsd+6,dim);
+                const wLabel={en:'Week',sw:'Wiki',de:'Woche',fr:'Semaine'}[currentLang]||'Week';
+                const totLabel={en:'Total',sw:'Jumla',de:'Gesamt',fr:'Total'}[currentLang]||'Total';
+                const daysLabel={en:'Days',sw:'Siku',de:'Tage',fr:'Jours'}[currentLang]||'Days';
+                let wl;if(wsd<1)wl=wLabel+' '+(row+1);else if(wsd>dim)wl=wLabel+' '+(row+1)+' (N/A)';else wl=wLabel+' '+(row+1)+' '+totLabel+' ('+daysLabel+' '+Math.max(1,wsd)+'–'+wed+')';
                 ttr.innerHTML='<td class="week-total-label" colspan="6">'+wl+'</td><td id="week-total-'+row+'" style="font-size:1.1em;">0.00</td>';
                 tbody.appendChild(ttr);
             }
-            
-            unsavedChanges=false; 
-            updateSaveIndicator(true); 
-            hideUnsavedBanner(); 
-            updateSaveButtons(true); 
-            updateAllTotals(); 
-            updateWeekSummaryCards(); 
-            checkTarget(); 
-            checkBackupReminder();
+            unsavedChanges=false;updateSaveIndicator(true);hideUnsavedBanner();updateSaveButtons(true);updateAllTotals();updateWeekSummaryCards();checkTarget();checkBackupReminder();
         }
 
-        // ==================== TOTALS CALCULATION ====================
-        function updateAllTotals() {
-            const dim=getDaysInMonth(currentMonth,currentYear); 
-            const fd=getFirstDayOfMonth(currentMonth,currentYear);
-            const tcn=fd+dim; 
-            const rts=Math.max(5,Math.ceil(tcn/7));
-            const data=getMonthData(currentMonth,currentYear);
-            let total=0; 
-            const modeData=data[currentMode]||{};
-            for(let d=1;d<=dim;d++){ total+=parseFloat((modeData[d]||{}).amount||0); }
-            document.getElementById('totalAmount').textContent=currencySymbol+' '+total.toFixed(2);
-            const adv=parseFloat(document.getElementById('advanceInput').value)||0;
-            const net=total-adv; 
-            const ne=document.getElementById('netAmount'); 
-            ne.textContent=currencySymbol+' '+net.toFixed(2); 
-            ne.style.color=net<0?'#c0392b':'#27ae60';
-            
-            // Week totals
-            const wt=new Array(rts).fill(0);
-            for(let d=1;d<=dim;d++){ 
-                const wi=document.getElementById('wage-'+d); 
-                const a=wi?(parseFloat(wi.value)||0):0; 
-                const ci=fd+d-1; 
-                const wi2=Math.floor(ci/7); 
-                if(wi2>=0&&wi2<rts)wt[wi2]+=a; 
-            }
-            for(let w=0;w<rts;w++){ 
-                const el=document.getElementById('week-total-'+w); 
-                if(el)el.textContent=currencySymbol+' '+wt[w].toFixed(2); 
-            }
-        }
+        function updateAllTotals(){const dim=getDaysInMonth(currentMonth,currentYear),fd=getFirstDayOfMonth(currentMonth,currentYear),tcn=fd+dim,rts=Math.max(5,Math.ceil(tcn/7)),data=getMonthData(currentMonth,currentYear);let total=0;const modeData=data[currentMode]||{};for(let d=1;d<=dim;d++){total+=parseFloat((modeData[d]||{}).amount||0);}document.getElementById('totalAmount').textContent=currencySymbol+' '+total.toFixed(2);const adv=parseFloat(document.getElementById('advanceInput').value)||0;const net=total-adv;const ne=document.getElementById('netAmount');ne.textContent=currencySymbol+' '+net.toFixed(2);ne.style.color=net<0?'#c0392b':'#27ae60';const wt=new Array(rts).fill(0);for(let d=1;d<=dim;d++){const wi=document.getElementById('wage-'+d);const a=wi?(parseFloat(wi.value)||0):0;const ci=fd+d-1;const wi2=Math.floor(ci/7);if(wi2>=0&&wi2<rts)wt[wi2]+=a;}for(let w=0;w<rts;w++){const el=document.getElementById('week-total-'+w);if(el)el.textContent=currencySymbol+' '+wt[w].toFixed(2);}}
+        function updateWeekSummaryCards(){const dim=getDaysInMonth(currentMonth,currentYear),fd=getFirstDayOfMonth(currentMonth,currentYear),tcn=fd+dim,rts=Math.max(5,Math.ceil(tcn/7)),wt=new Array(rts).fill(0);for(let d=1;d<=dim;d++){const wi=document.getElementById('wage-'+d);const a=wi?(parseFloat(wi.value)||0):0;const ci=fd+d-1;const wi2=Math.floor(ci/7);if(wi2>=0&&wi2<rts)wt[wi2]+=a;}const sec=document.getElementById('weekSummarySection');sec.innerHTML='';sec.style.gridTemplateColumns='repeat('+rts+', 1fr)';const wLabel={en:'Week',sw:'Wiki',de:'Woche',fr:'Semaine'}[currentLang]||'Week';for(let w=0;w<rts;w++){const ws=w*7+1-fd,we=Math.min(ws+6,dim);let lb;if(ws<1)lb=wLabel+' '+(w+1);else if(ws>dim)lb=wLabel+' '+(w+1)+' (N/A)';else lb=wLabel+' '+(w+1)+' ('+Math.max(1,ws)+'–'+we+')';const cd=document.createElement('div');cd.className='summary-card';cd.style.borderTopColor='#8e44ad';cd.innerHTML='<h3>📋 '+lb+'</h3><div class="big-number" style="font-size:1.4em;">'+currencySymbol+' '+wt[w].toFixed(2)+'</div>';sec.appendChild(cd);}}
+        function checkBackupReminder(){if(!lastExportDate)return;const daysSince=(new Date()-new Date(lastExportDate))/(1000*60*60*24);const r=document.getElementById('backupReminder');if(daysSince>14){r.classList.add('show');r.textContent='⚠ No backup in 14 days! Tap to export →';}else{r.classList.remove('show');}}
+        function goToToday(){if(unsavedChanges){flushAllChanges();saveAllData();}currentMonth=new Date().getMonth();currentYear=new Date().getFullYear();renderCalendar();showToast('📆 Showing current month','success');}
+        function printCalendar(){window.print();}
+        function shareViaWhatsApp(){flushAllChanges();const data=getMonthData(currentMonth,currentYear),dim=getDaysInMonth(currentMonth,currentYear);const ml=currentMode==='custom'?('✚ '+customModeName):((MODE_LABELS[currentLang]||MODE_LABELS['en'])[currentMode]);let text='*Ngili Calendar - '+ml+'*\n'+MONTHS[currentMonth]+' '+currentYear+'\n\n';let total=0;const md=data[currentMode]||{};for(let d=1;d<=dim;d++){const dd=md[d]||{amount:0};if(dd.amount>0){text+=d+': '+currencySymbol+' '+dd.amount+'\n';total+=dd.amount;}}text+='\n*Total: '+currencySymbol+' '+total.toFixed(2)+'*';const adv=data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]||0;text+='\n*Advance: '+currencySymbol+' '+adv.toFixed(2)+'*';text+='\n*Net: '+currencySymbol+' '+(total-adv).toFixed(2)+'*';text+='\n\n_~ Ngili Calendar by Safari Softwares ~_';window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank');}
+        function exportCSV(){flushAllChanges();saveAllData();loadAllData();lastExportDate=new Date().toISOString();saveSettings();const cd=getMonthData(currentMonth,currentYear),workerName=cd.workerInfo.name||'worker',wn=workerName.replace(/[^a-zA-Z0-9]/g,'_'),cn=cd.customName||'Custom';let csv='Ngili Calendar - All Records\nWorker: '+workerName+'\nExported: '+new Date().toISOString().split('T')[0]+'\nCurrency: '+currencySymbol+'\n\n--- Worker Info ---\nName,'+workerName+'\nID,'+cd.workerInfo.id+'\nCitizenship,'+(cd.workerInfo.citizenship||'')+'\nPhone,'+cd.workerInfo.phone+'\n\n';const sk=Object.keys(allData).sort(),mn={wages:'Wages',busfare:'Bus Fare',lunch:'Lunch',custom:cn};MODES.forEach(function(mode){csv+='--- '+mn[mode]+' Records ---\nYear,Month,Day,Date,Amount,Notes\n';for(let k=0;k<sk.length;k++){const key=sk[k],p=key.split('-'),y=parseInt(p[0]),m=parseInt(p[1]),md=allData[key],dim=new Date(y,m+1,0).getDate(),moded=md[mode]||{};for(let d=1;d<=dim;d++){const dd=moded[d]||{amount:0,note:''};if(dd.amount>0||dd.note){csv+=y+','+MONTHS[m]+','+d+','+y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0')+','+(dd.amount||0)+',"'+(dd.note||'').replace(/"/g,'""')+'"\n';}}}});const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Ngili_Calendar_'+wn+'_'+MONTHS[currentMonth]+'_'+currentYear+'.csv';a.click();document.getElementById('backupReminder').classList.remove('show');showToast('📥 CSV exported!','success');}
+        function importCSV(event){const file=event.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=function(e){try{const lines=e.target.result.split('\n');let ic=0;let cim='wages';for(let i=0;i<lines.length;i++){const line=lines[i].trim();if(!line||line.startsWith('Ngili')||line.startsWith('Worker:')||line.startsWith('Exported:')||line.startsWith('Currency:'))continue;if(line.startsWith('---')){if(line.includes('Bus Fare'))cim='busfare';else if(line.includes('Lunch'))cim='lunch';else if(line.includes('Custom'))cim='custom';else if(line.includes('Wages'))cim='wages';continue;}if(line.startsWith('Year,'))continue;const parts=line.split(',');if(parts.length>=5){const y=parseInt(parts[0]),mn=parts[1],day=parseInt(parts[2]),amt=parseFloat(parts[4])||0;let note=parts.slice(5).join(',');if(note.startsWith('"')&&note.endsWith('"'))note=note.slice(1,-1).replace(/""/g,'"');const mi=MONTHS.indexOf(mn);if(mi>=0&&!isNaN(y)&&!isNaN(day)&&day>0&&amt>0){const key=y+'-'+mi;if(!allData[key])allData[key]={workerInfo:{},customName:'Custom',employerWages:'',employerBusfare:'',employerLunch:'',employerCustom:'',wages:{},busfare:{},lunch:{},custom:{},advanceWages:0,advanceBusfare:0,advanceLunch:0,advanceCustom:0};if(!allData[key][cim])allData[key][cim]={};allData[key][cim][day]={amount:amt,note:note};ic++;}}}saveAllData();renderCalendar();showToast('📤 Imported '+ic+' records!','success');}catch(err){showToast('❌ Error importing CSV.','warning');}};reader.readAsText(file);event.target.value='';}
+        function copyDataToClipboard(){flushAllChanges();const data=getMonthData(currentMonth,currentYear),dim=getDaysInMonth(currentMonth,currentYear);let text='Ngili Calendar - '+((MODE_LABELS[currentLang]||MODE_LABELS['en'])[currentMode])+' - '+MONTHS[currentMonth]+' '+currentYear+'\n';let total=0;const md=data[currentMode]||{};for(let d=1;d<=dim;d++){const dd=md[d]||{amount:0};if(dd.amount>0){text+=d+': '+currencySymbol+' '+dd.amount+'\n';total+=dd.amount;}}text+='\nTotal: '+currencySymbol+' '+total.toFixed(2);navigator.clipboard.writeText(text).then(function(){showToast('📋 Copied!','success');}).catch(function(){showToast('⚠ Could not copy.','warning');});}
+        function resetAllData(){if(confirm('⚠ DELETE ALL DATA?\n\nExport first.')){if(confirm('Final warning. Continue?')){allData={};saveAllData();renderCalendar();showToast('⚠ All data reset','warning');}}}
+        function openModal(id){document.getElementById(id).classList.add('active');document.body.style.overflow='hidden';if(id==='reportModal'){const now=new Date();['From','To'].forEach(function(p){const ms=document.getElementById('report'+p+'Month');ms.innerHTML='';MONTHS.forEach(function(m,i){ms.innerHTML+='<option value="'+i+'"'+(i===now.getMonth()?' selected':'')+'>'+m+'</option>';});const ys=document.getElementById('report'+p+'Year');ys.innerHTML='';for(let y=2020;y<=2035;y++){ys.innerHTML+='<option value="'+y+'"'+(y===now.getFullYear()?' selected':'')+'>'+y+'</option>';}});document.getElementById('reportMode').value=currentMode;generateReport();}if(id==='reviewsModal'){loadReviews();}}
+        function closeModal(id){document.getElementById(id).classList.remove('active');document.body.style.overflow='';}
+        function generateReport(){const fm=parseInt(document.getElementById('reportFromMonth').value),fy=parseInt(document.getElementById('reportFromYear').value),tm=parseInt(document.getElementById('reportToMonth').value),ty=parseInt(document.getElementById('reportToYear').value),mode=document.getElementById('reportMode').value;if(fy>ty||(fy===ty&&fm>tm)){document.getElementById('reportOutput').innerHTML='<p style="color:#c0392b;">⚠ Invalid date range.</p>';return;}let html='<table class="report-table"><thead><tr><th>Month</th><th>Days Worked</th><th>Total</th><th>Advance</th><th>Net</th></tr></thead><tbody>';let gT=0,gD=0,gDays=0;let cy2=fy,cm2=fm;while(cy2<ty||(cy2===ty&&cm2<=tm)){const data=getMonthData(cm2,cy2),md=data[mode]||{},dim=getDaysInMonth(cm2,cy2);let mt=0,mdays=0;for(let d=1;d<=dim;d++){const a=parseFloat((md[d]||{}).amount||0);if(a>0){mt+=a;mdays++;}}const adv=data['advance'+mode.charAt(0).toUpperCase()+mode.slice(1)]||0;html+='<tr><td>'+MONTHS[cm2]+' '+cy2+'</td><td>'+mdays+'</td><td>'+currencySymbol+' '+mt.toFixed(2)+'</td><td style="color:#c0392b;">'+currencySymbol+' '+adv.toFixed(2)+'</td><td style="color:'+(mt-adv<0?'#c0392b':'#27ae60')+';">'+currencySymbol+' '+(mt-adv).toFixed(2)+'</td></tr>';gT+=mt;gD+=adv;gDays+=mdays;cm2++;if(cm2>11){cm2=0;cy2++;}}html+='<tr style="font-weight:900;background:var(--primary-light);color:white;"><td>📊 GRAND TOTAL</td><td>'+gDays+'</td><td>'+currencySymbol+' '+gT.toFixed(2)+'</td><td>'+currencySymbol+' '+gD.toFixed(2)+'</td><td>'+currencySymbol+' '+(gT-gD).toFixed(2)+'</td></tr></tbody></table>';html+='<p style="text-align:center;margin-top:8px;">Avg/month: '+currencySymbol+' '+(gT/Math.max(1,Math.abs((ty-fy)*12+tm-fm)+1)).toFixed(2)+' | Avg/day: '+currencySymbol+' '+(gDays>0?(gT/gDays).toFixed(2):'0.00')+'</p>';document.getElementById('reportOutput').innerHTML=html;}
+        document.addEventListener('click',function(e){if(e.target.classList.contains('modal-overlay')){e.target.classList.remove('active');document.body.style.overflow='';}});
+        document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.querySelectorAll('.modal-overlay.active').forEach(function(m){m.classList.remove('active');});document.body.style.overflow='';}});
+        function showToast(m,t){var toast=document.getElementById('toast');toast.textContent=m;toast.className='toast '+(t||'')+' show';clearTimeout(toast._t);toast._t=setTimeout(function(){toast.classList.remove('show');},2500);}
+        
+        // REVIEWS
+        function loadReviews(){const r=JSON.parse(localStorage.getItem(REVIEWS_KEY)||'[]'),list=document.getElementById('reviewList');list.innerHTML='';if(r.length===0){list.innerHTML='<p style="text-align:center;color:var(--text-light);">No reviews yet. Be the first! ⭐</p>';}else{r.reverse().forEach(function(rv){list.innerHTML+='<div class="review-item"><div class="review-header"><strong>'+(rv.n||'Anonymous')+'</strong><span>'+rv.d+'</span></div><div class="review-stars">'+'★'.repeat(rv.s)+'☆'.repeat(5-rv.s)+'</div><div class="review-text">'+rv.t+'</div></div>';});}updateRS(r);}
+        function updateRS(r){const c=r.length,avg=c>0?(r.reduce(function(s,rv){return s+rv.s;},0)/c).toFixed(1):'—';document.getElementById('reviewCount').textContent=c+' review'+(c!==1?'s':'')+' | Average: '+avg+' ⭐';}
+        function submitReview(){const n=document.getElementById('reviewName').value.trim(),s=parseInt(document.getElementById('reviewStars').value),t=document.getElementById('reviewText').value.trim();if(s===0){showToast('⚠ Please select a star rating!','warning');return;}if(!t){showToast('⚠ Please write a review!','warning');return;}const r=JSON.parse(localStorage.getItem(REVIEWS_KEY)||'[]');r.push({n:n||'Anonymous',s:s,t:t,d:new Date().toISOString().split('T')[0]});localStorage.setItem(REVIEWS_KEY,JSON.stringify(r));document.getElementById('reviewName').value='';document.getElementById('reviewText').value='';document.getElementById('reviewStars').value='0';document.querySelectorAll('#starRating .star').forEach(function(s){s.classList.remove('active');s.textContent='☆';});loadReviews();showToast('⭐ Review submitted! Thank you!','success');}
+        document.addEventListener('DOMContentLoaded',function(){const stars=document.querySelectorAll('#starRating .star');stars.forEach(function(s){s.addEventListener('click',function(){const v=parseInt(this.getAttribute('data-star'));document.getElementById('reviewStars').value=v;stars.forEach(function(ss,i){ss.classList.toggle('active',i<v);ss.textContent=i<v?'★':'☆';});});s.addEventListener('mouseenter',function(){const v=parseInt(this.getAttribute('data-star'));stars.forEach(function(ss,i){ss.textContent=i<v?'★':'☆';});});});document.getElementById('starRating').addEventListener('mouseleave',function(){const v=parseInt(document.getElementById('reviewStars').value);stars.forEach(function(s,i){s.classList.toggle('active',i<v);s.textContent=i<v?'★':'☆';});});});
 
-        function updateWeekSummaryCards() {
-            const dim=getDaysInMonth(currentMonth,currentYear); 
-            const fd=getFirstDayOfMonth(currentMonth,currentYear);
-            const tcn=fd+dim; 
-            const rts=Math.max(5,Math.ceil(tcn/7)); 
-            const wt=new Array(rts).fill(0);
-            for(let d=1;d<=dim;d++){ 
-                const wi=document.getElementById('wage-'+d); 
-                const a=wi?(parseFloat(wi.value)||0):0; 
-                const ci=fd+d-1; 
-                const wi2=Math.floor(ci/7); 
-                if(wi2>=0&&wi2<rts)wt[wi2]+=a; 
-            }
-            const sec=document.getElementById('weekSummarySection'); 
-            sec.innerHTML=''; 
-            sec.style.gridTemplateColumns='repeat('+rts+', 1fr)';
-            const wLabel = t('week');
-            for(let w=0;w<rts;w++){ 
-                const ws=w*7+1-fd; 
-                const we=Math.min(ws+6,dim); 
-                let lb; 
-                if(ws<1)lb=wLabel+' '+(w+1); 
-                else if(ws>dim)lb=wLabel+' '+(w+1)+' (N/A)'; 
-                else lb=wLabel+' '+(w+1)+' ('+Math.max(1,ws)+'–'+we+')';
-                const cd=document.createElement('div'); 
-                cd.className='summary-card'; 
-                cd.style.borderTopColor='#8e44ad'; 
-                cd.innerHTML='<h3>📋 '+lb+'</h3><div class="big-number" style="font-size:1.4em;">'+currencySymbol+' '+wt[w].toFixed(2)+'</div>'; 
-                sec.appendChild(cd); 
-            }
-        }
-
-        function checkBackupReminder() {
-            if(!lastExportDate) return;
-            const daysSince=(new Date()-new Date(lastExportDate))/(1000*60*60*24);
-            const r=document.getElementById('backupReminder'); 
-            if(daysSince>14){ 
-                r.classList.add('show'); 
-                r.textContent = t('backupReminder'); 
-            }else{ 
-                r.classList.remove('show'); 
-            }
-        }
-
-        function goToToday() { 
-            if(unsavedChanges){ flushAllChanges(); saveAllData(); } 
-            currentMonth=new Date().getMonth(); 
-            currentYear=new Date().getFullYear(); 
-            renderCalendar(); 
-            showToast('📆 Showing current month','success'); 
-        }
-
-        // ==================== PRINT ====================
-        function printCalendar() {
-            window.print();
-        }
-
-        // ==================== SHARE VIA WHATSAPP ====================
-        function shareViaWhatsApp() {
-            flushAllChanges(); 
-            const data=getMonthData(currentMonth,currentYear); 
-            const dim=getDaysInMonth(currentMonth,currentYear);
-            const ml=currentMode==='custom'?('✚ '+customModeName):((MODE_LABELS[currentLang]||MODE_LABELS['en'])[currentMode]);
-            let text='*Ngili Calendar - '+ml+'*\n'+MONTHS[currentMonth]+' '+currentYear+'\n\n';
-            let total=0; 
-            const md=data[currentMode]||{};
-            for(let d=1;d<=dim;d++){ 
-                const dd=md[d]||{amount:0}; 
-                if(dd.amount>0){ text+=d+': '+currencySymbol+' '+dd.amount+'\n'; total+=dd.amount; } 
-            }
-            text+='\n*Total: '+currencySymbol+' '+total.toFixed(2)+'*';
-            const adv=data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]||0;
-            text+='\n*Advance: '+currencySymbol+' '+adv.toFixed(2)+'*';
-            text+='\n*Net: '+currencySymbol+' '+(total-adv).toFixed(2)+'*';
-            text+='\n\n_~ Ngili Calendar by Safari Softwares ~_';
-            window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank');
-        }
-
-        // ==================== CSV EXPORT ====================
-        function exportCSV() {
-            flushAllChanges(); saveAllData(); loadAllData();
-            lastExportDate=new Date().toISOString(); saveSettings();
-            const cd=getMonthData(currentMonth,currentYear); 
-            const workerName = cd.workerInfo.name || 'worker';
-            const wn=workerName.replace(/[^a-zA-Z0-9]/g,'_'); 
-            const cn=cd.customName||'Custom';
-            
-            let csv='Ngili Calendar - All Records\n';
-            csv+='Worker: '+workerName+'\n';
-            csv+='Exported: '+new Date().toISOString().split('T')[0]+'\n';
-            csv+='Currency: '+currencySymbol+'\n\n';
-            csv+='--- Worker Info ---\nName,'+workerName+'\nID,'+cd.workerInfo.id+'\nCitizenship,'+(cd.workerInfo.citizenship||'')+'\nPhone,'+cd.workerInfo.phone+'\n\n';
-            csv+='--- Employers ---\nWages Employer,'+(cd.employerWages||'')+'\nTransport Provider,'+(cd.employerBusfare||'')+'\nLunch Provider,'+(cd.employerLunch||'')+'\n'+cn+' Employer,'+(cd.employerCustom||'')+'\nCustom Name,'+cn+'\n\n';
-            
-            const sk=Object.keys(allData).sort(); 
-            const mn={wages:'Wages',busfare:'Bus Fare',lunch:'Lunch',custom:cn};
-            MODES.forEach(function(mode){ 
-                csv+='--- '+mn[mode]+' Records ---\nYear,Month,Day,Date,Amount,Notes\n';
-                for(let k=0;k<sk.length;k++){ 
-                    const key=sk[k]; const p=key.split('-'); const y=parseInt(p[0]); const m=parseInt(p[1]); 
-                    const md=allData[key]; const dim=new Date(y,m+1,0).getDate(); const moded=md[mode]||{}; 
-                    for(let d=1;d<=dim;d++){ 
-                        const dd=moded[d]||{amount:0,note:''}; 
-                        if(dd.amount>0||dd.note){ 
-                            const ds=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0'); 
-                            csv+=y+','+MONTHS[m]+','+d+','+ds+','+(dd.amount||0)+',"'+(dd.note||'').replace(/"/g,'""')+'"\n'; 
-                        } 
-                    } 
-                } 
-            });
-            
-            csv+='\n--- Advances ---\nYear,Month,Wages Advance,Bus Fare Advance,Lunch Advance,'+cn+' Advance\n';
-            for(let k=0;k<sk.length;k++){ 
-                const key=sk[k]; const p=key.split('-'); const md=allData[key]; 
-                csv+=p[0]+','+MONTHS[parseInt(p[1])]+','+(md.advanceWages||0)+','+(md.advanceBusfare||0)+','+(md.advanceLunch||0)+','+(md.advanceCustom||0)+'\n'; 
-            }
-            
-            const dateStr = new Date().toISOString().split('T')[0];
-            const filename = 'Ngili_Calendar_'+wn+'_'+MONTHS[currentMonth]+'_'+currentYear+'_'+dateStr+'.csv';
-            
-            const isMobile = /Android|iPhone|iPad|iPod|webOS/i.test(navigator.userAgent);
-            const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
-            
-            // Try download
-            try {
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = filename;
-                a.style.display = 'none';
-                document.body.appendChild(a);
-                a.click();
-                setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); }, 1000);
-            } catch(e) {}
-            
-            // For mobile: also open in new tab AND copy to clipboard
-            if (isMobile) {
-                const dataUri = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-                window.open(dataUri, '_blank');
-                
-                navigator.clipboard.writeText(csv).then(function(){}).catch(function(){});
-                
-                setTimeout(function(){
-                    alert(
-                        '✅ CSV EXPORTED SUCCESSFULLY!\n\n' +
-                        '📁 File: ' + filename + '\n\n' +
-                        '📍 WHERE TO FIND IT:\n' +
-                        '• Check your Downloads folder\n' +
-                        '• A new tab opened — save it from there\n' +
-                        '• Also copied to clipboard\n\n' +
-                        '💡 TIP: In the opened tab, tap Share → Save to Files\n' +
-                        '   Or long-press and select "Download Linked File"\n\n' +
-                        '📧 You can also paste (long-press) into an email to yourself!'
-                    );
-                }, 600);
-            } else {
-                showToast('📥 CSV exported! File: '+filename, 'success');
-            }
-            
-            document.getElementById('backupReminder').classList.remove('show');
-        }
-
-        // ==================== CSV IMPORT ====================
-        function importCSV(event) {
-            const file=event.target.files[0]; if(!file)return; const reader=new FileReader();
-            reader.onload=function(e){
-                try{
-                    const c=e.target.result; const lines=c.split('\n'); const cl=[]; 
-                    for(let i=0;i<lines.length;i++){ const t=lines[i].trim(); if(t)cl.push(t); }
-                    let sec='header',ic=0; const id={}; let cwi={}; let cim='wages';
-                    for(let i=0;i<cl.length;i++){
-                        const line=cl[i];
-                        if(line.startsWith('---')){ 
-                            if(line.includes('Worker Info'))sec='workerInfo'; 
-                            else if(line.includes('Employers'))sec='employers'; 
-                            else if(line.includes('Wages')&&!line.includes('Bus')&&!line.includes('Lunch')&&!line.includes('Custom')&&!line.includes('Advance')){ sec='mode'; cim='wages'; } 
-                            else if(line.includes('Bus Fare')){ sec='mode'; cim='busfare'; } 
-                            else if(line.includes('Lunch')){ sec='mode'; cim='lunch'; } 
-                            else if(line.includes('Custom')||line.includes(cwi.customName||'Custom')){ sec='mode'; cim='custom'; } 
-                            else if(line.includes('Advances'))sec='advances'; 
-                            continue; 
-                        }
-                        if(line.startsWith('Ngili')||line.startsWith('Exported:')||line.startsWith('Currency:')||line.startsWith('Worker:')||line==='')continue;
-                        const parts=line.split(',');
-                        if(sec==='workerInfo'){ 
-                            if(parts[0]==='Name')cwi.name=parts[1]||''; 
-                            if(parts[0]==='ID')cwi.id=parts[1]||''; 
-                            if(parts[0]==='Citizenship')cwi.citizenship=parts[1]||''; 
-                            if(parts[0]==='Phone')cwi.phone=parts[1]||''; 
-                        }
-                        else if(sec==='employers'){ 
-                            if(parts[0]==='Wages Employer')cwi.employerWages=parts[1]||''; 
-                            if(parts[0]==='Transport Provider')cwi.employerBusfare=parts[1]||''; 
-                            if(parts[0]==='Lunch Provider')cwi.employerLunch=parts[1]||''; 
-                            if(parts[0]==='Custom Name')cwi.customName=parts[1]||'Custom'; 
-                            if(parts[0]&&parts[0].includes('Employer')&&!parts[0].includes('Wages')&&!parts[0].includes('Transport')&&!parts[0].includes('Lunch'))cwi.employerCustom=parts[1]||''; 
-                        }
-                        else if(sec==='mode'&&!line.startsWith('Year,')){ 
-                            if(parts.length>=6){ 
-                                const y=parseInt(parts[0]); const mn=parts[1]; const day=parseInt(parts[2]); 
-                                const amt=parseFloat(parts[4])||0; 
-                                let note=parts.slice(5).join(','); 
-                                if(note.startsWith('"')&&note.endsWith('"'))note=note.slice(1,-1).replace(/""/g,'"'); 
-                                const mi=MONTHS.indexOf(mn); 
-                                if(mi>=0&&!isNaN(y)&&!isNaN(day)&&day>0){ 
-                                    const key=y+'-'+mi; 
-                                    if(!id[key])id[key]={workerInfo:{name:cwi.name,id:cwi.id,citizenship:cwi.citizenship||'',phone:cwi.phone},customName:cwi.customName||'Custom',employerWages:cwi.employerWages||'',employerBusfare:cwi.employerBusfare||'',employerLunch:cwi.employerLunch||'',employerCustom:cwi.employerCustom||'',wages:{},busfare:{},lunch:{},custom:{},advanceWages:0,advanceBusfare:0,advanceLunch:0,advanceCustom:0}; 
-                                    if(amt>0||note){ id[key][cim][day]={amount:amt,note:note}; ic++; } 
-                                } 
-                            } 
-                        }
-                        else if(sec==='advances'&&!line.startsWith('Year,')){ 
-                            if(parts.length>=5){ 
-                                const y=parseInt(parts[0]); const mn=parts[1]; 
-                                const mi=MONTHS.indexOf(mn); 
-                                if(mi>=0&&!isNaN(y)){ 
-                                    const key=y+'-'+mi; 
-                                    if(!id[key])id[key]={workerInfo:{},customName:'Custom',employerWages:'',employerBusfare:'',employerLunch:'',employerCustom:'',wages:{},busfare:{},lunch:{},custom:{},advanceWages:0,advanceBusfare:0,advanceLunch:0,advanceCustom:0}; 
-                                    id[key].advanceWages=parseFloat(parts[2])||0; 
-                                    id[key].advanceBusfare=parseFloat(parts[3])||0; 
-                                    id[key].advanceLunch=parseFloat(parts[4])||0; 
-                                    id[key].advanceCustom=parseFloat(parts[5])||0; 
-                                } 
-                            } 
-                        }
-                    }
-                    const ik=Object.keys(id);
-                    for(let k=0;k<ik.length;k++){ 
-                        const key=ik[k]; const ida=id[key]; 
-                        if(!allData[key])allData[key]={workerInfo:{},customName:'Custom',employerWages:'',employerBusfare:'',employerLunch:'',employerCustom:'',wages:{},busfare:{},lunch:{},custom:{},advanceWages:0,advanceBusfare:0,advanceLunch:0,advanceCustom:0}; 
-                        if(ida.workerInfo.name)allData[key].workerInfo.name=ida.workerInfo.name; 
-                        if(ida.workerInfo.id)allData[key].workerInfo.id=ida.workerInfo.id; 
-                        if(ida.workerInfo.citizenship)allData[key].workerInfo.citizenship=ida.workerInfo.citizenship; 
-                        if(ida.workerInfo.phone)allData[key].workerInfo.phone=ida.workerInfo.phone; 
-                        if(ida.customName)allData[key].customName=ida.customName; 
-                        if(ida.employerWages)allData[key].employerWages=ida.employerWages; 
-                        if(ida.employerBusfare)allData[key].employerBusfare=ida.employerBusfare; 
-                        if(ida.employerLunch)allData[key].employerLunch=ida.employerLunch; 
-                        if(ida.employerCustom)allData[key].employerCustom=ida.employerCustom; 
-                        MODES.forEach(function(mode){ 
-                            const mk=Object.keys(ida[mode]||{}); 
-                            for(let w=0;w<mk.length;w++){ 
-                                if(!allData[key][mode])allData[key][mode]={}; 
-                                allData[key][mode][mk[w]]=ida[mode][mk[w]]; 
-                            } 
-                        }); 
-                        if(ida.advanceWages)allData[key].advanceWages=ida.advanceWages; 
-                        if(ida.advanceBusfare)allData[key].advanceBusfare=ida.advanceBusfare; 
-                        if(ida.advanceLunch)allData[key].advanceLunch=ida.advanceLunch; 
-                        if(ida.advanceCustom)allData[key].advanceCustom=ida.advanceCustom; 
-                    }
-                    saveAllData(); renderCalendar(); showToast('📤 Imported '+ic+' records!','success');
-                }catch(err){ showToast('❌ Error importing CSV.','warning'); }
-            };
-            reader.readAsText(file); event.target.value='';
-        }
-
-        // ==================== COPY TO CLIPBOARD ====================
-        function copyDataToClipboard() {
-            flushAllChanges(); const data=getMonthData(currentMonth,currentYear); const dim=getDaysInMonth(currentMonth,currentYear);
-            let text='Ngili Calendar - '+((MODE_LABELS[currentLang]||MODE_LABELS['en'])[currentMode])+' - '+MONTHS[currentMonth]+' '+currentYear+'\n';
-            text+='Worker: '+(data.workerInfo.name||'N/A')+' | Citizenship: '+(data.workerInfo.citizenship||'N/A')+'\n';
-            let total=0; const md=data[currentMode]||{};
-            for(let d=1;d<=dim;d++){ const dd=md[d]||{amount:0}; if(dd.amount>0){ text+=d+': '+currencySymbol+' '+dd.amount+'\n'; total+=dd.amount; } }
-            text+='\nTotal: '+currencySymbol+' '+total.toFixed(2); 
-            const adv=data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]||0;
-            text+='\nNet: '+currencySymbol+' '+(total-adv).toFixed(2);
-            navigator.clipboard.writeText(text).then(function(){ showToast('📋 Copied!','success'); }).catch(function(){ showToast('⚠ Could not copy.','warning'); });
-        }
-
-        // ==================== RESET ALL DATA ====================
-        function resetAllData() { 
-            if(confirm('⚠ DELETE ALL DATA?\n\nExport first.')){ 
-                if(confirm('Final warning. Continue?')){ 
-                    allData={}; saveAllData(); renderCalendar(); showToast('⚠ All data reset','warning'); 
-                } 
-            } 
-        }
-
-        // ==================== MODALS ====================
-        function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow='hidden'; }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow=''; }
-        document.addEventListener('click',function(e){ 
-            if(e.target.classList.contains('modal-overlay')){ 
-                e.target.classList.remove('active'); document.body.style.overflow=''; 
-            } 
-        });
-        document.addEventListener('keydown',function(e){ 
-            if(e.key==='Escape'){ 
-                var ovs=document.querySelectorAll('.modal-overlay.active'); 
-                for(var i=0;i<ovs.length;i++){ ovs[i].classList.remove('active'); } 
-                document.body.style.overflow=''; 
-            } 
-        });
-
-        // ==================== TOAST NOTIFICATION ====================
-        function showToast(message,type){ 
-            var toast=document.getElementById('toast'); 
-            toast.textContent=message; toast.className='toast '+(type||'')+' show'; 
-            clearTimeout(toast._timeout); 
-            toast._timeout=setTimeout(function(){ toast.classList.remove('show'); },2500); 
-        }
-
-        // ==================== INITIALIZATION ====================
-        function init(){ 
-            loadAllData(); 
-            renderCalendar(); 
-            window.addEventListener('beforeunload',function(){ flushAllChanges(); saveAllData(); }); 
-            setInterval(function(){ 
-                if(unsavedChanges){ flushAllChanges(); saveAllData(); } 
-            },10000); 
-            console.log('📅 Ngili Calendar v9 — International Edition! © 2026 Safari Softwares');
-            console.log('✨ Features: Blue+Pink Today Highlight | Smart Citizenship Search | Auto-Currency | Multi-Language');
-        }
+        function init(){loadAllData();renderCalendar();window.addEventListener('beforeunload',function(){flushAllChanges();saveAllData();});setInterval(function(){if(unsavedChanges){flushAllChanges();saveAllData();}},10000);console.log('📅 The Ngili Calendar — Ready! © 2026 Safari Softwares');}
         init();
     </script>
 </body>
