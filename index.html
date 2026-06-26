@@ -22,36 +22,38 @@
         .settings-bar,.mode-bar,.controls-bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;margin-bottom:6px;padding:8px 12px;background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);font-size:.78em}
         .settings-bar select,.controls-bar select{padding:4px 8px;border:2px solid var(--border);border-radius:var(--radius-sm);font-size:.9em;background:var(--card-bg);color:var(--text)}
         .mode-bar .mode-label{font-weight:700;font-size:.8em;color:var(--text-light);text-transform:uppercase;margin-right:6px}
-        .mode-btn{padding:8px 14px;border:2px solid var(--border);border-radius:20px;cursor:pointer;font-weight:600;font-size:.82em;font-family:inherit;background:var(--card-bg);color:var(--text);white-space:nowrap}
-        .mode-btn:hover{filter:brightness(.9)}
+        .mode-btn{padding:8px 14px;border:2px solid var(--border);border-radius:20px;cursor:pointer;font-weight:600;font-size:.82em;font-family:inherit;background:var(--card-bg);color:var(--text);white-space:nowrap;min-height:44px;transition:all 0.15s}
+        .mode-btn:hover{filter:brightness(0.9);transform:translateY(-1px)}
         .mode-btn.active-wages{background:#2980b9;color:white;border-color:#2980b9}
         .mode-btn.active-busfare{background:#e67e22;color:white;border-color:#e67e22}
         .mode-btn.active-lunch{background:#27ae60;color:white;border-color:#27ae60}
         .mode-btn.active-custom{background:#8e44ad;color:white;border-color:#8e44ad}
         .mode-btn.active-business{background:#6c3483;color:white;border-color:#6c3483}
         .mode-indicator{display:inline-block;padding:4px 10px;border-radius:12px;font-size:.75em;font-weight:700;color:white;margin-left:8px}
-        .btn{padding:8px 16px;border:none;border-radius:var(--radius-sm);cursor:pointer;font-weight:600;font-size:.9em;font-family:inherit;white-space:nowrap;display:inline-flex;align-items:center;gap:5px;transition:filter 0.15s}
-        .btn:hover{filter:brightness(1.1)}
+        .btn{padding:8px 16px;border:none;border-radius:var(--radius-sm);cursor:pointer;font-weight:600;font-size:.9em;font-family:inherit;white-space:nowrap;display:inline-flex;align-items:center;gap:5px;transition:all 0.15s;min-height:44px}
+        .btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+        .btn:active{transform:scale(0.97)}
         .btn-primary{background:var(--primary-light);color:white}.btn-success{background:var(--success);color:white}.btn-accent{background:var(--accent);color:white}
         .btn-outline{background:var(--card-bg);color:var(--primary);border:2px solid var(--primary-light)}
-        .btn-danger{background:var(--danger);color:white}.btn-sm{padding:5px 10px;font-size:.78em}
+        .btn-danger{background:var(--danger);color:white}.btn-sm{padding:5px 10px;font-size:.78em;min-height:36px}
         .btn-autofill{background:#8e44ad;color:white}
         .btn-save{background:#f39c12;color:white;font-weight:700;animation:pulse-save 2s infinite}.btn-save.saved{animation:none;background:var(--success)}
-        .btn-report{background:#16a085;color:white}
-        .btn-refresh{background:var(--business);color:white;font-size:.7em;padding:4px 10px}
+        .btn-undo{background:#7f8c8d;color:white;font-size:.78em;padding:5px 10px}
         @keyframes pulse-save{0%,100%{box-shadow:0 0 0 0 rgba(243,156,18,.4)}50%{box-shadow:0 0 0 8px rgba(243,156,18,0)}}
         .worker-info-card{background:var(--card-bg);border-radius:var(--radius);padding:12px 15px;margin-bottom:6px;box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;border-left:4px solid var(--accent)}
         .worker-info-card .field-group{display:flex;flex-direction:column;gap:3px}
         .worker-info-card label{font-size:.72em;font-weight:700;color:var(--text-light);text-transform:uppercase}
-        .worker-info-card input,.worker-info-card select{padding:7px 10px;border:2px solid var(--border);border-radius:var(--radius-sm);font-size:.9em;font-family:inherit;background:var(--card-bg);color:var(--text);width:100%}
-        .worker-info-card input:focus,.worker-info-card select:focus{outline:none;border-color:var(--accent)}
+        .worker-info-card input,.worker-info-card select{padding:7px 10px;border:2px solid var(--border);border-radius:var(--radius-sm);font-size:.9em;font-family:inherit;background:var(--card-bg);color:var(--text);width:100%;min-height:44px}
+        .worker-info-card input:focus,.worker-info-card select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(230,126,34,0.2)}
         .business-section{background:var(--card-bg);border-radius:var(--radius);padding:10px 12px;margin-bottom:6px;box-shadow:var(--shadow);border-left:4px solid var(--business);display:none}
         .business-section.active{display:block}
-        .business-section h3{font-size:.85em;color:var(--business);margin-bottom:6px;text-transform:uppercase;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-        .biz-checks{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
-        .biz-checks label{font-size:.75em;cursor:pointer;display:flex;align-items:center;gap:3px;padding:5px 10px;border-radius:15px;background:var(--bg);border:2px solid transparent;user-select:none;transition:all 0.15s;min-height:36px}
-        .biz-checks label:hover{filter:brightness(0.95)}
-        .biz-checks label.checked{background:#e8daef;border-color:var(--business);font-weight:700;color:var(--business)}
+        .business-section h3{font-size:.85em;color:var(--business);margin-bottom:8px;text-transform:uppercase;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+        .biz-checks{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+        .biz-checks .biz-tab{padding:8px 16px;border-radius:20px;cursor:pointer;font-size:.78em;font-weight:600;font-family:inherit;background:var(--bg);border:2px solid var(--border);color:var(--text);transition:all 0.1s;min-height:44px;display:inline-flex;align-items:center;gap:4px;user-select:none}
+        .biz-checks .biz-tab:hover{background:#e8daef;border-color:var(--business);transform:translateY(-1px)}
+        .biz-checks .biz-tab:active{transform:scale(0.95)}
+        .biz-checks .biz-tab.active{background:#6c3483!important;color:white!important;border-color:#6c3483!important;box-shadow:0 3px 8px rgba(108,52,131,0.3)}
+        .biz-checks .biz-tab.active:hover{background:#7d3c98!important}
         .business-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
         .business-summary .bs-card{text-align:center;padding:8px;border-radius:var(--radius-sm);background:var(--bg)}
         .business-summary .bs-card h4{font-size:.65em;text-transform:uppercase;color:var(--text-light)}
@@ -71,13 +73,9 @@
         .calendar-table td .date-number{font-weight:700;font-size:.9em;margin-bottom:2px;color:var(--text)}
         .calendar-table td.weekend .date-number{color:#c0392b}
         .day-cell{display:flex;flex-direction:column;gap:2px}
-        .day-cell input.wage-input{width:100%;padding:4px 6px;border:2px solid #e0e0e0;border-radius:3px;font-size:.82em;font-family:inherit;text-align:right;font-weight:600;background:#fafafa}
-        .day-cell input.wage-input:focus{outline:none;border-color:var(--accent);background:white}
+        .day-cell input.wage-input{width:100%;padding:4px 6px;border:2px solid #e0e0e0;border-radius:3px;font-size:.82em;font-family:inherit;text-align:right;font-weight:600;background:#fafafa;min-height:32px}
+        .day-cell input.wage-input:focus{outline:none;border-color:var(--accent);background:white;box-shadow:0 0 0 3px rgba(230,126,34,0.2)}
         .day-cell input.wage-input.has-value{background:#eafaf1;border-color:#82e0aa}
-        .day-cell input.wage-input.mode-wages{border-left:3px solid #2980b9}
-        .day-cell input.wage-input.mode-busfare{border-left:3px solid #e67e22}
-        .day-cell input.wage-input.mode-lunch{border-left:3px solid #27ae60}
-        .day-cell input.wage-input.mode-custom{border-left:3px solid #8e44ad}
         .day-cell input.wage-input.mode-business{border-left:3px solid #6c3483}
         .day-cell input.wage-input.biz-expense{border-left:3px solid #c0392b}
         .day-cell textarea.note-input{width:100%;padding:3px 5px;border:1px solid #e0e0e0;border-radius:3px;font-size:.68em;font-family:inherit;resize:none;height:20px;background:#fafafa}
@@ -92,7 +90,7 @@
         .summary-card h3{font-size:.75em;text-transform:uppercase;color:var(--text-light);margin-bottom:4px}
         .summary-card .big-number{font-size:1.8em;font-weight:800;color:var(--text)}
         .summary-card.net-card .big-number{color:var(--success)}
-        .summary-card input{width:100%;padding:6px;border:2px solid var(--border);border-radius:var(--radius-sm);font-size:1.1em;text-align:center;font-weight:700;font-family:inherit;background:var(--card-bg);color:var(--text)}
+        .summary-card input{width:100%;padding:6px;border:2px solid var(--border);border-radius:var(--radius-sm);font-size:1.1em;text-align:center;font-weight:700;font-family:inherit;background:var(--card-bg);color:var(--text);min-height:44px}
         .action-bar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:8px}
         .day-counter-bar{text-align:center;padding:8px 12px;background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:8px;font-size:.8em;font-weight:600;display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
         .day-counter-bar span{padding:3px 8px;border-radius:12px}
@@ -102,10 +100,15 @@
         .target-info{text-align:center;font-size:.8em;color:var(--text-light);margin-bottom:6px;display:none}
         .backup-reminder{position:fixed;bottom:20px;right:20px;background:var(--accent);color:white;padding:10px 16px;border-radius:var(--radius);font-weight:600;z-index:1500;font-size:.8em;cursor:pointer;display:none;box-shadow:var(--shadow-lg)}
         .backup-reminder.show{display:block;animation:pulse-dot 1.5s infinite}
-        .country-option{padding:8px 12px;cursor:pointer;font-size:.85em;border-bottom:1px solid var(--border)}.country-option:hover{background:var(--accent);color:white}
+        .country-option{padding:12px 16px;cursor:pointer;font-size:.85em;border-bottom:1px solid var(--border);min-height:44px;display:flex;align-items:center}
+        .country-option:hover{background:var(--accent);color:white}
+        .notes-preset-bar{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px;padding:4px 8px;background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);align-items:center}
+        .notes-preset{font-size:.68em;padding:4px 10px;border-radius:15px;background:var(--bg);border:1px solid var(--border);cursor:pointer;white-space:nowrap;transition:all 0.15s;min-height:30px;display:inline-flex;align-items:center}
+        .notes-preset:hover{background:var(--accent);color:white;border-color:var(--accent)}
         .footer-main{background:var(--card-bg);border-radius:var(--radius);padding:15px 20px;margin-top:15px;box-shadow:var(--shadow);text-align:center;border-top:3px solid var(--primary-light)}
         .footer-main .copyright{font-weight:700;color:var(--primary);font-size:.85em;margin-bottom:6px}
-        .footer-main .developer{font-size:.8em;color:var(--text);margin-bottom:4px}.footer-main .developer strong{color:var(--accent)}
+        .footer-main .developer{font-size:.8em;color:var(--text);margin-bottom:4px}
+        .footer-main .developer strong{color:var(--accent)}
         .footer-main .footer-links{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;margin-top:8px}
         .footer-main .footer-links a{color:var(--primary-light);text-decoration:underline;cursor:pointer;font-size:.8em}
         .footer-main .disclaimer{font-size:.7em;color:var(--text-light);margin-top:8px;line-height:1.4}
@@ -114,18 +117,14 @@
         .modal{background:var(--card-bg);color:var(--text);border-radius:var(--radius);padding:25px 30px;max-width:700px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)}
         .modal h2{color:var(--primary);margin-bottom:15px;font-size:1.4em;border-bottom:2px solid var(--border);padding-bottom:10px}
         .modal h3{color:var(--primary);margin-top:15px;margin-bottom:8px;font-size:1.1em}
-        .modal p,.modal li{font-size:.9em;line-height:1.6;margin-bottom:8px}
-        .modal ul{padding-left:20px;margin-bottom:10px}
-        .modal .close-btn{position:sticky;top:0;float:right;background:var(--danger);color:white;border:none;padding:8px 16px;border-radius:var(--radius-sm);cursor:pointer;font-weight:700;z-index:10}
+        .modal .close-btn{position:sticky;top:0;float:right;background:var(--danger);color:white;border:none;padding:8px 16px;border-radius:var(--radius-sm);cursor:pointer;font-weight:700;z-index:10;min-height:44px}
         .modal .report-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.85em}
         .modal .report-table th{background:var(--primary);color:white;padding:8px;text-align:center}
         .modal .report-table td{padding:6px 8px;border:1px solid var(--border);text-align:right}
         .modal .report-table td:first-child{text-align:left}
         .star-rating{display:flex;justify-content:center;gap:5px;font-size:2em;cursor:pointer;margin:10px 0}
-        .star-rating .star{color:#ddd;transition:color .1s;user-select:none}.star-rating .star.active{color:#f39c12}
-        .review-item{border-bottom:1px solid var(--border);padding:10px 0}
-        .review-item .review-header{display:flex;justify-content:space-between;font-size:.8em;color:var(--text-light);margin-bottom:4px}
-        .review-item .review-stars{color:#f39c12}.review-item .review-text{font-size:.9em}
+        .star-rating .star{color:#ddd;transition:color .1s;user-select:none;min-width:44px;text-align:center;cursor:pointer}
+        .star-rating .star.active{color:#f39c12}
         .toast{position:fixed;top:20px;right:20px;background:#2c3e50;color:white;padding:12px 20px;border-radius:var(--radius);font-weight:600;z-index:3000;opacity:0;transform:translateY(-20px);transition:all .3s;pointer-events:none}
         .toast.show{opacity:1;transform:translateY(0)}.toast.success{background:var(--success)}.toast.warning{background:var(--accent)}
         #csvFileInput{display:none}
@@ -135,17 +134,21 @@
         @keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.3}}
         .unsaved-banner{text-align:center;padding:6px;background:#fef9e7;color:#b7950b;font-weight:600;font-size:.8em;border-radius:var(--radius-sm);margin-bottom:8px;display:none;border:1px solid #f9e79f}
         .unsaved-banner.show{display:block}
-        @media(max-width:768px){.calendar-table{min-width:auto;font-size:.7em}.calendar-table td{height:50px;padding:2px}.header h1{font-size:1.4em}.worker-info-card{grid-template-columns:1fr 1fr;gap:6px;padding:10px}.summary-card .big-number{font-size:1.3em}.modal{padding:15px;max-width:95vw}.biz-checks{flex-direction:row;flex-wrap:wrap;gap:6px}.biz-checks label{font-size:.7em;padding:6px 10px;margin:2px}}
+        .loading-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:2500;justify-content:center;align-items:center}
+        .loading-overlay.active{display:flex}
+        .loading-spinner{background:var(--card-bg);padding:20px 30px;border-radius:var(--radius);font-weight:600;color:var(--text)}
+        @media(max-width:768px){.calendar-table{min-width:auto;font-size:.7em}.calendar-table td{height:50px;padding:2px}.header h1{font-size:1.4em}.worker-info-card{grid-template-columns:1fr 1fr;gap:6px;padding:10px}.summary-card .big-number{font-size:1.3em}.modal{padding:15px;max-width:95vw}}
     </style>
 </head>
 <body>
 <div class="main-wrapper">
 <div class="header"><h1>📅 The Ngili Calendar</h1><p class="subtitle">Universal Income Tracker — For Workers & Businesses</p></div>
 <div class="settings-bar no-print">
-<select id="currencySelect" onchange="changeCurrency()"><option value="KES">KES</option><option value="UGX">UGX</option><option value="TZS">TZS</option><option value="USD">$ USD</option><option value="EUR">€ EUR</option><option value="GBP">£ GBP</option><option value="ZAR">R ZAR</option><option value="NGN">₦ NGN</option></select>
+<select id="currencySelect" onchange="changeCurrency()"><option value="KES">KES</option><option value="UGX">UGX</option><option value="TZS">TZS</option><option value="RWF">RWF</option><option value="USD">$ USD</option><option value="EUR">€ EUR</option><option value="GBP">£ GBP</option><option value="ZAR">R ZAR</option><option value="NGN">₦ NGN</option><option value="GHS">₵ GHS</option><option value="ETB">ETB</option></select>
 <button class="btn btn-sm btn-outline" onclick="toggleDarkMode()" id="darkToggle">🌙 Dark</button>
 <select id="weekendRateSelect" onchange="changeWeekendRate()"><option value="1">Sun 1×</option><option value="1.5">Sun 1.5×</option><option value="2">Sun 2×</option></select>
 <button class="btn btn-sm btn-outline" onclick="setDailyTarget()">🎯 Target</button>
+<button class="btn btn-sm btn-undo" onclick="undo()" id="undoBtn" disabled>↩ Undo</button>
 </div>
 <div class="mode-bar no-print">
 <span class="mode-label">📋 Mode:</span>
@@ -161,13 +164,13 @@
 <label>Year:</label><select id="yearSelect"></select>
 <button class="btn btn-primary" onclick="goToToday()">📆 Today</button>
 <button class="btn btn-save" id="manualSaveBtn" onclick="manualSave()">💾 Save</button>
-<button class="btn btn-report" onclick="openModal('reportModal')">📊 Reports</button>
-<button class="btn btn-outline btn-sm" onclick="clearCurrentMode()">🗑 Clear</button>
+<button class="btn btn-outline btn-sm" onclick="openModal('reportModal')">📊 Reports</button>
+<button class="btn btn-outline btn-sm" onclick="openModal('searchModal')">🔍 Search</button>
 </div>
-<div class="unsaved-banner no-print" id="unsavedBanner">⚠ Unsaved changes! Click <strong>💾 Save</strong></div>
+<div class="unsaved-banner no-print" id="unsavedBanner" role="alert">⚠ Unsaved changes! Click <strong>💾 Save</strong></div>
 
 <div class="business-section no-print" id="businessSection">
-<h3>🏪 Business Income Sources (Click to toggle) <button class="btn btn-refresh" onclick="renderCalendar()" style="font-size:.7em;padding:4px 10px;margin-left:5px">🔄 Apply</button></h3>
+<h3>🏪 Business Income Sources <small style="font-weight:400;font-size:.8em">(Click tabs to toggle — INSTANT update)</small></h3>
 <div class="biz-checks" id="bizSources"></div>
 <div class="business-summary" id="bizSummary">
 <div class="bs-card"><h4>💰 Total Income</h4><div class="bs-num bs-income" id="bizTotalIncome">0.00</div></div>
@@ -182,8 +185,18 @@
 <div class="field-group" style="position:relative;"><label>🌍 Citizenship</label><input type="text" id="citizenshipSearch" placeholder="Search..." autocomplete="off" oninput="filterCountries()" onfocus="showCountryList()"><input type="hidden" id="workerCitizenship" value="Kenya"><div id="countryDropdown" style="display:none;position:absolute;top:100%;left:0;width:100%;max-height:200px;overflow-y:auto;background:var(--card-bg);border:2px solid var(--accent);border-radius:4px;z-index:1000;box-shadow:var(--shadow-lg);"></div></div>
 <div class="field-group"><label id="dailyWageLabel">💰 Daily Amount</label><input type="number" id="dailyWage" placeholder="e.g. 500" min="0" step="any" oninput="markUnsaved()"></div>
 <div class="field-group"><label>📞 Phone</label><input type="text" id="workerPhone" placeholder="Phone" oninput="markUnsaved()"></div>
-<div class="field-group"><label id="employerLabel">🏢 Employer/Business</label><input type="text" id="employerInput" placeholder="Name" oninput="saveEmployer()"></div>
+<div class="field-group"><label id="employerLabel">🏢 Employer</label><input type="text" id="employerInput" placeholder="Name" oninput="saveEmployer()"></div>
 </div>
+
+<div class="notes-preset-bar no-print" id="notesPresetBar" style="display:none;">
+<span style="font-size:.7em;font-weight:700;color:var(--text-light);margin-right:4px;">📝 Quick:</span>
+<span class="notes-preset" onclick="applyNotePreset('Overtime')">Overtime</span>
+<span class="notes-preset" onclick="applyNotePreset('Half-day')">Half-day</span>
+<span class="notes-preset" onclick="applyNotePreset('Sick')">Sick</span>
+<span class="notes-preset" onclick="applyNotePreset('Holiday')">Holiday</span>
+<span class="notes-preset" onclick="applyNotePreset('Bonus')">Bonus</span>
+</div>
+
 <div class="target-bar" id="targetBar"><div class="target-fill" id="targetFill"></div></div>
 <div class="target-info" id="targetInfo"></div>
 <div class="calendar-container"><table class="calendar-table"><thead><tr><th class="sunday">Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr></thead><tbody id="calendarBody"></tbody></table></div>
@@ -193,185 +206,639 @@
 <div class="summary-card advance-card"><h3 id="advanceLabel">💸 Advance</h3><input type="number" id="advanceInput" placeholder="0" min="0" step="any" oninput="saveAdvance()"></div>
 <div class="summary-card net-card"><h3 id="netLabel">✅ Net</h3><div class="big-number" id="netAmount">0.00</div></div>
 </div>
-<div class="summary-section" id="weekSummarySection"></div>
 <div class="action-bar no-print">
 <button class="btn btn-save" id="manualSaveBtn2" onclick="manualSave()">💾 Save</button>
 <button class="btn btn-autofill" onclick="autofillDailyWage()">⚡ Autofill</button>
 <button class="btn btn-success" onclick="exportCSV()">📥 CSV</button>
 <button class="btn btn-accent" onclick="document.getElementById('csvFileInput').click()">📤 Import</button><input type="file" id="csvFileInput" accept=".csv" onchange="importCSV(event)">
 <button class="btn btn-outline" onclick="printCalendar()">🖨 Print</button>
-<button class="btn btn-outline btn-sm" onclick="shareViaWhatsApp()">📱 Share</button>
 <button class="btn btn-danger btn-sm" onclick="resetAllData()">⚠ Reset</button>
 </div>
 <div class="last-saved no-print"><span class="dot" id="saveDot"></span><span id="lastSavedText">Saved ✓</span></div>
 <div class="backup-reminder" id="backupReminder" onclick="exportCSV()">⚠ No backup in 14 days! Export →</div>
+<div class="loading-overlay" id="loadingOverlay"><div class="loading-spinner">⏳ Processing...</div></div>
 <div class="footer-main">
-<div class="copyright">© 2026 <strong>The Ngili Calendar</strong> <span style="background:var(--accent);color:white;padding:2px 8px;border-radius:10px;font-size:0.75em;">v2.1</span>. All Rights Reserved.</div>
+<div class="copyright">© 2026 <strong>The Ngili Calendar</strong> <span style="background:var(--accent);color:white;padding:2px 8px;border-radius:10px;font-size:0.75em;">v2.4</span>. All Rights Reserved.</div>
 <div class="developer">Developed by <strong>Safari Softwares</strong> | 📧 <a href="mailto:safarisoftwares@gmail.com" style="color:var(--primary-light);">safarisoftwares@gmail.com</a></div>
-<div class="footer-links no-print"><a onclick="openModal('termsModal')">📜 Terms of Use</a><a onclick="openModal('privacyModal')">🔒 Privacy Policy</a><a onclick="openModal('reviewsModal')">⭐ Reviews</a></div>
-<div class="disclaimer">Disclaimer: The Ngili Calendar is a tool to assist workers and businesses in tracking income and expenses. It is not a substitute for official financial or payroll records. Safari Softwares assumes no liability for any financial decisions made based on this tool.</div>
+<div class="footer-links no-print"><a onclick="openModal('termsModal')">📜 Terms</a><a onclick="openModal('privacyModal')">🔒 Privacy</a><a onclick="openModal('reviewsModal')">⭐ Reviews</a></div>
+<div class="disclaimer">Disclaimer: The Ngili Calendar is a tool to assist workers and businesses in tracking income and expenses. It is not a substitute for official financial or payroll records.</div>
 </div>
 </div>
 
 <!-- MODALS -->
-<div class="modal-overlay" id="termsModal"><div class="modal"><button class="close-btn" onclick="closeModal('termsModal')">✕ Close</button><h2>📜 Terms of Use</h2><p><strong>Effective: Jan 1, 2026 | Updated: June 26, 2026</strong></p><h3>1. Acceptance</h3><p>By using The Ngili Calendar, you agree to these Terms.</p><h3>2. Service</h3><p>Browser-based income tracking tool. Free of charge. Data stored locally in your browser.</p><h3>3. User Responsibilities</h3><ul><li>You are responsible for data accuracy.</li><li>Back up data using Export CSV.</li><li>Not a replacement for professional accounting software.</li></ul><h3>4. Intellectual Property</h3><p>Property of <strong>Safari Softwares</strong>.</p><h3>5. Liability</h3><p>Provided "as is" without warranty.</p><h3>6. Contact</h3><p>📧 safarisoftwares@gmail.com</p></div></div>
-<div class="modal-overlay" id="privacyModal"><div class="modal"><button class="close-btn" onclick="closeModal('privacyModal')">✕ Close</button><h2>🔒 Privacy Policy</h2><p><strong>Your data is yours. We do not collect it.</strong></p><h3>No Data Collected</h3><ul><li>❌ No servers</li><li>❌ No tracking</li><li>❌ No accounts</li></ul><h3>Storage</h3><p>All data stored in your browser's localStorage. Export CSV regularly for backup.</p></div></div>
+<div class="modal-overlay" id="termsModal"><div class="modal"><button class="close-btn" onclick="closeModal('termsModal')">✕ Close</button><h2>📜 Terms of Use</h2><p><strong>Effective: Jan 1, 2026</strong></p><p>By using The Ngili Calendar, you agree to these Terms. This is a browser-based income tracking tool. Data stored locally in your browser. Property of <strong>Safari Softwares</strong>. Provided "as is" without warranty.</p></div></div>
+<div class="modal-overlay" id="privacyModal"><div class="modal"><button class="close-btn" onclick="closeModal('privacyModal')">✕ Close</button><h2>🔒 Privacy Policy</h2><p><strong>Your data is yours. We do not collect it.</strong></p><p>❌ No servers ❌ No tracking ❌ No accounts. All data stored in your browser's localStorage. Export CSV regularly for backup.</p></div></div>
 <div class="modal-overlay" id="reportModal"><div class="modal"><button class="close-btn" onclick="closeModal('reportModal')">✕ Close</button><h2>📊 Cross-Month Reports</h2><div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px"><div>From:<br><select id="reportFromMonth" onchange="generateReport()"></select><select id="reportFromYear" onchange="generateReport()"></select></div><div>To:<br><select id="reportToMonth" onchange="generateReport()"></select><select id="reportToYear" onchange="generateReport()"></select></div><div>Mode:<br><select id="reportMode" onchange="generateReport()"><option value="wages">💰 Wages</option><option value="busfare">🚌 Bus Fare</option><option value="lunch">🍽 Lunch</option><option value="business">🏪 Business</option><option value="custom">✚ Custom</option></select></div></div><div id="reportOutput"></div></div></div>
-<div class="modal-overlay" id="reviewsModal"><div class="modal"><button class="close-btn" onclick="closeModal('reviewsModal')">✕ Close</button><h2>⭐ Reviews</h2><p style="text-align:center;color:var(--text-light)" id="reviewCount">0 reviews | Avg: —</p><div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px"><input type="text" id="reviewName" placeholder="Your name" style="padding:8px;border:2px solid var(--border);border-radius:4px;font-family:inherit;background:var(--card-bg);color:var(--text)"><div class="star-rating" id="starRating"><span class="star" data-star="1">☆</span><span class="star" data-star="2">☆</span><span class="star" data-star="3">☆</span><span class="star" data-star="4">☆</span><span class="star" data-star="5">☆</span></div><input type="hidden" id="reviewStars" value="0"><textarea id="reviewText" placeholder="Your experience..." style="padding:8px;border:2px solid var(--border);border-radius:4px;font-family:inherit;height:70px;resize:vertical;background:var(--card-bg);color:var(--text)"></textarea><button class="btn btn-accent" onclick="submitReview()">📝 Submit</button></div><div id="reviewList"></div></div></div>
+<div class="modal-overlay" id="searchModal"><div class="modal"><button class="close-btn" onclick="closeModal('searchModal')">✕ Close</button><h2>🔍 Search Entries</h2><div style="display:flex;gap:8px;margin-bottom:12px"><input type="text" id="searchQuery" placeholder="Search..." style="flex:1;padding:8px;border:2px solid var(--border);border-radius:4px;background:var(--card-bg);color:var(--text);min-height:44px" oninput="performSearch()"><select id="searchMode" onchange="performSearch()" style="padding:8px;border:2px solid var(--border);border-radius:4px;background:var(--card-bg);color:var(--text)"><option value="all">All Modes</option><option value="wages">Wages</option><option value="busfare">Bus Fare</option><option value="lunch">Lunch</option><option value="business">Business</option><option value="custom">Custom</option></select></div><div id="searchResults"></div></div></div>
+<div class="modal-overlay" id="reviewsModal"><div class="modal"><button class="close-btn" onclick="closeModal('reviewsModal')">✕ Close</button><h2>⭐ Reviews</h2><p style="text-align:center;color:var(--text-light)" id="reviewCount">0 reviews | Avg: —</p><div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px"><input type="text" id="reviewName" placeholder="Your name" style="padding:8px;border:2px solid var(--border);border-radius:4px;background:var(--card-bg);color:var(--text);min-height:44px"><div class="star-rating" id="starRating"><span class="star" data-star="1">☆</span><span class="star" data-star="2">☆</span><span class="star" data-star="3">☆</span><span class="star" data-star="4">☆</span><span class="star" data-star="5">☆</span></div><input type="hidden" id="reviewStars" value="0"><textarea id="reviewText" placeholder="Your experience..." style="padding:8px;border:2px solid var(--border);border-radius:4px;height:70px;resize:vertical;background:var(--card-bg);color:var(--text)"></textarea><button class="btn btn-accent" onclick="submitReview()">📝 Submit</button></div><div id="reviewList"></div></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
-const STORAGE_KEY='ngili_calendar_v21',REVIEWS_KEY='ngili_reviews_v2';
+// ============ CONSTANTS ============
+const STORAGE_KEY='ngili_calendar_v24';
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
-const MONTHS_SW=['Januari','Februari','Machi','Aprili','Mei','Juni','Julai','Agosti','Septemba','Oktoba','Novemba','Desemba'];
 const MODES=['wages','busfare','lunch','business','custom'];
-const MODE_COLORS={wages:'#2980b9',busfare:'#e67e22',lunch:'#27ae60',business:'#6c3483',custom:'#8e44ad'};
 const MODE_LABELS={wages:'💰 Wages',busfare:'🚌 Bus Fare',lunch:'🍽 Lunch',business:'🏪 Business',custom:'✚ Custom'};
 const BIZ_TYPES=['sales','transport','food','services','labor','airtime','custom'];
 const BIZ_LABELS={sales:'🛒 Sales',transport:'🚗 Transport',food:'🍳 Food',services:'💇 Services',labor:'🏗 Labor',airtime:'📱 Airtime',custom:'✚ Other'};
-const ALL_COUNTRIES=[{name:'Kenya',flag:'🇰🇪'},{name:'Tanzania',flag:'🇹🇿'},{name:'Uganda',flag:'🇺🇬'},{name:'Rwanda',flag:'🇷🇼'},{name:'South Africa',flag:'🇿🇦'},{name:'Nigeria',flag:'🇳🇬'},{name:'Ghana',flag:'🇬🇭'},{name:'Ethiopia',flag:'🇪🇹'},{name:'Germany',flag:'🇩🇪'},{name:'France',flag:'🇫🇷'},{name:'UK',flag:'🇬🇧'},{name:'USA',flag:'🇺🇸'},{name:'India',flag:'🇮🇳'},{name:'Other',flag:'🌐'}];
+const ALL_COUNTRIES=[{name:'Kenya',flag:'🇰🇪',cur:'KES'},{name:'Tanzania',flag:'🇹🇿',cur:'TZS'},{name:'Uganda',flag:'🇺🇬',cur:'UGX'},{name:'Rwanda',flag:'🇷🇼',cur:'RWF'},{name:'South Africa',flag:'🇿🇦',cur:'ZAR'},{name:'Nigeria',flag:'🇳🇬',cur:'NGN'},{name:'Ghana',flag:'🇬🇭',cur:'GHS'},{name:'Ethiopia',flag:'🇪🇹',cur:'ETB'},{name:'Germany',flag:'🇩🇪',cur:'EUR'},{name:'France',flag:'🇫🇷',cur:'EUR'},{name:'UK',flag:'🇬🇧',cur:'GBP'},{name:'USA',flag:'🇺🇸',cur:'USD'},{name:'India',flag:'🇮🇳',cur:'INR'},{name:'Other',flag:'🌐',cur:'USD'}];
 
-const PUBLIC_HOLIDAYS={
-    Kenya:{1:{1:"New Year's Day"},5:{1:"Labour Day"},6:{1:"Madaraka Day"},10:{10:"Moi Day",20:"Mashujaa Day"},12:{12:"Jamhuri Day",25:"Christmas Day",26:"Boxing Day"}},
-    Tanzania:{1:{1:"New Year",12:"Zanzibar Revolution"},4:{7:"Karume Day",26:"Union Day"},5:{1:"Labour Day"},7:{7:"Saba Saba"},10:{14:"Nyerere Day"},12:{9:"Independence",25:"Christmas",26:"Boxing Day"}},
-    Uganda:{1:{1:"New Year",26:"Liberation Day"},3:{8:"Women's Day"},5:{1:"Labour Day"},6:{3:"Martyrs' Day",9:"Heroes' Day"},10:{9:"Independence"},12:{25:"Christmas",26:"Boxing Day"}},
-    Rwanda:{1:{1:"New Year",2:"Day After New Year"},2:{1:"Heroes' Day"},4:{7:"Genocide Memorial"},5:{1:"Labour Day"},7:{1:"Independence",4:"Liberation Day"},8:{15:"Assumption"},12:{25:"Christmas",26:"Boxing Day"}},
-    'South Africa':{1:{1:"New Year"},3:{21:"Human Rights Day"},4:{27:"Freedom Day"},5:{1:"Workers' Day"},6:{16:"Youth Day"},8:{9:"Women's Day"},9:{24:"Heritage Day"},12:{16:"Reconciliation",25:"Christmas",26:"Goodwill Day"}},
-    Nigeria:{1:{1:"New Year"},5:{1:"Workers' Day",27:"Children's Day"},6:{12:"Democracy Day"},10:{1:"Independence"},12:{25:"Christmas",26:"Boxing Day"}},
-    USA:{1:{1:"New Year"},7:{4:"Independence Day"},11:{25:"Thanksgiving"},12:{25:"Christmas"}},
-    UK:{1:{1:"New Year"},12:{25:"Christmas",26:"Boxing Day"}},
-    Germany:{1:{1:"New Year"},5:{1:"Labour Day"},10:{3:"Unity Day"},12:{25:"Christmas",26:"Boxing Day"}},
-    France:{1:{1:"New Year"},5:{1:"Labour Day",8:"Victory Day"},7:{14:"Bastille Day"},8:{15:"Assumption"},11:{1:"All Saints",11:"Armistice"},12:{25:"Christmas"}},
-    India:{1:{26:"Republic Day"},8:{15:"Independence"},10:{2:"Gandhi Jayanti"},12:{25:"Christmas"}}
-};
+// ============ PUBLIC HOLIDAYS ============
+const PUBLIC_HOLIDAYS={Kenya:{1:{1:"New Year's Day"},5:{1:"Labour Day"},6:{1:"Madaraka Day"},10:{10:"Moi Day",20:"Mashujaa Day"},12:{12:"Jamhuri Day",25:"Christmas Day",26:"Boxing Day"}},Tanzania:{1:{1:"New Year",12:"Zanzibar Revolution"},4:{7:"Karume Day",26:"Union Day"},5:{1:"Labour Day"},7:{7:"Saba Saba"},10:{14:"Nyerere Day"},12:{9:"Independence",25:"Christmas",26:"Boxing Day"}},Uganda:{1:{1:"New Year",26:"Liberation Day"},3:{8:"Women's Day"},5:{1:"Labour Day"},6:{3:"Martyrs' Day",9:"Heroes' Day"},10:{9:"Independence"},12:{25:"Christmas",26:"Boxing Day"}},Rwanda:{1:{1:"New Year",2:"Day After New Year"},2:{1:"Heroes' Day"},4:{7:"Genocide Memorial"},5:{1:"Labour Day"},7:{1:"Independence",4:"Liberation Day"},8:{15:"Assumption"},12:{25:"Christmas",26:"Boxing Day"}},'South Africa':{1:{1:"New Year"},3:{21:"Human Rights Day"},4:{27:"Freedom Day"},5:{1:"Workers' Day"},6:{16:"Youth Day"},8:{9:"Women's Day"},9:{24:"Heritage Day"},12:{16:"Reconciliation",25:"Christmas",26:"Goodwill Day"}},Nigeria:{1:{1:"New Year"},5:{1:"Workers' Day",27:"Children's Day"},6:{12:"Democracy Day"},10:{1:"Independence"},12:{25:"Christmas",26:"Boxing Day"}},USA:{1:{1:"New Year"},7:{4:"Independence Day"},11:{25:"Thanksgiving"},12:{25:"Christmas"}},UK:{1:{1:"New Year"},12:{25:"Christmas",26:"Boxing Day"}},Germany:{1:{1:"New Year"},5:{1:"Labour Day"},10:{3:"Unity Day"},12:{25:"Christmas",26:"Boxing Day"}},France:{1:{1:"New Year"},5:{1:"Labour Day",8:"Victory Day"},7:{14:"Bastille Day"},8:{15:"Assumption"},11:{1:"All Saints",11:"Armistice"},12:{25:"Christmas"}},India:{1:{26:"Republic Day"},8:{15:"Independence"},10:{2:"Gandhi Jayanti"},12:{25:"Christmas"}}};
+
 function getEasterDates(year){var a=year%19,b=Math.floor(year/100),c=year%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),month=Math.floor((h+l-7*m+114)/31),day=((h+l-7*m+114)%31)+1;var gf=new Date(year,month-1,day-2),em=new Date(year,month-1,day+1);return{gf:{month:gf.getMonth()+1,day:gf.getDate()},em:{month:em.getMonth()+1,day:em.getDate()}}}
 var easterCache={},easterCountries=['Kenya','Tanzania','Uganda','Rwanda','South Africa','Nigeria','USA','UK','Germany','France'];
 function getEasterForYear(y){if(!easterCache[y])easterCache[y]=getEasterDates(y);return easterCache[y]}
-function isPublicHoliday(country,monthIdx,day){if(!country||!PUBLIC_HOLIDAYS[country])return false;var m=monthIdx+1;var md=PUBLIC_HOLIDAYS[country][m];if(md&&md[day])return true;if(easterCountries.indexOf(country)!==-1){var e=getEasterForYear(currentYear);if(e.gf.month===m&&e.gf.day===day)return true;if(e.em.month===m&&e.em.day===day)return true;}return false}
-function getHolidayName(country,monthIdx,day){if(!country||!PUBLIC_HOLIDAYS[country])return'Public Holiday';var m=monthIdx+1;var md=PUBLIC_HOLIDAYS[country][m];if(md&&md[day])return md[day];if(easterCountries.indexOf(country)!==-1){var e=getEasterForYear(currentYear);if(e.gf.month===m&&e.gf.day===day)return'Good Friday';if(e.em.month===m&&e.em.day===day)return'Easter Monday';}return'Public Holiday'}
+function isPublicHoliday(country,monthIdx,day){if(!country||!PUBLIC_HOLIDAYS[country])return false;var m=monthIdx+1;var md=PUBLIC_HOLIDAYS[country][m];if(md&&md[day])return true;if(easterCountries.indexOf(country)!==-1){var e=getEasterForYear(currentYear);if(e.gf.month===m&&e.gf.day===day)return true;if(e.em.month===m&&e.em.day===day)return true}return false}
+function getHolidayName(country,monthIdx,day){if(!country||!PUBLIC_HOLIDAYS[country])return'Public Holiday';var m=monthIdx+1;var md=PUBLIC_HOLIDAYS[country][m];if(md&&md[day])return md[day];if(easterCountries.indexOf(country)!==-1){var e=getEasterForYear(currentYear);if(e.gf.month===m&&e.gf.day===day)return'Good Friday';if(e.em.month===m&&e.em.day===day)return'Easter Monday'}return'Public Holiday'}
 
-let currentMonth=new Date().getMonth(),currentYear=new Date().getFullYear(),currentMode='wages',allData={},unsavedChanges=false,currencySymbol='KES',weekendMultiplier=1,currentLang='en',darkMode=false,dailyTarget=0,lastExportDate=null,activeBizSources=['sales'];
+// ============ STATE ============
+let currentMonth=new Date().getMonth(),currentYear=new Date().getFullYear(),currentMode='wages',allData={},unsavedChanges=false,currencySymbol='KES',weekendMultiplier=1,darkMode=false,dailyTarget=0,lastExportDate=null,activeBizSources=['sales'],undoStack=[],savePending=false,activeNoteCell=null;
 
+// ============ HELPERS ============
 function ge(id){return document.getElementById(id)}
 function gsk(m,y){return y+'-'+m}
-function loadAllData(){const s=localStorage.getItem(STORAGE_KEY);allData=s?JSON.parse(s):{};const st=JSON.parse(localStorage.getItem('ngili_settings_v21')||'{}');currencySymbol=st.cur||'KES';currentLang=st.lang||'en';darkMode=st.dark||false;weekendMultiplier=st.wr||1;dailyTarget=st.tgt||0;lastExportDate=st.le||null;activeBizSources=st.biz||['sales'];if(darkMode)document.body.classList.add('dark-mode');ge('currencySelect').value=currencySymbol;ge('weekendRateSelect').value=weekendMultiplier;ge('darkToggle').textContent=darkMode?'☀️ Light':'🌙 Dark';if(!ge('workerCitizenship').value){ge('workerCitizenship').value='Kenya';ge('citizenshipSearch').value='🇰🇪 Kenya'}}
-function saveSettings(){localStorage.setItem('ngili_settings_v21',JSON.stringify({cur:currencySymbol,lang:currentLang,dark:darkMode,wr:weekendMultiplier,tgt:dailyTarget,le:lastExportDate,biz:activeBizSources}))}
-function saveAllData(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(allData));unsavedChanges=false;updateSaveIndicator(true);hideUnsavedBanner();updateSaveButtons(true)}catch(e){showToast('⚠ Storage full!','warning')}}
+function fmtCur(v){return currencySymbol+' '+parseFloat(v||0).toFixed(2)}
+function getDaysInMonth(m,y){return new Date(y,m+1,0).getDate()}
+function getFirstDayOfMonth(m,y){return new Date(y,m,1).getDay()}
+function isSunday(d,m,y){return new Date(y,m,d).getDay()===0}
+
+// ============ STORAGE ============
+function safeSet(k,v){try{localStorage.setItem(k,v);return true}catch(e){showToast('⚠ Storage full!','warning');return false}}
+function safeGet(k,d){try{const v=localStorage.getItem(k);return v!==null?v:d}catch(e){return d}}
+
+// ============ DATA ============
+function loadAllData(){const s=safeGet(STORAGE_KEY,'{}');try{allData=JSON.parse(s)}catch(e){allData={}}const st=JSON.parse(safeGet('ngili_settings_v24','{}'));currencySymbol=st.cur||'KES';darkMode=st.dark||false;weekendMultiplier=st.wr||1;dailyTarget=st.tgt||0;lastExportDate=st.le||null;activeBizSources=st.biz||['sales'];if(darkMode)document.body.classList.add('dark-mode');ge('currencySelect').value=currencySymbol;ge('weekendRateSelect').value=weekendMultiplier;ge('darkToggle').textContent=darkMode?'☀️ Light':'🌙 Dark';if(!ge('workerCitizenship').value){ge('workerCitizenship').value='Kenya';ge('citizenshipSearch').value='🇰🇪 Kenya'}undoStack=JSON.parse(safeGet('ngili_undo_v2','[]'));ge('undoBtn').disabled=undoStack.length===0}
+function saveSettings(){safeSet('ngili_settings_v24',JSON.stringify({cur:currencySymbol,dark:darkMode,wr:weekendMultiplier,tgt:dailyTarget,le:lastExportDate,biz:activeBizSources}))}
+function saveAllData(){if(savePending)return;savePending=true;setTimeout(function(){safeSet(STORAGE_KEY,JSON.stringify(allData));safeSet('ngili_undo_v2',JSON.stringify(undoStack));unsavedChanges=false;updateSaveIndicator(true);hideUnsavedBanner();updateSaveButtons(true);savePending=false},300)}
 function manualSave(){flushAllChanges();saveAllData();showToast('💾 Saved!','success')}
-function getMonthData(m,y){const k=gsk(m,y);if(!allData[k]){allData[k]={workerInfo:{name:'',id:'',citizenship:'Kenya',dailyWage:'',phone:''},employerWages:'',employerBusfare:'',employerLunch:'',employerBusiness:'',employerCustom:'',wages:{},busfare:{},lunch:{},business:{},custom:{},advanceWages:0,advanceBusfare:0,advanceLunch:0,advanceBusiness:0,advanceCustom:0,bizSources:['sales']};}MODES.forEach(function(m){if(!allData[k][m])allData[k][m]={};});return allData[k]}
-function flushAllChanges(){const data=getMonthData(currentMonth,currentYear);data.workerInfo={name:ge('workerName').value,id:ge('workerID').value,citizenship:ge('workerCitizenship').value||'Kenya',dailyWage:ge('dailyWage').value,phone:ge('workerPhone').value};data['employer'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=ge('employerInput').value;data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=parseFloat(ge('advanceInput').value)||0;data.bizSources=activeBizSources;const dim=getDaysInMonth(currentMonth,currentYear);if(!data[currentMode])data[currentMode]={};for(let d=1;d<=dim;d++){if(currentMode==='business'){const dd={};let hasData=false;activeBizSources.forEach(function(bt){const wi=ge('biz-'+bt+'-'+d);if(wi){const v=parseFloat(wi.value)||0;dd[bt]=v;if(v>0)hasData=true}});const ei=ge('exp-'+d);const exp=ei?parseFloat(ei.value)||0:0;if(hasData||exp>0){data.business[d]={income:dd,expense:exp}}else{delete data.business[d]}}else{const wi=ge('wage-'+d);const ni=ge('note-'+d);if(wi&&ni){const w=parseFloat(wi.value)||0;const n=ni.value;if(w===0&&n===''){delete data[currentMode][d]}else{data[currentMode][d]={amount:w,note:n}}}}}}
+function getMonthData(m,y){const k=gsk(m,y);if(!allData[k]){allData[k]={workerInfo:{name:'',id:'',citizenship:'Kenya',dailyWage:'',phone:''},employerWages:'',employerBusfare:'',employerLunch:'',employerBusiness:'',employerCustom:'',wages:{},busfare:{},lunch:{},business:{},custom:{},advanceWages:0,advanceBusfare:0,advanceLunch:0,advanceBusiness:0,advanceCustom:0,bizSources:['sales']}}return allData[k]}
+function flushAllChanges(){const data=getMonthData(currentMonth,currentYear);data.workerInfo={name:ge('workerName').value,id:ge('workerID').value,citizenship:ge('workerCitizenship').value||'Kenya',dailyWage:ge('dailyWage').value,phone:ge('workerPhone').value};data['employer'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=ge('employerInput').value;data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=parseFloat(ge('advanceInput').value)||0;data.bizSources=activeBizSources;const dim=getDaysInMonth(currentMonth,currentYear);for(let d=1;d<=dim;d++){if(currentMode==='business'){const dd={};let hasData=false;activeBizSources.forEach(function(bt){const wi=ge('biz-'+bt+'-'+d);if(wi){const v=parseFloat(wi.value)||0;dd[bt]=v;if(v>0)hasData=true}});const ei=ge('exp-'+d);const exp=ei?parseFloat(ei.value)||0:0;if(hasData||exp>0){data.business[d]={income:dd,expense:exp}}else{delete data.business[d]}}else{const wi=ge('wage-'+d);const ni=ge('note-'+d);if(wi&&ni){const w=parseFloat(wi.value)||0;const n=ni.value;if(w===0&&n===''){delete data[currentMode][d]}else{data[currentMode][d]={amount:w,note:n}}}}}}
 function markUnsaved(){unsavedChanges=true;updateSaveIndicator(false);showUnsavedBanner();updateSaveButtons(false)}
 function updateSaveButtons(saved){[ge('manualSaveBtn'),ge('manualSaveBtn2')].forEach(function(btn){if(!btn)return;if(saved){btn.classList.add('saved');btn.textContent='✅ Saved';setTimeout(function(){btn.classList.remove('saved');btn.textContent='💾 Save'},2000)}else{btn.classList.remove('saved');btn.textContent='💾 Save'}})}
 function updateSaveIndicator(s){ge('saveDot').className=s?'dot':'dot unsaved';ge('lastSavedText').textContent=s?'Saved ✓':'Unsaved changes'}
 function showUnsavedBanner(){ge('unsavedBanner').classList.add('show')}
 function hideUnsavedBanner(){ge('unsavedBanner').classList.remove('show')}
+
+// ============ SETTINGS ============
 function toggleDarkMode(){darkMode=!darkMode;document.body.classList.toggle('dark-mode',darkMode);ge('darkToggle').textContent=darkMode?'☀️ Light':'🌙 Dark';saveSettings()}
 function changeCurrency(){currencySymbol=ge('currencySelect').value;saveSettings();updateAllTotals();updateWeekSummaryCards();updateBizSummary()}
 function changeWeekendRate(){weekendMultiplier=parseFloat(ge('weekendRateSelect').value);saveSettings()}
-function autoMatchCurrency(){const c=ge('workerCitizenship').value;const m={'Kenya':'KES','Tanzania':'TZS','Uganda':'UGX','Rwanda':'RWF','South Africa':'ZAR','Nigeria':'NGN','Ghana':'GHS','Ethiopia':'ETB','Germany':'EUR','France':'EUR','UK':'GBP','USA':'USD','India':'INR'};if(m[c]){currencySymbol=m[c];ge('currencySelect').value=currencySymbol;saveSettings();updateAllTotals()}}
-function showCountryList(){ge('citizenshipSearch').value='';ge('citizenshipSearch').placeholder='Search...';ge('countryDropdown').style.display='block';filterCountries()}
+function autoMatchCurrency(){const c=ge('workerCitizenship').value;const found=ALL_COUNTRIES.find(function(x){return x.name===c});if(found&&found.cur){currencySymbol=found.cur;ge('currencySelect').value=currencySymbol;saveSettings();updateAllTotals()}}
+
+// ============ COUNTRY DROPDOWN ============
+function showCountryList(){ge('citizenshipSearch').value='';ge('countryDropdown').style.display='block';filterCountries()}
 function filterCountries(){const s=ge('citizenshipSearch').value.toLowerCase(),dd=ge('countryDropdown'),cc=ge('workerCitizenship').value;dd.innerHTML='';let f=s===''?[...ALL_COUNTRIES]:ALL_COUNTRIES.filter(function(c){return c.name.toLowerCase().includes(s)});if(f.length===0){dd.innerHTML='<div class="country-option">❌ None found</div>'}else{f.forEach(function(c){const d=document.createElement('div');d.className='country-option';d.textContent=(c.name===cc?'✅ ':'')+c.flag+' '+c.name;d.onclick=function(){ge('citizenshipSearch').value=c.flag+' '+c.name;ge('workerCitizenship').value=c.name;dd.style.display='none';markUnsaved();autoMatchCurrency();renderCalendar()};dd.appendChild(d)})}}
-document.addEventListener('click',function(e){const dd=ge('countryDropdown'),si=ge('citizenshipSearch'),sc=ge('workerCitizenship').value;if(e.target!==si&&e.target!==dd&&!dd.contains(e.target)){dd.style.display='none';if(si.value===''&&sc){const f=ALL_COUNTRIES.find(function(c){return c.name===sc});si.value=f?(f.flag+' '+f.name):sc}}});
-function getDaysInMonth(m,y){return new Date(y,m+1,0).getDate()}
-function getFirstDayOfMonth(m,y){return new Date(y,m,1).getDay()}
-function isSunday(d,m,y){return new Date(y,m,d).getDay()===0}
-function saveEmployer(){const data=getMonthData(currentMonth,currentYear);data['employer'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=ge('employerInput').value;markUnsaved()}
+document.addEventListener('click',function(e){const dd=ge('countryDropdown'),si=ge('citizenshipSearch');if(!si.contains(e.target)&&!dd.contains(e.target)){dd.style.display='none';const sc=ge('workerCitizenship').value;if(si.value===''&&sc){const f=ALL_COUNTRIES.find(function(c){return c.name===sc});si.value=f?(f.flag+' '+f.name):sc}}});
+
+// ============ SAVE HELPERS ============
+function saveEmployer(){markUnsaved()}
 function saveAdvance(){const data=getMonthData(currentMonth,currentYear);data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=parseFloat(ge('advanceInput').value)||0;updateAllTotals();markUnsaved()}
-function saveWage(dn){if(currentMode==='business'){saveBizDay(dn);return}const data=getMonthData(currentMonth,currentYear),wi=ge('wage-'+dn),ni=ge('note-'+dn);if(wi&&ni){let a=parseFloat(wi.value)||0;const n=ni.value;if(!data[currentMode])data[currentMode]={};if(a===0&&n===''){delete data[currentMode][dn]}else{data[currentMode][dn]={amount:a,note:n}}wi.classList.toggle('has-value',a>0);ni.classList.toggle('has-note',n!=='');updateAllTotals();updateWeekSummaryCards();updateDayCounter();markUnsaved();checkTarget()}}
-function saveBizDay(dn){const data=getMonthData(currentMonth,currentYear);const dd={};let hasData=false;activeBizSources.forEach(function(bt){const wi=ge('biz-'+bt+'-'+dn);if(wi){const v=parseFloat(wi.value)||0;dd[bt]=v;if(v>0)hasData=true}});const ei=ge('exp-'+dn);const exp=ei?parseFloat(ei.value)||0:0;if(hasData||exp>0){data.business[dn]={income:dd,expense:exp}}else{delete data.business[dn]}updateAllTotals();updateBizSummary();updateDayCounter();markUnsaved()}
+
+// ============ SAVE WAGE ============
+function saveWage(dn){if(currentMode==='business'){saveBizDay(dn);return}pushUndoState();const wi=ge('wage-'+dn),ni=ge('note-'+dn);if(!wi||!ni)return;let a=parseFloat(wi.value)||0;const n=ni.value;if(a<0){a=0;wi.value=0}const data=getMonthData(currentMonth,currentYear);if(!data[currentMode])data[currentMode]={};if(a===0&&n===''){delete data[currentMode][dn];wi.classList.remove('has-value');ni.classList.remove('has-note')}else{data[currentMode][dn]={amount:a,note:n};wi.classList.toggle('has-value',a>0);ni.classList.toggle('has-note',n!=='')}updateAllTotals();updateWeekSummaryCards();updateDayCounter();markUnsaved();checkTarget()}
+function saveBizDay(dn){pushUndoState();const data=getMonthData(currentMonth,currentYear);const dd={};let hasData=false;activeBizSources.forEach(function(bt){const wi=ge('biz-'+bt+'-'+dn);if(wi){const v=parseFloat(wi.value)||0;dd[bt]=v<0?0:v;if(dd[bt]>0)hasData=true;wi.classList.toggle('has-value',dd[bt]>0)}});const ei=ge('exp-'+dn);let exp=ei?parseFloat(ei.value)||0:0;if(exp<0){exp=0;ei.value=0}if(ei)ei.classList.toggle('has-value',exp>0);if(hasData||exp>0){data.business[dn]={income:dd,expense:exp}}else{delete data.business[dn]}updateAllTotals();updateBizSummary();updateDayCounter();markUnsaved();checkTarget()}
+
+// ============ TARGET ============
 function setDailyTarget(){const t=prompt('Set monthly target ('+currencySymbol+'):',dailyTarget||'');if(t!==null){dailyTarget=parseFloat(t)||0;saveSettings();checkTarget()}}
-function checkTarget(){if(dailyTarget<=0){ge('targetBar').style.display='none';ge('targetInfo').style.display='none';return}const dim=getDaysInMonth(currentMonth,currentYear),data=getMonthData(currentMonth,currentYear),md=data[currentMode]||{};let total=0;if(currentMode==='business'){for(let d=1;d<=dim;d++){const dd=md[d];if(dd){activeBizSources.forEach(function(bt){total+=parseFloat(dd.income[bt]||0)})}}}else{for(let d=1;d<=dim;d++){total+=parseFloat((md[d]||{}).amount||0)}}const pct=Math.min(100,Math.round(total/dailyTarget*100));ge('targetBar').style.display='block';ge('targetInfo').style.display='block';ge('targetFill').style.width=pct+'%';ge('targetInfo').textContent='🎯 Target: '+currencySymbol+' '+dailyTarget+' — '+pct+'%'}
-function autofillDailyWage(){const v=ge('dailyWage').value;if(!v||parseFloat(v)<=0){showToast('⚠ Enter a valid amount','warning');return}if(!confirm('Fill ALL empty cells with '+v+'?'))return;const dim=getDaysInMonth(currentMonth,currentYear),data=getMonthData(currentMonth,currentYear);if(!data[currentMode])data[currentMode]={};let c=0;for(let d=1;d<=dim;d++){if(currentMode==='business'){const wi=ge('biz-sales-'+d);if(wi&&(!wi.value||parseFloat(wi.value)===0)){wi.value=v;wi.classList.add('has-value');const dd=data.business[d]||{income:{},expense:0};dd.income.sales=parseFloat(v);data.business[d]=dd;c++}}else{const wi=ge('wage-'+d);if(wi&&(!wi.value||parseFloat(wi.value)===0)){let amt=parseFloat(v);if(isSunday(d,currentMonth,currentYear)&&weekendMultiplier>1)amt*=weekendMultiplier;wi.value=amt;wi.classList.add('has-value');data[currentMode][d]={amount:amt,note:(data[currentMode][d]||{}).note||''};c++}}}markUnsaved();updateAllTotals();updateWeekSummaryCards();updateBizSummary();updateDayCounter();checkTarget();showToast('⚡ Autofilled '+c+' cells','success')}
-function clearCurrentMode(){if(confirm('Clear ALL entries for this mode?')){const data=getMonthData(currentMonth,currentYear);data[currentMode]={};saveAllData();renderCalendar();showToast('🗑 Cleared','warning')}}
+function checkTarget(){if(dailyTarget<=0){ge('targetBar').style.display='none';ge('targetInfo').style.display='none';return}const dim=getDaysInMonth(currentMonth,currentYear),data=getMonthData(currentMonth,currentYear),md=data[currentMode]||{};let total=0;if(currentMode==='business'){for(let d=1;d<=dim;d++){const dd=md[d];if(dd&&dd.income){activeBizSources.forEach(function(bt){total+=parseFloat(dd.income[bt]||0)})}}}else{for(let d=1;d<=dim;d++){total+=parseFloat((md[d]||{}).amount||0)}}const pct=Math.min(100,Math.round(total/dailyTarget*100));ge('targetBar').style.display='block';ge('targetInfo').style.display='block';ge('targetFill').style.width=pct+'%';ge('targetInfo').textContent='🎯 Target: '+currencySymbol+' '+dailyTarget+' — '+pct+'%'}
+
+// ============ UNDO ============
+function pushUndoState(){const data=getMonthData(currentMonth,currentYear);undoStack.push({month:currentMonth,year:currentYear,mode:currentMode,data:JSON.parse(JSON.stringify(data[currentMode])),bizData:JSON.parse(JSON.stringify(data.business||{})),advance:data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]||0});if(undoStack.length>20)undoStack.shift();ge('undoBtn').disabled=false}
+function undo(){if(undoStack.length===0)return;const s=undoStack.pop();if(s.month!==currentMonth||s.year!==currentYear){currentMonth=s.month;currentYear=s.year}if(s.mode!==currentMode)currentMode=s.mode;const data=getMonthData(currentMonth,currentYear);data[currentMode]=s.data;data.business=s.bizData;data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=s.advance;saveAllData();renderCalendar();showToast('↩ Undo applied','success');ge('undoBtn').disabled=undoStack.length===0}
+
+// ============ AUTOFILL ============
+function autofillDailyWage(){const v=ge('dailyWage').value;if(!v||parseFloat(v)<=0){showToast('⚠ Enter a valid amount','warning');return}if(!confirm('Fill ALL empty cells with '+v+'?'))return;pushUndoState();const dim=getDaysInMonth(currentMonth,currentYear),data=getMonthData(currentMonth,currentYear);let c=0;for(let d=1;d<=dim;d++){if(currentMode==='business'){const wi=ge('biz-sales-'+d);if(wi&&(!wi.value||parseFloat(wi.value)===0)){wi.value=v;wi.classList.add('has-value');const dd=data.business[d]||{income:{},expense:0};dd.income.sales=parseFloat(v);data.business[d]=dd;c++}}else{const wi=ge('wage-'+d);if(wi&&(!wi.value||parseFloat(wi.value)===0)){let amt=parseFloat(v);if(currentMode==='wages'&&isSunday(d,currentMonth,currentYear)&&weekendMultiplier>1)amt*=weekendMultiplier;wi.value=amt;wi.classList.add('has-value');data[currentMode][d]={amount:amt,note:(data[currentMode][d]||{}).note||''};c++}}}markUnsaved();updateAllTotals();updateWeekSummaryCards();updateBizSummary();updateDayCounter();checkTarget();showToast('⚡ Autofilled '+c+' cells','success')}
+function clearCurrentMode(){if(confirm('Clear ALL '+MODE_LABELS[currentMode]+' entries?')){pushUndoState();const data=getMonthData(currentMonth,currentYear);data[currentMode]={};saveAllData();renderCalendar();showToast('🗑 Cleared','warning')}}
+
+// ============ NOTES PRESETS ============
+function applyNotePreset(note){if(!activeNoteCell){const notes=document.querySelectorAll('.note-input');if(notes.length>0){notes[0].focus();activeNoteCell=notes[0].id}}const ni=ge(activeNoteCell);if(ni&&ni.classList.contains('note-input')){ni.value=note;ni.classList.add('has-note');ni.dispatchEvent(new Event('input',{bubbles:true}));showToast('📝 '+note,'success')}}
+
+// ============ DAY COUNTER ============
 function updateDayCounter(){const dim=getDaysInMonth(currentMonth,currentYear),data=getMonthData(currentMonth,currentYear),md=data[currentMode]||{};const country=ge('workerCitizenship').value||'Kenya';let w=0,h=0,e=0;for(let d=1;d<=dim;d++){const dd=md[d]||{};const isH=isPublicHoliday(country,currentMonth,d);let hasValue=false;if(currentMode==='business'){activeBizSources.forEach(function(bt){if(dd.income&&dd.income[bt]>0)hasValue=true});if(dd.expense>0)hasValue=true}else{if(dd.amount>0)hasValue=true}if(hasValue){w++}else if(isH){h++}else{e++}}ge('countWorked').textContent=w;ge('countHoliday').textContent=h;ge('countEmpty').textContent=e}
 
-// ===== BUSINESS TOGGLE (INSTANT) =====
-function toggleBizSource(bt){const idx=activeBizSources.indexOf(bt);if(idx===-1){activeBizSources.push(bt)}else{if(activeBizSources.length>1)activeBizSources.splice(idx,1)}saveSettings();updateModeUI();renderCalendar();}
-function switchMode(mode){flushAllChanges();currentMode=mode;const bs=ge('businessSection');if(bs)bs.classList.toggle('active',mode==='business');updateModeUI();renderCalendar()}
-function updateModeUI(){
-    MODES.forEach(function(m){const btn=ge('modeBtn'+m.charAt(0).toUpperCase()+m.slice(1));if(btn)btn.className='mode-btn'});
-    const ab=ge('modeBtn'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1));if(ab)ab.classList.add('active-'+currentMode);
-    ge('currentModeLabel').textContent=MODE_LABELS[currentMode];ge('currentModeLabel').style.background=MODE_COLORS[currentMode];
-    ge('totalLabel').textContent='📊 Total '+(MODE_LABELS[currentMode]||currentMode).replace(/[💰🚌🍽🏪✚]/g,'').trim();
-    ge('netLabel').textContent='✅ Net '+(MODE_LABELS[currentMode]||currentMode).replace(/[💰🚌🍽🏪✚]/g,'').trim();
-    ge('dailyWageLabel').textContent=currentMode==='business'?'💰 Daily Amount (Default)':'💰 Daily Amount (Default)';
-    ge('employerLabel').textContent=currentMode==='business'?'🏪 Business Name':'🏢 Employer';
-    const bsDiv=ge('bizSources');if(bsDiv){bsDiv.innerHTML='';BIZ_TYPES.forEach(function(bt){const checked=activeBizSources.indexOf(bt)!==-1;bsDiv.innerHTML+='<label class="'+(checked?'checked':'')+'" onclick="toggleBizSource(\''+bt+'\')">'+BIZ_LABELS[bt]+'</label>'});}
+// ============ ★★★ INSTANT BUSINESS TOGGLE ★★★ ============
+function toggleBizSource(bt){
+    const idx = activeBizSources.indexOf(bt);
+    if(idx === -1){
+        // ADD source instantly
+        activeBizSources.push(bt);
+    } else {
+        // REMOVE source (but keep at least 1)
+        if(activeBizSources.length > 1){
+            activeBizSources.splice(idx, 1);
+        } else {
+            showToast('⚠ Need at least 1 income source','warning');
+            return;
+        }
+    }
+    // SAVE & UPDATE UI INSTANTLY
+    saveSettings();
+    updateBizTabsVisual();      // instant visual update
+    updateBizCalendarColumns(); // instant calendar column show/hide
+    updateAllTotals();          // instant totals
+    updateBizSummary();         // instant summary
+    updateDayCounter();         // instant counter
 }
 
-function renderCalendar(){
-    if(unsavedChanges){flushAllChanges();saveAllData()}
-    loadAllData();const data=getMonthData(currentMonth,currentYear);activeBizSources=data.bizSources||activeBizSources;
-    ge('workerName').value=data.workerInfo.name||'';ge('workerID').value=data.workerInfo.id||'';
-    const sc=data.workerInfo.citizenship||'Kenya';ge('workerCitizenship').value=sc;
-    ge('citizenshipSearch').value=sc?(ALL_COUNTRIES.find(function(c){return c.name===sc})||{f:'',n:''}).f+' '+sc:'';
-    ge('dailyWage').value=data.workerInfo.dailyWage||'';ge('workerPhone').value=data.workerInfo.phone||'';
-    ge('employerInput').value=data['employer'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]||'';
-    ge('advanceInput').value=data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]||0;
-    const bs=ge('businessSection');if(bs)bs.classList.toggle('active',currentMode==='business');
+function updateBizTabsVisual(){
+    const container = ge('bizSources');
+    if(!container) return;
+    container.innerHTML = '';
+    BIZ_TYPES.forEach(function(bt){
+        const isActive = activeBizSources.indexOf(bt) !== -1;
+        const tab = document.createElement('button');
+        tab.className = 'biz-tab' + (isActive ? ' active' : '');
+        tab.textContent = BIZ_LABELS[bt];
+        tab.setAttribute('type','button');
+        tab.onclick = function(){ toggleBizSource(bt); };
+        container.appendChild(tab);
+    });
+}
+
+function updateBizCalendarColumns(){
+    if(currentMode !== 'business') return;
+    const dim = getDaysInMonth(currentMonth, currentYear);
+    // Show/hide business input columns for each day
+    for(let d=1; d<=dim; d++){
+        BIZ_TYPES.forEach(function(bt){
+            const el = ge('biz-'+bt+'-'+d);
+            if(el){
+                const isActive = activeBizSources.indexOf(bt) !== -1;
+                el.style.display = isActive ? '' : 'none';
+            }
+        });
+    }
+    // Update week totals
+    updateAllTotals();
+    updateWeekSummaryCards();
+}
+
+// ============ MODE SWITCH ============
+function switchMode(mode){
+    flushAllChanges();
+    currentMode = mode;
+    ge('businessSection').classList.toggle('active', mode==='business');
+    ge('notesPresetBar').style.display = (mode!=='business') ? 'flex' : 'none';
     updateModeUI();
-    const ms=ge('monthSelect');ms.innerHTML='';const mnames=currentLang==='sw'?MONTHS_SW:MONTHS;
-    mnames.forEach(function(m,i){const o=document.createElement('option');o.value=i;o.textContent=m;if(i===currentMonth)o.selected=true;ms.appendChild(o)});
-    const ys=ge('yearSelect');ys.innerHTML='';for(let y=2020;y<=2035;y++){const o=document.createElement('option');o.value=y;o.textContent=y;if(y===currentYear)o.selected=true;ys.appendChild(o)}
-    ms.onchange=function(){currentMonth=parseInt(this.value);renderCalendar()};ys.onchange=function(){currentYear=parseInt(this.value);renderCalendar()};
-    const dim=getDaysInMonth(currentMonth,currentYear),fd=getFirstDayOfMonth(currentMonth,currentYear);
-    const tdd=new Date(),tDay=tdd.getDate(),tMon=tdd.getMonth(),tYr=tdd.getFullYear();
-    const isCV=(currentMonth===tMon&&currentYear===tYr);
-    const tcn=fd+dim,rts=Math.max(5,Math.ceil(tcn/7)),modeData=data[currentMode]||{};
-    const country=ge('workerCitizenship').value||'Kenya';
-    const tbody=ge('calendarBody');tbody.innerHTML='';let dc=1;
-    const phs={en:{wages:'Wage',busfare:'Bus Fare',lunch:'Lunch',business:'Income',custom:'Amount'},sw:{wages:'Mshahara',busfare:'Nauli',lunch:'Chakula',business:'Mapato',custom:'Kiasi'}};
-    const notePh={en:'Note',sw:'Maelezo'}[currentLang]||'Note';
-    for(let row=0;row<rts;row++){const tr=document.createElement('tr');
-        for(let col=0;col<7;col++){const td=document.createElement('td');const ci=row*7+col;
-            if(ci<fd||dc>dim){td.classList.add('empty-cell');td.innerHTML='<div class="date-number" style="color:#ccc;">·</div>'}
-            else{const dn=dc,iw=(col===0),it=(isCV&&dn===tDay),isH=isPublicHoliday(country,currentMonth,dn);
-                if(iw)td.classList.add('weekend');if(it)td.classList.add('today-cell');if(isH)td.classList.add('holiday-cell');
-                const hName=isH?getHolidayName(country,currentMonth,dn):'';
-                const hLab=isH?'<span class="holiday-indicator" style="position:absolute;top:2px;right:4px;font-size:.75em;z-index:1;cursor:help" title="'+hName+'">🏛</span>':'';
-                if(currentMode==='business'){
-                    let bizHTML='<div class="day-cell">'+hLab+'<div class="date-number">'+dn+'</div>';
-                    activeBizSources.forEach(function(bt){const dd=modeData[dn]||{income:{},expense:0};const v=dd.income&&dd.income[bt]?dd.income[bt]:'';bizHTML+='<input type="number" class="wage-input mode-business'+(v?' has-value':'')+'" id="biz-'+bt+'-'+dn+'" placeholder="'+BIZ_LABELS[bt]+'" value="'+v+'" step="any" min="0" oninput="saveBizDay('+dn+')" onfocus="this.select()">'});
-                    const dd2=modeData[dn]||{expense:0};
-                    bizHTML+='<input type="number" class="wage-input biz-expense" id="exp-'+dn+'" placeholder="📉 Expense" value="'+(dd2.expense||'')+'" step="any" min="0" oninput="saveBizDay('+dn+')"></div>';
-                    td.innerHTML=bizHTML;
-                }else{
-                    const dd=modeData[dn]||{amount:0,note:''},huv=(dd.amount>0||dd.note!=='');
-                    const ph=(phs[currentLang]||phs['en'])[currentMode]||'Amount';
-                    td.innerHTML='<div class="day-cell">'+hLab+'<div class="date-number">'+dn+'</div><input type="number" class="wage-input mode-'+currentMode+(huv?' has-value':'')+'" id="wage-'+dn+'" placeholder="'+ph+'" value="'+(huv?dd.amount:'')+'" step="any" min="0" oninput="saveWage('+dn+')" onfocus="this.select()"><textarea class="note-input'+(dd.note?' has-note':'')+'" id="note-'+dn+'" placeholder="'+notePh+'" oninput="saveWage('+dn+')">'+(dd.note||'')+'</textarea></div>';
+    renderCalendar();
+}
+function updateModeUI(){
+    MODES.forEach(function(m){
+        const btn = ge('modeBtn'+m.charAt(0).toUpperCase()+m.slice(1));
+        if(btn) btn.className = 'mode-btn';
+    });
+    const ab = ge('modeBtn'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1));
+    if(ab) ab.classList.add('active-'+currentMode);
+    ge('currentModeLabel').textContent = MODE_LABELS[currentMode];
+    ge('currentModeLabel').style.background = {wages:'#2980b9',busfare:'#e67e22',lunch:'#27ae60',business:'#6c3483',custom:'#8e44ad'}[currentMode];
+    ge('employerLabel').textContent = currentMode==='business' ? '🏪 Business Name' : '🏢 Employer';
+    updateBizTabsVisual();
+}
+
+// ============ RENDER CALENDAR ============
+function renderCalendar(){
+    if(unsavedChanges){flushAllChanges();saveAllData();}
+    loadAllData();
+    const data = getMonthData(currentMonth, currentYear);
+    activeBizSources = data.bizSources || activeBizSources;
+    
+    ge('workerName').value = data.workerInfo.name||'';
+    ge('workerID').value = data.workerInfo.id||'';
+    const sc = data.workerInfo.citizenship||'Kenya';
+    ge('workerCitizenship').value = sc;
+    ge('citizenshipSearch').value = sc ? (ALL_COUNTRIES.find(function(c){return c.name===sc})||{flag:'',name:''}).flag+' '+sc : '';
+    ge('dailyWage').value = data.workerInfo.dailyWage||'';
+    ge('workerPhone').value = data.workerInfo.phone||'';
+    ge('employerInput').value = data['employer'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]||'';
+    ge('advanceInput').value = data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]||0;
+    
+    ge('businessSection').classList.toggle('active', currentMode==='business');
+    ge('notesPresetBar').style.display = (currentMode!=='business') ? 'flex' : 'none';
+    updateModeUI();
+    
+    // Month/Year selects
+    const ms = ge('monthSelect'); ms.innerHTML = '';
+    MONTHS.forEach(function(m,i){ const o=document.createElement('option'); o.value=i; o.textContent=m; if(i===currentMonth)o.selected=true; ms.appendChild(o); });
+    const ys = ge('yearSelect'); ys.innerHTML = '';
+    for(let y=2020;y<=2035;y++){ const o=document.createElement('option'); o.value=y; o.textContent=y; if(y===currentYear)o.selected=true; ys.appendChild(o); }
+    ms.onchange = function(){currentMonth=parseInt(this.value);renderCalendar();};
+    ys.onchange = function(){currentYear=parseInt(this.value);renderCalendar();};
+    
+    const dim = getDaysInMonth(currentMonth, currentYear);
+    const fd = getFirstDayOfMonth(currentMonth, currentYear);
+    const tdd = new Date(), tDay = tdd.getDate(), tMon = tdd.getMonth(), tYr = tdd.getFullYear();
+    const isCV = (currentMonth===tMon && currentYear===tYr);
+    const tcn = fd + dim;
+    const rts = Math.max(5, Math.ceil(tcn/7));
+    const modeData = data[currentMode] || {};
+    const country = ge('workerCitizenship').value || 'Kenya';
+    
+    const tbody = ge('calendarBody'); tbody.innerHTML = '';
+    let dc = 1;
+    const fragment = document.createDocumentFragment();
+    
+    for(let row=0; row<rts; row++){
+        const tr = document.createElement('tr');
+        for(let col=0; col<7; col++){
+            const td = document.createElement('td');
+            const ci = row*7+col;
+            if(ci<fd || dc>dim){
+                td.classList.add('empty-cell');
+                td.innerHTML = '<div class="date-number" style="color:#ccc;">·</div>';
+            } else {
+                const dn = dc;
+                const isWeekend = (col===0);
+                const isToday = (isCV && dn===tDay);
+                const isH = isPublicHoliday(country, currentMonth, dn);
+                
+                if(isWeekend) td.classList.add('weekend');
+                if(isToday) td.classList.add('today-cell');
+                if(isH) td.classList.add('holiday-cell');
+                
+                const hName = isH ? getHolidayName(country, currentMonth, dn) : '';
+                const hLab = isH ? '<span class="holiday-indicator" style="position:absolute;top:2px;right:4px;font-size:.75em;z-index:1;cursor:help" title="'+hName+'">🏛</span>' : '';
+                
+                if(currentMode === 'business'){
+                    let bizHTML = '<div class="day-cell">'+hLab+'<div class="date-number">'+dn+'</div>';
+                    BIZ_TYPES.forEach(function(bt){
+                        const dd = modeData[dn] || {income:{},expense:0};
+                        const v = (dd.income && dd.income[bt]) ? dd.income[bt] : '';
+                        const isActive = activeBizSources.indexOf(bt) !== -1;
+                        bizHTML += '<input type="number" class="wage-input mode-business'+(v?' has-value':'')+'" id="biz-'+bt+'-'+dn+'" placeholder="'+BIZ_LABELS[bt]+'" value="'+v+'" step="any" min="0" oninput="saveBizDay('+dn+')" onfocus="this.select()" style="display:'+(isActive?'':'none')+'">';
+                    });
+                    const dd2 = modeData[dn] || {expense:0};
+                    bizHTML += '<input type="number" class="wage-input biz-expense'+(dd2.expense?' has-value':'')+'" id="exp-'+dn+'" placeholder="📉 Expense" value="'+(dd2.expense||'')+'" step="any" min="0" oninput="saveBizDay('+dn+')"></div>';
+                    td.innerHTML = bizHTML;
+                } else {
+                    const dd = modeData[dn] || {amount:0,note:''};
+                    const huv = (dd.amount>0 || dd.note!=='');
+                    td.innerHTML = '<div class="day-cell">'+hLab+'<div class="date-number">'+dn+'</div><input type="number" class="wage-input mode-'+currentMode+(huv?' has-value':'')+'" id="wage-'+dn+'" placeholder="'+(currentMode==='wages'?'Wage':currentMode==='busfare'?'Bus Fare':currentMode==='lunch'?'Lunch':'Amount')+'" value="'+(huv?dd.amount:'')+'" step="any" min="0" oninput="saveWage('+dn+')" onfocus="this.select()"><textarea class="note-input'+(dd.note?' has-note':'')+'" id="note-'+dn+'" placeholder="Note" oninput="saveWage('+dn+')" onfocus="activeNoteCell=\'note-'+dn+'\'">'+(dd.note||'')+'</textarea></div>';
                 }
                 dc++;
-            }tr.appendChild(td);
+            }
+            tr.appendChild(td);
         }
-        tbody.appendChild(tr);const ttr=document.createElement('tr');ttr.classList.add('week-total-row');
-        const wsd=row*7+1-fd,wed=Math.min(wsd+6,dim);
-        let wl='Week '+(row+1);if(wsd>=1&&wed<=dim)wl+=' (D '+Math.max(1,wsd)+'-'+wed+')';
-        ttr.innerHTML='<td class="week-total-label" colspan="6">'+wl+'</td><td id="wt-'+row+'" style="font-size:1.1em;">0.00</td>';tbody.appendChild(ttr);
+        fragment.appendChild(tr);
+        
+        // Week total row
+        const ttr = document.createElement('tr');
+        ttr.classList.add('week-total-row');
+        const wsd = row*7+1-fd, wed = Math.min(wsd+6, dim);
+        let wl = 'Week '+(row+1);
+        if(wed>=1 && wsd<=dim){ const sD=Math.max(1,wsd), eD=Math.min(dim,wed); if(sD<=eD) wl+=' (D '+sD+'-'+eD+')'; }
+        else if(wsd<1 && wed>=1){ wl+=' (D 1-'+wed+')'; }
+        ttr.innerHTML = '<td class="week-total-label" colspan="6">'+wl+'</td><td id="wt-'+row+'" style="font-size:1.1em;">0.00</td>';
+        fragment.appendChild(ttr);
     }
-    unsavedChanges=false;updateSaveIndicator(true);hideUnsavedBanner();updateSaveButtons(true);updateAllTotals();updateWeekSummaryCards();updateBizSummary();updateDayCounter();checkTarget();checkBackupReminder();
+    tbody.appendChild(fragment);
+    
+    unsavedChanges = false;
+    updateSaveIndicator(true);
+    hideUnsavedBanner();
+    updateSaveButtons(true);
+    updateAllTotals();
+    updateWeekSummaryCards();
+    updateBizSummary();
+    updateDayCounter();
+    checkTarget();
+    checkBackupReminder();
 }
 
-function updateAllTotals(){const dim=getDaysInMonth(currentMonth,currentYear),fd=getFirstDayOfMonth(currentMonth,currentYear),tcn=fd+dim,rts=Math.max(5,Math.ceil(tcn/7)),data=getMonthData(currentMonth,currentYear);let total=0;const md=data[currentMode]||{};if(currentMode==='business'){for(let d=1;d<=dim;d++){const dd=md[d];if(dd&&dd.income){activeBizSources.forEach(function(bt){total+=parseFloat(dd.income[bt]||0)})}}}else{for(let d=1;d<=dim;d++){total+=parseFloat((md[d]||{}).amount||0)}}ge('totalAmount').textContent=currencySymbol+' '+total.toFixed(2);const adv=parseFloat(ge('advanceInput').value)||0;const net=total-adv;ge('netAmount').textContent=currencySymbol+' '+net.toFixed(2);ge('netAmount').style.color=net<0?'#c0392b':'#27ae60';const wt=new Array(rts).fill(0);for(let d=1;d<=dim;d++){if(currentMode==='business'){const dd=md[d];if(dd&&dd.income){activeBizSources.forEach(function(bt){const a=parseFloat(dd.income[bt]||0);const ci=fd+d-1;const wi2=Math.floor(ci/7);if(wi2>=0&&wi2<rts)wt[wi2]+=a})}}else{const wi=ge('wage-'+d);const a=wi?parseFloat(wi.value)||0:0;const ci=fd+d-1;const wi2=Math.floor(ci/7);if(wi2>=0&&wi2<rts)wt[wi2]+=a}}for(let w=0;w<rts;w++){const el=ge('wt-'+w);if(el)el.textContent=currencySymbol+' '+wt[w].toFixed(2)}}
-function updateWeekSummaryCards(){const dim=getDaysInMonth(currentMonth,currentYear),fd=getFirstDayOfMonth(currentMonth,currentYear),tcn=fd+dim,rts=Math.max(5,Math.ceil(tcn/7)),wt=new Array(rts).fill(0);for(let d=1;d<=dim;d++){if(currentMode==='business'){const data=getMonthData(currentMonth,currentYear);const dd=data.business[d];if(dd&&dd.income){activeBizSources.forEach(function(bt){const a=parseFloat(dd.income[bt]||0);const ci=fd+d-1;const wi2=Math.floor(ci/7);if(wi2>=0&&wi2<rts)wt[wi2]+=a})}}else{const wi=ge('wage-'+d);const a=wi?parseFloat(wi.value)||0:0;const ci=fd+d-1;const wi2=Math.floor(ci/7);if(wi2>=0&&wi2<rts)wt[wi2]+=a}}const sec=ge('weekSummarySection');sec.innerHTML='';sec.style.gridTemplateColumns='repeat('+rts+',1fr)';for(let w=0;w<rts;w++){const ws=w*7+1-fd,we=Math.min(ws+6,dim);let lb='W'+(w+1);if(ws>=1)lb+=' ('+Math.max(1,ws)+'-'+we+')';const cd=document.createElement('div');cd.className='summary-card';cd.style.borderTopColor='#8e44ad';cd.innerHTML='<h3>📋 '+lb+'</h3><div class="big-number" style="font-size:1.2em;">'+currencySymbol+' '+wt[w].toFixed(2)+'</div>';sec.appendChild(cd)}}
-function updateBizSummary(){if(currentMode!=='business')return;const dim=getDaysInMonth(currentMonth,currentYear),data=getMonthData(currentMonth,currentYear),md=data.business||{};let ti=0,te=0;for(let d=1;d<=dim;d++){const dd=md[d];if(dd){if(dd.income){activeBizSources.forEach(function(bt){ti+=parseFloat(dd.income[bt]||0)})}te+=parseFloat(dd.expense||0)}}ge('bizTotalIncome').textContent=currencySymbol+' '+ti.toFixed(2);ge('bizTotalExpense').textContent=currencySymbol+' '+te.toFixed(2);ge('bizNetProfit').textContent=currencySymbol+' '+(ti-te).toFixed(2)}
-function checkBackupReminder(){if(!lastExportDate)return;const d=(new Date()-new Date(lastExportDate))/86400000;ge('backupReminder').classList.toggle('show',d>14)}
-function goToToday(){if(unsavedChanges){flushAllChanges();saveAllData()}currentMonth=new Date().getMonth();currentYear=new Date().getFullYear();renderCalendar();showToast('📆 Showing current month','success')}
-function printCalendar(){window.print()}
-function shareViaWhatsApp(){flushAllChanges();const data=getMonthData(currentMonth,currentYear),dim=getDaysInMonth(currentMonth,currentYear);let txt='*Ngili Calendar v2.1*\n'+MONTHS[currentMonth]+' '+currentYear+'\n\n';let total=0;const md=data[currentMode]||{};for(let d=1;d<=dim;d++){if(currentMode==='business'){const dd=md[d];if(dd&&dd.income){activeBizSources.forEach(function(bt){const a=dd.income[bt]||0;if(a>0){txt+=d+': '+BIZ_LABELS[bt]+' '+currencySymbol+' '+a+'\n';total+=a}});if(dd.expense>0)txt+=d+': Expense '+currencySymbol+' '+dd.expense+'\n'}}else{const dd=md[d]||{amount:0};if(dd.amount>0){txt+=d+': '+currencySymbol+' '+dd.amount+'\n';total+=dd.amount}}}txt+='\n*Total: '+currencySymbol+' '+total.toFixed(2)+'*\n\n_~ Ngili Calendar by Safari Softwares ~_';window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank')}
-function exportCSV(){flushAllChanges();saveAllData();loadAllData();lastExportDate=new Date().toISOString();saveSettings();const cd=getMonthData(currentMonth,currentYear),wn=(cd.workerInfo.name||'worker').replace(/[^a-z0-9]/gi,'_');let csv='Ngili Calendar v2.1\nWorker: '+(cd.workerInfo.name||'')+'\nDate: '+new Date().toISOString().split('T')[0]+'\nCurrency: '+currencySymbol+'\n\n';const sk=Object.keys(allData).sort();MODES.forEach(function(mode){csv+='--- '+(MODE_LABELS[mode]||mode)+' ---\nYear,Month,Day,Amount,Notes\n';for(let k=0;k<sk.length;k++){const key=sk[k],p=key.split('-'),y=parseInt(p[0]),m=parseInt(p[1]),md=allData[key],dim=new Date(y,m+1,0).getDate(),moded=md[mode]||{};for(let d=1;d<=dim;d++){if(mode==='business'){const dd=moded[d];if(dd&&dd.income){const bs=md.bizSources||activeBizSources;bs.forEach(function(bt){const a=dd.income[bt]||0;if(a>0)csv+=y+','+MONTHS[m]+','+d+','+a+','+BIZ_LABELS[bt]+'\n'});if(dd.expense>0)csv+=y+','+MONTHS[m]+','+d+','+dd.expense+',Expense\n'}}else{const dd=moded[d]||{amount:0,note:''};if(dd.amount>0||dd.note)csv+=y+','+MONTHS[m]+','+d+','+(dd.amount||0)+',"'+(dd.note||'').replace(/"/g,'""')+'"\n'}}}});const blob=new Blob([csv],{type:'text/csv'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Ngili_'+wn+'_'+MONTHS[currentMonth]+'_'+currentYear+'.csv';a.click();ge('backupReminder').classList.remove('show');showToast('📥 CSV exported!','success')}
-function importCSV(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(ev){try{const lines=ev.target.result.split('\n');let ic=0,cim='wages';for(let i=0;i<lines.length;i++){const l=lines[i].trim();if(!l||l.startsWith('Ngili'))continue;if(l.startsWith('---')){if(l.includes('Bus Fare'))cim='busfare';else if(l.includes('Lunch'))cim='lunch';else if(l.includes('Business'))cim='business';else if(l.includes('Custom'))cim='custom';else cim='wages';continue}const p=l.split(',');if(p.length>=4&&!isNaN(parseInt(p[0]))&&MONTHS.indexOf(p[1])!==-1){const y=parseInt(p[0]),m=MONTHS.indexOf(p[1]),d=parseInt(p[2]),amt=parseFloat(p[3])||0;if(amt>0){const data=getMonthData(m,y);if(!data[cim])data[cim]={};if(cim==='business'){if(!data.business[d])data.business[d]={income:{},expense:0};data.business[d].income.sales=(data.business[d].income.sales||0)+amt}else{data[cim][d]={amount:amt,note:p[4]||''}}ic++}}}saveAllData();renderCalendar();showToast('📤 Imported '+ic+' records!','success')}catch(err){showToast('❌ Error importing CSV','warning')}};r.readAsText(f);e.target.value=''}
-function copyDataToClipboard(){flushAllChanges();const data=getMonthData(currentMonth,currentYear),dim=getDaysInMonth(currentMonth,currentYear);let txt='Ngili Calendar v2.1\n';let total=0;const md=data[currentMode]||{};for(let d=1;d<=dim;d++){if(currentMode==='business'){const dd=md[d];if(dd&&dd.income){activeBizSources.forEach(function(bt){const a=dd.income[bt]||0;if(a>0){txt+=d+': '+BIZ_LABELS[bt]+' '+currencySymbol+' '+a+'\n';total+=a}})}}else{const dd=md[d]||{amount:0};if(dd.amount>0){txt+=d+': '+currencySymbol+' '+dd.amount+'\n';total+=dd.amount}}}txt+='\nTotal: '+currencySymbol+' '+total.toFixed(2);navigator.clipboard.writeText(txt).then(function(){showToast('📋 Copied!','success')}).catch(function(){showToast('⚠ Could not copy','warning')})}
-function resetAllData(){if(confirm('⚠ DELETE ALL DATA? This cannot be undone.\n\nPlease export your data first.')&&confirm('FINAL WARNING: All data will be permanently deleted. Continue?')){allData={};saveAllData();renderCalendar();showToast('⚠ All data reset','warning')}}
-function openModal(id){ge(id).classList.add('active');document.body.style.overflow='hidden';if(id==='reportModal'){const now=new Date();['From','To'].forEach(function(p){const ms=ge('report'+p+'Month');ms.innerHTML='';MONTHS.forEach(function(m,i){ms.innerHTML+='<option value="'+i+'"'+(i===now.getMonth()?' selected':'')+'>'+m+'</option>'});const ys=ge('report'+p+'Year');ys.innerHTML='';for(let y=2020;y<=2035;y++)ys.innerHTML+='<option value="'+y+'"'+(y===now.getFullYear()?' selected':'')+'>'+y+'</option>'});ge('reportMode').value=currentMode;generateReport()}if(id==='reviewsModal'){loadReviews()}}
-function closeModal(id){ge(id).classList.remove('active');document.body.style.overflow=''}
-function generateReport(){const fm=parseInt(ge('reportFromMonth').value),fy=parseInt(ge('reportFromYear').value),tm=parseInt(ge('reportToMonth').value),ty=parseInt(ge('reportToYear').value),mode=ge('reportMode').value;if(fy>ty||(fy===ty&&fm>tm)){ge('reportOutput').innerHTML='<p style="color:#c0392b">⚠ Invalid date range</p>';return}let html='<table class="report-table"><thead><tr><th>Month</th><th>Days</th><th>Total</th><th>Adv</th><th>Net</th></tr></thead><tbody>';let gT=0,gD=0,gDays=0;let cy2=fy,cm2=fm;while(cy2<ty||(cy2===ty&&cm2<=tm)){const data=getMonthData(cm2,cy2),md=data[mode]||{},dim=getDaysInMonth(cm2,cy2);let mt=0,mdays=0;if(mode==='business'){for(let d=1;d<=dim;d++){const dd=md[d];if(dd&&dd.income){let dayTotal=0;activeBizSources.forEach(function(bt){dayTotal+=parseFloat(dd.income[bt]||0)});if(dayTotal>0){mt+=dayTotal;mdays++}}}}else{for(let d=1;d<=dim;d++){const a=parseFloat((md[d]||{}).amount||0);if(a>0){mt+=a;mdays++}}}const adv=data['advance'+mode.charAt(0).toUpperCase()+mode.slice(1)]||0;html+='<tr><td>'+MONTHS[cm2]+' '+cy2+'</td><td>'+mdays+'</td><td>'+currencySymbol+' '+mt.toFixed(2)+'</td><td style="color:#c0392b">'+currencySymbol+' '+adv.toFixed(2)+'</td><td style="color:'+(mt-adv<0?'#c0392b':'#27ae60')+'">'+currencySymbol+' '+(mt-adv).toFixed(2)+'</td></tr>';gT+=mt;gD+=adv;gDays+=mdays;cm2++;if(cm2>11){cm2=0;cy2++}}const avg=gDays>0?(gT/gDays).toFixed(2):'0.00';html+='<tr style="font-weight:900;background:var(--primary-light);color:white"><td>📊 GRAND TOTAL</td><td>'+gDays+'</td><td>'+currencySymbol+' '+gT.toFixed(2)+'</td><td>'+currencySymbol+' '+gD.toFixed(2)+'</td><td>'+currencySymbol+' '+(gT-gD).toFixed(2)+'</td></tr></tbody></table>';html+='<p style="text-align:center;margin-top:8px;font-size:.85em">📈 Average per day: <strong>'+currencySymbol+' '+avg+'</strong> | Months: <strong>'+Math.abs((ty-fy)*12+tm-fm)+1+'</strong></p>';ge('reportOutput').innerHTML=html}
-document.addEventListener('click',function(e){if(e.target.classList.contains('modal-overlay')){e.target.classList.remove('active');document.body.style.overflow=''}});
-function showToast(m,t){var toast=ge('toast');toast.textContent=m;toast.className='toast '+(t||'')+' show';clearTimeout(toast._t);toast._t=setTimeout(function(){toast.classList.remove('show')},2500)}
-function loadReviews(){const r=JSON.parse(localStorage.getItem(REVIEWS_KEY)||'[]'),list=ge('reviewList');list.innerHTML='';if(r.length===0){list.innerHTML='<p style="text-align:center;color:var(--text-light)">No reviews yet. Be the first! ⭐</p>'}else{r.reverse().forEach(function(rv){list.innerHTML+='<div class="review-item"><div class="review-header"><strong>'+(rv.n||'Anonymous')+'</strong><span>'+rv.d+'</span></div><div class="review-stars">'+'★'.repeat(rv.s)+'☆'.repeat(5-rv.s)+'</div><div class="review-text">'+rv.t+'</div></div>'})}updateRS(r)}
-function updateRS(r){const c=r.length,avg=c>0?(r.reduce(function(s,rv){return s+rv.s},0)/c).toFixed(1):'—';ge('reviewCount').textContent=c+' review'+(c!==1?'s':'')+' | Average: '+avg+' ⭐'}
-function submitReview(){const n=ge('reviewName').value.trim(),s=parseInt(ge('reviewStars').value),t=ge('reviewText').value.trim();if(s===0){showToast('⚠ Please rate!','warning');return}if(!t){showToast('⚠ Please write a review!','warning');return}const r=JSON.parse(localStorage.getItem(REVIEWS_KEY)||'[]');r.push({n:n||'Anonymous',s:s,t:t,d:new Date().toISOString().split('T')[0]});localStorage.setItem(REVIEWS_KEY,JSON.stringify(r));ge('reviewName').value='';ge('reviewText').value='';ge('reviewStars').value='0';document.querySelectorAll('#starRating .star').forEach(function(s){s.classList.remove('active');s.textContent='☆'});loadReviews();showToast('⭐ Review submitted! Thank you!','success')}
-document.addEventListener('DOMContentLoaded',function(){const stars=document.querySelectorAll('#starRating .star');stars.forEach(function(s){s.addEventListener('click',function(){const v=parseInt(this.getAttribute('data-star'));ge('reviewStars').value=v;stars.forEach(function(ss,i){ss.classList.toggle('active',i<v);ss.textContent=i<v?'★':'☆'})})})});
-function init(){loadAllData();const bs=ge('businessSection');if(bs)bs.classList.toggle('active',currentMode==='business');renderCalendar();window.addEventListener('beforeunload',function(){flushAllChanges();saveAllData()});setInterval(function(){if(unsavedChanges){flushAllChanges();saveAllData()}},10000);console.log('🚀 Ngili Calendar v2.1 — All Fixes Applied!')}
+// ============ TOTALS ============
+function updateAllTotals(){
+    const dim = getDaysInMonth(currentMonth, currentYear);
+    const fd = getFirstDayOfMonth(currentMonth, currentYear);
+    const tcn = fd + dim;
+    const rts = Math.max(5, Math.ceil(tcn/7));
+    const data = getMonthData(currentMonth, currentYear);
+    let total = 0;
+    const md = data[currentMode] || {};
+    
+    if(currentMode === 'business'){
+        for(let d=1; d<=dim; d++){
+            const dd = md[d];
+            if(dd && dd.income){
+                activeBizSources.forEach(function(bt){
+                    total += parseFloat(dd.income[bt] || 0);
+                });
+            }
+        }
+    } else {
+        for(let d=1; d<=dim; d++){
+            total += parseFloat((md[d]||{}).amount || 0);
+        }
+    }
+    
+    ge('totalAmount').textContent = fmtCur(total);
+    const adv = parseFloat(ge('advanceInput').value) || 0;
+    const net = total - adv;
+    ge('netAmount').textContent = fmtCur(net);
+    ge('netAmount').style.color = net<0 ? '#c0392b' : '#27ae60';
+    
+    // Week totals
+    const wt = new Array(rts).fill(0);
+    for(let d=1; d<=dim; d++){
+        const wi = Math.floor((fd+d-1)/7);
+        if(wi>=0 && wi<rts){
+            if(currentMode==='business'){
+                const dd = md[d];
+                if(dd && dd.income){
+                    activeBizSources.forEach(function(bt){ wt[wi] += parseFloat(dd.income[bt]||0); });
+                }
+            } else {
+                const el = ge('wage-'+d);
+                if(el) wt[wi] += parseFloat(el.value) || 0;
+            }
+        }
+    }
+    for(let w=0; w<rts; w++){
+        const el = ge('wt-'+w);
+        if(el) el.textContent = fmtCur(wt[w]);
+    }
+}
+
+function updateWeekSummaryCards(){
+    const dim = getDaysInMonth(currentMonth, currentYear);
+    const fd = getFirstDayOfMonth(currentMonth, currentYear);
+    const tcn = fd + dim;
+    const rts = Math.max(5, Math.ceil(tcn/7));
+    const wt = new Array(rts).fill(0);
+    for(let d=1; d<=dim; d++){
+        const wi = Math.floor((fd+d-1)/7);
+        if(wi>=0 && wi<rts){
+            if(currentMode==='business'){
+                const data = getMonthData(currentMonth, currentYear);
+                const dd = data.business[d];
+                if(dd && dd.income){
+                    activeBizSources.forEach(function(bt){ wt[wi] += parseFloat(dd.income[bt]||0); });
+                }
+            } else {
+                const el = ge('wage-'+d);
+                if(el) wt[wi] += parseFloat(el.value) || 0;
+            }
+        }
+    }
+    const sec = ge('weekSummarySection');
+    sec.innerHTML = '';
+    sec.style.gridTemplateColumns = 'repeat('+rts+',1fr)';
+    for(let w=0; w<rts; w++){
+        const ws = w*7+1-fd, we = Math.min(ws+6, dim);
+        let lb = 'W'+(w+1);
+        if(ws>=1 && we<=dim) lb += ' ('+Math.max(1,ws)+'-'+we+')';
+        else if(ws<1 && we>=1) lb += ' (1-'+we+')';
+        const cd = document.createElement('div');
+        cd.className = 'summary-card';
+        cd.style.borderTopColor = '#8e44ad';
+        cd.innerHTML = '<h3>📋 '+lb+'</h3><div class="big-number" style="font-size:1.2em;">'+fmtCur(wt[w])+'</div>';
+        sec.appendChild(cd);
+    }
+}
+
+function updateBizSummary(){
+    if(currentMode !== 'business') return;
+    const dim = getDaysInMonth(currentMonth, currentYear);
+    const data = getMonthData(currentMonth, currentYear);
+    const md = data.business || {};
+    let ti = 0, te = 0;
+    for(let d=1; d<=dim; d++){
+        const dd = md[d];
+        if(dd){
+            if(dd.income){
+                activeBizSources.forEach(function(bt){ ti += parseFloat(dd.income[bt]||0); });
+            }
+            te += parseFloat(dd.expense || 0);
+        }
+    }
+    ge('bizTotalIncome').textContent = fmtCur(ti);
+    ge('bizTotalExpense').textContent = fmtCur(te);
+    ge('bizNetProfit').textContent = fmtCur(ti-te);
+}
+
+// ============ BACKUP ============
+function checkBackupReminder(){
+    if(!lastExportDate) return;
+    const d = (new Date() - new Date(lastExportDate)) / 86400000;
+    ge('backupReminder').classList.toggle('show', d>14);
+}
+
+// ============ NAVIGATION ============
+function goToToday(){
+    if(unsavedChanges){ flushAllChanges(); saveAllData(); }
+    currentMonth = new Date().getMonth();
+    currentYear = new Date().getFullYear();
+    renderCalendar();
+    showToast('📆 Showing current month','success');
+}
+function printCalendar(){ window.print(); }
+
+// ============ CSV ============
+function exportCSV(){
+    flushAllChanges(); saveAllData(); loadAllData();
+    lastExportDate = new Date().toISOString();
+    saveSettings();
+    const cd = getMonthData(currentMonth, currentYear);
+    const wn = (cd.workerInfo.name||'worker').replace(/[^a-z0-9]/gi,'_');
+    let csv = 'Ngili Calendar v2.4\nWorker: '+(cd.workerInfo.name||'')+'\nDate: '+new Date().toISOString().split('T')[0]+'\nCurrency: '+currencySymbol+'\n\n';
+    const sk = Object.keys(allData).sort();
+    MODES.forEach(function(mode){
+        csv += '--- '+(MODE_LABELS[mode]||mode)+' ---\nYear,Month,Day,Amount,Notes\n';
+        for(let k=0; k<sk.length; k++){
+            const key = sk[k], p = key.split('-'), y = parseInt(p[0]), m = parseInt(p[1]);
+            const md = allData[key], dim = new Date(y,m+1,0).getDate(), moded = md[mode]||{};
+            for(let d=1; d<=dim; d++){
+                if(mode==='business'){
+                    const dd = moded[d];
+                    if(dd && dd.income){
+                        const bs = md.bizSources || activeBizSources;
+                        bs.forEach(function(bt){
+                            const a = dd.income[bt]||0;
+                            if(a>0) csv += y+','+MONTHS[m]+','+d+','+a+','+BIZ_LABELS[bt]+'\n';
+                        });
+                        if(dd.expense>0) csv += y+','+MONTHS[m]+','+d+','+dd.expense+',Expense\n';
+                    }
+                } else {
+                    const dd = moded[d]||{amount:0,note:''};
+                    if(dd.amount>0 || dd.note) csv += y+','+MONTHS[m]+','+d+','+(dd.amount||0)+',"'+(dd.note||'').replace(/"/g,'""')+'"\n';
+                }
+            }
+        }
+    });
+    const blob = new Blob([csv],{type:'text/csv'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'Ngili_'+wn+'_'+MONTHS[currentMonth]+'_'+currentYear+'.csv';
+    a.click();
+    ge('backupReminder').classList.remove('show');
+    showToast('📥 CSV exported!','success');
+}
+
+function importCSV(e){
+    const f = e.target.files[0];
+    if(!f) return;
+    ge('loadingOverlay').classList.add('active');
+    const r = new FileReader();
+    r.onload = function(ev){
+        try{
+            const lines = ev.target.result.split('\n');
+            let ic = 0, cim = 'wages';
+            for(let i=0; i<lines.length; i++){
+                const l = lines[i].trim();
+                if(!l || l.startsWith('Ngili')) continue;
+                if(l.startsWith('---')){
+                    if(l.includes('Bus Fare')) cim='busfare';
+                    else if(l.includes('Lunch')) cim='lunch';
+                    else if(l.includes('Business')) cim='business';
+                    else if(l.includes('Custom')) cim='custom';
+                    else cim='wages';
+                    continue;
+                }
+                const p = l.split(',');
+                if(p.length>=4 && !isNaN(parseInt(p[0])) && MONTHS.indexOf(p[1])!==-1){
+                    const y=parseInt(p[0]), m=MONTHS.indexOf(p[1]), d=parseInt(p[2]), amt=parseFloat(p[3])||0;
+                    if(amt>0){
+                        const data = getMonthData(m,y);
+                        if(cim==='business'){
+                            if(!data.business[d]) data.business[d] = {income:{},expense:0};
+                            const note = p[4] ? p[4].trim() : '';
+                            if(note==='Expense') data.business[d].expense = (data.business[d].expense||0)+amt;
+                            else data.business[d].income.sales = (data.business[d].income.sales||0)+amt;
+                        } else {
+                            data[cim][d] = {amount:amt, note:p[4]?p[4].replace(/"/g,'').trim():''};
+                        }
+                        ic++;
+                    }
+                }
+            }
+            saveAllData();
+            renderCalendar();
+            ge('loadingOverlay').classList.remove('active');
+            showToast('📤 Imported '+ic+' records!','success');
+        } catch(err){
+            ge('loadingOverlay').classList.remove('active');
+            showToast('❌ Error importing CSV','warning');
+        }
+    };
+    r.readAsText(f);
+    e.target.value = '';
+}
+
+// ============ RESET ============
+function resetAllData(){
+    if(!confirm('⚠ DELETE ALL DATA? This cannot be undone.\n\nClick OK to export first, then confirm deletion.')) return;
+    exportCSV();
+    setTimeout(function(){
+        if(confirm('FINAL WARNING: All data will be permanently deleted. Continue?')){
+            allData = {};
+            undoStack = [];
+            saveAllData();
+            renderCalendar();
+            showToast('⚠ All data reset. Data exported.','warning');
+        }
+    },500);
+}
+
+// ============ MODALS ============
+function openModal(id){
+    ge(id).classList.add('active');
+    document.body.style.overflow = 'hidden';
+    if(id==='reportModal'){
+        const now = new Date();
+        ['From','To'].forEach(function(p){
+            const ms = ge('report'+p+'Month'); ms.innerHTML = '';
+            MONTHS.forEach(function(m,i){ ms.innerHTML += '<option value="'+i+'"'+(i===now.getMonth()?' selected':'')+'>'+m+'</option>'; });
+            const ys = ge('report'+p+'Year'); ys.innerHTML = '';
+            for(let y=2020;y<=2035;y++) ys.innerHTML += '<option value="'+y+'"'+(y===now.getFullYear()?' selected':'')+'>'+y+'</option>';
+        });
+        ge('reportMode').value = currentMode;
+        generateReport();
+    }
+    if(id==='reviewsModal') loadReviews();
+    if(id==='searchModal'){ ge('searchQuery').value=''; ge('searchResults').innerHTML='<p style="color:var(--text-light)">Start typing to search...</p>'; }
+}
+function closeModal(id){ ge(id).classList.remove('active'); document.body.style.overflow = ''; }
+document.addEventListener('click',function(e){ if(e.target.classList.contains('modal-overlay')){ e.target.classList.remove('active'); document.body.style.overflow=''; }});
+document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ document.querySelectorAll('.modal-overlay.active').forEach(function(m){ m.classList.remove('active'); document.body.style.overflow=''; }); }});
+
+// ============ REPORT ============
+function generateReport(){
+    const fm=parseInt(ge('reportFromMonth').value), fy=parseInt(ge('reportFromYear').value);
+    const tm=parseInt(ge('reportToMonth').value), ty=parseInt(ge('reportToYear').value);
+    const mode=ge('reportMode').value;
+    if(fy>ty || (fy===ty && fm>tm)){ ge('reportOutput').innerHTML='<p style="color:#c0392b">⚠ Invalid date range</p>'; return; }
+    let html='<table class="report-table"><thead><tr><th>Month</th><th>Days</th><th>Total</th><th>Adv</th><th>Net</th></tr></thead><tbody>';
+    let gT=0, gD=0, gDays=0;
+    let cy2=fy, cm2=fm;
+    while(cy2<ty || (cy2===ty && cm2<=tm)){
+        const data=getMonthData(cm2,cy2), md=data[mode]||{}, dim=getDaysInMonth(cm2,cy2);
+        let mt=0, mdays=0;
+        if(mode==='business'){
+            for(let d=1;d<=dim;d++){ const dd=md[d]; if(dd&&dd.income){ let dt=0; activeBizSources.forEach(function(bt){ dt+=parseFloat(dd.income[bt]||0); }); if(dt>0){ mt+=dt; mdays++; }}}
+        } else {
+            for(let d=1;d<=dim;d++){ const a=parseFloat((md[d]||{}).amount||0); if(a>0){ mt+=a; mdays++; }}
+        }
+        const adv=data['advance'+mode.charAt(0).toUpperCase()+mode.slice(1)]||0;
+        html+='<tr><td>'+MONTHS[cm2]+' '+cy2+'</td><td>'+mdays+'</td><td>'+fmtCur(mt)+'</td><td style="color:#c0392b">'+fmtCur(adv)+'</td><td style="color:'+(mt-adv<0?'#c0392b':'#27ae60')+'">'+fmtCur(mt-adv)+'</td></tr>';
+        gT+=mt; gD+=adv; gDays+=mdays;
+        cm2++; if(cm2>11){ cm2=0; cy2++; }
+    }
+    const avg=gDays>0?(gT/gDays).toFixed(2):'0.00';
+    html+='<tr style="font-weight:900;background:var(--primary-light);color:white"><td>📊 GRAND TOTAL</td><td>'+gDays+'</td><td>'+fmtCur(gT)+'</td><td>'+fmtCur(gD)+'</td><td>'+fmtCur(gT-gD)+'</td></tr></tbody></table>';
+    html+='<p style="text-align:center;margin-top:8px">📈 Avg/day: <strong>'+fmtCur(avg)+'</strong></p>';
+    ge('reportOutput').innerHTML=html;
+}
+
+// ============ SEARCH ============
+function performSearch(){
+    const q=ge('searchQuery').value.toLowerCase(), mode=ge('searchMode').value, results=ge('searchResults');
+    if(!q){ results.innerHTML='<p style="color:var(--text-light)">Start typing to search...</p>'; return; }
+    const sk=Object.keys(allData).sort();
+    let found=[];
+    const searchModes=mode==='all'?MODES:[mode];
+    sk.forEach(function(key){
+        const p=key.split('-'), y=parseInt(p[0]), m=parseInt(p[1]), data=allData[key];
+        searchModes.forEach(function(sm){
+            const md=data[sm]||{};
+            Object.keys(md).forEach(function(d){
+                if(d==='0') return;
+                const entry=md[d];
+                if(sm==='business'){
+                    if(entry.income){ activeBizSources.forEach(function(bt){ const v=entry.income[bt]||0; if(v>0&&(v.toString().includes(q)||BIZ_LABELS[bt].toLowerCase().includes(q))) found.push({year:y,month:MONTHS[m],day:d,mode:sm,amount:v,note:BIZ_LABELS[bt]}); }); }
+                    if(entry.expense>0&&entry.expense.toString().includes(q)) found.push({year:y,month:MONTHS[m],day:d,mode:sm,amount:entry.expense,note:'Expense'});
+                } else {
+                    const amt=entry.amount||0, note=entry.note||'';
+                    if(amt.toString().includes(q)||note.toLowerCase().includes(q)||d.toString().includes(q)||MONTHS[m].toLowerCase().includes(q)) found.push({year:y,month:MONTHS[m],day:d,mode:sm,amount:amt,note:note});
+                }
+            });
+        });
+    });
+    if(found.length===0){ results.innerHTML='<p style="color:var(--text-light)">No results found.</p>'; }
+    else {
+        results.innerHTML='<p>Found <strong>'+found.length+'</strong> result(s):</p><table class="report-table"><thead><tr><th>Date</th><th>Mode</th><th>Amount</th><th>Note</th></tr></thead><tbody>'+found.slice(0,50).map(function(f){ return '<tr><td>'+f.month+' '+f.day+', '+f.year+'</td><td>'+MODE_LABELS[f.mode]+'</td><td>'+fmtCur(f.amount)+'</td><td>'+f.note+'</td></tr>'; }).join('')+'</tbody></table>';
+        if(found.length>50) results.innerHTML+='<p style="color:var(--text-light)">Showing first 50 results...</p>';
+    }
+}
+
+// ============ TOAST ============
+function showToast(m,t){ var toast=ge('toast'); toast.textContent=m; toast.className='toast '+(t||'')+' show'; clearTimeout(toast._t); toast._t=setTimeout(function(){ toast.classList.remove('show'); },2500); }
+
+// ============ REVIEWS ============
+function loadReviews(){ const r=JSON.parse(safeGet('ngili_reviews_v2','[]')), list=ge('reviewList'); list.innerHTML=''; if(r.length===0){ list.innerHTML='<p style="text-align:center;color:var(--text-light)">No reviews yet. ⭐</p>'; } else { r.reverse().forEach(function(rv){ list.innerHTML+='<div class="review-item"><div class="review-header"><strong>'+(rv.n||'Anonymous')+'</strong><span>'+rv.d+'</span></div><div class="review-stars">'+'★'.repeat(rv.s)+'☆'.repeat(5-rv.s)+'</div><div class="review-text">'+rv.t+'</div></div>'; }); updateRS(r); } }
+function updateRS(r){ const c=r.length, avg=c>0?(r.reduce(function(s,rv){ return s+rv.s; },0)/c).toFixed(1):'—'; ge('reviewCount').textContent=c+' review'+(c!==1?'s':'')+' | Avg: '+avg+' ⭐'; }
+function submitReview(){ const n=ge('reviewName').value.trim(), s=parseInt(ge('reviewStars').value), t=ge('reviewText').value.trim(); if(s===0){ showToast('⚠ Please rate!','warning'); return; } if(!t){ showToast('⚠ Please write a review!','warning'); return; } const r=JSON.parse(safeGet('ngili_reviews_v2','[]')); r.push({n:n||'Anonymous',s:s,t:t,d:new Date().toISOString().split('T')[0]}); safeSet('ngili_reviews_v2',JSON.stringify(r)); ge('reviewName').value=''; ge('reviewText').value=''; ge('reviewStars').value='0'; document.querySelectorAll('#starRating .star').forEach(function(s){ s.classList.remove('active'); s.textContent='☆'; }); loadReviews(); showToast('⭐ Review submitted!','success'); }
+document.addEventListener('DOMContentLoaded',function(){ document.querySelectorAll('#starRating .star').forEach(function(s){ s.addEventListener('click',function(){ const v=parseInt(this.getAttribute('data-star')); ge('reviewStars').value=v; document.querySelectorAll('#starRating .star').forEach(function(ss,i){ ss.classList.toggle('active',i<v); ss.textContent=i<v?'★':'☆'; }); }); }); });
+
+// ============ INIT ============
+function init(){
+    loadAllData();
+    ge('businessSection').classList.toggle('active', currentMode==='business');
+    ge('notesPresetBar').style.display = (currentMode!=='business') ? 'flex' : 'none';
+    updateBizTabsVisual();
+    renderCalendar();
+    window.addEventListener('beforeunload',function(){ flushAllChanges(); saveAllData(); });
+    setInterval(function(){ if(unsavedChanges){ flushAllChanges(); saveAllData(); } }, 10000);
+    console.log('✅ Ngili Calendar v2.4 — INSTANT Business Tabs!');
+}
 init();
 </script>
 </body>
