@@ -49,7 +49,7 @@
         .business-section.active{display:block}
         .business-section h3{font-size:.85em;color:var(--business);margin-bottom:6px;text-transform:uppercase;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
         .biz-checks{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
-        .biz-checks label{font-size:.75em;cursor:pointer;min-height:36px;display:flex;align-items:center;gap:3px;padding:5px 10px;border-radius:15px;background:var(--bg);border:2px solid transparent;user-select:none;transition:all 0.15s}
+        .biz-checks label{font-size:.75em;cursor:pointer;display:flex;align-items:center;gap:3px;padding:5px 10px;border-radius:15px;background:var(--bg);border:2px solid transparent;user-select:none;transition:all 0.15s;min-height:36px}
         .biz-checks label:hover{filter:brightness(0.95)}
         .biz-checks label.checked{background:#e8daef;border-color:var(--business);font-weight:700;color:var(--business)}
         .business-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
@@ -135,7 +135,7 @@
         @keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.3}}
         .unsaved-banner{text-align:center;padding:6px;background:#fef9e7;color:#b7950b;font-weight:600;font-size:.8em;border-radius:var(--radius-sm);margin-bottom:8px;display:none;border:1px solid #f9e79f}
         .unsaved-banner.show{display:block}
-        @media(max-width:768px){.calendar-table{min-width:auto;font-size:.7em}.calendar-table td{height:50px;padding:2px}.header h1{font-size:1.4em}.worker-info-card{grid-template-columns:1fr 1fr;gap:6px;padding:10px}.summary-card .big-number{font-size:1.3em}.modal{padding:15px;max-width:95vw}.biz-checks{flex-direction:column;gap:4px}}
+        @media(max-width:768px){.calendar-table{min-width:auto;font-size:.7em}.calendar-table td{height:50px;padding:2px}.header h1{font-size:1.4em}.worker-info-card{grid-template-columns:1fr 1fr;gap:6px;padding:10px}.summary-card .big-number{font-size:1.3em}.modal{padding:15px;max-width:95vw}.biz-checks{flex-direction:row;flex-wrap:wrap;gap:6px}.biz-checks label{font-size:.7em;padding:6px 10px;margin:2px}}
     </style>
 </head>
 <body>
@@ -167,7 +167,7 @@
 <div class="unsaved-banner no-print" id="unsavedBanner">⚠ Unsaved changes! Click <strong>💾 Save</strong></div>
 
 <div class="business-section no-print" id="businessSection">
-<h3>🏪 Business Income Sources (Click to toggle, then Apply) <button class="btn btn-refresh" onclick="renderCalendar()" style="font-size:.8em;padding:6px 12px;background:#6c3483;color:white;border:none;border-radius:4px;cursor:pointer">✅ Apply Changes</button></h3>
+<h3>🏪 Business Income Sources (Click to toggle) <button class="btn btn-refresh" onclick="renderCalendar()" style="font-size:.7em;padding:4px 10px;margin-left:5px">🔄 Apply</button></h3>
 <div class="biz-checks" id="bizSources"></div>
 <div class="business-summary" id="bizSummary">
 <div class="bs-card"><h4>💰 Total Income</h4><div class="bs-num bs-income" id="bizTotalIncome">0.00</div></div>
@@ -209,52 +209,15 @@
 <div class="copyright">© 2026 <strong>The Ngili Calendar</strong> <span style="background:var(--accent);color:white;padding:2px 8px;border-radius:10px;font-size:0.75em;">v2.1</span>. All Rights Reserved.</div>
 <div class="developer">Developed by <strong>Safari Softwares</strong> | 📧 <a href="mailto:safarisoftwares@gmail.com" style="color:var(--primary-light);">safarisoftwares@gmail.com</a></div>
 <div class="footer-links no-print"><a onclick="openModal('termsModal')">📜 Terms of Use</a><a onclick="openModal('privacyModal')">🔒 Privacy Policy</a><a onclick="openModal('reviewsModal')">⭐ Reviews</a></div>
-<div class="disclaimer">Disclaimer: The Ngili Calendar is a tool to assist workers and businesses in tracking income and expenses. It is not a substitute for official financial or payroll records. Safari Softwares assumes no liability for any financial decisions made based on this tool. Always consult a qualified accountant for official financial advice.</div>
+<div class="disclaimer">Disclaimer: The Ngili Calendar is a tool to assist workers and businesses in tracking income and expenses. It is not a substitute for official financial or payroll records. Safari Softwares assumes no liability for any financial decisions made based on this tool.</div>
 </div>
 </div>
 
-<!-- TERMS MODAL - ROBUST -->
-<div class="modal-overlay" id="termsModal"><div class="modal"><button class="close-btn" onclick="closeModal('termsModal')">✕ Close</button>
-<h2>📜 Terms of Use</h2>
-<p><strong>Effective Date: January 1, 2026 | Last Updated: June 26, 2026</strong></p>
-<h3>1. Acceptance of Terms</h3>
-<p>By accessing or using The Ngili Calendar ("the Service"), you agree to be bound by these Terms of Use. If you do not agree, please do not use the Service.</p>
-<h3>2. Description of Service</h3>
-<p>The Ngili Calendar is a browser-based income and expense tracking tool designed for workers and small business owners. It operates entirely within your web browser using local storage. No data is transmitted to external servers.</p>
-<h3>3. User Responsibilities</h3>
-<ul><li>You are solely responsible for the accuracy of data entered into the calendar.</li><li>You should regularly export and back up your data using the CSV Export feature.</li><li>You must not use this tool for any illegal or unauthorized purposes.</li><li>This tool is not a replacement for professional accounting software.</li></ul>
-<h3>4. Intellectual Property</h3>
-<p>The Ngili Calendar, including its code, design, and branding, is the intellectual property of <strong>Safari Softwares</strong>. Unauthorized reproduction or distribution is prohibited.</p>
-<h3>5. Limitation of Liability</h3>
-<p>The Service is provided "as is" without warranties of any kind. Safari Softwares shall not be liable for any damages arising from the use or inability to use this tool, including data loss or financial miscalculations.</p>
-<h3>6. Changes to Terms</h3>
-<p>We reserve the right to update these terms at any time. Continued use after changes constitutes acceptance.</p>
-<h3>7. Contact</h3>
-<p>📧 <a href="mailto:safarisoftwares@gmail.com" style="color:var(--primary-light);">safarisoftwares@gmail.com</a></p>
-</div></div>
-
-<!-- PRIVACY MODAL - ROBUST -->
-<div class="modal-overlay" id="privacyModal"><div class="modal"><button class="close-btn" onclick="closeModal('privacyModal')">✕ Close</button>
-<h2>🔒 Privacy Policy</h2>
-<p><strong>Effective Date: January 1, 2026 | Last Updated: June 26, 2026</strong></p>
-<h3>1. Our Commitment to Privacy</h3>
-<p><strong>Your data is yours. We do not collect it, store it, or transmit it anywhere.</strong> The Ngili Calendar is designed with privacy as a core principle.</p>
-<h3>2. Data Collection</h3>
-<ul><li>❌ <strong>No personal data</strong> is collected by Safari Softwares.</li><li>❌ <strong>No tracking</strong> — no cookies, no analytics, no advertising.</li><li>❌ <strong>No accounts</strong> — no registration or login required.</li><li>❌ <strong>No servers</strong> — all data stays in your browser's localStorage.</li></ul>
-<h3>3. Data Storage</h3>
-<p>All information (worker details, income entries, expenses, preferences) is stored exclusively in your browser's <strong>localStorage</strong>. This data never leaves your device and is accessible only on that specific browser.</p>
-<h3>4. Data Protection</h3>
-<ul><li>Export your data regularly using <strong>📥 CSV Export</strong>.</li><li>Clearing your browser data will delete all stored information.</li><li>We recommend periodic backups to prevent data loss.</li></ul>
-<h3>5. Third-Party Services</h3>
-<p>This application does not integrate with any third-party services, analytics, or external APIs. The WhatsApp sharing feature only opens your device's sharing interface — no data is sent to Safari Softwares.</p>
-<h3>6. Your Rights</h3>
-<p>Since all data resides on your device, you have complete control: view, edit, export, or delete at any time using the built-in features.</p>
-<h3>7. Contact</h3>
-<p>📧 <a href="mailto:safarisoftwares@gmail.com" style="color:var(--primary-light);">safarisoftwares@gmail.com</a></p>
-</div></div>
-
+<!-- MODALS -->
+<div class="modal-overlay" id="termsModal"><div class="modal"><button class="close-btn" onclick="closeModal('termsModal')">✕ Close</button><h2>📜 Terms of Use</h2><p><strong>Effective: Jan 1, 2026 | Updated: June 26, 2026</strong></p><h3>1. Acceptance</h3><p>By using The Ngili Calendar, you agree to these Terms.</p><h3>2. Service</h3><p>Browser-based income tracking tool. Free of charge. Data stored locally in your browser.</p><h3>3. User Responsibilities</h3><ul><li>You are responsible for data accuracy.</li><li>Back up data using Export CSV.</li><li>Not a replacement for professional accounting software.</li></ul><h3>4. Intellectual Property</h3><p>Property of <strong>Safari Softwares</strong>.</p><h3>5. Liability</h3><p>Provided "as is" without warranty.</p><h3>6. Contact</h3><p>📧 safarisoftwares@gmail.com</p></div></div>
+<div class="modal-overlay" id="privacyModal"><div class="modal"><button class="close-btn" onclick="closeModal('privacyModal')">✕ Close</button><h2>🔒 Privacy Policy</h2><p><strong>Your data is yours. We do not collect it.</strong></p><h3>No Data Collected</h3><ul><li>❌ No servers</li><li>❌ No tracking</li><li>❌ No accounts</li></ul><h3>Storage</h3><p>All data stored in your browser's localStorage. Export CSV regularly for backup.</p></div></div>
 <div class="modal-overlay" id="reportModal"><div class="modal"><button class="close-btn" onclick="closeModal('reportModal')">✕ Close</button><h2>📊 Cross-Month Reports</h2><div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px"><div>From:<br><select id="reportFromMonth" onchange="generateReport()"></select><select id="reportFromYear" onchange="generateReport()"></select></div><div>To:<br><select id="reportToMonth" onchange="generateReport()"></select><select id="reportToYear" onchange="generateReport()"></select></div><div>Mode:<br><select id="reportMode" onchange="generateReport()"><option value="wages">💰 Wages</option><option value="busfare">🚌 Bus Fare</option><option value="lunch">🍽 Lunch</option><option value="business">🏪 Business</option><option value="custom">✚ Custom</option></select></div></div><div id="reportOutput"></div></div></div>
-<div class="modal-overlay" id="reviewsModal"><div class="modal"><button class="close-btn" onclick="closeModal('reviewsModal')">✕ Close</button><h2>⭐ Reviews & Feedback</h2><p style="text-align:center;color:var(--text-light)" id="reviewCount">0 reviews | Average: —</p><div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px"><input type="text" id="reviewName" placeholder="Your name" style="padding:8px;border:2px solid var(--border);border-radius:4px;font-family:inherit;background:var(--card-bg);color:var(--text)"><div class="star-rating" id="starRating"><span class="star" data-star="1">☆</span><span class="star" data-star="2">☆</span><span class="star" data-star="3">☆</span><span class="star" data-star="4">☆</span><span class="star" data-star="5">☆</span></div><input type="hidden" id="reviewStars" value="0"><textarea id="reviewText" placeholder="Your experience..." style="padding:8px;border:2px solid var(--border);border-radius:4px;font-family:inherit;height:70px;resize:vertical;background:var(--card-bg);color:var(--text)"></textarea><button class="btn btn-accent" onclick="submitReview()">📝 Submit</button></div><div id="reviewList"></div></div></div>
+<div class="modal-overlay" id="reviewsModal"><div class="modal"><button class="close-btn" onclick="closeModal('reviewsModal')">✕ Close</button><h2>⭐ Reviews</h2><p style="text-align:center;color:var(--text-light)" id="reviewCount">0 reviews | Avg: —</p><div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px"><input type="text" id="reviewName" placeholder="Your name" style="padding:8px;border:2px solid var(--border);border-radius:4px;font-family:inherit;background:var(--card-bg);color:var(--text)"><div class="star-rating" id="starRating"><span class="star" data-star="1">☆</span><span class="star" data-star="2">☆</span><span class="star" data-star="3">☆</span><span class="star" data-star="4">☆</span><span class="star" data-star="5">☆</span></div><input type="hidden" id="reviewStars" value="0"><textarea id="reviewText" placeholder="Your experience..." style="padding:8px;border:2px solid var(--border);border-radius:4px;font-family:inherit;height:70px;resize:vertical;background:var(--card-bg);color:var(--text)"></textarea><button class="btn btn-accent" onclick="submitReview()">📝 Submit</button></div><div id="reviewList"></div></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -293,10 +256,10 @@ function ge(id){return document.getElementById(id)}
 function gsk(m,y){return y+'-'+m}
 function loadAllData(){const s=localStorage.getItem(STORAGE_KEY);allData=s?JSON.parse(s):{};const st=JSON.parse(localStorage.getItem('ngili_settings_v21')||'{}');currencySymbol=st.cur||'KES';currentLang=st.lang||'en';darkMode=st.dark||false;weekendMultiplier=st.wr||1;dailyTarget=st.tgt||0;lastExportDate=st.le||null;activeBizSources=st.biz||['sales'];if(darkMode)document.body.classList.add('dark-mode');ge('currencySelect').value=currencySymbol;ge('weekendRateSelect').value=weekendMultiplier;ge('darkToggle').textContent=darkMode?'☀️ Light':'🌙 Dark';if(!ge('workerCitizenship').value){ge('workerCitizenship').value='Kenya';ge('citizenshipSearch').value='🇰🇪 Kenya'}}
 function saveSettings(){localStorage.setItem('ngili_settings_v21',JSON.stringify({cur:currencySymbol,lang:currentLang,dark:darkMode,wr:weekendMultiplier,tgt:dailyTarget,le:lastExportDate,biz:activeBizSources}))}
-function saveAllData(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(allData));unsavedChanges=false;updateSaveIndicator(true);hideUnsavedBanner();updateSaveButtons(true)}catch(e){showToast('⚠ Storage full! Please export data.','warning')}}
+function saveAllData(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(allData));unsavedChanges=false;updateSaveIndicator(true);hideUnsavedBanner();updateSaveButtons(true)}catch(e){showToast('⚠ Storage full!','warning')}}
 function manualSave(){flushAllChanges();saveAllData();showToast('💾 Saved!','success')}
 function getMonthData(m,y){const k=gsk(m,y);if(!allData[k]){allData[k]={workerInfo:{name:'',id:'',citizenship:'Kenya',dailyWage:'',phone:''},employerWages:'',employerBusfare:'',employerLunch:'',employerBusiness:'',employerCustom:'',wages:{},busfare:{},lunch:{},business:{},custom:{},advanceWages:0,advanceBusfare:0,advanceLunch:0,advanceBusiness:0,advanceCustom:0,bizSources:['sales']};}MODES.forEach(function(m){if(!allData[k][m])allData[k][m]={};});return allData[k]}
-function flushAllChanges(){const data=getMonthData(currentMonth,currentYear);data.workerInfo={name:ge('workerName').value,id:ge('workerID').value,citizenship:ge('workerCitizenship').value||'Kenya',dailyWage:ge('dailyWage').value,phone:ge('workerPhone').value};data['employer'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=ge('employerInput').value;data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=parseFloat(ge('advanceInput').value)||0;data.bizSources=activeBizSources;const dim=getDaysInMonth(currentMonth,currentYear);if(!data[currentMode])data[currentMode]={};for(let d=1;d<=dim;d++){if(currentMode==='business'){const dd={};let hasData=false;activeBizSources.forEach(function(bt){const wi=ge('biz-'+bt+'-'+d);if(wi){const v=parseFloat(wi.value)||0;dd[bt]=v;if(v>0)hasData=true;}});const ei=ge('exp-'+d);const exp=ei?parseFloat(ei.value)||0:0;if(hasData||exp>0){data.business[d]={income:dd,expense:exp};}else{delete data.business[d];}}else{const wi=ge('wage-'+d);const ni=ge('note-'+d);if(wi&&ni){const w=parseFloat(wi.value)||0;const n=ni.value;if(w===0&&n===''){delete data[currentMode][d];}else{data[currentMode][d]={amount:w,note:n};}}}}}
+function flushAllChanges(){const data=getMonthData(currentMonth,currentYear);data.workerInfo={name:ge('workerName').value,id:ge('workerID').value,citizenship:ge('workerCitizenship').value||'Kenya',dailyWage:ge('dailyWage').value,phone:ge('workerPhone').value};data['employer'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=ge('employerInput').value;data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=parseFloat(ge('advanceInput').value)||0;data.bizSources=activeBizSources;const dim=getDaysInMonth(currentMonth,currentYear);if(!data[currentMode])data[currentMode]={};for(let d=1;d<=dim;d++){if(currentMode==='business'){const dd={};let hasData=false;activeBizSources.forEach(function(bt){const wi=ge('biz-'+bt+'-'+d);if(wi){const v=parseFloat(wi.value)||0;dd[bt]=v;if(v>0)hasData=true}});const ei=ge('exp-'+d);const exp=ei?parseFloat(ei.value)||0:0;if(hasData||exp>0){data.business[d]={income:dd,expense:exp}}else{delete data.business[d]}}else{const wi=ge('wage-'+d);const ni=ge('note-'+d);if(wi&&ni){const w=parseFloat(wi.value)||0;const n=ni.value;if(w===0&&n===''){delete data[currentMode][d]}else{data[currentMode][d]={amount:w,note:n}}}}}}
 function markUnsaved(){unsavedChanges=true;updateSaveIndicator(false);showUnsavedBanner();updateSaveButtons(false)}
 function updateSaveButtons(saved){[ge('manualSaveBtn'),ge('manualSaveBtn2')].forEach(function(btn){if(!btn)return;if(saved){btn.classList.add('saved');btn.textContent='✅ Saved';setTimeout(function(){btn.classList.remove('saved');btn.textContent='💾 Save'},2000)}else{btn.classList.remove('saved');btn.textContent='💾 Save'}})}
 function updateSaveIndicator(s){ge('saveDot').className=s?'dot':'dot unsaved';ge('lastSavedText').textContent=s?'Saved ✓':'Unsaved changes'}
@@ -322,6 +285,7 @@ function autofillDailyWage(){const v=ge('dailyWage').value;if(!v||parseFloat(v)<
 function clearCurrentMode(){if(confirm('Clear ALL entries for this mode?')){const data=getMonthData(currentMonth,currentYear);data[currentMode]={};saveAllData();renderCalendar();showToast('🗑 Cleared','warning')}}
 function updateDayCounter(){const dim=getDaysInMonth(currentMonth,currentYear),data=getMonthData(currentMonth,currentYear),md=data[currentMode]||{};const country=ge('workerCitizenship').value||'Kenya';let w=0,h=0,e=0;for(let d=1;d<=dim;d++){const dd=md[d]||{};const isH=isPublicHoliday(country,currentMonth,d);let hasValue=false;if(currentMode==='business'){activeBizSources.forEach(function(bt){if(dd.income&&dd.income[bt]>0)hasValue=true});if(dd.expense>0)hasValue=true}else{if(dd.amount>0)hasValue=true}if(hasValue){w++}else if(isH){h++}else{e++}}ge('countWorked').textContent=w;ge('countHoliday').textContent=h;ge('countEmpty').textContent=e}
 
+// ===== BUSINESS TOGGLE (INSTANT) =====
 function toggleBizSource(bt){const idx=activeBizSources.indexOf(bt);if(idx===-1){activeBizSources.push(bt)}else{if(activeBizSources.length>1)activeBizSources.splice(idx,1)}saveSettings();updateModeUI();renderCalendar();}
 function switchMode(mode){flushAllChanges();currentMode=mode;const bs=ge('businessSection');if(bs)bs.classList.toggle('active',mode==='business');updateModeUI();renderCalendar()}
 function updateModeUI(){
@@ -337,7 +301,7 @@ function updateModeUI(){
 
 function renderCalendar(){
     if(unsavedChanges){flushAllChanges();saveAllData()}
-    loadAllData();const data=getMonthData(currentMonth,currentYear);activeBizSources=data.bizSources||['sales'];
+    loadAllData();const data=getMonthData(currentMonth,currentYear);activeBizSources=data.bizSources||activeBizSources;
     ge('workerName').value=data.workerInfo.name||'';ge('workerID').value=data.workerInfo.id||'';
     const sc=data.workerInfo.citizenship||'Kenya';ge('workerCitizenship').value=sc;
     ge('citizenshipSearch').value=sc?(ALL_COUNTRIES.find(function(c){return c.name===sc})||{f:'',n:''}).f+' '+sc:'';
@@ -407,7 +371,7 @@ function loadReviews(){const r=JSON.parse(localStorage.getItem(REVIEWS_KEY)||'[]
 function updateRS(r){const c=r.length,avg=c>0?(r.reduce(function(s,rv){return s+rv.s},0)/c).toFixed(1):'—';ge('reviewCount').textContent=c+' review'+(c!==1?'s':'')+' | Average: '+avg+' ⭐'}
 function submitReview(){const n=ge('reviewName').value.trim(),s=parseInt(ge('reviewStars').value),t=ge('reviewText').value.trim();if(s===0){showToast('⚠ Please rate!','warning');return}if(!t){showToast('⚠ Please write a review!','warning');return}const r=JSON.parse(localStorage.getItem(REVIEWS_KEY)||'[]');r.push({n:n||'Anonymous',s:s,t:t,d:new Date().toISOString().split('T')[0]});localStorage.setItem(REVIEWS_KEY,JSON.stringify(r));ge('reviewName').value='';ge('reviewText').value='';ge('reviewStars').value='0';document.querySelectorAll('#starRating .star').forEach(function(s){s.classList.remove('active');s.textContent='☆'});loadReviews();showToast('⭐ Review submitted! Thank you!','success')}
 document.addEventListener('DOMContentLoaded',function(){const stars=document.querySelectorAll('#starRating .star');stars.forEach(function(s){s.addEventListener('click',function(){const v=parseInt(this.getAttribute('data-star'));ge('reviewStars').value=v;stars.forEach(function(ss,i){ss.classList.toggle('active',i<v);ss.textContent=i<v?'★':'☆'})})})});
-function init(){loadAllData();const bs=ge('businessSection');if(bs)bs.classList.toggle('active',currentMode==='business');renderCalendar();window.addEventListener('beforeunload',function(){flushAllChanges();saveAllData()});setInterval(function(){if(unsavedChanges){flushAllChanges();saveAllData()}},10000);console.log('🚀 Ngili Calendar v2.1 — Production Ready!')}
+function init(){loadAllData();const bs=ge('businessSection');if(bs)bs.classList.toggle('active',currentMode==='business');renderCalendar();window.addEventListener('beforeunload',function(){flushAllChanges();saveAllData()});setInterval(function(){if(unsavedChanges){flushAllChanges();saveAllData()}},10000);console.log('🚀 Ngili Calendar v2.1 — All Fixes Applied!')}
 init();
 </script>
 </body>
