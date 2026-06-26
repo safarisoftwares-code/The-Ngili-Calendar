@@ -13,19 +13,15 @@
         .dark-mode{--primary:#2980b9;--primary-light:#3498db;--accent:#f39c12;--success:#2ecc71;--danger:#e74c3c;--business:#bb6bd9;--premium-gold:#f1c40f;--bg:#1a1a2e;--card-bg:#16213e;--text:#ecf0f1;--text-light:#bdc3c7;--border:#2c3e50;--weekend:#2c3e50;--today-bg:#1a3a5c;--today-border:#ff4081;--holiday-bg:#3a351a;--shadow:0 2px 10px rgba(0,0,0,0.3);--shadow-lg:0 10px 30px rgba(0,0,0,0.4)}
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:15px;transition:background 0.3s,color 0.3s}
-        @media print{body{background:white!important;padding:0!important;font-size:9px;color:black!important}.no-print,.controls-bar,.action-bar,.last-saved,#csvFileInput,.unsaved-banner,.footer-links,.modal-overlay,.settings-bar,.target-bar,.target-info,.backup-reminder,.holiday-indicator,.day-counter-bar,.business-section,.upgrade-banner{display:none!important}.calendar-container{box-shadow:none!important;border:1px solid #000;page-break-inside:avoid}.calendar-table{min-width:auto!important}.calendar-table td{height:35px!important;padding:1px!important}.worker-info-card{border:1px solid #000!important;padding:5px 8px!important}.summary-card{box-shadow:none!important;border:1px solid #000!important;padding:5px!important}.header h1{font-size:1.2em!important;color:black!important}@page{size:landscape;margin:3mm}}
+        @media print{body{background:white!important;padding:0!important;font-size:9px;color:black!important}.no-print,.controls-bar,.action-bar,.last-saved,#csvFileInput,.unsaved-banner,.footer-links,.modal-overlay,.settings-bar,.target-bar,.target-info,.backup-reminder,.holiday-indicator,.day-counter-bar,.business-section,.upgrade-banner,.notes-bar{display:none!important}.calendar-container{box-shadow:none!important;border:1px solid #000;page-break-inside:avoid}.calendar-table{min-width:auto!important}.calendar-table td{height:35px!important;padding:1px!important}.worker-info-card{border:1px solid #000!important;padding:5px 8px!important}.summary-card{box-shadow:none!important;border:1px solid #000!important;padding:5px!important}.header h1{font-size:1.2em!important;color:black!important}@page{size:landscape;margin:3mm}}
         @media screen and (min-width:1024px){body{display:flex;justify-content:center;align-items:flex-start;padding:20px}.main-wrapper{max-width:1500px;width:100%}}
         .main-wrapper{width:100%}
-        
-        /* Header */
         .header{text-align:center;margin-bottom:10px}
         .header h1{font-size:2.5em;font-weight:900;color:var(--primary);text-transform:uppercase;margin-bottom:0;letter-spacing:2px;line-height:1.2}
         .header .subtitle{font-size:.85em;color:var(--text-light);font-style:italic;margin-top:2px}
         .worker-badge{display:inline-block;background:#27ae60;color:white;padding:4px 10px;border-radius:12px;font-size:.7em;font-weight:700;margin:0 4px}
         .premium-badge{display:inline-block;background:linear-gradient(135deg,#f39c12,#e74c3c);color:white;padding:3px 10px;border-radius:10px;font-size:.68em;font-weight:700;margin-left:4px}
         .free-badge{display:inline-block;background:#2980b9;color:white;padding:3px 10px;border-radius:10px;font-size:.68em;font-weight:700;margin-left:4px}
-        
-        /* Bars */
         .settings-bar,.mode-bar,.controls-bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;margin-bottom:6px;padding:8px 12px;background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);font-size:.78em}
         .settings-bar select,.controls-bar select{padding:4px 8px;border:2px solid var(--border);border-radius:var(--radius-sm);font-size:.9em;background:var(--card-bg);color:var(--text)}
         .mode-btn{padding:8px 14px;border:2px solid var(--border);border-radius:20px;cursor:pointer;font-weight:600;font-size:.82em;font-family:inherit;background:var(--card-bg);color:var(--text);white-space:nowrap;min-height:44px;transition:all 0.15s}
@@ -42,19 +38,13 @@
         .btn-sm{padding:5px 10px;font-size:.78em;min-height:36px}.btn-premium{background:linear-gradient(135deg,#f39c12,#e74c3c);color:white;font-weight:700}
         .btn-save{background:#f39c12;color:white;font-weight:700;animation:pulse-save 2s infinite}.btn-save.saved{animation:none;background:var(--success)}
         @keyframes pulse-save{0%,100%{box-shadow:0 0 0 0 rgba(243,156,18,.4)}50%{box-shadow:0 0 0 8px rgba(243,156,18,0)}}
-        
-        /* Upgrade Banner */
         .upgrade-banner{background:linear-gradient(135deg,#f39c12,#e74c3c,#f39c12);color:white;text-align:center;padding:8px 15px;border-radius:var(--radius);margin-bottom:8px;font-weight:600;font-size:.85em;display:none;align-items:center;justify-content:center;gap:8px;animation:shimmer 3s infinite;background-size:200% 200%}
         .upgrade-banner.show{display:flex}@keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-        
-        /* Worker Info */
         .worker-info-card{background:var(--card-bg);border-radius:var(--radius);padding:12px 15px;margin-bottom:6px;box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;border-left:4px solid var(--accent)}
         .worker-info-card .field-group{display:flex;flex-direction:column;gap:3px}
         .worker-info-card label{font-size:.72em;font-weight:700;color:var(--text-light);text-transform:uppercase}
         .worker-info-card input{padding:7px 10px;border:2px solid var(--border);border-radius:var(--radius-sm);font-size:.9em;font-family:inherit;background:var(--card-bg);color:var(--text);width:100%;min-height:44px}
         .worker-info-card input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(230,126,34,0.2)}
-        
-        /* Business Section */
         .business-section{background:var(--card-bg);border-radius:var(--radius);padding:10px 12px;margin-bottom:6px;box-shadow:var(--shadow);border-left:4px solid var(--business);display:none}
         .business-section.active{display:block}
         .business-section h3{font-size:.85em;color:var(--business);margin-bottom:8px;text-transform:uppercase;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -67,16 +57,12 @@
         .biz-summary .bs-card{text-align:center;padding:8px;border-radius:var(--radius-sm);background:var(--bg)}
         .biz-summary .bs-card h4{font-size:.65em;text-transform:uppercase;color:var(--text-light)}
         .biz-summary .bs-card .bs-num{font-size:1.2em;font-weight:800}.bs-income{color:#1a7a3a}.bs-expense{color:#c0392b}.bs-profit{color:var(--business)}
-        
-        /* Quick Notes */
         .notes-bar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:6px;padding:8px 12px;background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow)}
         .notes-bar .notes-label{font-size:.7em;font-weight:700;color:var(--text-light);text-transform:uppercase;margin-right:2px}
         .notes-preset{padding:6px 14px;border-radius:20px;background:var(--bg);border:2px solid var(--border);cursor:pointer;font-size:.73em;font-weight:600;color:var(--text);min-height:36px;display:inline-flex;align-items:center;position:relative;transition:all 0.15s}
         .notes-preset:hover{background:var(--accent);color:white;border-color:var(--accent)}
         .notes-preset .remove-preset{display:none;position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:var(--danger);color:white;font-size:10px;line-height:18px;text-align:center;cursor:pointer}
         .notes-preset:hover .remove-preset{display:block}
-        
-        /* Calendar */
         .calendar-container{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow-lg);overflow:auto;margin-bottom:8px}
         .calendar-table{width:100%;border-collapse:collapse;table-layout:fixed;min-width:1000px}
         .calendar-table th{background:var(--primary);color:white;padding:10px 6px;font-size:.85em;text-transform:uppercase;text-align:center;border:1px solid #1a4466}
@@ -94,20 +80,11 @@
         .day-cell input.wage-input{width:100%;padding:3px 5px;border:2px solid #e0e0e0;border-radius:3px;font-size:.76em;font-family:inherit;text-align:right;font-weight:600;background:#fafafa;min-height:26px;transition:all 0.15s}
         .day-cell input.wage-input:focus{outline:none;border-color:var(--accent);background:white;box-shadow:0 0 0 2px rgba(230,126,34,0.2)}
         .day-cell input.wage-input.has-value{background:#eafaf1;border-color:#82e0aa}
-        .day-cell input.wage-input.mode-wages{border-left:3px solid #2980b9}
-        .day-cell input.wage-input.mode-busfare{border-left:3px solid #e67e22}
-        .day-cell input.wage-input.mode-lunch{border-left:3px solid #27ae60}
-        .day-cell input.wage-input.mode-business{border-left:3px solid #6c3483}
-        .day-cell input.wage-input.biz-expense{border-left:3px solid #c0392b}
         .day-cell textarea.note-input{width:100%;padding:2px 4px;border:1px solid #e0e0e0;border-radius:3px;font-size:.63em;font-family:inherit;resize:none;height:17px;background:#fafafa;transition:all 0.15s}
         .day-cell textarea.note-input:focus{outline:none;border-color:#bdc3c7;height:24px}
         .day-cell textarea.note-input.has-note{background:#fef9e7;border-color:#f9e79f}
-        
-        /* Week Totals */
         .week-total-row td{background:#eaf2f8!important;font-weight:700;text-align:right;padding:8px 10px;font-size:.9em;color:var(--primary);border-top:3px solid var(--primary-light)!important}
         .week-total-label{text-align:left!important;padding-left:15px!important}
-        
-        /* Summaries */
         .summary-section{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px}
         @media(max-width:600px){.summary-section{grid-template-columns:1fr}}
         .summary-card{background:var(--card-bg);border-radius:var(--radius);padding:12px;box-shadow:var(--shadow);text-align:center;border-top:4px solid var(--primary-light)}
@@ -116,22 +93,18 @@
         .summary-card .big-number{font-size:1.8em;font-weight:800;color:var(--text)}
         .summary-card.net-card .big-number{color:var(--success)}
         .summary-card input{width:100%;padding:6px;border:2px solid var(--border);border-radius:var(--radius-sm);font-size:1.1em;text-align:center;font-weight:700;font-family:inherit;background:var(--card-bg);color:var(--text);min-height:44px}
-        
         .day-counter-bar{text-align:center;padding:8px 12px;background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:8px;font-size:.8em;font-weight:600;display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
         .counter-worked{background:#eafaf1;color:#1a7a3a;padding:3px 8px;border-radius:12px}.counter-holiday{background:#fff9c4;color:#f57f17;padding:3px 8px;border-radius:12px}.counter-absent{background:#fdedec;color:#c0392b;padding:3px 8px;border-radius:12px}
-        
         .action-bar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:8px}
         .target-bar{height:8px;background:var(--border);border-radius:4px;margin:8px 0;overflow:hidden;display:none}
         .target-bar .target-fill{height:100%;background:var(--success);border-radius:4px;transition:width .5s ease}
         .target-info{text-align:center;font-size:.8em;color:var(--text-light);margin-bottom:6px;display:none}
-        
         .footer-main{background:var(--card-bg);border-radius:var(--radius);padding:15px 20px;margin-top:15px;box-shadow:var(--shadow);text-align:center;border-top:3px solid var(--primary-light)}
         .footer-main .copyright{font-weight:700;color:var(--primary);font-size:.85em;margin-bottom:6px}
         .footer-main .developer{font-size:.8em;color:var(--text);margin-bottom:4px}.footer-main .developer strong{color:var(--accent)}
         .footer-main .footer-links{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;margin-top:8px}
         .footer-main .footer-links a{color:var(--primary-light);text-decoration:underline;cursor:pointer;font-size:.8em}
         .admin-link{color:var(--text-light);font-size:.7em;cursor:pointer;text-decoration:underline}.admin-link:hover{color:var(--accent)}
-        
         .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:2000;justify-content:center;align-items:center;padding:20px}
         .modal-overlay.active{display:flex}
         .modal{background:var(--card-bg);color:var(--text);border-radius:var(--radius);padding:25px 30px;max-width:650px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)}
@@ -139,21 +112,19 @@
         .modal .close-btn{position:sticky;top:0;float:right;background:var(--danger);color:white;border:none;padding:8px 16px;border-radius:var(--radius-sm);cursor:pointer;font-weight:700;z-index:10;min-height:44px}
         .toast{position:fixed;top:20px;right:20px;background:#2c3e50;color:white;padding:12px 20px;border-radius:var(--radius);font-weight:600;z-index:3000;opacity:0;transform:translateY(-20px);transition:all .3s;pointer-events:none}
         .toast.show{opacity:1;transform:translateY(0)}.toast.success{background:var(--success)}.toast.warning{background:var(--accent)}
-        
         .last-saved{font-size:.75em;color:var(--text-light);text-align:center;margin-top:5px}
         .last-saved .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--success);margin-right:4px}
         .last-saved .dot.unsaved{background:var(--accent);animation:pulse-dot 1s infinite}
         @keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.3}}
         .unsaved-banner{text-align:center;padding:6px;background:#fef9e7;color:#b7950b;font-weight:600;font-size:.8em;border-radius:var(--radius-sm);margin-bottom:8px;display:none;border:1px solid #f9e79f}.unsaved-banner.show{display:block}
-        
         #csvFileInput{display:none}
         @media(max-width:768px){.calendar-table{min-width:auto;font-size:.65em}.calendar-table td{height:50px;padding:1px}.header h1{font-size:1.4em}.worker-info-card{grid-template-columns:1fr 1fr;gap:6px;padding:10px}.summary-card .big-number{font-size:1.3em}.modal{padding:15px;max-width:95vw}}
     </style>
 </head>
 <body>
 
-<!-- Admin Login Overlay -->
-<div class="admin-login-overlay" id="adminLoginOverlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:6000;justify-content:center;align-items:center;padding:20px">
+<!-- Admin Login -->
+<div id="adminLoginOverlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:6000;justify-content:center;align-items:center;padding:20px">
 <div style="background:var(--card-bg);border-radius:var(--radius);padding:30px;max-width:400px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.5)">
 <h2 style="color:var(--danger);margin-bottom:5px">🛠 Admin Panel</h2>
 <p style="color:var(--text-light);font-size:.85em;margin-bottom:20px">Authorized Personnel Only</p>
@@ -165,7 +136,7 @@
 </div></div>
 
 <!-- Admin Panel -->
-<div class="admin-panel" id="adminPanel" style="display:none;max-width:900px;margin:0 auto">
+<div id="adminPanel" style="display:none;max-width:900px;margin:0 auto">
 <div style="background:linear-gradient(135deg,#1a1a2e,#2c3e50);color:white;padding:20px;border-radius:var(--radius);margin-bottom:15px;text-align:center">
 <h2 style="font-size:1.5em;margin-bottom:5px">🛠 Ngili Calendar — Admin Panel</h2>
 <span style="display:inline-block;background:#e74c3c;color:white;padding:4px 12px;border-radius:12px;font-size:.75em;font-weight:700">ADMIN</span>
@@ -188,8 +159,8 @@
 </div>
 <div id="newSubOutput" style="display:none;background:#e8f5e9;padding:15px;border-radius:4px;margin-top:10px">
 <h4 style="color:#1a7a3a;margin-bottom:8px">✅ Subscription Created!</h4>
-<p><strong>ID:</strong> <span id="newSubId" style="background:#fff;padding:4px 10px;border-radius:4px;font-family:monospace;font-size:1.1em">—</span> <button onclick="copyText(document.getElementById('newSubId').textContent)" style="background:var(--primary-light);color:white;border:none;padding:4px 8px;border-radius:3px;cursor:pointer;font-size:.7em">📋</button></p>
-<p><strong>Password:</strong> <span id="newSubPass" style="background:#fff;padding:4px 10px;border-radius:4px;font-family:monospace;font-size:1.1em">—</span> <button onclick="copyText(document.getElementById('newSubPass').textContent)" style="background:var(--primary-light);color:white;border:none;padding:4px 8px;border-radius:3px;cursor:pointer;font-size:.7em">📋</button></p>
+<p><strong>ID:</strong> <span id="newSubId" style="background:#fff;padding:4px 10px;border-radius:4px;font-family:monospace;font-size:1.1em">—</span></p>
+<p><strong>Password:</strong> <span id="newSubPass" style="background:#fff;padding:4px 10px;border-radius:4px;font-family:monospace;font-size:1.1em">—</span></p>
 <p><strong>Expires:</strong> <span id="newSubExpiry">—</span></p>
 <button onclick="copySubscriptionDetails()" style="background:var(--accent);color:white;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;font-weight:600;margin-top:8px">📋 Copy All Details</button>
 </div>
@@ -202,7 +173,6 @@
 
 <!-- Main App -->
 <div class="main-wrapper" id="mainApp">
-
 <div class="header">
     <h1>📅 The Ngili Calendar</h1>
     <p class="subtitle">Universal Income Tracker — Built for Workers, By Workers 
@@ -247,9 +217,8 @@
 
 <div class="unsaved-banner no-print" id="unsavedBanner">⚠ Unsaved changes! Click <strong>💾 Save</strong></div>
 
-<!-- BUSINESS SECTION -->
 <div class="business-section no-print" id="businessSection">
-<h3>🏪 Business Income Sources <small style="font-weight:400;font-size:.8em">(Click tabs to toggle — appears instantly in calendar)</small></h3>
+<h3>🏪 Business Income Sources <small style="font-weight:400;font-size:.8em">(Click tabs to toggle — INSTANT update)</small></h3>
 <div class="biz-checks" id="bizSources"></div>
 <div class="biz-summary">
 <div class="bs-card"><h4>💰 Total Income</h4><div class="bs-num bs-income" id="bizTotalIncome">0.00</div></div>
@@ -267,7 +236,6 @@
 <div class="field-group"><label id="employerLabel">🏢 Employer</label><input type="text" id="employerInput" placeholder="Name" oninput="saveEmployer()"></div>
 </div>
 
-<!-- QUICK NOTES -->
 <div class="notes-bar no-print" id="notesBar" style="display:none">
 <span class="notes-label">📝 Quick Notes:</span>
 <span id="notesPresetContainer" style="display:flex;gap:6px;flex-wrap:wrap;align-items:center"></span>
@@ -311,43 +279,32 @@
 </div>
 </div>
 
-<!-- Upgrade Modal -->
-<div class="modal-overlay" id="upgradeModal"><div class="modal" style="text-align:center"><button class="close-btn" onclick="closeModal('upgradeModal')">✕ Close</button><h2>💎 Upgrade to Ngili Premium</h2><p style="font-size:.9em;color:var(--text-light)">Multi-device access | Subscription ID + Password</p><div style="font-size:3em;font-weight:900;color:var(--premium-gold);margin:15px 0">KSh 1,000<small style="font-size:.4em;color:var(--text-light)">/year</small></div><p style="font-size:.8em">Only <strong>KSh 84/month</strong></p><ul style="text-align:left;margin:15px 0;list-style:none;padding:0"><li style="padding:8px 0;border-bottom:1px solid var(--border)">✅ Use on <strong>3 Devices</strong></li><li style="padding:8px 0;border-bottom:1px solid var(--border)">✅ <strong>Unlimited Business Sources</strong> (Sales, Transport, Food, Services, Labor, Airtime, Pharmacy, Custom)</li><li style="padding:8px 0;border-bottom:1px solid var(--border)">✅ <strong>All Currencies</strong> & Countries</li><li style="padding:8px 0;border-bottom:1px solid var(--border)">✅ <strong>Unlimited Note Presets</strong></li><li style="padding:8px 0">✅ <strong>Priority Support</strong></li></ul><div style="background:var(--bg);padding:15px;border-radius:8px;text-align:left;font-size:.85em;margin:15px 0"><strong>📱 Pay via M-Pesa:</strong><br>Paybill: <strong>516600</strong> | Acc: <strong>528591</strong> | Amount: <strong>KSh 1,000</strong><br><br><strong>Send confirmation:</strong><br>📧 <a href="mailto:safarisoftwares@gmail.com">safarisoftwares@gmail.com</a><br>📱 <a href="https://wa.me/254112168732">+254 112 168 732</a><br><br><strong style="color:var(--danger)">Admin activates within 24hrs</strong></div><button class="btn btn-success" onclick="sendWhatsAppConfirmation()" style="width:100%;justify-content:center">📱 Send Confirmation via WhatsApp</button></div></div>
-
-<!-- Premium Login Modal -->
-<div class="modal-overlay" id="premiumLoginModal"><div class="modal" style="text-align:center;max-width:420px"><button class="close-btn" onclick="closeModal('premiumLoginModal')">✕ Close</button><h2>📅 The Ngili Calendar</h2><p style="color:var(--text-light);font-size:.85em">Sign in to unlock Premium features</p><input type="text" id="loginSubId" placeholder="Subscription ID (e.g., NGL-XXXX-XXXX)" style="width:100%;padding:12px;border:2px solid var(--border);border-radius:4px;font-size:1em;margin-bottom:10px;min-height:48px;background:var(--card-bg);color:var(--text)" autocomplete="off"><input type="password" id="loginPassword" placeholder="Password" style="width:100%;padding:12px;border:2px solid var(--border);border-radius:4px;font-size:1em;margin-bottom:10px;min-height:48px;background:var(--card-bg);color:var(--text)" autocomplete="off"><button class="btn btn-premium" onclick="doPremiumLogin()" style="width:100%;justify-content:center">🔓 Sign In</button><p style="color:var(--danger);font-size:.8em;margin-top:8px;display:none" id="loginError"></p><p style="color:var(--success);font-size:.85em;margin-top:8px;display:none" id="loginSuccess">✅ Premium Activated!</p><p style="font-size:.75em;margin-top:12px"><a onclick="closeModal('premiumLoginModal');openUpgradeModal()" style="color:var(--accent);cursor:pointer">Get Premium</a> | <a onclick="closeModal('premiumLoginModal')" style="color:var(--primary-light);cursor:pointer">Continue Free</a></p></div></div>
-
-<!-- Report Modal -->
+<!-- Modals -->
+<div class="modal-overlay" id="upgradeModal"><div class="modal" style="text-align:center"><button class="close-btn" onclick="closeModal('upgradeModal')">✕ Close</button><h2>💎 Upgrade to Ngili Premium</h2><div style="font-size:3em;font-weight:900;color:var(--premium-gold);margin:15px 0">KSh 1,000<small style="font-size:.4em">/year</small></div><ul style="text-align:left;margin:15px 0;list-style:none;padding:0"><li style="padding:8px 0;border-bottom:1px solid var(--border)">✅ <strong>3 Devices</strong></li><li style="padding:8px 0;border-bottom:1px solid var(--border)">✅ <strong>Unlimited Business Sources</strong></li><li style="padding:8px 0;border-bottom:1px solid var(--border)">✅ <strong>All Currencies</strong></li><li style="padding:8px 0">✅ <strong>Unlimited Note Presets</strong></li></ul><div style="background:var(--bg);padding:15px;border-radius:8px;text-align:left;font-size:.85em;margin:15px 0"><strong>📱 M-Pesa:</strong> Paybill <strong>516600</strong> Acc <strong>528591</strong> Amount <strong>KSh 1,000</strong><br>Send confirmation to 📧 safarisoftwares@gmail.com or 📱 <a href="https://wa.me/254112168732">+254 112 168 732</a></div><button class="btn btn-success" onclick="sendWhatsAppConfirmation()" style="width:100%;justify-content:center">📱 Send Confirmation via WhatsApp</button></div></div>
+<div class="modal-overlay" id="premiumLoginModal"><div class="modal" style="text-align:center;max-width:420px"><button class="close-btn" onclick="closeModal('premiumLoginModal')">✕ Close</button><h2>📅 Sign In</h2><input type="text" id="loginSubId" placeholder="Subscription ID (NGL-XXXX-XXXX)" style="width:100%;padding:12px;border:2px solid var(--border);border-radius:4px;font-size:1em;margin-bottom:10px;min-height:48px;background:var(--card-bg);color:var(--text)" autocomplete="off"><input type="password" id="loginPassword" placeholder="Password" style="width:100%;padding:12px;border:2px solid var(--border);border-radius:4px;font-size:1em;margin-bottom:10px;min-height:48px;background:var(--card-bg);color:var(--text)" autocomplete="off"><button class="btn btn-premium" onclick="doPremiumLogin()" style="width:100%;justify-content:center">🔓 Sign In</button><p style="color:var(--danger);font-size:.8em;margin-top:8px;display:none" id="loginError"></p><p style="color:var(--success);font-size:.85em;margin-top:8px;display:none" id="loginSuccess">✅ Premium Activated!</p></div></div>
 <div class="modal-overlay" id="reportModal"><div class="modal"><button class="close-btn" onclick="closeModal('reportModal')">✕ Close</button><h2>📊 Reports</h2><div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px"><div>From:<br><select id="reportFromMonth" onchange="generateReport()"></select><select id="reportFromYear" onchange="generateReport()"></select></div><div>To:<br><select id="reportToMonth" onchange="generateReport()"></select><select id="reportToYear" onchange="generateReport()"></select></div><div>Mode:<br><select id="reportMode" onchange="generateReport()"><option value="wages">Wages</option><option value="busfare">Bus Fare</option><option value="lunch">Lunch</option><option value="business">Business</option><option value="custom">Custom</option></select></div></div><div id="reportOutput"></div></div></div>
-
-<!-- Terms/Privacy Modals -->
-<div class="modal-overlay" id="termsModal"><div class="modal"><button class="close-btn" onclick="closeModal('termsModal')">✕ Close</button><h2>📜 Terms of Use</h2><p>By using The Ngili Calendar, you agree to these Terms. Free for basic tracking. Premium for advanced features. Data stored locally in your browser.</p></div></div>
-<div class="modal-overlay" id="privacyModal"><div class="modal"><button class="close-btn" onclick="closeModal('privacyModal')">✕ Close</button><h2>🔒 Privacy Policy</h2><p><strong>Your data is yours. We do not collect it.</strong> No servers, no tracking, no accounts. All data in your browser's localStorage.</p></div></div>
-
+<div class="modal-overlay" id="termsModal"><div class="modal"><button class="close-btn" onclick="closeModal('termsModal')">✕ Close</button><h2>📜 Terms</h2><p>By using The Ngili Calendar, you agree to these Terms. Free for basic tracking. Premium for advanced features.</p></div></div>
+<div class="modal-overlay" id="privacyModal"><div class="modal"><button class="close-btn" onclick="closeModal('privacyModal')">✕ Close</button><h2>🔒 Privacy</h2><p><strong>Your data is yours.</strong> No servers, no tracking, no accounts.</p></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
 // ============ ADMIN CREDENTIALS ============
-const ADMIN_USERNAME = 'admin';
-const ADMIN_PASSWORD = 'Ngili@2026Admin';
-const SUBSCRIPTIONS_KEY = 'ngili_subscriptions_v3';
-const ACTIVE_SESSION_KEY = 'ngili_active_session_v3';
-
-// ============ STATE ============
-let currentMonth=new Date().getMonth(),currentYear=new Date().getFullYear(),currentMode='wages',allData={},unsavedChanges=false,currencySymbol='KES',weekendMultiplier=1,darkMode=false,dailyTarget=0,activeBizSources=['sales'],undoStack=[],savePending=false,activeNoteCell=null,notePresets=['Overtime','Half-day','Sick','Holiday','Bonus','Absent'];
-let currentSubscription=null,isPremium=false,premiumExpiry=null,isAdmin=false;
-
+const ADMIN_USERNAME='admin',ADMIN_PASSWORD='Ngili@2026Admin';
+const SUBSCRIPTIONS_KEY='ngili_subs_v34',SESSION_KEY='ngili_session_v34';
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const BIZ_TYPES=['sales','transport','food','services','labor','airtime','pharmacy','custom'];
 const BIZ_LABELS={sales:'🛒 Sales',transport:'🚗 Transport',food:'🍳 Food',services:'💇 Services',labor:'🏗 Labor',airtime:'📱 Airtime',pharmacy:'💊 Pharmacy',custom:'✚ Other'};
 const ALL_COUNTRIES=[{name:'Kenya',flag:'🇰🇪',cur:'KES'},{name:'Tanzania',flag:'🇹🇿',cur:'TZS'},{name:'Uganda',flag:'🇺🇬',cur:'UGX'},{name:'Rwanda',flag:'🇷🇼',cur:'RWF'},{name:'South Africa',flag:'🇿🇦',cur:'ZAR'},{name:'Nigeria',flag:'🇳🇬',cur:'NGN'},{name:'Ghana',flag:'🇬🇭',cur:'GHS'},{name:'Ethiopia',flag:'🇪🇹',cur:'ETB'},{name:'Germany',flag:'🇩🇪',cur:'EUR'},{name:'France',flag:'🇫🇷',cur:'EUR'},{name:'UK',flag:'🇬🇧',cur:'GBP'},{name:'USA',flag:'🇺🇸',cur:'USD'},{name:'India',flag:'🇮🇳',cur:'INR'},{name:'Other',flag:'🌐',cur:'USD'}];
 const PUBLIC_HOLIDAYS={Kenya:{1:{1:"New Year's Day"},5:{1:"Labour Day"},6:{1:"Madaraka Day"},10:{10:"Moi Day",20:"Mashujaa Day"},12:{12:"Jamhuri Day",25:"Christmas Day",26:"Boxing Day"}},Tanzania:{1:{1:"New Year",12:"Zanzibar Revolution"},4:{7:"Karume Day",26:"Union Day"},5:{1:"Labour Day"},7:{7:"Saba Saba"},10:{14:"Nyerere Day"},12:{9:"Independence",25:"Christmas",26:"Boxing Day"}},Uganda:{1:{1:"New Year",26:"Liberation Day"},3:{8:"Women's Day"},5:{1:"Labour Day"},6:{3:"Martyrs' Day",9:"Heroes' Day"},10:{9:"Independence"},12:{25:"Christmas",26:"Boxing Day"}},Rwanda:{1:{1:"New Year",2:"Day After New Year"},2:{1:"Heroes' Day"},4:{7:"Genocide Memorial"},5:{1:"Labour Day"},7:{1:"Independence",4:"Liberation Day"},8:{15:"Assumption"},12:{25:"Christmas",26:"Boxing Day"}},'South Africa':{1:{1:"New Year"},3:{21:"Human Rights Day"},4:{27:"Freedom Day"},5:{1:"Workers' Day"},6:{16:"Youth Day"},8:{9:"Women's Day"},9:{24:"Heritage Day"},12:{16:"Reconciliation",25:"Christmas",26:"Goodwill Day"}},Nigeria:{1:{1:"New Year"},5:{1:"Workers' Day",27:"Children's Day"},6:{12:"Democracy Day"},10:{1:"Independence"},12:{25:"Christmas",26:"Boxing Day"}},USA:{1:{1:"New Year"},7:{4:"Independence Day"},11:{25:"Thanksgiving"},12:{25:"Christmas"}},UK:{1:{1:"New Year"},12:{25:"Christmas",26:"Boxing Day"}},Germany:{1:{1:"New Year"},5:{1:"Labour Day"},10:{3:"Unity Day"},12:{25:"Christmas",26:"Boxing Day"}},France:{1:{1:"New Year"},5:{1:"Labour Day",8:"Victory Day"},7:{14:"Bastille Day"},8:{15:"Assumption"},11:{1:"All Saints",11:"Armistice"},12:{25:"Christmas"}},India:{1:{26:"Republic Day"},8:{15:"Independence"},10:{2:"Gandhi Jayanti"},12:{25:"Christmas"}}};
 
-function getEasterDates(year){var a=year%19,b=Math.floor(year/100),c=year%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),month=Math.floor((h+l-7*m+114)/31),day=((h+l-7*m+114)%31)+1;var gf=new Date(year,month-1,day-2),em=new Date(year,month-1,day+1);return{gf:{month:gf.getMonth()+1,day:gf.getDate()},em:{month:em.getMonth()+1,day:em.getDate()}}}
+function getEasterDates(y){var a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31),day=((h+l-7*m+114)%31)+1,gf=new Date(y,mo-1,day-2),em=new Date(y,mo-1,day+1);return{gf:{month:gf.getMonth()+1,day:gf.getDate()},em:{month:em.getMonth()+1,day:em.getDate()}}}
 var easterCache={},easterCountries=['Kenya','Tanzania','Uganda','Rwanda','South Africa','Nigeria','USA','UK','Germany','France'];
 function getEasterForYear(y){if(!easterCache[y])easterCache[y]=getEasterDates(y);return easterCache[y]}
-function isPublicHoliday(country,monthIdx,day){if(!country||!PUBLIC_HOLIDAYS[country])return false;var m=monthIdx+1;var md=PUBLIC_HOLIDAYS[country][m];if(md&&md[day])return true;if(easterCountries.indexOf(country)!==-1){var e=getEasterForYear(currentYear);if(e.gf.month===m&&e.gf.day===day)return true;if(e.em.month===m&&e.em.day===day)return true}return false}
-function getHolidayName(country,monthIdx,day){if(!country||!PUBLIC_HOLIDAYS[country])return'Public Holiday';var m=monthIdx+1;var md=PUBLIC_HOLIDAYS[country][m];if(md&&md[day])return md[day];if(easterCountries.indexOf(country)!==-1){var e=getEasterForYear(currentYear);if(e.gf.month===m&&e.gf.day===day)return'Good Friday';if(e.em.month===m&&e.em.day===day)return'Easter Monday'}return'Public Holiday'}
+function isPublicHoliday(country,mi,d){if(!country||!PUBLIC_HOLIDAYS[country])return false;var m=mi+1,md=PUBLIC_HOLIDAYS[country][m];if(md&&md[d])return true;if(easterCountries.indexOf(country)!==-1){var e=getEasterForYear(currentYear);if(e.gf.month===m&&e.gf.day===d)return true;if(e.em.month===m&&e.em.day===d)return true}return false}
+function getHolidayName(country,mi,d){if(!country||!PUBLIC_HOLIDAYS[country])return'Public Holiday';var m=mi+1,md=PUBLIC_HOLIDAYS[country][m];if(md&&md[d])return md[d];if(easterCountries.indexOf(country)!==-1){var e=getEasterForYear(currentYear);if(e.gf.month===m&&e.gf.day===d)return'Good Friday';if(e.em.month===m&&e.em.day===d)return'Easter Monday'}return'Public Holiday'}
+
+let currentMonth=new Date().getMonth(),currentYear=new Date().getFullYear(),currentMode='wages',allData={},unsavedChanges=false,currencySymbol='KES',weekendMultiplier=1,darkMode=false,dailyTarget=0,activeBizSources=['sales'],undoStack=[],savePending=false,activeNoteCell=null,notePresets=['Overtime','Half-day','Sick','Holiday','Bonus','Absent'];
+let currentSubscription=null,isPremium=false,premiumExpiry=null,isAdmin=false;
 
 function ge(id){return document.getElementById(id)}
 function gsk(m,y){return y+'-'+m}
@@ -357,7 +314,6 @@ function getFirstDayOfMonth(m,y){return new Date(y,m,1).getDay()}
 function isSunday(d,m,y){return new Date(y,m,d).getDay()===0}
 function generateCode(l){const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let r='';for(let i=0;i<l;i++)r+=c.charAt(Math.floor(Math.random()*c.length));return r}
 function getDeviceId(){let d=localStorage.getItem('ngili_device_id');if(!d){d='DEV-'+generateCode(8);localStorage.setItem('ngili_device_id',d)}return d}
-
 function safeSet(k,v){try{localStorage.setItem(k,v);return true}catch(e){showToast('⚠ Storage full!','warning');return false}}
 function safeGet(k,d){try{const v=localStorage.getItem(k);return v!==null?v:d}catch(e){return d}}
 
@@ -366,23 +322,22 @@ function openAdminLogin(){ge('adminLoginOverlay').style.display='flex';ge('admin
 function closeAdminLogin(){ge('adminLoginOverlay').style.display='none'}
 function adminLogin(){if(ge('adminUsername').value.trim()===ADMIN_USERNAME&&ge('adminPassword').value.trim()===ADMIN_PASSWORD){isAdmin=true;ge('adminLoginOverlay').style.display='none';ge('adminPanel').style.display='block';ge('mainApp').style.display='none';refreshAdminPanel();showToast('🛠 Admin Panel','success')}else{ge('adminLoginError').style.display='block'}}
 function adminLogout(){isAdmin=false;ge('adminPanel').style.display='none';ge('mainApp').style.display='block';ge('adminUsername').value='';ge('adminPassword').value='';showToast('👋 Exited Admin','warning')}
-function refreshAdminPanel(){const subs=Object.values(JSON.parse(localStorage.getItem(SUBSCRIPTIONS_KEY)||'{}'));const now=new Date();const active=subs.filter(s=>s.active&&new Date(s.expiry)>now).length;const expired=subs.filter(s=>new Date(s.expiry)<=now).length;ge('statTotal').textContent=subs.length;ge('statActive').textContent=active;ge('statExpired').textContent=expired;ge('statRevenue').textContent=(subs.length*1000).toLocaleString();const tbody=ge('subscriptionsBody');if(subs.length===0){tbody.innerHTML='<tr><td colspan="8" style="text-align:center;color:var(--text-light);padding:15px">No subscriptions yet</td></tr>'}else{tbody.innerHTML=subs.sort((a,b)=>new Date(b.created)-new Date(a.created)).map(s=>{const exp=new Date(s.expiry);const isAct=s.active&&exp>now;const isExp=exp<=now;let sc='color:#27ae60;font-weight:700',st='✅ Active';if(!s.active){sc='color:#7f8c8d;font-weight:700';st='🚫 Deactivated'}else if(isExp){sc='color:#c0392b;font-weight:700';st='⏱ Expired'}return`<tr><td><strong>${s.id}</strong> <button onclick="copyText('${s.id}')" style="background:var(--primary-light);color:white;border:none;padding:2px 6px;border-radius:3px;cursor:pointer;font-size:.7em">📋</button></td><td>${s.password} <button onclick="copyText('${s.password}')" style="background:var(--primary-light);color:white;border:none;padding:2px 6px;border-radius:3px;cursor:pointer;font-size:.7em">📋</button></td><td>${s.userName}</td><td>${s.userPhone}</td><td>${exp.toLocaleDateString()}</td><td>${s.devices.length}/3</td><td style="${sc}">${st}</td><td>${s.active?`<button onclick="adminDeactivateSubscriptionUI('${s.id}')" style="background:var(--danger);color:white;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-size:.75em">Deactivate</button>`:`<button onclick="adminReactivateSubscriptionUI('${s.id}')" style="background:var(--success);color:white;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-size:.75em">Reactivate</button>`}</td></tr>`}).join('')}}
+function refreshAdminPanel(){const subs=Object.values(JSON.parse(localStorage.getItem(SUBSCRIPTIONS_KEY)||'{}'));const now=new Date();const active=subs.filter(s=>s.active&&new Date(s.expiry)>now).length;const expired=subs.filter(s=>new Date(s.expiry)<=now).length;ge('statTotal').textContent=subs.length;ge('statActive').textContent=active;ge('statExpired').textContent=expired;ge('statRevenue').textContent=(subs.length*1000).toLocaleString();const tbody=ge('subscriptionsBody');if(subs.length===0){tbody.innerHTML='<tr><td colspan="8" style="text-align:center;padding:15px">No subscriptions</td></tr>'}else{tbody.innerHTML=subs.sort((a,b)=>new Date(b.created)-new Date(a.created)).map(s=>{const exp=new Date(s.expiry),isAct=s.active&&exp>now,isExp=exp<=now;let sc='color:#27ae60',st='✅ Active';if(!s.active){sc='color:#7f8c8d';st='🚫 Deactivated'}else if(isExp){sc='color:#c0392b';st='⏱ Expired'}return'<tr><td><strong>'+s.id+'</strong></td><td><strong style="font-family:monospace">'+s.password+'</strong></td><td>'+s.userName+'</td><td>'+s.userPhone+'</td><td>'+exp.toLocaleDateString()+'</td><td>'+(s.devices?Object.keys(s.devices).length:0)+'/3</td><td style="'+sc+'">'+st+'</td><td>'+(s.active?'<button onclick="adminDeactivateUI(\''+s.id+'\')" style="background:var(--danger);color:white;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-size:.75em">Deactivate</button>':'<button onclick="adminReactivateUI(\''+s.id+'\')" style="background:var(--success);color:white;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-size:.75em">Reactivate</button>')+'</td></tr>'}).join('')}}
 function adminCreateSubscriptionUI(){const name=ge('newUserName').value.trim(),phone=ge('newUserPhone').value.trim(),dur=parseInt(ge('newDuration').value)||365;if(!name||!phone){showToast('⚠ Fill Name and Phone','warning');return}const r=adminCreateSubscription(name,phone,dur);ge('newSubId').textContent=r.id;ge('newSubPass').textContent=r.password;ge('newSubExpiry').textContent=new Date(r.expiry).toLocaleDateString();ge('newSubOutput').style.display='block';refreshAdminPanel();showToast('✅ Created!','success')}
-function adminCreateSubscription(name,phone,days=365){const id='NGL-'+generateCode(4)+'-'+generateCode(4);const pw=generateCode(6);const exp=new Date();exp.setDate(exp.getDate()+days);let subs=JSON.parse(localStorage.getItem(SUBSCRIPTIONS_KEY)||'{}');subs[id]={id,pw,expiry:exp.toISOString(),created:new Date().toISOString(),userName:name,userPhone:phone,devices:[],maxDevices:3,active:true};localStorage.setItem(SUBSCRIPTIONS_KEY,JSON.stringify(subs));return{id,pw,expiry:exp.toISOString()}}
-function adminDeactivateSubscriptionUI(id){if(confirm('Deactivate '+id+'?')){let s=JSON.parse(localStorage.getItem(SUBSCRIPTIONS_KEY)||'{}');if(s[id]){s[id].active=false;s[id].devices=[];localStorage.setItem(SUBSCRIPTIONS_KEY,JSON.stringify(s));refreshAdminPanel();showToast('🚫 Deactivated','warning')}}}
-function adminReactivateSubscriptionUI(id){if(confirm('Reactivate '+id+'?')){let s=JSON.parse(localStorage.getItem(SUBSCRIPTIONS_KEY)||'{}');if(s[id]){s[id].active=true;if(new Date(s[id].expiry)<new Date()){const ne=new Date();ne.setDate(ne.getDate()+365);s[id].expiry=ne.toISOString()}localStorage.setItem(SUBSCRIPTIONS_KEY,JSON.stringify(s));refreshAdminPanel();showToast('✅ Reactivated','success')}}}
-function exportSubscriptionsCSV(){const subs=Object.values(JSON.parse(localStorage.getItem(SUBSCRIPTIONS_KEY)||'{}'));let csv='ID,Password,User,Phone,Expires,Devices,Status\n';subs.forEach(s=>{csv+=`${s.id},${s.password},${s.userName},${s.userPhone},${new Date(s.expiry).toLocaleDateString()},${s.devices.length}/3,${s.active?'Active':'Deactivated'}\n`});const b=new Blob([csv],{type:'text/csv'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='Subscriptions_'+new Date().toISOString().split('T')[0]+'.csv';a.click();showToast('📥 Exported!','success')}
-function copySubscriptionDetails(){const t=`Ngili Premium Subscription\n\nID: ${ge('newSubId').textContent}\nPassword: ${ge('newSubPass').textContent}\nName: ${ge('newUserName').value}\nExpires: ${ge('newSubExpiry').textContent}\n\nUse on 3 devices.\n~ Safari Softwares`;navigator.clipboard.writeText(t).then(()=>showToast('📋 Copied!','success')).catch(()=>prompt('Copy:',t))}
+function adminCreateSubscription(name,phone,days){const id='NGL-'+generateCode(4)+'-'+generateCode(4);const password=generateCode(6);const exp=new Date();exp.setDate(exp.getDate()+days);let subs=JSON.parse(localStorage.getItem(SUBSCRIPTIONS_KEY)||'{}');subs[id]={id:id,password:password,expiry:exp.toISOString(),created:new Date().toISOString(),userName:name,userPhone:phone,devices:{},maxDevices:3,active:true};localStorage.setItem(SUBSCRIPTIONS_KEY,JSON.stringify(subs));return{id:id,password:password,expiry:exp.toISOString()}}
+function adminDeactivateUI(id){if(confirm('Deactivate '+id+'?')){let s=JSON.parse(localStorage.getItem(SUBSCRIPTIONS_KEY)||'{}');if(s[id]){s[id].active=false;s[id].devices={};localStorage.setItem(SUBSCRIPTIONS_KEY,JSON.stringify(s));refreshAdminPanel();showToast('🚫 Deactivated','warning')}}}
+function adminReactivateUI(id){if(confirm('Reactivate '+id+'?')){let s=JSON.parse(localStorage.getItem(SUBSCRIPTIONS_KEY)||'{}');if(s[id]){s[id].active=true;if(new Date(s[id].expiry)<new Date()){const ne=new Date();ne.setDate(ne.getDate()+365);s[id].expiry=ne.toISOString()}localStorage.setItem(SUBSCRIPTIONS_KEY,JSON.stringify(s));refreshAdminPanel();showToast('✅ Reactivated','success')}}}
+function exportSubscriptionsCSV(){const subs=Object.values(JSON.parse(localStorage.getItem(SUBSCRIPTIONS_KEY)||'{}'));let csv='ID,Password,User,Phone,Expires,Devices,Status\n';subs.forEach(s=>{csv+=s.id+','+s.password+','+s.userName+','+s.userPhone+','+new Date(s.expiry).toLocaleDateString()+','+(s.devices?Object.keys(s.devices).length:0)+'/3,'+(s.active?'Active':'Deactivated')+'\n'});const b=new Blob([csv],{type:'text/csv'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='Subscriptions_'+new Date().toISOString().split('T')[0]+'.csv';a.click();showToast('📥 Exported!','success')}
+function copySubscriptionDetails(){const t='Ngili Premium Subscription\n\nID: '+ge('newSubId').textContent+'\nPassword: '+ge('newSubPass').textContent+'\nName: '+ge('newUserName').value+'\nExpires: '+ge('newSubExpiry').textContent+'\n\nUse on 3 devices.\n~ Safari Softwares';navigator.clipboard.writeText(t).then(()=>showToast('📋 Copied!','success')).catch(()=>prompt('Copy:',t))}
 
 // ============ PREMIUM LOGIN ============
 function openPremiumLogin(){ge('premiumLoginModal').classList.add('active');document.body.style.overflow='hidden';ge('loginError').style.display='none';ge('loginSuccess').style.display='none';setTimeout(function(){ge('loginSubId').focus()},300)}
-function doPremiumLogin(){const id=ge('loginSubId').value.trim().toUpperCase(),pw=ge('loginPassword').value.trim(),er=ge('loginError'),ok=ge('loginSuccess');er.style.display='none';ok.style.display='none';if(!id||!pw){er.textContent='Enter ID and Password.';er.style.display='block';return}const subs=JSON.parse(localStorage.getItem(SUBSCRIPTIONS_KEY)||'{}'),s=subs[id];if(!s){er.textContent='Invalid ID.';er.style.display='block';return}if(!s.active){er.textContent='Deactivated.';er.style.display='block';return}if(s.password!==pw){er.textContent='Wrong password.';er.style.display='block';return}if(new Date(s.expiry)<new Date()){er.textContent='Expired.';er.style.display='block';return}const did=getDeviceId();if(s.devices.length>=s.maxDevices&&s.devices.indexOf(did)===-1){er.textContent='Max 3 devices.';er.style.display='block';return}if(s.devices.indexOf(did)===-1)s.devices.push(did);subs[id]=s;localStorage.setItem(SUBSCRIPTIONS_KEY,JSON.stringify(subs));localStorage.setItem(ACTIVE_SESSION_KEY,JSON.stringify({subId:id,deviceId:did}));currentSubscription=s;isPremium=true;premiumExpiry=s.expiry;ok.style.display='block';setTimeout(function(){closeModal('premiumLoginModal');updateAllPremiumUI();renderCalendar();showToast('💎 Premium!','success')},1000)}
-function doPremiumLogout(){if(currentSubscription){const subs=JSON.parse(localStorage.getItem(SUBSCRIPTIONS_KEY)||'{}'),s=subs[currentSubscription.id];if(s){const did=getDeviceId(),idx=s.devices.indexOf(did);if(idx!==-1)s.devices.splice(idx,1);subs[currentSubscription.id]=s;localStorage.setItem(SUBSCRIPTIONS_KEY,JSON.stringify(subs))}}currentSubscription=null;isPremium=false;premiumExpiry=null;localStorage.removeItem(ACTIVE_SESSION_KEY);updateAllPremiumUI();renderCalendar();showToast('👋 Signed out','warning')}
-function checkExistingSession(){const se=JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)||'null');if(se){const subs=JSON.parse(localStorage.getItem(SUBSCRIPTIONS_KEY)||'{}'),s=subs[se.subId];if(s&&s.active&&new Date(s.expiry)>new Date()&&s.devices.indexOf(se.deviceId)!==-1){currentSubscription=s;isPremium=true;premiumExpiry=s.expiry;return true}}return false}
+function doPremiumLogin(){const id=ge('loginSubId').value.trim().toUpperCase(),pw=ge('loginPassword').value.trim(),er=ge('loginError'),ok=ge('loginSuccess');er.style.display='none';ok.style.display='none';if(!id||!pw){er.textContent='Enter ID and Password.';er.style.display='block';return}const subs=JSON.parse(localStorage.getItem(SUBSCRIPTIONS_KEY)||'{}'),s=subs[id];if(!s){er.textContent='Invalid ID.';er.style.display='block';return}if(!s.active){er.textContent='Deactivated.';er.style.display='block';return}if(s.password!==pw){er.textContent='Wrong password.';er.style.display='block';return}if(new Date(s.expiry)<new Date()){er.textContent='Expired.';er.style.display='block';return}const did=getDeviceId();if(!s.devices)s.devices={};const devCount=Object.keys(s.devices).length;if(devCount>=s.maxDevices&&!s.devices[did]){er.textContent='Max 3 devices.';er.style.display='block';return}s.devices[did]=true;subs[id]=s;localStorage.setItem(SUBSCRIPTIONS_KEY,JSON.stringify(subs));localStorage.setItem(SESSION_KEY,JSON.stringify({subId:id,deviceId:did}));currentSubscription=s;isPremium=true;premiumExpiry=s.expiry;ok.style.display='block';setTimeout(function(){closeModal('premiumLoginModal');updateAllPremiumUI();renderCalendar();showToast('💎 Premium!','success')},800)}
+function doPremiumLogout(){if(currentSubscription){const subs=JSON.parse(localStorage.getItem(SUBSCRIPTIONS_KEY)||'{}'),s=subs[currentSubscription.id];if(s&&s.devices){delete s.devices[getDeviceId()];subs[currentSubscription.id]=s;localStorage.setItem(SUBSCRIPTIONS_KEY,JSON.stringify(subs))}}currentSubscription=null;isPremium=false;premiumExpiry=null;localStorage.removeItem(SESSION_KEY);updateAllPremiumUI();renderCalendar();showToast('👋 Signed out','warning')}
+function checkExistingSession(){const se=JSON.parse(localStorage.getItem(SESSION_KEY)||'null');if(se){const subs=JSON.parse(localStorage.getItem(SUBSCRIPTIONS_KEY)||'{}'),s=subs[se.subId];if(s&&s.active&&new Date(s.expiry)>new Date()&&s.devices&&s.devices[se.deviceId]){currentSubscription=s;isPremium=true;premiumExpiry=s.expiry;return true}}return false}
 function updateAllPremiumUI(){if(isPremium){ge('accountBadge').textContent='PREMIUM';ge('accountBadge').className='premium-badge';ge('premiumIndicator').style.display='inline-block';ge('headerLogout').style.display='inline-block';ge('headerLoginBtn').style.display='none';ge('upgradeBanner').classList.remove('show');const d=Math.ceil((new Date(premiumExpiry)-new Date())/86400000);ge('premiumIndicator').textContent='💎 PREMIUM ('+d+'d)'}else{ge('accountBadge').textContent='FREE';ge('accountBadge').className='free-badge';ge('premiumIndicator').style.display='none';ge('headerLogout').style.display='none';ge('headerLoginBtn').style.display='inline-block';ge('upgradeBanner').classList.add('show')}}
 function openUpgradeModal(){ge('upgradeModal').classList.add('active');document.body.style.overflow='hidden'}
 function sendWhatsAppConfirmation(){window.open('https://wa.me/254112168732?text='+encodeURIComponent('Ngili Premium Payment\nName: '+(ge('workerName').value||'[Name]')+'\nPhone: '+(ge('workerPhone').value||'[Phone]')+'\nAmount: KSh 1,000\nM-Pesa Code: [Enter]\n\nPlease send my Subscription ID & Password.'),'_blank')}
-function copyText(t){navigator.clipboard.writeText(t).then(()=>showToast('📋 Copied!','success')).catch(()=>prompt('Copy:',t))}
 
 // ============ DATA ============
 function loadAllData(){const s=safeGet('ngili_calendar_v34','{}');try{allData=JSON.parse(s)}catch(e){allData={}}const st=JSON.parse(safeGet('ngili_settings_v34','{}'));currencySymbol=st.cur||'KES';darkMode=st.dark||false;weekendMultiplier=st.wr||1;dailyTarget=st.tgt||0;activeBizSources=st.biz||['sales'];notePresets=st.np||['Overtime','Half-day','Sick','Holiday','Bonus','Absent'];if(darkMode)document.body.classList.add('dark-mode');ge('currencySelect').value=currencySymbol;ge('weekendRateSelect').value=weekendMultiplier;ge('darkToggle').textContent=darkMode?'☀️ Light':'🌙 Dark';if(!ge('workerCitizenship').value){ge('workerCitizenship').value='Kenya';ge('citizenshipSearch').value='🇰🇪 Kenya'}undoStack=JSON.parse(safeGet('ngili_undo_v2','[]'));ge('undoBtn').disabled=undoStack.length===0}
@@ -392,21 +347,21 @@ function manualSave(){flushAllChanges();saveAllData();showToast('💾 Saved!','s
 function getMonthData(m,y){const k=gsk(m,y);if(!allData[k]){allData[k]={workerInfo:{name:'',id:'',citizenship:'Kenya',dailyWage:'',phone:''},employerWages:'',employerBusfare:'',employerLunch:'',employerBusiness:'',employerCustom:'',wages:{},busfare:{},lunch:{},business:{},custom:{},advanceWages:0,advanceBusfare:0,advanceLunch:0,advanceBusiness:0,advanceCustom:0,bizSources:['sales']}}return allData[k]}
 function flushAllChanges(){const data=getMonthData(currentMonth,currentYear);data.workerInfo={name:ge('workerName').value,id:ge('workerID').value,citizenship:ge('workerCitizenship').value||'Kenya',dailyWage:ge('dailyWage').value,phone:ge('workerPhone').value};data['employer'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=ge('employerInput').value;data['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=parseFloat(ge('advanceInput').value)||0;data.bizSources=activeBizSources;const dim=getDaysInMonth(currentMonth,currentYear);for(let d=1;d<=dim;d++){if(currentMode==='business'){const dd={};let hd=false;activeBizSources.forEach(function(bt){const wi=ge('biz-'+bt+'-'+d);if(wi){const v=parseFloat(wi.value)||0;dd[bt]=v;if(v>0)hd=true}});const ei=ge('exp-'+d);const exp=ei?parseFloat(ei.value)||0:0;if(hd||exp>0){data.business[d]={income:dd,expense:exp}}else{delete data.business[d]}}else{const wi=ge('wage-'+d),ni=ge('note-'+d);if(wi&&ni){const w=parseFloat(wi.value)||0,n=ni.value;if(w===0&&n===''){delete data[currentMode][d]}else{data[currentMode][d]={amount:w,note:n}}}}}}
 function markUnsaved(){unsavedChanges=true;ge('saveDot').className='dot unsaved';ge('lastSavedText').textContent='Unsaved changes';ge('unsavedBanner').classList.add('show')}
+function saveEmployer(){markUnsaved()}
+function saveAdvance(){getMonthData(currentMonth,currentYear)['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=parseFloat(ge('advanceInput').value)||0;updateAllTotals();markUnsaved()}
 
 // ============ SETTINGS ============
 function toggleDarkMode(){darkMode=!darkMode;document.body.classList.toggle('dark-mode',darkMode);ge('darkToggle').textContent=darkMode?'☀️ Light':'🌙 Dark';saveSettings()}
 function changeCurrency(){const v=ge('currencySelect').value;if(!isPremium&&v!=='KES'){ge('currencySelect').value='KES';currencySymbol='KES';showToast('💱 Premium required','warning');return}currencySymbol=v;saveSettings();updateAllTotals()}
 function changeWeekendRate(){weekendMultiplier=parseFloat(ge('weekendRateSelect').value);saveSettings()}
 function setDailyTarget(){const t=prompt('Set target ('+currencySymbol+'):',dailyTarget||'');if(t!==null){dailyTarget=parseFloat(t)||0;saveSettings();checkTarget()}}
-function saveEmployer(){markUnsaved()}
-function saveAdvance(){getMonthData(currentMonth,currentYear)['advance'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1)]=parseFloat(ge('advanceInput').value)||0;updateAllTotals();markUnsaved()}
 
 // ============ COUNTRY ============
 function showCountryList(){ge('citizenshipSearch').value='';ge('countryDropdown').style.display='block';filterCountries()}
 function filterCountries(){const s=ge('citizenshipSearch').value.toLowerCase(),dd=ge('countryDropdown'),cc=ge('workerCitizenship').value;dd.innerHTML='';let f=s===''?[...ALL_COUNTRIES]:ALL_COUNTRIES.filter(function(c){return c.name.toLowerCase().includes(s)});f.forEach(function(c){const d=document.createElement('div');d.style.cssText='padding:12px 16px;cursor:pointer;font-size:.85em;border-bottom:1px solid var(--border);min-height:44px';d.textContent=(c.name===cc?'✅ ':'')+c.flag+' '+c.name;d.onclick=function(){ge('citizenshipSearch').value=c.flag+' '+c.name;ge('workerCitizenship').value=c.name;dd.style.display='none';if(c.cur&&isPremium){currencySymbol=c.cur;ge('currencySelect').value=currencySymbol;saveSettings()}markUnsaved();renderCalendar()};dd.appendChild(d)})}
 document.addEventListener('click',function(e){const dd=ge('countryDropdown'),si=ge('citizenshipSearch');if(!si.contains(e.target)&&!dd.contains(e.target))dd.style.display='none'});
 
-// ============ SAVE WAGES ============
+// ============ SAVE ============
 function saveWage(dn){if(currentMode==='business'){saveBizDay(dn);return}pushUndoState();const wi=ge('wage-'+dn),ni=ge('note-'+dn);if(!wi||!ni)return;let a=parseFloat(wi.value)||0;if(a<0){a=0;wi.value=0}const data=getMonthData(currentMonth,currentYear);if(!data[currentMode])data[currentMode]={};if(a===0&&ni.value===''){delete data[currentMode][dn];wi.classList.remove('has-value');ni.classList.remove('has-note')}else{data[currentMode][dn]={amount:a,note:ni.value};wi.classList.toggle('has-value',a>0);ni.classList.toggle('has-note',ni.value!=='')}updateAllTotals();updateDayCounter();markUnsaved();checkTarget()}
 function saveBizDay(dn){pushUndoState();const data=getMonthData(currentMonth,currentYear);const dd={};let hd=false;activeBizSources.forEach(function(bt){const wi=ge('biz-'+bt+'-'+dn);if(wi){const v=parseFloat(wi.value)||0;dd[bt]=v<0?0:v;if(dd[bt]>0)hd=true;wi.classList.toggle('has-value',dd[bt]>0)}});const ei=ge('exp-'+dn);let exp=ei?parseFloat(ei.value)||0:0;if(exp<0){exp=0;ei.value=0}if(ei)ei.classList.toggle('has-value',exp>0);if(hd||exp>0){data.business[dn]={income:dd,expense:exp}}else{delete data.business[dn]}updateAllTotals();updateBizSummary();updateDayCounter();markUnsaved();checkTarget()}
 
@@ -423,10 +378,8 @@ function applyNotePreset(note){if(!activeNoteCell){const ns=document.querySelect
 function addNewPreset(){const max=isPremium?99:3;if(notePresets.length>=max){showToast('📝 Limit: '+max+' presets. Upgrade for unlimited!','warning');if(!isPremium)setTimeout(openUpgradeModal,1500);return}const n=prompt('New note preset:','');if(!n||!n.trim())return;const t=n.trim();if(notePresets.indexOf(t)!==-1){showToast('⚠ Exists!','warning');return}notePresets.push(t);saveSettings();renderNotesPresets();showToast('✅ Added: '+t,'success')}
 function removePreset(i){if(i<0||i>=notePresets.length)return;const r=notePresets[i];if(!confirm('Remove "'+r+'"?'))return;notePresets.splice(i,1);saveSettings();renderNotesPresets();showToast('🗑 Removed: '+r,'warning')}
 
-// ============ DAY COUNTER ============
+// ============ COUNTERS ============
 function updateDayCounter(){const dim=getDaysInMonth(currentMonth,currentYear),data=getMonthData(currentMonth,currentYear),md=data[currentMode]||{};const country=ge('workerCitizenship').value||'Kenya';let w=0,h=0,e=0;for(let d=1;d<=dim;d++){const dd=md[d]||{};const isH=isPublicHoliday(country,currentMonth,d);let hv=currentMode==='business'?(activeBizSources.some(function(bt){return dd.income&&dd.income[bt]>0})||dd.expense>0):dd.amount>0;if(hv)w++;else if(isH)h++;else e++}ge('countWorked').textContent=w;ge('countHoliday').textContent=h;ge('countEmpty').textContent=e}
-
-// ============ TARGET ============
 function checkTarget(){if(dailyTarget<=0){ge('targetBar').style.display='none';ge('targetInfo').style.display='none';return}const dim=getDaysInMonth(currentMonth,currentYear),data=getMonthData(currentMonth,currentYear),md=data[currentMode]||{};let t=0;if(currentMode==='business'){for(let d=1;d<=dim;d++){const dd=md[d];if(dd&&dd.income){activeBizSources.forEach(function(bt){t+=parseFloat(dd.income[bt]||0)})}}}else{for(let d=1;d<=dim;d++)t+=parseFloat((md[d]||{}).amount||0)}const p=Math.min(100,Math.round(t/dailyTarget*100));ge('targetBar').style.display='block';ge('targetInfo').style.display='block';ge('targetFill').style.width=p+'%';ge('targetInfo').textContent='🎯 Target: '+currencySymbol+' '+dailyTarget+' — '+p+'%'}
 
 // ============ BUSINESS TOGGLE ============
@@ -434,11 +387,11 @@ function toggleBizSource(bt){if(!isPremium){showToast('🏪 Premium required','w
 function updateBizTabsVisual(){const c=ge('bizSources');if(!c)return;c.innerHTML='';BIZ_TYPES.forEach(function(bt){const isA=activeBizSources.indexOf(bt)!==-1;const tab=document.createElement('button');tab.className='biz-tab'+(isA?' active':'');tab.textContent=BIZ_LABELS[bt];tab.onclick=function(){toggleBizSource(bt)};c.appendChild(tab)})}
 function updateBizCalendarColumns(){if(currentMode!=='business'||!isPremium)return;const dim=getDaysInMonth(currentMonth,currentYear);for(let d=1;d<=dim;d++){BIZ_TYPES.forEach(function(bt){const el=ge('biz-'+bt+'-'+d);if(el)el.style.display=activeBizSources.indexOf(bt)!==-1?'':'none'})}updateAllTotals()}
 
-// ============ MODE SWITCH ============
+// ============ MODE ============
 function switchMode(mode){if(mode==='business'&&!isPremium){showToast('🏪 Business requires Premium','warning');setTimeout(openPremiumLogin,1500);return}flushAllChanges();currentMode=mode;ge('businessSection').classList.toggle('active',mode==='business');ge('notesBar').style.display=(mode!=='business')?'flex':'none';updateModeUI();renderCalendar()}
-function updateModeUI(){['wages','busfare','lunch','business','custom'].forEach(function(m){const btn=ge('modeBtn'+m.charAt(0).toUpperCase()+m.slice(1));if(btn)btn.className='mode-btn'});const ab=ge('modeBtn'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1));if(ab)ab.classList.add('active-'+currentMode);ge('currentModeLabel').textContent={wages:'💰 Wages',busfare:'🚌 Bus Fare',lunch:'🍽 Lunch',business:'🏪 Business',custom:'✚ Custom'}[currentMode];ge('currentModeLabel').style.background={wages:'#2980b9',busfare:'#e67e22',lunch:'#27ae60',business:'#6c3483',custom:'#8e44ad'}[currentMode];ge('employerLabel').textContent=currentMode==='business'?'🏪 Business Name':'🏢 Employer';ge('totalLabel').textContent='📊 Total '+{wages:'Wages',busfare:'Bus Fare',lunch:'Lunch',business:'Business',custom:'Custom'}[currentMode];ge('netLabel').textContent='✅ Net '+{wages:'Wages',busfare:'Bus Fare',lunch:'Lunch',business:'Business',custom:'Custom'}[currentMode];updateBizTabsVisual()}
+function updateModeUI(){['wages','busfare','lunch','business','custom'].forEach(function(m){const btn=ge('modeBtn'+m.charAt(0).toUpperCase()+m.slice(1));if(btn)btn.className='mode-btn'});const ab=ge('modeBtn'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1));if(ab)ab.classList.add('active-'+currentMode);const labels={wages:'💰 Wages',busfare:'🚌 Bus Fare',lunch:'🍽 Lunch',business:'🏪 Business',custom:'✚ Custom'};const colors={wages:'#2980b9',busfare:'#e67e22',lunch:'#27ae60',business:'#6c3483',custom:'#8e44ad'};ge('currentModeLabel').textContent=labels[currentMode];ge('currentModeLabel').style.background=colors[currentMode];ge('employerLabel').textContent=currentMode==='business'?'🏪 Business Name':'🏢 Employer';ge('totalLabel').textContent='📊 Total '+labels[currentMode].replace(/[💰🚌🍽🏪✚]/g,'').trim();ge('netLabel').textContent='✅ Net '+labels[currentMode].replace(/[💰🚌🍽🏪✚]/g,'').trim();updateBizTabsVisual()}
 
-// ============ RENDER CALENDAR ============
+// ============ RENDER ============
 function renderCalendar(){
     if(unsavedChanges){flushAllChanges();saveAllData()}loadAllData();
     const data=getMonthData(currentMonth,currentYear);activeBizSources=data.bizSources||activeBizSources;
@@ -451,25 +404,20 @@ function renderCalendar(){
     ge('businessSection').classList.toggle('active',currentMode==='business');
     ge('notesBar').style.display=(currentMode!=='business')?'flex':'none';
     updateModeUI();renderNotesPresets();updateAllPremiumUI();
-    
     const ms=ge('monthSelect');ms.innerHTML='';MONTHS.forEach(function(m,i){const o=document.createElement('option');o.value=i;o.textContent=m;if(i===currentMonth)o.selected=true;ms.appendChild(o)});
     const ys=ge('yearSelect');ys.innerHTML='';for(let y=2020;y<=2035;y++){const o=document.createElement('option');o.value=y;o.textContent=y;if(y===currentYear)o.selected=true;ys.appendChild(o)}
     ms.onchange=function(){currentMonth=parseInt(this.value);renderCalendar()};ys.onchange=function(){currentYear=parseInt(this.value);renderCalendar()};
-    
     const dim=getDaysInMonth(currentMonth,currentYear),fd=getFirstDayOfMonth(currentMonth,currentYear);
     const tdd=new Date(),tDay=tdd.getDate(),tMon=tdd.getMonth(),tYr=tdd.getFullYear();
     const isCV=(currentMonth===tMon&&currentYear===tYr),tcn=fd+dim,rts=Math.max(5,Math.ceil(tcn/7));
     const modeData=data[currentMode]||{},country=ge('workerCitizenship').value||'Kenya';
     const tbody=ge('calendarBody');tbody.innerHTML='';let dc=1;const fragment=document.createDocumentFragment();
-    
     for(let row=0;row<rts;row++){const tr=document.createElement('tr');
         for(let col=0;col<7;col++){const td=document.createElement('td');const ci=row*7+col;
             if(ci<fd||dc>dim){td.classList.add('empty-cell');td.innerHTML='<div style="color:#ccc;text-align:center">·</div>'}
             else{const dn=dc,isWeekend=(col===0),isToday=(isCV&&dn===tDay),isH=isPublicHoliday(country,currentMonth,dn);
                 if(isWeekend)td.classList.add('weekend');if(isToday)td.classList.add('today-cell');if(isH)td.classList.add('holiday-cell');
-                const hName=isH?getHolidayName(country,currentMonth,dn):'';
-                const hLab=isH?'<span class="holiday-indicator" title="'+hName+'">🏛</span>':'';
-                
+                const hName=isH?getHolidayName(country,currentMonth,dn):'',hLab=isH?'<span class="holiday-indicator" title="'+hName+'">🏛</span>':'';
                 if(currentMode==='business'&&isPremium){
                     let h='<div class="day-cell">'+hLab+'<div class="date-num">'+dn+'</div>';
                     BIZ_TYPES.forEach(function(bt){const dd=modeData[dn]||{income:{},expense:0};const v=(dd.income&&dd.income[bt])?dd.income[bt]:'';const isA=activeBizSources.indexOf(bt)!==-1;h+='<input type="number" class="wage-input mode-business'+(v?' has-value':'')+'" id="biz-'+bt+'-'+dn+'" placeholder="'+BIZ_LABELS[bt]+'" value="'+v+'" step="any" min="0" oninput="saveBizDay('+dn+')" onfocus="this.select()" style="display:'+(isA?'':'none')+'">'});
@@ -487,43 +435,23 @@ function renderCalendar(){
 function updateAllTotals(){const dim=getDaysInMonth(currentMonth,currentYear),fd=getFirstDayOfMonth(currentMonth,currentYear),tcn=fd+dim,rts=Math.max(5,Math.ceil(tcn/7)),data=getMonthData(currentMonth,currentYear);let total=0;const md=data[currentMode]||{};if(currentMode==='business'){for(let d=1;d<=dim;d++){const dd=md[d];if(dd&&dd.income){activeBizSources.forEach(function(bt){total+=parseFloat(dd.income[bt]||0)})}}}else{for(let d=1;d<=dim;d++)total+=parseFloat((md[d]||{}).amount||0)}ge('totalAmount').textContent=fmtCur(total);const adv=parseFloat(ge('advanceInput').value)||0;ge('netAmount').textContent=fmtCur(total-adv);ge('netAmount').style.color=(total-adv)<0?'#c0392b':'#27ae60';const wt=new Array(rts).fill(0);for(let d=1;d<=dim;d++){const wi=Math.floor((fd+d-1)/7);if(wi>=0&&wi<rts){if(currentMode==='business'){const dd=md[d];if(dd&&dd.income){activeBizSources.forEach(function(bt){wt[wi]+=parseFloat(dd.income[bt]||0)})}}else{const el=ge('wage-'+d);if(el)wt[wi]+=parseFloat(el.value)||0}}}for(let w=0;w<rts;w++){const el=ge('wt-'+w);if(el)el.textContent=fmtCur(wt[w])}}
 function updateBizSummary(){if(currentMode!=='business')return;const dim=getDaysInMonth(currentMonth,currentYear),data=getMonthData(currentMonth,currentYear),md=data.business||{};let ti=0,te=0;for(let d=1;d<=dim;d++){const dd=md[d];if(dd){if(dd.income){activeBizSources.forEach(function(bt){ti+=parseFloat(dd.income[bt]||0)})}te+=parseFloat(dd.expense||0)}}ge('bizTotalIncome').textContent=fmtCur(ti);ge('bizTotalExpense').textContent=fmtCur(te);ge('bizNetProfit').textContent=fmtCur(ti-te)}
 
-// ============ NAVIGATION ============
 function goToToday(){if(unsavedChanges){flushAllChanges();saveAllData()}currentMonth=new Date().getMonth();currentYear=new Date().getFullYear();renderCalendar();showToast('📆 Today','success')}
 function printCalendar(){window.print()}
-function shareViaWhatsApp(){flushAllChanges();const data=getMonthData(currentMonth,currentYear),dim=getDaysInMonth(currentMonth,currentYear);let txt='*Ngili Calendar v3.4*\n'+MONTHS[currentMonth]+' '+currentYear+'\n\n';let total=0;const md=data[currentMode]||{};for(let d=1;d<=dim;d++){const dd=md[d]||{amount:0};if(dd.amount>0){txt+=d+': '+currencySymbol+' '+dd.amount+'\n';total+=dd.amount}}txt+='\n*Total: '+currencySymbol+' '+total.toFixed(2)+'*\n\n_~ Ngili Calendar by Safari Softwares ~_';window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank')}
-
-// ============ CSV ============
+function shareViaWhatsApp(){flushAllChanges();const data=getMonthData(currentMonth,currentYear),dim=getDaysInMonth(currentMonth,currentYear);let txt='*Ngili Calendar v3.4*\n'+MONTHS[currentMonth]+' '+currentYear+'\n\n';let total=0;const md=data[currentMode]||{};for(let d=1;d<=dim;d++){const dd=md[d]||{amount:0};if(dd.amount>0){txt+=d+': '+currencySymbol+' '+dd.amount+'\n';total+=dd.amount}}txt+='\n*Total: '+currencySymbol+' '+total.toFixed(2)+'*';window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank')}
 function exportCSV(){flushAllChanges();saveAllData();loadAllData();const cd=getMonthData(currentMonth,currentYear),wn=(cd.workerInfo.name||'worker').replace(/[^a-z0-9]/gi,'_');let csv='Ngili Calendar v3.4\nWorker: '+(cd.workerInfo.name||'')+'\nDate: '+new Date().toISOString().split('T')[0]+'\nCurrency: '+currencySymbol+'\n'+(isPremium?'Premium: Yes\n':'Free: Yes\n')+'\n';const sk=Object.keys(allData).sort();['wages','busfare','lunch','business','custom'].forEach(function(mode){csv+='--- '+mode+' ---\nYear,Month,Day,Amount,Notes\n';for(let k=0;k<sk.length;k++){const key=sk[k],p=key.split('-'),y=parseInt(p[0]),m=parseInt(p[1]),md=allData[key],dim=new Date(y,m+1,0).getDate(),moded=md[mode]||{};for(let d=1;d<=dim;d++){const dd=moded[d]||{amount:0,note:''};if(dd.amount>0||dd.note)csv+=y+','+MONTHS[m]+','+d+','+(dd.amount||0)+',"'+(dd.note||'').replace(/"/g,'""')+'"\n'}}});const blob=new Blob([csv],{type:'text/csv'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Ngili_'+wn+'_'+MONTHS[currentMonth]+'_'+currentYear+'.csv';a.click();showToast('📥 CSV exported!','success')}
 function importCSV(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(ev){try{const lines=ev.target.result.split('\n');let ic=0,cim='wages';for(let i=0;i<lines.length;i++){const l=lines[i].trim();if(!l||l.startsWith('Ngili'))continue;if(l.startsWith('---')){if(l.includes('Bus Fare'))cim='busfare';else if(l.includes('Lunch'))cim='lunch';else if(l.includes('Business'))cim='business';else if(l.includes('Custom'))cim='custom';else cim='wages';continue}const p=l.split(',');if(p.length>=4&&!isNaN(parseInt(p[0]))&&MONTHS.indexOf(p[1])!==-1){const y=parseInt(p[0]),m=MONTHS.indexOf(p[1]),d=parseInt(p[2]),amt=parseFloat(p[3])||0;if(amt>0){getMonthData(m,y)[cim][d]={amount:amt,note:p[4]?p[4].replace(/"/g,'').trim():''};ic++}}}saveAllData();renderCalendar();showToast('📤 Imported '+ic+' records!','success')}catch(err){showToast('❌ Error','warning')}};r.readAsText(f);e.target.value=''}
 function resetAllData(){if(!confirm('⚠ DELETE ALL DATA?'))return;exportCSV();setTimeout(function(){if(confirm('FINAL: Continue?')){allData={};undoStack=[];saveAllData();renderCalendar();showToast('⚠ Reset','warning')}},500)}
 
-// ============ MODALS ============
 function openModal(id){ge(id).classList.add('active');document.body.style.overflow='hidden';if(id==='reportModal'){const now=new Date();['From','To'].forEach(function(p){const ms=ge('report'+p+'Month');ms.innerHTML='';MONTHS.forEach(function(m,i){ms.innerHTML+='<option value="'+i+'"'+(i===now.getMonth()?' selected':'')+'>'+m+'</option>'});const ys=ge('report'+p+'Year');ys.innerHTML='';for(let y=2020;y<=2035;y++)ys.innerHTML+='<option value="'+y+'"'+(y===now.getFullYear()?' selected':'')+'>'+y+'</option>'});ge('reportMode').value=currentMode;generateReport()}}
 function closeModal(id){ge(id).classList.remove('active');document.body.style.overflow=''}
 document.addEventListener('click',function(e){if(e.target.classList.contains('modal-overlay')){e.target.classList.remove('active');document.body.style.overflow=''}});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.querySelectorAll('.modal-overlay.active').forEach(function(m){m.classList.remove('active');document.body.style.overflow=''})}});
 
-function generateReport(){const fm=parseInt(ge('reportFromMonth').value),fy=parseInt(ge('reportFromYear').value),tm=parseInt(ge('reportToMonth').value),ty=parseInt(ge('reportToYear').value),mode=ge('reportMode').value;if(!isPremium){const diff=Math.abs((ty-fy)*12+tm-fm)+1;if(diff>3){ge('reportOutput').innerHTML='<div style="text-align:center;padding:20px"><h3>🔒 Premium</h3><p>Free reports: 3 months.</p><p style="font-size:2em;font-weight:900;color:var(--premium-gold)">KSh 1,000/yr</p><button class="btn btn-premium" onclick="openPremiumLogin()">Sign In</button></div>';return}}if(fy>ty||(fy===ty&&fm>tm)){ge('reportOutput').innerHTML='<p style="color:#c0392b">⚠ Invalid range</p>';return}let html='<table class="report-table"><thead><tr><th>Month</th><th>Days</th><th>Total</th><th>Adv</th><th>Net</th></tr></thead><tbody>';let gT=0,gD=0,gDays=0;let cy2=fy,cm2=fm;while(cy2<ty||(cy2===ty&&cm2<=tm)){const data=getMonthData(cm2,cy2),md=data[mode]||{},dim=getDaysInMonth(cm2,cy2);let mt=0,mdays=0;if(mode==='business'){for(let d=1;d<=dim;d++){const dd=md[d];if(dd&&dd.income){let dt=0;activeBizSources.forEach(function(bt){dt+=parseFloat(dd.income[bt]||0)});if(dt>0){mt+=dt;mdays++}}}}else{for(let d=1;d<=dim;d++){const a=parseFloat((md[d]||{}).amount||0);if(a>0){mt+=a;mdays++}}}const adv=data['advance'+mode.charAt(0).toUpperCase()+mode.slice(1)]||0;html+='<tr><td>'+MONTHS[cm2]+' '+cy2+'</td><td>'+mdays+'</td><td>'+fmtCur(mt)+'</td><td style="color:#c0392b">'+fmtCur(adv)+'</td><td>'+fmtCur(mt-adv)+'</td></tr>';gT+=mt;gD+=adv;gDays+=mdays;cm2++;if(cm2>11){cm2=0;cy2++}}html+='<tr style="font-weight:900;background:var(--primary-light);color:white"><td>📊 GRAND TOTAL</td><td>'+gDays+'</td><td>'+fmtCur(gT)+'</td><td>'+fmtCur(gD)+'</td><td>'+fmtCur(gT-gD)+'</td></tr></tbody></table>';ge('reportOutput').innerHTML=html}
-
+function generateReport(){const fm=parseInt(ge('reportFromMonth').value),fy=parseInt(ge('reportFromYear').value),tm=parseInt(ge('reportToMonth').value),ty=parseInt(ge('reportToYear').value),mode=ge('reportMode').value;if(!isPremium){const diff=Math.abs((ty-fy)*12+tm-fm)+1;if(diff>3){ge('reportOutput').innerHTML='<div style="text-align:center;padding:20px"><h3>🔒 Premium</h3><p>Free reports: 3 months. Upgrade for unlimited.</p><p style="font-size:2em;font-weight:900;color:var(--premium-gold)">KSh 1,000/yr</p><button class="btn btn-premium" onclick="openPremiumLogin()">Sign In</button></div>';return}}if(fy>ty||(fy===ty&&fm>tm)){ge('reportOutput').innerHTML='<p style="color:#c0392b">⚠ Invalid range</p>';return}let html='<table class="report-table"><thead><tr><th>Month</th><th>Days</th><th>Total</th><th>Adv</th><th>Net</th></tr></thead><tbody>';let gT=0,gD=0,gDays=0;let cy2=fy,cm2=fm;while(cy2<ty||(cy2===ty&&cm2<=tm)){const data=getMonthData(cm2,cy2),md=data[mode]||{},dim=getDaysInMonth(cm2,cy2);let mt=0,mdays=0;if(mode==='business'){for(let d=1;d<=dim;d++){const dd=md[d];if(dd&&dd.income){let dt=0;activeBizSources.forEach(function(bt){dt+=parseFloat(dd.income[bt]||0)});if(dt>0){mt+=dt;mdays++}}}}else{for(let d=1;d<=dim;d++){const a=parseFloat((md[d]||{}).amount||0);if(a>0){mt+=a;mdays++}}}const adv=data['advance'+mode.charAt(0).toUpperCase()+mode.slice(1)]||0;html+='<tr><td>'+MONTHS[cm2]+' '+cy2+'</td><td>'+mdays+'</td><td>'+fmtCur(mt)+'</td><td style="color:#c0392b">'+fmtCur(adv)+'</td><td>'+fmtCur(mt-adv)+'</td></tr>';gT+=mt;gD+=adv;gDays+=mdays;cm2++;if(cm2>11){cm2=0;cy2++}}html+='<tr style="font-weight:900;background:var(--primary-light);color:white"><td>📊 GRAND TOTAL</td><td>'+gDays+'</td><td>'+fmtCur(gT)+'</td><td>'+fmtCur(gD)+'</td><td>'+fmtCur(gT-gD)+'</td></tr></tbody></table>';ge('reportOutput').innerHTML=html}
 function showToast(m,t){var toast=ge('toast');toast.textContent=m;toast.className='toast '+(t||'')+' show';clearTimeout(toast._t);toast._t=setTimeout(function(){toast.classList.remove('show')},2500)}
 
-// ============ INIT ============
-function initApp(){
-    loadAllData();
-    checkExistingSession();
-    updateAllPremiumUI();
-    ge('businessSection').classList.toggle('active',currentMode==='business');
-    ge('notesBar').style.display=(currentMode!=='business')?'flex':'none';
-    updateBizTabsVisual();
-    renderNotesPresets();
-    renderCalendar();
-    window.addEventListener('beforeunload',function(){flushAllChanges();saveAllData()});
-    setInterval(function(){if(unsavedChanges){flushAllChanges();saveAllData()}},10000);
-}
-
+function initApp(){loadAllData();checkExistingSession();updateAllPremiumUI();ge('businessSection').classList.toggle('active',currentMode==='business');ge('notesBar').style.display=(currentMode!=='business')?'flex':'none';updateBizTabsVisual();renderNotesPresets();renderCalendar();window.addEventListener('beforeunload',function(){flushAllChanges();saveAllData()});setInterval(function(){if(unsavedChanges){flushAllChanges();saveAllData()}},10000);console.log('📅 Ngili Calendar v3.4 FIXED — Admin Passwords Working!')}
 initApp();
-console.log('📅 The Ngili Calendar v3.4 — All Features Restored!');
-console.log('✅ Holidays | ✅ Business Tabs (incl. Pharmacy) | ✅ Quick Notes | ✅ Admin Panel | ✅ Premium Login');
 </script>
 </body>
 </html>
