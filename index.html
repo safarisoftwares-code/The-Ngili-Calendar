@@ -322,7 +322,7 @@ function autofillDailyWage(){const v=ge('dailyWage').value;if(!v||parseFloat(v)<
 function clearCurrentMode(){if(confirm('Clear ALL entries for this mode?')){const data=getMonthData(currentMonth,currentYear);data[currentMode]={};saveAllData();renderCalendar();showToast('🗑 Cleared','warning')}}
 function updateDayCounter(){const dim=getDaysInMonth(currentMonth,currentYear),data=getMonthData(currentMonth,currentYear),md=data[currentMode]||{};const country=ge('workerCitizenship').value||'Kenya';let w=0,h=0,e=0;for(let d=1;d<=dim;d++){const dd=md[d]||{};const isH=isPublicHoliday(country,currentMonth,d);let hasValue=false;if(currentMode==='business'){activeBizSources.forEach(function(bt){if(dd.income&&dd.income[bt]>0)hasValue=true});if(dd.expense>0)hasValue=true}else{if(dd.amount>0)hasValue=true}if(hasValue){w++}else if(isH){h++}else{e++}}ge('countWorked').textContent=w;ge('countHoliday').textContent=h;ge('countEmpty').textContent=e}
 
-function toggleBizSource(bt){const idx=activeBizSources.indexOf(bt);if(idx===-1){activeBizSources.push(bt)}else{if(activeBizSources.length>1)activeBizSources.splice(idx,1)}saveSettings();updateModeUI();renderCalendar();}
+function toggleBizSource(bt){const idx=activeBizSources.indexOf(bt);if(idx===-1){activeBizSources.push(bt)}else{if(activeBizSources.length>1)activeBizSources.splice(idx,1)}saveSettings();updateModeUI();}
 function switchMode(mode){flushAllChanges();currentMode=mode;const bs=ge('businessSection');if(bs)bs.classList.toggle('active',mode==='business');updateModeUI();renderCalendar()}
 function updateModeUI(){
     MODES.forEach(function(m){const btn=ge('modeBtn'+m.charAt(0).toUpperCase()+m.slice(1));if(btn)btn.className='mode-btn'});
