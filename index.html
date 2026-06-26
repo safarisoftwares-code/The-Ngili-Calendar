@@ -13,12 +13,12 @@
         .dark-mode{--primary:#2980b9;--primary-light:#3498db;--accent:#f39c12;--success:#2ecc71;--danger:#e74c3c;--business:#bb6bd9;--premium-gold:#f1c40f;--bg:#1a1a2e;--card-bg:#16213e;--text:#ecf0f1;--text-light:#bdc3c7;--border:#2c3e50;--weekend:#2c3e50;--today-bg:#1a3a5c;--today-border:#ff4081;--holiday-bg:#3a351a;--shadow:0 2px 10px rgba(0,0,0,0.3);--shadow-lg:0 10px 30px rgba(0,0,0,0.4)}
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:15px;transition:background 0.3s,color 0.3s}
-        @media print{body{background:white!important;padding:0!important;font-size:9px;color:black!important}.no-print,.controls-bar,.action-bar,.last-saved,#csvFileInput,.unsaved-banner,.footer-links,.modal-overlay,.settings-bar,.target-bar,.target-info,.backup-reminder,.holiday-indicator,.day-counter-bar,.business-section,.upgrade-banner,.notes-bar{display:none!important}.calendar-container{box-shadow:none!important;border:1px solid #000;page-break-inside:avoid}.calendar-table{min-width:auto!important}.calendar-table td{height:35px!important;padding:1px!important}.worker-info-card{border:1px solid #000!important;padding:5px 8px!important}.summary-card{box-shadow:none!important;border:1px solid #000!important;padding:5px!important}.header h1{font-size:1.2em!important;color:black!important}@page{size:landscape;margin:3mm}}
+        @media print{body{background:white!important;padding:0!important;font-size:9px;color:black!important}.no-print,.controls-bar,.action-bar,.last-saved,#csvFileInput,.unsaved-banner,.footer-links,.modal-overlay,.settings-bar,.target-bar,.target-info,.backup-reminder,.holiday-indicator,.day-counter-bar,.business-section,.upgrade-banner,.notes-bar{display:none!important}.calendar-container{box-shadow:none!important;border:1px solid #000}.calendar-table{min-width:auto!important}.calendar-table td{height:35px!important;padding:1px!important}.worker-info-card{border:1px solid #000!important;padding:5px 8px!important}.summary-card{box-shadow:none!important;border:1px solid #000!important;padding:5px!important}.header h1{font-size:1.2em!important;color:black!important}@page{size:landscape;margin:3mm}}
         @media screen and (min-width:1024px){body{display:flex;justify-content:center;align-items:flex-start;padding:20px}.main-wrapper{max-width:1500px;width:100%}}
         .main-wrapper{width:100%}
-        .header{text-align:center;margin-bottom:10px}
-        .header h1{font-size:2.5em;font-weight:900;color:var(--primary);text-transform:uppercase;margin-bottom:0;letter-spacing:2px;line-height:1.2}
-        .header .subtitle{font-size:.85em;color:var(--text-light);font-style:italic;margin-top:2px}
+        .header{text-align:center;margin-bottom:6px}
+        .header h1{font-size:2.2em;font-weight:800;color:var(--primary);text-transform:uppercase;margin-bottom:2px}
+        .header .subtitle{font-size:.85em;color:var(--text-light);font-style:italic}
         .worker-badge{display:inline-block;background:#27ae60;color:white;padding:4px 10px;border-radius:12px;font-size:.7em;font-weight:700;margin:0 4px}
         .premium-badge{display:inline-block;background:linear-gradient(135deg,#f39c12,#e74c3c);color:white;padding:3px 10px;border-radius:10px;font-size:.68em;font-weight:700;margin-left:4px}
         .free-badge{display:inline-block;background:#2980b9;color:white;padding:3px 10px;border-radius:10px;font-size:.68em;font-weight:700;margin-left:4px}
@@ -51,7 +51,6 @@
         .biz-checks{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
         .biz-checks .biz-tab{padding:8px 16px;border-radius:20px;cursor:pointer;font-size:.75em;font-weight:600;font-family:inherit;background:var(--bg);border:2px solid var(--border);color:var(--text);transition:all 0.1s;min-height:40px;display:inline-flex;align-items:center;gap:4px;user-select:none}
         .biz-checks .biz-tab:hover{background:#e8daef;border-color:var(--business);transform:translateY(-1px)}
-        .biz-checks .biz-tab:active{transform:scale(0.95)}
         .biz-checks .biz-tab.active{background:#6c3483!important;color:white!important;border-color:#6c3483!important;box-shadow:0 3px 8px rgba(108,52,131,0.3)}
         .biz-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
         .biz-summary .bs-card{text-align:center;padding:8px;border-radius:var(--radius-sm);background:var(--bg)}
@@ -67,7 +66,7 @@
         .calendar-table{width:100%;border-collapse:collapse;table-layout:fixed;min-width:1000px}
         .calendar-table th{background:var(--primary);color:white;padding:10px 6px;font-size:.85em;text-transform:uppercase;text-align:center;border:1px solid #1a4466}
         .calendar-table th.sunday{background:#c0392b}
-        .calendar-table td{border:1px solid var(--border);padding:3px;vertical-align:top;height:72px;position:relative;transition:background 0.2s}
+        .calendar-table td{border:1px solid var(--border);padding:3px;vertical-align:top;height:72px;position:relative}
         .calendar-table td.weekend{background:var(--weekend)}.calendar-table td.weekend .date-num{color:#c0392b}
         .calendar-table td.today-cell{background:var(--today-bg)!important;box-shadow:inset 0 0 0 4px var(--today-border)!important;animation:todayPulse 2s infinite}
         .calendar-table td.today-cell .date-num{color:var(--today-border)!important;font-size:1.2em!important;font-weight:900!important}
@@ -77,10 +76,10 @@
         .day-cell{display:flex;flex-direction:column;gap:1px}
         .day-cell .date-num{font-weight:700;font-size:.82em;margin-bottom:1px;color:var(--text)}
         .holiday-indicator{position:absolute;top:1px;right:3px;font-size:.65em;z-index:1;cursor:help}
-        .day-cell input.wage-input{width:100%;padding:3px 5px;border:2px solid #e0e0e0;border-radius:3px;font-size:.76em;font-family:inherit;text-align:right;font-weight:600;background:#fafafa;min-height:26px;transition:all 0.15s}
+        .day-cell input.wage-input{width:100%;padding:3px 5px;border:2px solid #e0e0e0;border-radius:3px;font-size:.76em;font-family:inherit;text-align:right;font-weight:600;background:#fafafa;min-height:26px}
         .day-cell input.wage-input:focus{outline:none;border-color:var(--accent);background:white;box-shadow:0 0 0 2px rgba(230,126,34,0.2)}
         .day-cell input.wage-input.has-value{background:#eafaf1;border-color:#82e0aa}
-        .day-cell textarea.note-input{width:100%;padding:2px 4px;border:1px solid #e0e0e0;border-radius:3px;font-size:.63em;font-family:inherit;resize:none;height:17px;background:#fafafa;transition:all 0.15s}
+        .day-cell textarea.note-input{width:100%;padding:2px 4px;border:1px solid #e0e0e0;border-radius:3px;font-size:.63em;font-family:inherit;resize:none;height:17px;background:#fafafa}
         .day-cell textarea.note-input:focus{outline:none;border-color:#bdc3c7;height:24px}
         .day-cell textarea.note-input.has-note{background:#fef9e7;border-color:#f9e79f}
         .week-total-row td{background:#eaf2f8!important;font-weight:700;text-align:right;padding:8px 10px;font-size:.9em;color:var(--primary);border-top:3px solid var(--primary-light)!important}
@@ -107,8 +106,11 @@
         .admin-link{color:var(--text-light);font-size:.7em;cursor:pointer;text-decoration:underline}.admin-link:hover{color:var(--accent)}
         .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:2000;justify-content:center;align-items:center;padding:20px}
         .modal-overlay.active{display:flex}
-        .modal{background:var(--card-bg);color:var(--text);border-radius:var(--radius);padding:25px 30px;max-width:650px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+        .modal{background:var(--card-bg);color:var(--text);border-radius:var(--radius);padding:25px 30px;max-width:750px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)}
         .modal h2{color:var(--primary);margin-bottom:15px;font-size:1.4em;border-bottom:2px solid var(--border);padding-bottom:10px}
+        .modal h3{color:var(--primary);margin-top:15px;margin-bottom:8px;font-size:1.1em}
+        .modal p,.modal li{font-size:.9em;line-height:1.6;margin-bottom:8px}
+        .modal ul{padding-left:20px;margin-bottom:10px}
         .modal .close-btn{position:sticky;top:0;float:right;background:var(--danger);color:white;border:none;padding:8px 16px;border-radius:var(--radius-sm);cursor:pointer;font-weight:700;z-index:10;min-height:44px}
         .toast{position:fixed;top:20px;right:20px;background:#2c3e50;color:white;padding:12px 20px;border-radius:var(--radius);font-weight:600;z-index:3000;opacity:0;transform:translateY(-20px);transition:all .3s;pointer-events:none}
         .toast.show{opacity:1;transform:translateY(0)}.toast.success{background:var(--success)}.toast.warning{background:var(--accent)}
@@ -122,8 +124,7 @@
     </style>
 </head>
 <body>
-
-<!-- Admin Login -->
+<!-- ============ ADMIN LOGIN ============ -->
 <div id="adminLoginOverlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:6000;justify-content:center;align-items:center;padding:20px">
 <div style="background:var(--card-bg);border-radius:var(--radius);padding:30px;max-width:400px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.5)">
 <h2 style="color:var(--danger);margin-bottom:5px">🛠 Admin Panel</h2>
@@ -135,43 +136,7 @@
 <p style="margin-top:15px"><a onclick="closeAdminLogin()" style="cursor:pointer;color:var(--primary-light);font-size:.85em">← Back to App</a></p>
 </div></div>
 
-<!-- Admin Panel -->
-<div id="adminPanel" style="display:none;max-width:900px;margin:0 auto">
-<div style="background:linear-gradient(135deg,#1a1a2e,#2c3e50);color:white;padding:20px;border-radius:var(--radius);margin-bottom:15px;text-align:center">
-<h2 style="font-size:1.5em;margin-bottom:5px">🛠 Ngili Calendar — Admin Panel</h2>
-<span style="display:inline-block;background:#e74c3c;color:white;padding:4px 12px;border-radius:12px;font-size:.75em;font-weight:700">ADMIN</span>
-<p style="font-size:.85em;opacity:.8;margin-top:5px">Manage Premium Subscriptions</p>
-<button onclick="adminLogout()" style="background:white;color:#2c3e50;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;font-weight:600;margin-top:10px">🚪 Exit Admin</button>
-</div>
-<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:15px">
-<div style="background:var(--card-bg);border-radius:var(--radius);padding:15px;text-align:center;box-shadow:var(--shadow)"><div style="font-size:2em;font-weight:900;color:var(--primary)" id="statTotal">0</div><div style="font-size:.7em;color:var(--text-light);text-transform:uppercase">Total</div></div>
-<div style="background:var(--card-bg);border-radius:var(--radius);padding:15px;text-align:center;box-shadow:var(--shadow)"><div style="font-size:2em;font-weight:900;color:#27ae60" id="statActive">0</div><div style="font-size:.7em;color:var(--text-light);text-transform:uppercase">Active</div></div>
-<div style="background:var(--card-bg);border-radius:var(--radius);padding:15px;text-align:center;box-shadow:var(--shadow)"><div style="font-size:2em;font-weight:900;color:#c0392b" id="statExpired">0</div><div style="font-size:.7em;color:var(--text-light);text-transform:uppercase">Expired</div></div>
-<div style="background:var(--card-bg);border-radius:var(--radius);padding:15px;text-align:center;box-shadow:var(--shadow)"><div style="font-size:2em;font-weight:900;color:var(--premium-gold)" id="statRevenue">0</div><div style="font-size:.7em;color:var(--text-light);text-transform:uppercase">Revenue (KES)</div></div>
-</div>
-<div style="background:var(--card-bg);border-radius:var(--radius);padding:20px;margin-bottom:15px;box-shadow:var(--shadow)">
-<h3 style="color:var(--primary);margin-bottom:12px;border-bottom:2px solid var(--border);padding-bottom:8px">➕ Create New Subscription</h3>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
-<input type="text" id="newUserName" placeholder="User's Full Name *" style="padding:10px;border:2px solid var(--border);border-radius:4px;font-size:.9em;background:var(--card-bg);color:var(--text);min-height:44px">
-<input type="text" id="newUserPhone" placeholder="User's Phone Number *" style="padding:10px;border:2px solid var(--border);border-radius:4px;font-size:.9em;background:var(--card-bg);color:var(--text);min-height:44px">
-<input type="number" id="newDuration" placeholder="Duration (days, default 365)" value="365" style="padding:10px;border:2px solid var(--border);border-radius:4px;font-size:.9em;background:var(--card-bg);color:var(--text);min-height:44px">
-<button onclick="adminCreateSubscriptionUI()" style="background:var(--success);color:white;border:none;border-radius:4px;cursor:pointer;font-weight:600;font-size:.9em">🔑 Generate</button>
-</div>
-<div id="newSubOutput" style="display:none;background:#e8f5e9;padding:15px;border-radius:4px;margin-top:10px">
-<h4 style="color:#1a7a3a;margin-bottom:8px">✅ Subscription Created!</h4>
-<p><strong>ID:</strong> <span id="newSubId" style="background:#fff;padding:4px 10px;border-radius:4px;font-family:monospace;font-size:1.1em">—</span></p>
-<p><strong>Password:</strong> <span id="newSubPass" style="background:#fff;padding:4px 10px;border-radius:4px;font-family:monospace;font-size:1.1em">—</span></p>
-<p><strong>Expires:</strong> <span id="newSubExpiry">—</span></p>
-<button onclick="copySubscriptionDetails()" style="background:var(--accent);color:white;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;font-weight:600;margin-top:8px">📋 Copy All Details</button>
-</div>
-</div>
-<div style="background:var(--card-bg);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)">
-<h3 style="color:var(--primary);margin-bottom:12px;border-bottom:2px solid var(--border);padding-bottom:8px">📋 All Subscriptions</h3>
-<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.85em" id="subscriptionsTable"><thead><tr style="background:var(--primary);color:white"><th style="padding:10px;text-align:left">ID</th><th style="padding:10px;text-align:left">Password</th><th style="padding:10px;text-align:left">User</th><th style="padding:10px;text-align:left">Phone</th><th style="padding:10px;text-align:left">Expires</th><th style="padding:10px;text-align:left">Devices</th><th style="padding:10px;text-align:left">Status</th><th style="padding:10px;text-align:left">Action</th></tr></thead><tbody id="subscriptionsBody"><tr><td colspan="8" style="text-align:center;color:var(--text-light);padding:15px">No subscriptions yet</td></tr></tbody></table></div>
-<button onclick="exportSubscriptionsCSV()" style="margin-top:10px;background:var(--card-bg);color:var(--primary);border:2px solid var(--primary-light);padding:8px 16px;border-radius:4px;cursor:pointer;font-weight:600">📥 Export CSV</button>
-</div></div>
-
-<!-- Main App -->
+<!-- ============ MAIN APP ============ -->
 <div class="main-wrapper" id="mainApp">
 <div class="header">
     <h1>📅 The Ngili Calendar</h1>
@@ -271,24 +236,123 @@
 <div class="copyright">© 2026 <strong>The Ngili Calendar</strong> <span style="background:var(--accent);color:white;padding:2px 8px;border-radius:10px;font-size:0.75em;">v3.4</span>. All Rights Reserved.</div>
 <div class="developer">Developed by <strong>Safari Softwares</strong> | 📧 <a href="mailto:safarisoftwares@gmail.com" style="color:var(--primary-light);">safarisoftwares@gmail.com</a> | 📱 <a href="https://wa.me/254112168732" style="color:var(--success);">+254 112 168 732</a></div>
 <div class="footer-links no-print">
-    <a onclick="openModal('termsModal')">📜 Terms</a>
-    <a onclick="openModal('privacyModal')">🔒 Privacy</a>
+    <a onclick="openModal('termsModal')">📜 Terms of Service</a>
+    <a onclick="openModal('privacyModal')">🔒 Privacy Policy</a>
     <a onclick="openUpgradeModal()" style="color:var(--premium-gold);font-weight:700">💎 Upgrade</a>
     <span class="admin-link" onclick="openAdminLogin()">🛠 Admin</span>
 </div>
 </div>
 </div>
 
-<!-- Modals -->
+<!-- ============ ADMIN PANEL ============ -->
+<div id="adminPanel" style="display:none;max-width:900px;margin:0 auto">
+<div style="background:linear-gradient(135deg,#1a1a2e,#2c3e50);color:white;padding:20px;border-radius:var(--radius);margin-bottom:15px;text-align:center">
+<h2>🛠 Ngili Calendar — Admin Panel</h2>
+<span style="display:inline-block;background:#e74c3c;color:white;padding:4px 12px;border-radius:12px;font-size:.75em">ADMIN</span>
+<button onclick="adminLogout()" style="background:white;color:#2c3e50;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;font-weight:600;margin-top:10px">🚪 Exit Admin</button>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:15px">
+<div style="background:var(--card-bg);border-radius:var(--radius);padding:15px;text-align:center;box-shadow:var(--shadow)"><div style="font-size:2em;font-weight:900;color:var(--primary)" id="statTotal">0</div><div style="font-size:.7em;color:var(--text-light);text-transform:uppercase">Total</div></div>
+<div style="background:var(--card-bg);border-radius:var(--radius);padding:15px;text-align:center;box-shadow:var(--shadow)"><div style="font-size:2em;font-weight:900;color:#27ae60" id="statActive">0</div><div style="font-size:.7em;color:var(--text-light);text-transform:uppercase">Active</div></div>
+<div style="background:var(--card-bg);border-radius:var(--radius);padding:15px;text-align:center;box-shadow:var(--shadow)"><div style="font-size:2em;font-weight:900;color:#c0392b" id="statExpired">0</div><div style="font-size:.7em;color:var(--text-light);text-transform:uppercase">Expired</div></div>
+<div style="background:var(--card-bg);border-radius:var(--radius);padding:15px;text-align:center;box-shadow:var(--shadow)"><div style="font-size:2em;font-weight:900;color:var(--premium-gold)" id="statRevenue">0</div><div style="font-size:.7em;color:var(--text-light);text-transform:uppercase">Revenue (KES)</div></div>
+</div>
+<div style="background:var(--card-bg);border-radius:var(--radius);padding:20px;margin-bottom:15px;box-shadow:var(--shadow)">
+<h3 style="color:var(--primary);margin-bottom:12px;border-bottom:2px solid var(--border);padding-bottom:8px">➕ Create New Subscription</h3>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+<input type="text" id="newUserName" placeholder="User's Full Name *" style="padding:10px;border:2px solid var(--border);border-radius:4px;font-size:.9em;background:var(--card-bg);color:var(--text);min-height:44px">
+<input type="text" id="newUserPhone" placeholder="User's Phone Number *" style="padding:10px;border:2px solid var(--border);border-radius:4px;font-size:.9em;background:var(--card-bg);color:var(--text);min-height:44px">
+<input type="number" id="newDuration" placeholder="Duration (days, default 365)" value="365" style="padding:10px;border:2px solid var(--border);border-radius:4px;font-size:.9em;background:var(--card-bg);color:var(--text);min-height:44px">
+<button onclick="adminCreateSubscriptionUI()" style="background:var(--success);color:white;border:none;border-radius:4px;cursor:pointer;font-weight:600;font-size:.9em">🔑 Generate</button>
+</div>
+<div id="newSubOutput" style="display:none;background:#e8f5e9;padding:15px;border-radius:4px;margin-top:10px">
+<h4 style="color:#1a7a3a;margin-bottom:8px">✅ Subscription Created!</h4>
+<p><strong>ID:</strong> <span id="newSubId" style="background:#fff;padding:4px 10px;border-radius:4px;font-family:monospace;font-size:1.1em">—</span></p>
+<p><strong>Password:</strong> <span id="newSubPass" style="background:#fff;padding:4px 10px;border-radius:4px;font-family:monospace;font-size:1.1em">—</span></p>
+<p><strong>Expires:</strong> <span id="newSubExpiry">—</span></p>
+<button onclick="copySubscriptionDetails()" style="background:var(--accent);color:white;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;font-weight:600;margin-top:8px">📋 Copy All Details</button>
+</div>
+</div>
+<div style="background:var(--card-bg);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)">
+<h3 style="color:var(--primary);margin-bottom:12px;border-bottom:2px solid var(--border);padding-bottom:8px">📋 All Subscriptions</h3>
+<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.85em"><thead><tr style="background:var(--primary);color:white"><th style="padding:10px;text-align:left">ID</th><th style="padding:10px;text-align:left">Password</th><th style="padding:10px;text-align:left">User</th><th style="padding:10px;text-align:left">Phone</th><th style="padding:10px;text-align:left">Expires</th><th style="padding:10px;text-align:left">Devices</th><th style="padding:10px;text-align:left">Status</th><th style="padding:10px;text-align:left">Action</th></tr></thead><tbody id="subscriptionsBody"><tr><td colspan="8" style="text-align:center;color:var(--text-light);padding:15px">No subscriptions yet</td></tr></tbody></table></div>
+<button onclick="exportSubscriptionsCSV()" style="margin-top:10px;background:var(--card-bg);color:var(--primary);border:2px solid var(--primary-light);padding:8px 16px;border-radius:4px;cursor:pointer;font-weight:600">📥 Export CSV</button>
+</div></div>
+
+<!-- ============ MODALS ============ -->
+<!-- Upgrade Modal -->
 <div class="modal-overlay" id="upgradeModal"><div class="modal" style="text-align:center"><button class="close-btn" onclick="closeModal('upgradeModal')">✕ Close</button><h2>💎 Upgrade to Ngili Premium</h2><div style="font-size:3em;font-weight:900;color:var(--premium-gold);margin:15px 0">KSh 1,000<small style="font-size:.4em">/year</small></div><ul style="text-align:left;margin:15px 0;list-style:none;padding:0"><li style="padding:8px 0;border-bottom:1px solid var(--border)">✅ <strong>3 Devices</strong></li><li style="padding:8px 0;border-bottom:1px solid var(--border)">✅ <strong>Unlimited Business Sources</strong></li><li style="padding:8px 0;border-bottom:1px solid var(--border)">✅ <strong>All Currencies</strong></li><li style="padding:8px 0">✅ <strong>Unlimited Note Presets</strong></li></ul><div style="background:var(--bg);padding:15px;border-radius:8px;text-align:left;font-size:.85em;margin:15px 0"><strong>📱 M-Pesa:</strong> Paybill <strong>516600</strong> Acc <strong>528591</strong> Amount <strong>KSh 1,000</strong><br>Send confirmation to 📧 safarisoftwares@gmail.com or 📱 <a href="https://wa.me/254112168732">+254 112 168 732</a></div><button class="btn btn-success" onclick="sendWhatsAppConfirmation()" style="width:100%;justify-content:center">📱 Send Confirmation via WhatsApp</button></div></div>
+
+<!-- Premium Login Modal -->
 <div class="modal-overlay" id="premiumLoginModal"><div class="modal" style="text-align:center;max-width:420px"><button class="close-btn" onclick="closeModal('premiumLoginModal')">✕ Close</button><h2>📅 Sign In</h2><input type="text" id="loginSubId" placeholder="Subscription ID (NGL-XXXX-XXXX)" style="width:100%;padding:12px;border:2px solid var(--border);border-radius:4px;font-size:1em;margin-bottom:10px;min-height:48px;background:var(--card-bg);color:var(--text)" autocomplete="off"><input type="password" id="loginPassword" placeholder="Password" style="width:100%;padding:12px;border:2px solid var(--border);border-radius:4px;font-size:1em;margin-bottom:10px;min-height:48px;background:var(--card-bg);color:var(--text)" autocomplete="off"><button class="btn btn-premium" onclick="doPremiumLogin()" style="width:100%;justify-content:center">🔓 Sign In</button><p style="color:var(--danger);font-size:.8em;margin-top:8px;display:none" id="loginError"></p><p style="color:var(--success);font-size:.85em;margin-top:8px;display:none" id="loginSuccess">✅ Premium Activated!</p></div></div>
+
+<!-- Report Modal -->
 <div class="modal-overlay" id="reportModal"><div class="modal"><button class="close-btn" onclick="closeModal('reportModal')">✕ Close</button><h2>📊 Reports</h2><div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px"><div>From:<br><select id="reportFromMonth" onchange="generateReport()"></select><select id="reportFromYear" onchange="generateReport()"></select></div><div>To:<br><select id="reportToMonth" onchange="generateReport()"></select><select id="reportToYear" onchange="generateReport()"></select></div><div>Mode:<br><select id="reportMode" onchange="generateReport()"><option value="wages">Wages</option><option value="busfare">Bus Fare</option><option value="lunch">Lunch</option><option value="business">Business</option><option value="custom">Custom</option></select></div></div><div id="reportOutput"></div></div></div>
-<div class="modal-overlay" id="termsModal"><div class="modal"><button class="close-btn" onclick="closeModal('termsModal')">✕ Close</button><h2>📜 Terms</h2><p>By using The Ngili Calendar, you agree to these Terms. Free for basic tracking. Premium for advanced features.</p></div></div>
-<div class="modal-overlay" id="privacyModal"><div class="modal"><button class="close-btn" onclick="closeModal('privacyModal')">✕ Close</button><h2>🔒 Privacy</h2><p><strong>Your data is yours.</strong> No servers, no tracking, no accounts.</p></div></div>
+
+<!-- ============ ROBUST TERMS OF SERVICE ============ -->
+<div class="modal-overlay" id="termsModal"><div class="modal"><button class="close-btn" onclick="closeModal('termsModal')">✕ Close</button>
+<h2>📜 Terms of Service</h2>
+<p><strong>Effective Date: January 1, 2026 | Last Updated: June 26, 2026</strong></p>
+<h3>1. Acceptance of Terms</h3>
+<p>By accessing or using The Ngili Calendar ("the Service"), you acknowledge that you have read, understood, and agree to be bound by these Terms of Service ("Terms"). If you do not agree, you must not use the Service. The Service is provided by <strong>Safari Softwares</strong> ("we," "us," or "our"), based in Kenya. These Terms constitute a legally binding agreement between you and Safari Softwares.</p>
+<h3>2. Description of Service</h3>
+<p>The Ngili Calendar is a browser-based income and expense tracking tool for workers, small business owners, and self-employed individuals. It operates entirely within your browser using local storage. No account creation or personal data submission is required for basic usage.</p>
+<p><strong>Free Tier:</strong> Basic income tracking with Wages, Bus Fare, Lunch, and Custom modes. Limited to 5 undo states, 3 note presets, and single currency (KES).</p>
+<p><strong>Premium Tier:</strong> Business Mode with up to 8 income sources, unlimited undo, unlimited note presets, multi-currency support, extended reports, and usage on up to 3 devices. Requires a valid Subscription ID and Password.</p>
+<h3>3. User Responsibilities</h3>
+<p>You agree that: (a) You are solely responsible for the accuracy of all data entered. (b) You will regularly back up data using CSV Export. We are not responsible for data loss. (c) You will not use the Service for illegal or unauthorized purposes. (d) This tool is NOT a replacement for professional accounting software or financial advice. (e) You will not reverse engineer, decompile, or extract the source code.</p>
+<h3>4. Payment & Subscriptions</h3>
+<p>Premium access requires payment of KSh 1,000 per year via M-Pesa or authorized methods. Upon verification, an Administrator issues a unique Subscription ID and Password granting access on up to 3 devices for 365 days. Subscriptions are non-transferable. Sharing credentials may result in immediate deactivation without refund. Fees are non-refundable except as required by law.</p>
+<h3>5. Intellectual Property</h3>
+<p>The Ngili Calendar, including its name, logo, design, source code, and all materials, is the exclusive intellectual property of <strong>Safari Softwares</strong>. You may not copy, modify, distribute, sell, or create derivative works without prior written consent.</p>
+<h3>6. Limitation of Liability</h3>
+<p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, SAFARI SOFTWARES SHALL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR EXEMPLARY DAMAGES arising from use or inability to use the Service, data loss, financial losses, errors, or service interruptions. Your sole remedy is to stop using the Service.</p>
+<h3>7. Disclaimer of Warranties</h3>
+<p>THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, including warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
+<h3>8. Indemnification</h3>
+<p>You agree to indemnify and hold harmless Safari Softwares from any claims, damages, or expenses arising from your use of the Service or violation of these Terms.</p>
+<h3>9. Termination</h3>
+<p>We reserve the right to terminate or suspend access at our sole discretion for conduct that violates these Terms. Premium subscriptions may be deactivated without refund if termination is due to Terms violation.</p>
+<h3>10. Governing Law</h3>
+<p>These Terms shall be governed by the laws of the Republic of Kenya. Disputes shall first be resolved through good-faith negotiation, then mediation in Nairobi, before resorting to litigation in Kenyan courts.</p>
+<h3>11. Changes to Terms</h3>
+<p>We may modify these Terms at any time. Changes are effective immediately upon posting. Continued use constitutes acceptance.</p>
+<h3>12. Contact</h3>
+<p>📧 <a href="mailto:safarisoftwares@gmail.com" style="color:var(--primary-light);">safarisoftwares@gmail.com</a> | 📱 <a href="https://wa.me/254112168732" style="color:var(--success);">+254 112 168 732</a></p>
+</div></div>
+
+<!-- ============ ROBUST PRIVACY POLICY ============ -->
+<div class="modal-overlay" id="privacyModal"><div class="modal"><button class="close-btn" onclick="closeModal('privacyModal')">✕ Close</button>
+<h2>🔒 Privacy Policy</h2>
+<p><strong>Effective Date: January 1, 2026 | Last Updated: June 26, 2026</strong></p>
+<p>At <strong>Safari Softwares</strong>, your privacy is the foundation of how we build software. <strong>We do not collect, store, transmit, or process any of your personal data.</strong></p>
+<h3>1. Data Collection: We Collect NOTHING</h3>
+<p>The Ngili Calendar uses a zero-data-collection architecture: ❌ No personal information ❌ No usage analytics ❌ No cookies ❌ No accounts ❌ No servers ❌ No advertising ❌ No third-party integrations. All processing happens in your browser.</p>
+<h3>2. Data Storage: Your Data Stays With You</h3>
+<p>All information is stored exclusively in your browser's localStorage. Your data never leaves your device. No one at Safari Softwares can view, access, or retrieve your data. Clearing your browser data will permanently delete all stored information. Premium subscription credentials are verified locally.</p>
+<h3>3. Data Usage: We Don't Use What We Don't Have</h3>
+<p>Since we do not collect or have access to your data, we cannot and do not: use, sell, rent, trade, analyze, or share your data with any third party, government agency, or law enforcement.</p>
+<h3>4. Data You Choose to Share</h3>
+<p>WhatsApp Sharing opens your device's WhatsApp — content is only shared when you explicitly send it. CSV Export creates a file you control. Reviews are stored in localStorage only. M-Pesa confirmation is between you and Safari Softwares through those platforms.</p>
+<h3>5. Children's Privacy</h3>
+<p>The Service is not directed at children under 13. We do not knowingly collect data from children.</p>
+<h3>6. Data Security</h3>
+<p>localStorage data is accessible to JavaScript on the same domain. Keep your browser updated. localStorage has no built-in encryption — secure your device with passwords or biometric locks. Export CSV regularly for backups. Do not share your Subscription credentials.</p>
+<h3>7. Third-Party Services</h3>
+<p>The Service does not integrate with any analytics, advertising, cloud storage, or social media platforms (except WhatsApp which you explicitly open).</p>
+<h3>8. Your Rights</h3>
+<p>Under applicable data protection laws (including Kenya's Data Protection Act 2019 and GDPR), you have rights to access, rectify, erase, and port your data. Since all data resides on your device, these rights are inherently protected through the Service interface and CSV Export.</p>
+<h3>9. Changes to This Policy</h3>
+<p>We may update this policy. Changes will be posted within the Service with an updated effective date.</p>
+<h3>10. Contact</h3>
+<p>📧 <a href="mailto:safarisoftwares@gmail.com" style="color:var(--primary-light);">safarisoftwares@gmail.com</a> | 📱 <a href="https://wa.me/254112168732" style="color:var(--success);">+254 112 168 732</a></p>
+<p style="margin-top:15px;padding:15px;background:#e8f5e9;border-radius:8px;border-left:4px solid var(--success)"><strong>🔒 Our Promise:</strong> We built The Ngili Calendar with the belief that your financial data is yours alone. We will never monetize, access, or compromise your data. This is our commitment.</p>
+</div></div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-// ============ ADMIN CREDENTIALS ============
+// ============ CONSTANTS ============
 const ADMIN_USERNAME='admin',ADMIN_PASSWORD='Ngili@2026Admin';
 const SUBSCRIPTIONS_KEY='ngili_subs_v34',SESSION_KEY='ngili_session_v34';
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -330,7 +394,7 @@ function adminReactivateUI(id){if(confirm('Reactivate '+id+'?')){let s=JSON.pars
 function exportSubscriptionsCSV(){const subs=Object.values(JSON.parse(localStorage.getItem(SUBSCRIPTIONS_KEY)||'{}'));let csv='ID,Password,User,Phone,Expires,Devices,Status\n';subs.forEach(s=>{csv+=s.id+','+s.password+','+s.userName+','+s.userPhone+','+new Date(s.expiry).toLocaleDateString()+','+(s.devices?Object.keys(s.devices).length:0)+'/3,'+(s.active?'Active':'Deactivated')+'\n'});const b=new Blob([csv],{type:'text/csv'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='Subscriptions_'+new Date().toISOString().split('T')[0]+'.csv';a.click();showToast('📥 Exported!','success')}
 function copySubscriptionDetails(){const t='Ngili Premium Subscription\n\nID: '+ge('newSubId').textContent+'\nPassword: '+ge('newSubPass').textContent+'\nName: '+ge('newUserName').value+'\nExpires: '+ge('newSubExpiry').textContent+'\n\nUse on 3 devices.\n~ Safari Softwares';navigator.clipboard.writeText(t).then(()=>showToast('📋 Copied!','success')).catch(()=>prompt('Copy:',t))}
 
-// ============ PREMIUM LOGIN ============
+// ============ PREMIUM ============
 function openPremiumLogin(){ge('premiumLoginModal').classList.add('active');document.body.style.overflow='hidden';ge('loginError').style.display='none';ge('loginSuccess').style.display='none';setTimeout(function(){ge('loginSubId').focus()},300)}
 function doPremiumLogin(){const id=ge('loginSubId').value.trim().toUpperCase(),pw=ge('loginPassword').value.trim(),er=ge('loginError'),ok=ge('loginSuccess');er.style.display='none';ok.style.display='none';if(!id||!pw){er.textContent='Enter ID and Password.';er.style.display='block';return}const subs=JSON.parse(localStorage.getItem(SUBSCRIPTIONS_KEY)||'{}'),s=subs[id];if(!s){er.textContent='Invalid ID.';er.style.display='block';return}if(!s.active){er.textContent='Deactivated.';er.style.display='block';return}if(s.password!==pw){er.textContent='Wrong password.';er.style.display='block';return}if(new Date(s.expiry)<new Date()){er.textContent='Expired.';er.style.display='block';return}const did=getDeviceId();if(!s.devices)s.devices={};const devCount=Object.keys(s.devices).length;if(devCount>=s.maxDevices&&!s.devices[did]){er.textContent='Max 3 devices.';er.style.display='block';return}s.devices[did]=true;subs[id]=s;localStorage.setItem(SUBSCRIPTIONS_KEY,JSON.stringify(subs));localStorage.setItem(SESSION_KEY,JSON.stringify({subId:id,deviceId:did}));currentSubscription=s;isPremium=true;premiumExpiry=s.expiry;ok.style.display='block';setTimeout(function(){closeModal('premiumLoginModal');updateAllPremiumUI();renderCalendar();showToast('💎 Premium!','success')},800)}
 function doPremiumLogout(){if(currentSubscription){const subs=JSON.parse(localStorage.getItem(SUBSCRIPTIONS_KEY)||'{}'),s=subs[currentSubscription.id];if(s&&s.devices){delete s.devices[getDeviceId()];subs[currentSubscription.id]=s;localStorage.setItem(SUBSCRIPTIONS_KEY,JSON.stringify(subs))}}currentSubscription=null;isPremium=false;premiumExpiry=null;localStorage.removeItem(SESSION_KEY);updateAllPremiumUI();renderCalendar();showToast('👋 Signed out','warning')}
@@ -361,7 +425,7 @@ function showCountryList(){ge('citizenshipSearch').value='';ge('countryDropdown'
 function filterCountries(){const s=ge('citizenshipSearch').value.toLowerCase(),dd=ge('countryDropdown'),cc=ge('workerCitizenship').value;dd.innerHTML='';let f=s===''?[...ALL_COUNTRIES]:ALL_COUNTRIES.filter(function(c){return c.name.toLowerCase().includes(s)});f.forEach(function(c){const d=document.createElement('div');d.style.cssText='padding:12px 16px;cursor:pointer;font-size:.85em;border-bottom:1px solid var(--border);min-height:44px';d.textContent=(c.name===cc?'✅ ':'')+c.flag+' '+c.name;d.onclick=function(){ge('citizenshipSearch').value=c.flag+' '+c.name;ge('workerCitizenship').value=c.name;dd.style.display='none';if(c.cur&&isPremium){currencySymbol=c.cur;ge('currencySelect').value=currencySymbol;saveSettings()}markUnsaved();renderCalendar()};dd.appendChild(d)})}
 document.addEventListener('click',function(e){const dd=ge('countryDropdown'),si=ge('citizenshipSearch');if(!si.contains(e.target)&&!dd.contains(e.target))dd.style.display='none'});
 
-// ============ SAVE ============
+// ============ SAVE WAGE ============
 function saveWage(dn){if(currentMode==='business'){saveBizDay(dn);return}pushUndoState();const wi=ge('wage-'+dn),ni=ge('note-'+dn);if(!wi||!ni)return;let a=parseFloat(wi.value)||0;if(a<0){a=0;wi.value=0}const data=getMonthData(currentMonth,currentYear);if(!data[currentMode])data[currentMode]={};if(a===0&&ni.value===''){delete data[currentMode][dn];wi.classList.remove('has-value');ni.classList.remove('has-note')}else{data[currentMode][dn]={amount:a,note:ni.value};wi.classList.toggle('has-value',a>0);ni.classList.toggle('has-note',ni.value!=='')}updateAllTotals();updateDayCounter();markUnsaved();checkTarget()}
 function saveBizDay(dn){pushUndoState();const data=getMonthData(currentMonth,currentYear);const dd={};let hd=false;activeBizSources.forEach(function(bt){const wi=ge('biz-'+bt+'-'+dn);if(wi){const v=parseFloat(wi.value)||0;dd[bt]=v<0?0:v;if(dd[bt]>0)hd=true;wi.classList.toggle('has-value',dd[bt]>0)}});const ei=ge('exp-'+dn);let exp=ei?parseFloat(ei.value)||0:0;if(exp<0){exp=0;ei.value=0}if(ei)ei.classList.toggle('has-value',exp>0);if(hd||exp>0){data.business[dn]={income:dd,expense:exp}}else{delete data.business[dn]}updateAllTotals();updateBizSummary();updateDayCounter();markUnsaved();checkTarget()}
 
@@ -387,11 +451,11 @@ function toggleBizSource(bt){if(!isPremium){showToast('🏪 Premium required','w
 function updateBizTabsVisual(){const c=ge('bizSources');if(!c)return;c.innerHTML='';BIZ_TYPES.forEach(function(bt){const isA=activeBizSources.indexOf(bt)!==-1;const tab=document.createElement('button');tab.className='biz-tab'+(isA?' active':'');tab.textContent=BIZ_LABELS[bt];tab.onclick=function(){toggleBizSource(bt)};c.appendChild(tab)})}
 function updateBizCalendarColumns(){if(currentMode!=='business'||!isPremium)return;const dim=getDaysInMonth(currentMonth,currentYear);for(let d=1;d<=dim;d++){BIZ_TYPES.forEach(function(bt){const el=ge('biz-'+bt+'-'+d);if(el)el.style.display=activeBizSources.indexOf(bt)!==-1?'':'none'})}updateAllTotals()}
 
-// ============ MODE ============
+// ============ MODE SWITCH ============
 function switchMode(mode){if(mode==='business'&&!isPremium){showToast('🏪 Business requires Premium','warning');setTimeout(openPremiumLogin,1500);return}flushAllChanges();currentMode=mode;ge('businessSection').classList.toggle('active',mode==='business');ge('notesBar').style.display=(mode!=='business')?'flex':'none';updateModeUI();renderCalendar()}
 function updateModeUI(){['wages','busfare','lunch','business','custom'].forEach(function(m){const btn=ge('modeBtn'+m.charAt(0).toUpperCase()+m.slice(1));if(btn)btn.className='mode-btn'});const ab=ge('modeBtn'+currentMode.charAt(0).toUpperCase()+currentMode.slice(1));if(ab)ab.classList.add('active-'+currentMode);const labels={wages:'💰 Wages',busfare:'🚌 Bus Fare',lunch:'🍽 Lunch',business:'🏪 Business',custom:'✚ Custom'};const colors={wages:'#2980b9',busfare:'#e67e22',lunch:'#27ae60',business:'#6c3483',custom:'#8e44ad'};ge('currentModeLabel').textContent=labels[currentMode];ge('currentModeLabel').style.background=colors[currentMode];ge('employerLabel').textContent=currentMode==='business'?'🏪 Business Name':'🏢 Employer';ge('totalLabel').textContent='📊 Total '+labels[currentMode].replace(/[💰🚌🍽🏪✚]/g,'').trim();ge('netLabel').textContent='✅ Net '+labels[currentMode].replace(/[💰🚌🍽🏪✚]/g,'').trim();updateBizTabsVisual()}
 
-// ============ RENDER ============
+// ============ RENDER CALENDAR ============
 function renderCalendar(){
     if(unsavedChanges){flushAllChanges();saveAllData()}loadAllData();
     const data=getMonthData(currentMonth,currentYear);activeBizSources=data.bizSources||activeBizSources;
@@ -435,6 +499,7 @@ function renderCalendar(){
 function updateAllTotals(){const dim=getDaysInMonth(currentMonth,currentYear),fd=getFirstDayOfMonth(currentMonth,currentYear),tcn=fd+dim,rts=Math.max(5,Math.ceil(tcn/7)),data=getMonthData(currentMonth,currentYear);let total=0;const md=data[currentMode]||{};if(currentMode==='business'){for(let d=1;d<=dim;d++){const dd=md[d];if(dd&&dd.income){activeBizSources.forEach(function(bt){total+=parseFloat(dd.income[bt]||0)})}}}else{for(let d=1;d<=dim;d++)total+=parseFloat((md[d]||{}).amount||0)}ge('totalAmount').textContent=fmtCur(total);const adv=parseFloat(ge('advanceInput').value)||0;ge('netAmount').textContent=fmtCur(total-adv);ge('netAmount').style.color=(total-adv)<0?'#c0392b':'#27ae60';const wt=new Array(rts).fill(0);for(let d=1;d<=dim;d++){const wi=Math.floor((fd+d-1)/7);if(wi>=0&&wi<rts){if(currentMode==='business'){const dd=md[d];if(dd&&dd.income){activeBizSources.forEach(function(bt){wt[wi]+=parseFloat(dd.income[bt]||0)})}}else{const el=ge('wage-'+d);if(el)wt[wi]+=parseFloat(el.value)||0}}}for(let w=0;w<rts;w++){const el=ge('wt-'+w);if(el)el.textContent=fmtCur(wt[w])}}
 function updateBizSummary(){if(currentMode!=='business')return;const dim=getDaysInMonth(currentMonth,currentYear),data=getMonthData(currentMonth,currentYear),md=data.business||{};let ti=0,te=0;for(let d=1;d<=dim;d++){const dd=md[d];if(dd){if(dd.income){activeBizSources.forEach(function(bt){ti+=parseFloat(dd.income[bt]||0)})}te+=parseFloat(dd.expense||0)}}ge('bizTotalIncome').textContent=fmtCur(ti);ge('bizTotalExpense').textContent=fmtCur(te);ge('bizNetProfit').textContent=fmtCur(ti-te)}
 
+// ============ NAVIGATION ============
 function goToToday(){if(unsavedChanges){flushAllChanges();saveAllData()}currentMonth=new Date().getMonth();currentYear=new Date().getFullYear();renderCalendar();showToast('📆 Today','success')}
 function printCalendar(){window.print()}
 function shareViaWhatsApp(){flushAllChanges();const data=getMonthData(currentMonth,currentYear),dim=getDaysInMonth(currentMonth,currentYear);let txt='*Ngili Calendar v3.4*\n'+MONTHS[currentMonth]+' '+currentYear+'\n\n';let total=0;const md=data[currentMode]||{};for(let d=1;d<=dim;d++){const dd=md[d]||{amount:0};if(dd.amount>0){txt+=d+': '+currencySymbol+' '+dd.amount+'\n';total+=dd.amount}}txt+='\n*Total: '+currencySymbol+' '+total.toFixed(2)+'*';window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank')}
@@ -442,6 +507,7 @@ function exportCSV(){flushAllChanges();saveAllData();loadAllData();const cd=getM
 function importCSV(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(ev){try{const lines=ev.target.result.split('\n');let ic=0,cim='wages';for(let i=0;i<lines.length;i++){const l=lines[i].trim();if(!l||l.startsWith('Ngili'))continue;if(l.startsWith('---')){if(l.includes('Bus Fare'))cim='busfare';else if(l.includes('Lunch'))cim='lunch';else if(l.includes('Business'))cim='business';else if(l.includes('Custom'))cim='custom';else cim='wages';continue}const p=l.split(',');if(p.length>=4&&!isNaN(parseInt(p[0]))&&MONTHS.indexOf(p[1])!==-1){const y=parseInt(p[0]),m=MONTHS.indexOf(p[1]),d=parseInt(p[2]),amt=parseFloat(p[3])||0;if(amt>0){getMonthData(m,y)[cim][d]={amount:amt,note:p[4]?p[4].replace(/"/g,'').trim():''};ic++}}}saveAllData();renderCalendar();showToast('📤 Imported '+ic+' records!','success')}catch(err){showToast('❌ Error','warning')}};r.readAsText(f);e.target.value=''}
 function resetAllData(){if(!confirm('⚠ DELETE ALL DATA?'))return;exportCSV();setTimeout(function(){if(confirm('FINAL: Continue?')){allData={};undoStack=[];saveAllData();renderCalendar();showToast('⚠ Reset','warning')}},500)}
 
+// ============ MODALS ============
 function openModal(id){ge(id).classList.add('active');document.body.style.overflow='hidden';if(id==='reportModal'){const now=new Date();['From','To'].forEach(function(p){const ms=ge('report'+p+'Month');ms.innerHTML='';MONTHS.forEach(function(m,i){ms.innerHTML+='<option value="'+i+'"'+(i===now.getMonth()?' selected':'')+'>'+m+'</option>'});const ys=ge('report'+p+'Year');ys.innerHTML='';for(let y=2020;y<=2035;y++)ys.innerHTML+='<option value="'+y+'"'+(y===now.getFullYear()?' selected':'')+'>'+y+'</option>'});ge('reportMode').value=currentMode;generateReport()}}
 function closeModal(id){ge(id).classList.remove('active');document.body.style.overflow=''}
 document.addEventListener('click',function(e){if(e.target.classList.contains('modal-overlay')){e.target.classList.remove('active');document.body.style.overflow=''}});
@@ -450,7 +516,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.qu
 function generateReport(){const fm=parseInt(ge('reportFromMonth').value),fy=parseInt(ge('reportFromYear').value),tm=parseInt(ge('reportToMonth').value),ty=parseInt(ge('reportToYear').value),mode=ge('reportMode').value;if(!isPremium){const diff=Math.abs((ty-fy)*12+tm-fm)+1;if(diff>3){ge('reportOutput').innerHTML='<div style="text-align:center;padding:20px"><h3>🔒 Premium</h3><p>Free reports: 3 months. Upgrade for unlimited.</p><p style="font-size:2em;font-weight:900;color:var(--premium-gold)">KSh 1,000/yr</p><button class="btn btn-premium" onclick="openPremiumLogin()">Sign In</button></div>';return}}if(fy>ty||(fy===ty&&fm>tm)){ge('reportOutput').innerHTML='<p style="color:#c0392b">⚠ Invalid range</p>';return}let html='<table class="report-table"><thead><tr><th>Month</th><th>Days</th><th>Total</th><th>Adv</th><th>Net</th></tr></thead><tbody>';let gT=0,gD=0,gDays=0;let cy2=fy,cm2=fm;while(cy2<ty||(cy2===ty&&cm2<=tm)){const data=getMonthData(cm2,cy2),md=data[mode]||{},dim=getDaysInMonth(cm2,cy2);let mt=0,mdays=0;if(mode==='business'){for(let d=1;d<=dim;d++){const dd=md[d];if(dd&&dd.income){let dt=0;activeBizSources.forEach(function(bt){dt+=parseFloat(dd.income[bt]||0)});if(dt>0){mt+=dt;mdays++}}}}else{for(let d=1;d<=dim;d++){const a=parseFloat((md[d]||{}).amount||0);if(a>0){mt+=a;mdays++}}}const adv=data['advance'+mode.charAt(0).toUpperCase()+mode.slice(1)]||0;html+='<tr><td>'+MONTHS[cm2]+' '+cy2+'</td><td>'+mdays+'</td><td>'+fmtCur(mt)+'</td><td style="color:#c0392b">'+fmtCur(adv)+'</td><td>'+fmtCur(mt-adv)+'</td></tr>';gT+=mt;gD+=adv;gDays+=mdays;cm2++;if(cm2>11){cm2=0;cy2++}}html+='<tr style="font-weight:900;background:var(--primary-light);color:white"><td>📊 GRAND TOTAL</td><td>'+gDays+'</td><td>'+fmtCur(gT)+'</td><td>'+fmtCur(gD)+'</td><td>'+fmtCur(gT-gD)+'</td></tr></tbody></table>';ge('reportOutput').innerHTML=html}
 function showToast(m,t){var toast=ge('toast');toast.textContent=m;toast.className='toast '+(t||'')+' show';clearTimeout(toast._t);toast._t=setTimeout(function(){toast.classList.remove('show')},2500)}
 
-function initApp(){loadAllData();checkExistingSession();updateAllPremiumUI();ge('businessSection').classList.toggle('active',currentMode==='business');ge('notesBar').style.display=(currentMode!=='business')?'flex':'none';updateBizTabsVisual();renderNotesPresets();renderCalendar();window.addEventListener('beforeunload',function(){flushAllChanges();saveAllData()});setInterval(function(){if(unsavedChanges){flushAllChanges();saveAllData()}},10000);console.log('📅 Ngili Calendar v3.4 FIXED — Admin Passwords Working!')}
+function initApp(){loadAllData();checkExistingSession();updateAllPremiumUI();ge('businessSection').classList.toggle('active',currentMode==='business');ge('notesBar').style.display=(currentMode!=='business')?'flex':'none';updateBizTabsVisual();renderNotesPresets();renderCalendar();window.addEventListener('beforeunload',function(){flushAllChanges();saveAllData()});setInterval(function(){if(unsavedChanges){flushAllChanges();saveAllData()}},10000);console.log('📅 Ngili Calendar v3.4 FINAL — Robust T&C + Privacy + All Features Working!')}
 initApp();
 </script>
 </body>
