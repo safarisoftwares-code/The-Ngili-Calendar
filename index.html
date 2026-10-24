@@ -13,7 +13,7 @@
         .dark-mode{--primary:#2980b9;--primary-light:#3498db;--accent:#f39c12;--success:#2ecc71;--danger:#e74c3c;--business:#bb6bd9;--premium-gold:#f1c40f;--bg:#1a1a2e;--card-bg:#16213e;--text:#ecf0f1;--text-light:#bdc3c7;--border:#2c3e50;--weekend:#2c3e50;--today-bg:#1a3a5c;--today-border:#ff4081;--holiday-bg:#3a351a;--shadow:0 2px 10px rgba(0,0,0,0.3);--shadow-lg:0 10px 30px rgba(0,0,0,0.4)}
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:15px;transition:background 0.3s,color 0.3s}
-        @media print{body{background:white!important;padding:0!important;font-size:9px;color:black!important}.no-print,.controls-bar,.action-bar,.last-saved,#csvFileInput,.unsaved-banner,.footer-links,.modal-overlay,.settings-bar,.target-bar,.target-info,.backup-reminder,.holiday-indicator,.day-counter-bar,.business-section,.upgrade-banner,.notes-bar{display:none!important}.calendar-container{box-shadow:none!important;border:1px solid #000}.calendar-table{min-width:auto!important}.calendar-table td{height:35px!important;padding:1px!important}.worker-info-card{border:1px solid #000!important;padding:5px 8px!important}.summary-card{box-shadow:none!important;border:1px solid #000!important;padding:5px!important}.header h1{font-size:1.2em!important;color:black!important}@page{size:landscape;margin:3mm}}
+        .month-title-banner{font-size:.85em;font-weight:600;text-align:center;padding:14px 15px;margin:0 0 8px 0;border-radius:var(--radius);background:linear-gradient(135deg,#1a5276,#2980b9);color:#fff;letter-spacing:.3px;box-shadow:var(--shadow)}@media print{body{background:white!important;padding:0!important;font-size:9px;color:black!important}.no-print,.controls-bar,.action-bar,.last-saved,#csvFileInput,.unsaved-banner,.footer-links,.modal-overlay,.settings-bar,.target-bar,.target-info,.backup-reminder,.holiday-indicator,.day-counter-bar,.business-section,.upgrade-banner,.notes-bar{display:none!important}.calendar-container{box-shadow:none!important;border:1px solid #000}.calendar-table{min-width:auto!important}.calendar-table td{height:35px!important;padding:1px!important}.worker-info-card{border:1px solid #000!important;padding:5px 8px!important}.summary-card{box-shadow:none!important;border:1px solid #000!important;padding:5px!important}.header h1{font-size:1.2em!important;color:black!important}@page{size:landscape;margin:3mm}}
         @media screen and (min-width:1024px){body{display:flex;justify-content:center;align-items:flex-start;padding:20px}.main-wrapper{max-width:1500px;width:100%}}
         .main-wrapper{width:100%}
         .header{text-align:center;margin-bottom:6px}
@@ -70,7 +70,7 @@
         .calendar-table td.weekend{background:var(--weekend)}.calendar-table td.weekend .date-num{color:#c0392b}
         .calendar-table td.today-cell{background:var(--today-bg)!important;box-shadow:inset 0 0 0 4px var(--today-border)!important;animation:todayPulse 2s infinite}
         .calendar-table td.today-cell .date-num{color:var(--today-border)!important;font-size:1.2em!important;font-weight:900!important}
-        .calendar-table td.holiday-cell{background:var(--holiday-bg)!important;border:2px solid #f9a825!important}
+        
         @keyframes todayPulse{0%,100%{box-shadow:inset 0 0 0 4px var(--today-border)}50%{box-shadow:inset 0 0 0 7px var(--today-border)}}
         .calendar-table td.empty-cell{background:var(--bg);pointer-events:none;opacity:.3}
         .day-cell{display:flex;flex-direction:column;gap:1px}
@@ -172,6 +172,7 @@
 <span id="currentModeLabel" style="display:inline-block;padding:4px 10px;border-radius:12px;font-size:.75em;font-weight:700;color:white;margin-left:8px;background:#2980b9">💰 Wages</span>
 </div>
 
+<h2 id="currentMonthTitle" class="month-title-banner"></h2>
 <div class="controls-bar no-print">
 <label>Month:</label><select id="monthSelect"></select>
 <label>Year:</label><select id="yearSelect"></select>
@@ -364,7 +365,7 @@ const PUBLIC_HOLIDAYS={Kenya:{1:{1:"New Year's Day"},5:{1:"Labour Day"},6:{1:"Ma
 function getEasterDates(y){var a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31),day=((h+l-7*m+114)%31)+1,gf=new Date(y,mo-1,day-2),em=new Date(y,mo-1,day+1);return{gf:{month:gf.getMonth()+1,day:gf.getDate()},em:{month:em.getMonth()+1,day:em.getDate()}}}
 var easterCache={},easterCountries=['Kenya','Tanzania','Uganda','Rwanda','South Africa','Nigeria','USA','UK','Germany','France'];
 function getEasterForYear(y){if(!easterCache[y])easterCache[y]=getEasterDates(y);return easterCache[y]}
-function isPublicHoliday(country,mi,d){if(!country||!PUBLIC_HOLIDAYS[country])return false;var m=mi+1,md=PUBLIC_HOLIDAYS[country][m];if(md&&md[d])return true;if(easterCountries.indexOf(country)!==-1){var e=getEasterForYear(currentYear);if(e.gf.month===m&&e.gf.day===d)return true;if(e.em.month===m&&e.em.day===d)return true}return false}
+const HOLIDAY_PALETTE=['#a5f3fc','#bbf7d0','#ddd6fe','#fbcfe8','#fed7aa','#c7d2fe','#99f6e4','#e9d5ff'];const HOLIDAY_PALETTE_DARK=['#155e75','#166534','#4c1d95','#831843','#7c2d12','#3730a3','#134e4a','#581c87'];function holidayColor(mi,d){const i=(d*7+mi*13)%HOLIDAY_PALETTE.length;return document.body.classList.contains('dark-mode')?HOLIDAY_PALETTE_DARK[i]:HOLIDAY_PALETTE[i];}function isPublicHoliday(country,mi,d){if(!country||!PUBLIC_HOLIDAYS[country])return false;var m=mi+1,md=PUBLIC_HOLIDAYS[country][m];if(md&&md[d])return true;if(easterCountries.indexOf(country)!==-1){var e=getEasterForYear(currentYear);if(e.gf.month===m&&e.gf.day===d)return true;if(e.em.month===m&&e.em.day===d)return true}return false}
 function getHolidayName(country,mi,d){if(!country||!PUBLIC_HOLIDAYS[country])return'Public Holiday';var m=mi+1,md=PUBLIC_HOLIDAYS[country][m];if(md&&md[d])return md[d];if(easterCountries.indexOf(country)!==-1){var e=getEasterForYear(currentYear);if(e.gf.month===m&&e.gf.day===d)return'Good Friday';if(e.em.month===m&&e.em.day===d)return'Easter Monday'}return'Public Holiday'}
 
 let currentMonth=new Date().getMonth(),currentYear=new Date().getFullYear(),currentMode='wages',allData={},unsavedChanges=false,currencySymbol='KES',weekendMultiplier=1,darkMode=false,dailyTarget=0,activeBizSources=['sales'],undoStack=[],savePending=false,activeNoteCell=null,notePresets=['Overtime','Half-day','Sick','Holiday','Bonus','Absent'];
@@ -469,8 +470,8 @@ function renderCalendar(){
     ge('notesBar').style.display=(currentMode!=='business')?'flex':'none';
     updateModeUI();renderNotesPresets();updateAllPremiumUI();
     const ms=ge('monthSelect');ms.innerHTML='';MONTHS.forEach(function(m,i){const o=document.createElement('option');o.value=i;o.textContent=m;if(i===currentMonth)o.selected=true;ms.appendChild(o)});
-    const ys=ge('yearSelect');ys.innerHTML='';for(let y=2020;y<=2035;y++){const o=document.createElement('option');o.value=y;o.textContent=y;if(y===currentYear)o.selected=true;ys.appendChild(o)}
-    ms.onchange=function(){currentMonth=parseInt(this.value);renderCalendar()};ys.onchange=function(){currentYear=parseInt(this.value);renderCalendar()};
+    const ys=ge('yearSelect');ys.innerHTML='';for(let y=2020;y<=2035;y++){const o=document.createElement('option');o.value=y;o.textContent=y;if(y===currentYear)o.selected=true;ys.appendChild(o)}ge('currentMonthTitle').textContent=MONTHS[currentMonth]+' '+currentYear;
+    ms.onchange=function(){currentMonth=parseInt(this.value);renderCalendar()};ge('currentMonthTitle').textContent=MONTHS[currentMonth]+' '+currentYear;ys.onchange=function(){currentYear=parseInt(this.value);renderCalendar()};
     const dim=getDaysInMonth(currentMonth,currentYear),fd=getFirstDayOfMonth(currentMonth,currentYear);
     const tdd=new Date(),tDay=tdd.getDate(),tMon=tdd.getMonth(),tYr=tdd.getFullYear();
     const isCV=(currentMonth===tMon&&currentYear===tYr),tcn=fd+dim,rts=Math.max(5,Math.ceil(tcn/7));
@@ -480,7 +481,7 @@ function renderCalendar(){
         for(let col=0;col<7;col++){const td=document.createElement('td');const ci=row*7+col;
             if(ci<fd||dc>dim){td.classList.add('empty-cell');td.innerHTML='<div style="color:#ccc;text-align:center">·</div>'}
             else{const dn=dc,isWeekend=(col===0),isToday=(isCV&&dn===tDay),isH=isPublicHoliday(country,currentMonth,dn);
-                if(isWeekend)td.classList.add('weekend');if(isToday)td.classList.add('today-cell');if(isH)td.classList.add('holiday-cell');
+                if(isWeekend)td.classList.add('weekend');if(isToday)td.classList.add('today-cell');if(isH)td.classList.add('holiday-cell');if(isH){td.style.background=holidayColor(currentMonth,dn);td.style.border='2px solid #059669';}
                 const hName=isH?getHolidayName(country,currentMonth,dn):'',hLab=isH?'<span class="holiday-indicator" title="'+hName+'">🏛</span>':'';
                 if(currentMode==='business'&&isPremium){
                     let h='<div class="day-cell">'+hLab+'<div class="date-num">'+dn+'</div>';
